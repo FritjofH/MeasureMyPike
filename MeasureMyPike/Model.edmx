@@ -1,0 +1,908 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="User" EntityType="Model.Store.User" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Catch" EntityType="Model.Store.Catch" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Fish" EntityType="Model.Store.Fish" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Comment" EntityType="Model.Store.Comment" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Media" EntityType="Model.Store.Media" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MediaData" EntityType="Model.Store.MediaData" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Location" EntityType="Model.Store.Location" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Brand" EntityType="Model.Store.Brand" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Lures" EntityType="Model.Store.Lures" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Statistics" EntityType="Model.Store.Statistics" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WeatherData" EntityType="Model.Store.WeatherData" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserConnections" EntityType="Model.Store.UserConnections" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserUserConnections" EntityType="Model.Store.UserUserConnections" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserCatch" Association="Model.Store.UserCatch">
+      <End Role="User" EntitySet="User" />
+      <End Role="Catch" EntitySet="Catch" />
+    </AssociationSet>
+    <AssociationSet Name="CatchComment" Association="Model.Store.CatchComment">
+      <End Role="Catch" EntitySet="Catch" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="CatchFish" Association="Model.Store.CatchFish">
+      <End Role="Catch" EntitySet="Catch" />
+      <End Role="Fish" EntitySet="Fish" />
+    </AssociationSet>
+    <AssociationSet Name="CatchMedia" Association="Model.Store.CatchMedia">
+      <End Role="Catch" EntitySet="Catch" />
+      <End Role="Media" EntitySet="Media" />
+    </AssociationSet>
+    <AssociationSet Name="MediaImage" Association="Model.Store.MediaImage">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Image" EntitySet="MediaData" />
+    </AssociationSet>
+    <AssociationSet Name="CatchLocation" Association="Model.Store.CatchLocation">
+      <End Role="Catch" EntitySet="Catch" />
+      <End Role="Location" EntitySet="Location" />
+    </AssociationSet>
+    <AssociationSet Name="CatchLures" Association="Model.Store.CatchLures">
+      <End Role="Catch" EntitySet="Catch" />
+      <End Role="Lures" EntitySet="Lures" />
+    </AssociationSet>
+    <AssociationSet Name="LuresBrand" Association="Model.Store.LuresBrand">
+      <End Role="Lures" EntitySet="Lures" />
+      <End Role="Brand" EntitySet="Brand" />
+    </AssociationSet>
+    <AssociationSet Name="LuresStatistics" Association="Model.Store.LuresStatistics">
+      <End Role="Lures" EntitySet="Lures" />
+      <End Role="Statistics" EntitySet="Statistics" />
+    </AssociationSet>
+    <AssociationSet Name="FishStatistics" Association="Model.Store.FishStatistics">
+      <End Role="Fish" EntitySet="Fish" />
+      <End Role="Statistics" EntitySet="Statistics" />
+    </AssociationSet>
+    <AssociationSet Name="LocationStatistics" Association="Model.Store.LocationStatistics">
+      <End Role="Location" EntitySet="Location" />
+      <End Role="Statistics" EntitySet="Statistics" />
+    </AssociationSet>
+    <AssociationSet Name="CatchStatistics" Association="Model.Store.CatchStatistics">
+      <End Role="Catch" EntitySet="Catch" />
+      <End Role="Statistics" EntitySet="Statistics" />
+    </AssociationSet>
+    <AssociationSet Name="CatchWeatherData" Association="Model.Store.CatchWeatherData">
+      <End Role="Catch" EntitySet="Catch" />
+      <End Role="WeatherData" EntitySet="WeatherData" />
+    </AssociationSet>
+    <AssociationSet Name="WeatherDataStatistics" Association="Model.Store.WeatherDataStatistics">
+      <End Role="WeatherData" EntitySet="WeatherData" />
+      <End Role="Statistics" EntitySet="Statistics" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserUserConnections_User" Association="Model.Store.FK_UserUserConnections_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserUserConnections" EntitySet="UserUserConnections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserUserConnections_UserConnections" Association="Model.Store.FK_UserUserConnections_UserConnections">
+      <End Role="UserConnections" EntitySet="UserConnections" />
+      <End Role="UserUserConnections" EntitySet="UserUserConnections" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MemberSince" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Catch">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="Comment_Id" Type="int" Nullable="false" />
+    <Property Name="Lures_Id" Type="int" Nullable="false" />
+    <Property Name="Statistics_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fish">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Length" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Weight" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Catch_Id" Type="int" Nullable="false" />
+    <Property Name="Statistics_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Media">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MediaType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Catch_Id" Type="int" Nullable="false" />
+    <Property Name="Image_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MediaData">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Data" Type="tinyint" Nullable="false" />
+    <Property Name="Length" Type="int" Nullable="false" />
+    <Property Name="Format" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Lake" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Coordinates" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Catch_Id" Type="int" Nullable="false" />
+    <Property Name="Statistics_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Lures">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Brand_Id" Type="int" Nullable="false" />
+    <Property Name="Statistics_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Statistics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WeatherData">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Temperature" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Weather" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MoonPosition" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Catch_Id" Type="int" Nullable="false" />
+    <Property Name="Statistics_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserConnections">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FriendsSince" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserUserConnections">
+    <Key>
+      <PropertyRef Name="User_Id" />
+      <PropertyRef Name="UserConnections_Id" />
+    </Key>
+    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="UserConnections_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UserCatch">
+    <End Role="User" Type="Model.Store.User" Multiplicity="1" />
+    <End Role="Catch" Type="Model.Store.Catch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Catch">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CatchComment">
+    <End Role="Catch" Type="Model.Store.Catch" Multiplicity="*" />
+    <End Role="Comment" Type="Model.Store.Comment" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Comment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Catch">
+        <PropertyRef Name="Comment_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CatchFish">
+    <End Role="Catch" Type="Model.Store.Catch" Multiplicity="1" />
+    <End Role="Fish" Type="Model.Store.Fish" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fish">
+        <PropertyRef Name="Catch_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CatchMedia">
+    <End Role="Catch" Type="Model.Store.Catch" Multiplicity="1" />
+    <End Role="Media" Type="Model.Store.Media" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Media">
+        <PropertyRef Name="Catch_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MediaImage">
+    <End Role="Media" Type="Model.Store.Media" Multiplicity="*" />
+    <End Role="Image" Type="Model.Store.MediaData" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Media">
+        <PropertyRef Name="Image_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CatchLocation">
+    <End Role="Catch" Type="Model.Store.Catch" Multiplicity="1" />
+    <End Role="Location" Type="Model.Store.Location" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Location">
+        <PropertyRef Name="Catch_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CatchLures">
+    <End Role="Catch" Type="Model.Store.Catch" Multiplicity="*" />
+    <End Role="Lures" Type="Model.Store.Lures" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Lures">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Catch">
+        <PropertyRef Name="Lures_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LuresBrand">
+    <End Role="Lures" Type="Model.Store.Lures" Multiplicity="*" />
+    <End Role="Brand" Type="Model.Store.Brand" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lures">
+        <PropertyRef Name="Brand_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LuresStatistics">
+    <End Role="Lures" Type="Model.Store.Lures" Multiplicity="*" />
+    <End Role="Statistics" Type="Model.Store.Statistics" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Statistics">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lures">
+        <PropertyRef Name="Statistics_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FishStatistics">
+    <End Role="Fish" Type="Model.Store.Fish" Multiplicity="*" />
+    <End Role="Statistics" Type="Model.Store.Statistics" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Statistics">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fish">
+        <PropertyRef Name="Statistics_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LocationStatistics">
+    <End Role="Location" Type="Model.Store.Location" Multiplicity="*" />
+    <End Role="Statistics" Type="Model.Store.Statistics" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Statistics">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Location">
+        <PropertyRef Name="Statistics_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CatchStatistics">
+    <End Role="Catch" Type="Model.Store.Catch" Multiplicity="*" />
+    <End Role="Statistics" Type="Model.Store.Statistics" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Statistics">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Catch">
+        <PropertyRef Name="Statistics_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CatchWeatherData">
+    <End Role="Catch" Type="Model.Store.Catch" Multiplicity="1" />
+    <End Role="WeatherData" Type="Model.Store.WeatherData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WeatherData">
+        <PropertyRef Name="Catch_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WeatherDataStatistics">
+    <End Role="WeatherData" Type="Model.Store.WeatherData" Multiplicity="*" />
+    <End Role="Statistics" Type="Model.Store.Statistics" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Statistics">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WeatherData">
+        <PropertyRef Name="Statistics_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserUserConnections_User">
+    <End Role="User" Type="Model.Store.User" Multiplicity="1" />
+    <End Role="UserUserConnections" Type="Model.Store.UserUserConnections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserUserConnections">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserUserConnections_UserConnections">
+    <End Role="UserUserConnections" Type="Model.Store.UserUserConnections" Multiplicity="*" />
+    <End Role="UserConnections" Type="Model.Store.UserConnections" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="UserConnections">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserUserConnections">
+        <PropertyRef Name="UserConnections_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="User" EntityType="Model.User" />
+          <EntitySet Name="Catch" EntityType="Model.Catch" />
+          <AssociationSet Name="UserCatch" Association="Model.UserCatch">
+            <End Role="User" EntitySet="User" />
+            <End Role="Catch" EntitySet="Catch" />
+          </AssociationSet>
+          <EntitySet Name="Fish" EntityType="Model.Fish" />
+          <EntitySet Name="Comment" EntityType="Model.Comment" />
+          <EntitySet Name="Media" EntityType="Model.Media" />
+          <EntitySet Name="MediaData" EntityType="Model.MediaData" />
+          <EntitySet Name="Location" EntityType="Model.Location" />
+          <EntitySet Name="Brand" EntityType="Model.Brand" />
+          <EntitySet Name="Lures" EntityType="Model.Lures" />
+          <AssociationSet Name="CatchComment" Association="Model.CatchComment">
+            <End Role="Catch" EntitySet="Catch" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="CatchFish" Association="Model.CatchFish">
+            <End Role="Catch" EntitySet="Catch" />
+            <End Role="Fish" EntitySet="Fish" />
+          </AssociationSet>
+          <AssociationSet Name="CatchMedia" Association="Model.CatchMedia">
+            <End Role="Catch" EntitySet="Catch" />
+            <End Role="Media" EntitySet="Media" />
+          </AssociationSet>
+          <AssociationSet Name="MediaImage" Association="Model.MediaImage">
+            <End Role="Media" EntitySet="Media" />
+            <End Role="Image" EntitySet="MediaData" />
+          </AssociationSet>
+          <AssociationSet Name="CatchLocation" Association="Model.CatchLocation">
+            <End Role="Catch" EntitySet="Catch" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="CatchLures" Association="Model.CatchLures">
+            <End Role="Catch" EntitySet="Catch" />
+            <End Role="Lures" EntitySet="Lures" />
+          </AssociationSet>
+          <AssociationSet Name="LuresBrand" Association="Model.LuresBrand">
+            <End Role="Lures" EntitySet="Lures" />
+            <End Role="Brand" EntitySet="Brand" />
+          </AssociationSet>
+          <EntitySet Name="Statistics" EntityType="Model.Statistics" />
+          <AssociationSet Name="LuresStatistics" Association="Model.LuresStatistics">
+            <End Role="Lures" EntitySet="Lures" />
+            <End Role="Statistics" EntitySet="Statistics" />
+          </AssociationSet>
+          <AssociationSet Name="FishStatistics" Association="Model.FishStatistics">
+            <End Role="Fish" EntitySet="Fish" />
+            <End Role="Statistics" EntitySet="Statistics" />
+          </AssociationSet>
+          <AssociationSet Name="LocationStatistics" Association="Model.LocationStatistics">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Statistics" EntitySet="Statistics" />
+          </AssociationSet>
+          <AssociationSet Name="CatchStatistics" Association="Model.CatchStatistics">
+            <End Role="Catch" EntitySet="Catch" />
+            <End Role="Statistics" EntitySet="Statistics" />
+          </AssociationSet>
+          <EntitySet Name="WeatherData" EntityType="Model.WeatherData" />
+          <AssociationSet Name="CatchWeatherData" Association="Model.CatchWeatherData">
+            <End Role="Catch" EntitySet="Catch" />
+            <End Role="WeatherData" EntitySet="WeatherData" />
+          </AssociationSet>
+          <AssociationSet Name="WeatherDataStatistics" Association="Model.WeatherDataStatistics">
+            <End Role="WeatherData" EntitySet="WeatherData" />
+            <End Role="Statistics" EntitySet="Statistics" />
+          </AssociationSet>
+          <EntitySet Name="UserConnections" EntityType="Model.UserConnections" />
+          <AssociationSet Name="UserUserConnections" Association="Model.UserUserConnections">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserConnections" EntitySet="UserConnections" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="true" />
+          <Property Name="FirstName" Type="String" Nullable="true" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="Catch" Relationship="Model.UserCatch" FromRole="User" ToRole="Catch" />
+          <Property Name="MemberSince" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="UserConnections" Relationship="Model.UserUserConnections" FromRole="User" ToRole="UserConnections" />
+        </EntityType>
+        <EntityType Name="Catch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="User" Relationship="Model.UserCatch" FromRole="Catch" ToRole="User" />
+          <NavigationProperty Name="Comment" Relationship="Model.CatchComment" FromRole="Catch" ToRole="Comment" />
+          <NavigationProperty Name="Fish" Relationship="Model.CatchFish" FromRole="Catch" ToRole="Fish" />
+          <NavigationProperty Name="Media" Relationship="Model.CatchMedia" FromRole="Catch" ToRole="Media" />
+          <NavigationProperty Name="Location" Relationship="Model.CatchLocation" FromRole="Catch" ToRole="Location" />
+          <NavigationProperty Name="Lures" Relationship="Model.CatchLures" FromRole="Catch" ToRole="Lures" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Statistics" Relationship="Model.CatchStatistics" FromRole="Catch" ToRole="Statistics" />
+          <NavigationProperty Name="WeatherData" Relationship="Model.CatchWeatherData" FromRole="Catch" ToRole="WeatherData" />
+        </EntityType>
+        <Association Name="UserCatch">
+          <End Type="Model.User" Role="User" Multiplicity="1" />
+          <End Type="Model.Catch" Role="Catch" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Fish">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Length" Type="String" Nullable="true" />
+          <Property Name="Weight" Type="String" Nullable="true" />
+          <NavigationProperty Name="Catch" Relationship="Model.CatchFish" FromRole="Fish" ToRole="Catch" />
+          <NavigationProperty Name="Statistics" Relationship="Model.FishStatistics" FromRole="Fish" ToRole="Statistics" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Catch" Relationship="Model.CatchComment" FromRole="Comment" ToRole="Catch" />
+          <Property Name="Text" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Media">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Catch" Relationship="Model.CatchMedia" FromRole="Media" ToRole="Catch" />
+          <NavigationProperty Name="Image" Relationship="Model.MediaImage" FromRole="Media" ToRole="Image" />
+          <Property Name="MediaType" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MediaData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Media" Relationship="Model.MediaImage" FromRole="Image" ToRole="Media" />
+          <Property Name="Data" Type="Byte" Nullable="false" />
+          <Property Name="Length" Type="Int32" Nullable="false" />
+          <Property Name="Format" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Catch" Relationship="Model.CatchLocation" FromRole="Location" ToRole="Catch" />
+          <Property Name="Lake" Type="String" Nullable="false" />
+          <Property Name="Coordinates" Type="String" Nullable="true" />
+          <NavigationProperty Name="Statistics" Relationship="Model.LocationStatistics" FromRole="Location" ToRole="Statistics" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Lures" Relationship="Model.LuresBrand" FromRole="Brand" ToRole="Lures" />
+        </EntityType>
+        <EntityType Name="Lures">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Catch" Relationship="Model.CatchLures" FromRole="Lures" ToRole="Catch" />
+          <NavigationProperty Name="Brand" Relationship="Model.LuresBrand" FromRole="Lures" ToRole="Brand" />
+          <NavigationProperty Name="Statistics" Relationship="Model.LuresStatistics" FromRole="Lures" ToRole="Statistics" />
+        </EntityType>
+        <Association Name="CatchComment">
+          <End Type="Model.Catch" Role="Catch" Multiplicity="1" />
+          <End Type="Model.Comment" Role="Comment" Multiplicity="1" />
+        </Association>
+        <Association Name="CatchFish">
+          <End Type="Model.Catch" Role="Catch" Multiplicity="1" />
+          <End Type="Model.Fish" Role="Fish" Multiplicity="*" />
+        </Association>
+        <Association Name="CatchMedia">
+          <End Type="Model.Catch" Role="Catch" Multiplicity="1" />
+          <End Type="Model.Media" Role="Media" Multiplicity="*" />
+        </Association>
+        <Association Name="MediaImage">
+          <End Type="Model.Media" Role="Media" Multiplicity="1" />
+          <End Type="Model.MediaData" Role="Image" Multiplicity="1" />
+        </Association>
+        <Association Name="CatchLocation">
+          <End Type="Model.Catch" Role="Catch" Multiplicity="1" />
+          <End Type="Model.Location" Role="Location" Multiplicity="*" />
+        </Association>
+        <Association Name="CatchLures">
+          <End Type="Model.Catch" Role="Catch" Multiplicity="1" />
+          <End Type="Model.Lures" Role="Lures" Multiplicity="1" />
+        </Association>
+        <Association Name="LuresBrand">
+          <End Type="Model.Lures" Role="Lures" Multiplicity="*" />
+          <End Type="Model.Brand" Role="Brand" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Statistics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Lures" Relationship="Model.LuresStatistics" FromRole="Statistics" ToRole="Lures" />
+          <NavigationProperty Name="Fish" Relationship="Model.FishStatistics" FromRole="Statistics" ToRole="Fish" />
+          <NavigationProperty Name="Location" Relationship="Model.LocationStatistics" FromRole="Statistics" ToRole="Location" />
+          <NavigationProperty Name="Catch" Relationship="Model.CatchStatistics" FromRole="Statistics" ToRole="Catch" />
+          <NavigationProperty Name="WeatherData" Relationship="Model.WeatherDataStatistics" FromRole="Statistics" ToRole="WeatherData" />
+        </EntityType>
+        <Association Name="LuresStatistics">
+          <End Type="Model.Lures" Role="Lures" Multiplicity="*" />
+          <End Type="Model.Statistics" Role="Statistics" Multiplicity="1" />
+        </Association>
+        <Association Name="FishStatistics">
+          <End Type="Model.Fish" Role="Fish" Multiplicity="*" />
+          <End Type="Model.Statistics" Role="Statistics" Multiplicity="1" />
+        </Association>
+        <Association Name="LocationStatistics">
+          <End Type="Model.Location" Role="Location" Multiplicity="*" />
+          <End Type="Model.Statistics" Role="Statistics" Multiplicity="1" />
+        </Association>
+        <Association Name="CatchStatistics">
+          <End Type="Model.Catch" Role="Catch" Multiplicity="*" />
+          <End Type="Model.Statistics" Role="Statistics" Multiplicity="1" />
+        </Association>
+        <EntityType Name="WeatherData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Temperature" Type="String" Nullable="false" />
+          <Property Name="Weather" Type="String" Nullable="false" />
+          <Property Name="MoonPosition" Type="String" Nullable="false" />
+          <NavigationProperty Name="Catch" Relationship="Model.CatchWeatherData" FromRole="WeatherData" ToRole="Catch" />
+          <NavigationProperty Name="Statistics" Relationship="Model.WeatherDataStatistics" FromRole="WeatherData" ToRole="Statistics" />
+        </EntityType>
+        <Association Name="CatchWeatherData">
+          <End Type="Model.Catch" Role="Catch" Multiplicity="1" />
+          <End Type="Model.WeatherData" Role="WeatherData" Multiplicity="*" />
+        </Association>
+        <Association Name="WeatherDataStatistics">
+          <End Type="Model.WeatherData" Role="WeatherData" Multiplicity="*" />
+          <End Type="Model.Statistics" Role="Statistics" Multiplicity="1" />
+        </Association>
+        <EntityType Name="UserConnections">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="User" Relationship="Model.UserUserConnections" FromRole="UserConnections" ToRole="User" />
+          <Property Name="FriendsSince" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="UserUserConnections">
+          <End Type="Model.User" Role="User" Multiplicity="*" />
+          <End Type="Model.UserConnections" Role="UserConnections" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.User)">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="MemberSince" ColumnName="MemberSince" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Catch">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Catch)">
+        <MappingFragment StoreEntitySet="Catch">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fish">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Fish)">
+        <MappingFragment StoreEntitySet="Fish">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Length" ColumnName="Length" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comment">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Comment)">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Media">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Media)">
+        <MappingFragment StoreEntitySet="Media">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MediaType" ColumnName="MediaType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MediaData">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.MediaData)">
+        <MappingFragment StoreEntitySet="MediaData">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="Length" ColumnName="Length" />
+          <ScalarProperty Name="Format" ColumnName="Format" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Location">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Location)">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Lake" ColumnName="Lake" />
+          <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Brand">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Brand)">
+        <MappingFragment StoreEntitySet="Brand">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lures">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Lures)">
+        <MappingFragment StoreEntitySet="Lures">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Statistics">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Statistics)">
+        <MappingFragment StoreEntitySet="Statistics">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WeatherData">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.WeatherData)">
+        <MappingFragment StoreEntitySet="WeatherData">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+          <ScalarProperty Name="Weather" ColumnName="Weather" />
+          <ScalarProperty Name="MoonPosition" ColumnName="MoonPosition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserConnections">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.UserConnections)">
+        <MappingFragment StoreEntitySet="UserConnections">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FriendsSince" ColumnName="FriendsSince" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserCatch" TypeName="Model.UserCatch" StoreEntitySet="Catch">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Catch">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CatchComment" TypeName="Model.CatchComment" StoreEntitySet="Catch">
+      <EndProperty Name="Comment">
+        <ScalarProperty Name="Id" ColumnName="Comment_Id" />
+      </EndProperty>
+      <EndProperty Name="Catch">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CatchFish" TypeName="Model.CatchFish" StoreEntitySet="Fish">
+      <EndProperty Name="Catch">
+        <ScalarProperty Name="Id" ColumnName="Catch_Id" />
+      </EndProperty>
+      <EndProperty Name="Fish">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CatchMedia" TypeName="Model.CatchMedia" StoreEntitySet="Media">
+      <EndProperty Name="Catch">
+        <ScalarProperty Name="Id" ColumnName="Catch_Id" />
+      </EndProperty>
+      <EndProperty Name="Media">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MediaImage" TypeName="Model.MediaImage" StoreEntitySet="Media">
+      <EndProperty Name="Image">
+        <ScalarProperty Name="Id" ColumnName="Image_Id" />
+      </EndProperty>
+      <EndProperty Name="Media">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CatchLocation" TypeName="Model.CatchLocation" StoreEntitySet="Location">
+      <EndProperty Name="Catch">
+        <ScalarProperty Name="Id" ColumnName="Catch_Id" />
+      </EndProperty>
+      <EndProperty Name="Location">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CatchLures" TypeName="Model.CatchLures" StoreEntitySet="Catch">
+      <EndProperty Name="Lures">
+        <ScalarProperty Name="Id" ColumnName="Lures_Id" />
+      </EndProperty>
+      <EndProperty Name="Catch">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LuresBrand" TypeName="Model.LuresBrand" StoreEntitySet="Lures">
+      <EndProperty Name="Brand">
+        <ScalarProperty Name="Id" ColumnName="Brand_Id" />
+      </EndProperty>
+      <EndProperty Name="Lures">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LuresStatistics" TypeName="Model.LuresStatistics" StoreEntitySet="Lures">
+      <EndProperty Name="Statistics">
+        <ScalarProperty Name="Id" ColumnName="Statistics_Id" />
+      </EndProperty>
+      <EndProperty Name="Lures">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FishStatistics" TypeName="Model.FishStatistics" StoreEntitySet="Fish">
+      <EndProperty Name="Statistics">
+        <ScalarProperty Name="Id" ColumnName="Statistics_Id" />
+      </EndProperty>
+      <EndProperty Name="Fish">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LocationStatistics" TypeName="Model.LocationStatistics" StoreEntitySet="Location">
+      <EndProperty Name="Statistics">
+        <ScalarProperty Name="Id" ColumnName="Statistics_Id" />
+      </EndProperty>
+      <EndProperty Name="Location">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CatchStatistics" TypeName="Model.CatchStatistics" StoreEntitySet="Catch">
+      <EndProperty Name="Statistics">
+        <ScalarProperty Name="Id" ColumnName="Statistics_Id" />
+      </EndProperty>
+      <EndProperty Name="Catch">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CatchWeatherData" TypeName="Model.CatchWeatherData" StoreEntitySet="WeatherData">
+      <EndProperty Name="Catch">
+        <ScalarProperty Name="Id" ColumnName="Catch_Id" />
+      </EndProperty>
+      <EndProperty Name="WeatherData">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WeatherDataStatistics" TypeName="Model.WeatherDataStatistics" StoreEntitySet="WeatherData">
+      <EndProperty Name="Statistics">
+        <ScalarProperty Name="Id" ColumnName="Statistics_Id" />
+      </EndProperty>
+      <EndProperty Name="WeatherData">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserUserConnections" TypeName="Model.UserUserConnections" StoreEntitySet="UserUserConnections">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="UserConnections">
+        <ScalarProperty Name="Id" ColumnName="UserConnections_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

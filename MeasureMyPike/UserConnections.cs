@@ -17,13 +17,13 @@ namespace MeasureMyPike
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserConnections()
         {
-            this.User = new HashSet<User>();
+            this.User = new HashSet<Users>();
         }
     
         public int Id { get; set; }
         public System.DateTime FriendsSince { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User { get; set; }
+        public virtual ICollection<Users> User { get; set; }
     }
 }

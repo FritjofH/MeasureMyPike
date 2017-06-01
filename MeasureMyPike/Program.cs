@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace MeasureMyPike
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            DatabaseConnection dbconn = new DatabaseConnection();
+            dbconn.createUser("Höst", "Fritjof", "hostf", "hemligt");
         }
     }
 }

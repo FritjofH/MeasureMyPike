@@ -26,7 +26,7 @@ namespace MeasureMyPike.Model
         public int Id { get; set; }
         public System.DateTime Timestamp { get; set; }
     
-        public virtual Users User { get; set; }
+        public virtual User User { get; set; }
         public virtual Comment Comment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Fish> Fish { get; set; }

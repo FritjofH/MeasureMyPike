@@ -6,7 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="ModelStoreContainer">
-    <EntitySet Name="Users" EntityType="Model.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User" EntityType="Model.Store.User" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Catch" EntityType="Model.Store.Catch" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Fish" EntityType="Model.Store.Fish" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Comment" EntityType="Model.Store.Comment" store:Type="Tables" Schema="dbo" />
@@ -18,8 +18,9 @@
     <EntitySet Name="Statistics" EntityType="Model.Store.Statistics" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="WeatherData" EntityType="Model.Store.WeatherData" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserConnections" EntityType="Model.Store.UserConnections" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SecuritySet" EntityType="Model.Store.SecuritySet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserCatch" Association="Model.Store.UserCatch">
-      <End Role="User" EntitySet="Users" />
+      <End Role="User" EntitySet="User" />
       <End Role="Catch" EntitySet="Catch" />
     </AssociationSet>
     <AssociationSet Name="CatchComment" Association="Model.Store.CatchComment">
@@ -75,11 +76,15 @@
       <End Role="Statistics" EntitySet="Statistics" />
     </AssociationSet>
     <AssociationSet Name="UserUserConnections" Association="Model.Store.UserUserConnections">
-      <End Role="User" EntitySet="Users" />
+      <End Role="User" EntitySet="User" />
       <End Role="UserConnections" EntitySet="UserConnections" />
     </AssociationSet>
+    <AssociationSet Name="SecurityUser" Association="Model.Store.SecurityUser">
+      <End Role="Security" EntitySet="SecuritySet" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Users">
+  <EntityType Name="User">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -87,7 +92,6 @@
     <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
     <Property Name="FirstName" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="MemberSince" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Catch">
@@ -187,8 +191,16 @@
     <Property Name="FriendsSince" Type="datetime" Nullable="false" />
     <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="SecuritySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
   <Association Name="UserCatch">
-    <End Role="User" Type="Model.Store.Users" Multiplicity="1" />
+    <End Role="User" Type="Model.Store.User" Multiplicity="1" />
     <End Role="Catch" Type="Model.Store.Catch" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
@@ -356,7 +368,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserUserConnections">
-    <End Role="User" Type="Model.Store.Users" Multiplicity="1" />
+    <End Role="User" Type="Model.Store.User" Multiplicity="1" />
     <End Role="UserConnections" Type="Model.Store.UserConnections" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
@@ -367,15 +379,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="SecurityUser">
+    <End Role="Security" Type="Model.Store.SecuritySet" Multiplicity="*" />
+    <End Role="User" Type="Model.Store.User" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Security">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Users" EntityType="Model.Users" />
+          <EntitySet Name="User" EntityType="Model.User" />
           <EntitySet Name="Catch" EntityType="Model.Catch" />
           <AssociationSet Name="UserCatch" Association="Model.UserCatch">
-            <End Role="User" EntitySet="Users" />
+            <End Role="User" EntitySet="User" />
             <End Role="Catch" EntitySet="Catch" />
           </AssociationSet>
           <EntitySet Name="Fish" EntityType="Model.Fish" />
@@ -441,11 +465,16 @@
           </AssociationSet>
           <EntitySet Name="UserConnections" EntityType="Model.UserConnections" />
           <AssociationSet Name="UserUserConnections" Association="Model.UserUserConnections">
-            <End Role="User" EntitySet="Users" />
+            <End Role="User" EntitySet="User" />
             <End Role="UserConnections" EntitySet="UserConnections" />
           </AssociationSet>
+          <EntitySet Name="SecuritySet" EntityType="Model.Security" />
+          <AssociationSet Name="SecurityUser" Association="Model.SecurityUser">
+            <End Role="Security" EntitySet="SecuritySet" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Users">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -453,10 +482,10 @@
           <Property Name="Username" Type="String" Nullable="false" Unicode="true" MaxLength="50" />
           <Property Name="LastName" Type="String" Nullable="true" Unicode="true" />
           <Property Name="FirstName" Type="String" Nullable="true" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" Unicode="true" />
           <NavigationProperty Name="Catch" Relationship="Model.UserCatch" FromRole="User" ToRole="Catch" />
           <Property Name="MemberSince" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="UserConnections" Relationship="Model.UserUserConnections" FromRole="User" ToRole="UserConnections" />
+          <NavigationProperty Name="Security" Relationship="Model.SecurityUser" FromRole="User" ToRole="Security" />
         </EntityType>
         <EntityType Name="Catch">
           <Key>
@@ -474,7 +503,7 @@
           <NavigationProperty Name="WeatherData" Relationship="Model.CatchWeatherData" FromRole="Catch" ToRole="WeatherData" />
         </EntityType>
         <Association Name="UserCatch">
-          <End Type="Model.Users" Role="User" Multiplicity="1" />
+          <End Type="Model.User" Role="User" Multiplicity="1" />
           <End Type="Model.Catch" Role="Catch" Multiplicity="*" />
         </Association>
         <EntityType Name="Fish">
@@ -625,8 +654,20 @@
           <Property Name="FriendsSince" Type="DateTime" Nullable="false" />
         </EntityType>
         <Association Name="UserUserConnections">
-          <End Type="Model.Users" Role="User" Multiplicity="1" />
+          <End Type="Model.User" Role="User" Multiplicity="1" />
           <End Type="Model.UserConnections" Role="UserConnections" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Security">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+          <NavigationProperty Name="User" Relationship="Model.SecurityUser" FromRole="Security" ToRole="User" />
+        </EntityType>
+        <Association Name="SecurityUser">
+          <End Type="Model.Security" Role="Security" Multiplicity="1" />
+          <End Type="Model.User" Role="User" Multiplicity="1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -634,14 +675,13 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.Users)">
-        <MappingFragment StoreEntitySet="Users">
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.User)">
+        <MappingFragment StoreEntitySet="User">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="MemberSince" ColumnName="MemberSince" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -736,6 +776,14 @@
         <MappingFragment StoreEntitySet="UserConnections">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FriendsSince" ColumnName="FriendsSince" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SecuritySet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Security)">
+        <MappingFragment StoreEntitySet="SecuritySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -856,6 +904,14 @@
         <ScalarProperty Name="Id" ColumnName="User_Id" />
       </EndProperty>
       <EndProperty Name="UserConnections">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SecurityUser" TypeName="Model.SecurityUser" StoreEntitySet="SecuritySet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Security">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

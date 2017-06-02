@@ -25,7 +25,7 @@ namespace MeasureMyPike.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Catch> Catch { get; set; }
         public virtual DbSet<Fish> Fish { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
@@ -37,5 +37,6 @@ namespace MeasureMyPike.Model
         public virtual DbSet<Statistics> Statistics { get; set; }
         public virtual DbSet<WeatherData> WeatherData { get; set; }
         public virtual DbSet<UserConnections> UserConnections { get; set; }
+        public virtual DbSet<Security> SecuritySet { get; set; }
     }
 }

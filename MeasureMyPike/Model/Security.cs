@@ -12,10 +12,10 @@ namespace MeasureMyPike.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class UserConnections
+    public partial class Security
     {
         public int Id { get; set; }
-        public System.DateTime FriendsSince { get; set; }
+        public string Password { get; set; }
     
         public virtual User User { get; set; }
     }

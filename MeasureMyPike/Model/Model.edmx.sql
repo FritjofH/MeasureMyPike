@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/02/2017 14:08:47
+-- Date Created: 06/02/2017 15:55:41
 -- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike\Model\Model.edmx
 -- --------------------------------------------------
 
@@ -62,13 +62,16 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserUserConnections]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserConnections] DROP CONSTRAINT [FK_UserUserConnections];
 GO
+IF OBJECT_ID(N'[dbo].[FK_SecurityUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SecuritySet] DROP CONSTRAINT [FK_SecurityUser];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Users];
+IF OBJECT_ID(N'[dbo].[User]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[User];
 GO
 IF OBJECT_ID(N'[dbo].[Catch]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Catch];
@@ -103,18 +106,20 @@ GO
 IF OBJECT_ID(N'[dbo].[UserConnections]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserConnections];
 GO
+IF OBJECT_ID(N'[dbo].[SecuritySet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SecuritySet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
 
--- Creating table 'Users'
-CREATE TABLE [dbo].[Users] (
+-- Creating table 'User'
+CREATE TABLE [dbo].[User] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Username] nvarchar(50)  NOT NULL,
     [LastName] nvarchar(max)  NULL,
     [FirstName] nvarchar(max)  NULL,
-    [Password] nvarchar(max)  NOT NULL,
     [MemberSince] datetime  NOT NULL
 );
 GO
@@ -216,13 +221,21 @@ CREATE TABLE [dbo].[UserConnections] (
 );
 GO
 
+-- Creating table 'SecuritySet'
+CREATE TABLE [dbo].[SecuritySet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Password] nvarchar(max)  NOT NULL,
+    [User_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [Id] in table 'Users'
-ALTER TABLE [dbo].[Users]
-ADD CONSTRAINT [PK_Users]
+-- Creating primary key on [Id] in table 'User'
+ALTER TABLE [dbo].[User]
+ADD CONSTRAINT [PK_User]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -292,6 +305,12 @@ ADD CONSTRAINT [PK_UserConnections]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'SecuritySet'
+ALTER TABLE [dbo].[SecuritySet]
+ADD CONSTRAINT [PK_SecuritySet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
@@ -300,7 +319,7 @@ GO
 ALTER TABLE [dbo].[Catch]
 ADD CONSTRAINT [FK_UserCatch]
     FOREIGN KEY ([User_Id])
-    REFERENCES [dbo].[Users]
+    REFERENCES [dbo].[User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -510,7 +529,7 @@ GO
 ALTER TABLE [dbo].[UserConnections]
 ADD CONSTRAINT [FK_UserUserConnections]
     FOREIGN KEY ([User_Id])
-    REFERENCES [dbo].[Users]
+    REFERENCES [dbo].[User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -518,6 +537,21 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserUserConnections'
 CREATE INDEX [IX_FK_UserUserConnections]
 ON [dbo].[UserConnections]
+    ([User_Id]);
+GO
+
+-- Creating foreign key on [User_Id] in table 'SecuritySet'
+ALTER TABLE [dbo].[SecuritySet]
+ADD CONSTRAINT [FK_SecurityUser]
+    FOREIGN KEY ([User_Id])
+    REFERENCES [dbo].[User]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SecurityUser'
+CREATE INDEX [IX_FK_SecurityUser]
+ON [dbo].[SecuritySet]
     ([User_Id]);
 GO
 

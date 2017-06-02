@@ -138,8 +138,6 @@
   <ItemGroup>
     <Content Include="bin\Debug\EntityFramework.dll" />
     <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\Debug\EntityFramework.xml" />
     <Content Include="bin\Debug\MeasureMyPike.exe" />
     <Content Include="bin\Debug\MeasureMyPike.pdb" />
     <Content Include="bin\Debug\MeasureMyPike.vshost.exe" />

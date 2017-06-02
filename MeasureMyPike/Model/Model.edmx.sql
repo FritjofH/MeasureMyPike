@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/02/2017 09:15:41
--- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike\Model.edmx
+-- Date Created: 06/02/2017 10:59:36
+-- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike\Model\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -59,11 +59,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_WeatherDataStatistics]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[WeatherData] DROP CONSTRAINT [FK_WeatherDataStatistics];
 GO
-IF OBJECT_ID(N'[dbo].[FK_UserUserConnections_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserUserConnections] DROP CONSTRAINT [FK_UserUserConnections_User];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserUserConnections_UserConnections]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserUserConnections] DROP CONSTRAINT [FK_UserUserConnections_UserConnections];
+IF OBJECT_ID(N'[dbo].[FK_UserUserConnections]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserConnections] DROP CONSTRAINT [FK_UserUserConnections];
 GO
 
 -- --------------------------------------------------
@@ -106,9 +103,6 @@ GO
 IF OBJECT_ID(N'[dbo].[UserConnections]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserConnections];
 GO
-IF OBJECT_ID(N'[dbo].[UserUserConnections]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserUserConnections];
-GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -117,7 +111,7 @@ GO
 -- Creating table 'Users'
 CREATE TABLE [dbo].[Users] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Username] nvarchar(max)  NOT NULL,
+    [Username] nvarchar(50)  NOT NULL,
     [LastName] nvarchar(max)  NULL,
     [FirstName] nvarchar(max)  NULL,
     [Password] nvarchar(max)  NOT NULL,

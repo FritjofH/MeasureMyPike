@@ -122,6 +122,13 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="packages\EntityFramework.6.1.3\Content\App.config.transform" />
+    <None Include="packages\EntityFramework.6.1.3\Content\Web.config.transform" />
+    <None Include="packages\EntityFramework.6.1.3\EntityFramework.6.1.3.nupkg" />
+    <None Include="packages\EntityFramework.6.1.3\tools\EntityFramework.psd1" />
+    <None Include="packages\EntityFramework.6.1.3\tools\EntityFramework.psm1" />
+    <None Include="packages\EntityFramework.6.1.3\tools\init.ps1" />
+    <None Include="packages\EntityFramework.6.1.3\tools\install.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\EntityFramework.dll" />
@@ -131,11 +138,24 @@
     <Content Include="bin\Debug\MeasureMyPike.exe" />
     <Content Include="bin\Debug\MeasureMyPike.pdb" />
     <Content Include="bin\Debug\MeasureMyPike.vshost.exe" />
+    <Content Include="Model\MeasureMyPikeUniqueConstraints.sql" />
     <Content Include="Model\Model.edmx.sql" />
     <Content Include="Model\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll" />
+    <Content Include="packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll" />
+    <Content Include="packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.xml" />
+    <Content Include="packages\EntityFramework.6.1.3\lib\net40\EntityFramework.xml" />
+    <Content Include="packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll" />
+    <Content Include="packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll" />
+    <Content Include="packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.xml" />
+    <Content Include="packages\EntityFramework.6.1.3\lib\net45\EntityFramework.xml" />
+    <Content Include="packages\EntityFramework.6.1.3\tools\about_EntityFramework.help.txt" />
+    <Content Include="packages\EntityFramework.6.1.3\tools\EntityFramework.PowerShell.dll" />
+    <Content Include="packages\EntityFramework.6.1.3\tools\EntityFramework.PowerShell.Utility.dll" />
+    <Content Include="packages\EntityFramework.6.1.3\tools\migrate.exe" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

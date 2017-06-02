@@ -12,7 +12,6 @@ namespace MeasureMyPike
     public class DatabaseConnection
     {
         private SqlConnection conn;
-        SqlCommand cmd;
 
         private void openConnection()
         {
@@ -37,7 +36,7 @@ namespace MeasureMyPike
         {
             openConnection();
 
-            cmd = new SqlCommand();
+            var cmd = new SqlCommand();
             cmd.CommandText = "SELECT count(*) FROM MeasureMyPike.dbo.Users where Username = @Username";
 
             cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 50).Value = username;

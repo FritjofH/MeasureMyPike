@@ -7,30 +7,34 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike
+namespace MeasureMyPike.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class Statistics
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Users()
+        public Statistics()
         {
+            this.Lures = new HashSet<Lures>();
+            this.Fish = new HashSet<Fish>();
+            this.Location = new HashSet<Location>();
             this.Catch = new HashSet<Catch>();
-            this.UserConnections = new HashSet<UserConnections>();
+            this.WeatherData = new HashSet<WeatherData>();
         }
     
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public string Password { get; set; }
-        public System.DateTime MemberSince { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lures> Lures { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Fish> Fish { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Location> Location { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Catch> Catch { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserConnections> UserConnections { get; set; }
+        public virtual ICollection<WeatherData> WeatherData { get; set; }
     }
 }

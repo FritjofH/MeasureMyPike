@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike
+namespace MeasureMyPike.Model
 {
     using System;
     using System.Collections.Generic;

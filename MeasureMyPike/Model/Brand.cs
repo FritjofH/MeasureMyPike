@@ -7,16 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike
+namespace MeasureMyPike.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class UserConnections
+    public partial class Brand
     {
-        public int Id { get; set; }
-        public System.DateTime FriendsSince { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Brand()
+        {
+            this.Lures = new HashSet<Lures>();
+        }
     
-        public virtual Users User { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lures> Lures { get; set; }
     }
 }

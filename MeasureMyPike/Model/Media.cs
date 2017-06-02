@@ -7,18 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike
+namespace MeasureMyPike.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Location
+    public partial class Media
     {
         public int Id { get; set; }
-        public string Lake { get; set; }
-        public string Coordinates { get; set; }
+        public string MediaType { get; set; }
     
         public virtual Catch Catch { get; set; }
-        public virtual Statistics Statistics { get; set; }
+        public virtual MediaData Image { get; set; }
     }
 }

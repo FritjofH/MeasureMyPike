@@ -7,16 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike
+namespace MeasureMyPike.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class Lures
     {
         public int Id { get; set; }
-        public string Text { get; set; }
+        public string Name { get; set; }
     
         public virtual Catch Catch { get; set; }
+        public virtual Brand Brand { get; set; }
+        public virtual Statistics Statistics { get; set; }
     }
 }

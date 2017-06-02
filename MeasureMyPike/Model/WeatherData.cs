@@ -7,23 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike
+namespace MeasureMyPike.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Brand
+    public partial class WeatherData
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Brand()
-        {
-            this.Lures = new HashSet<Lures>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public short Temperature { get; set; }
+        public string Weather { get; set; }
+        public string MoonPosition { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lures> Lures { get; set; }
+        public virtual Catch Catch { get; set; }
+        public virtual Statistics Statistics { get; set; }
     }
 }

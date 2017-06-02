@@ -7,18 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike
+namespace MeasureMyPike.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Fish
+    public partial class UserConnections
     {
         public int Id { get; set; }
-        public string Length { get; set; }
-        public string Weight { get; set; }
+        public System.DateTime FriendsSince { get; set; }
     
-        public virtual Catch Catch { get; set; }
-        public virtual Statistics Statistics { get; set; }
+        public virtual Users User { get; set; }
     }
 }

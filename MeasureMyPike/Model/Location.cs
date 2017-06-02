@@ -7,17 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike
+namespace MeasureMyPike.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class WeatherData
+    public partial class Location
     {
         public int Id { get; set; }
-        public short Temperature { get; set; }
-        public string Weather { get; set; }
-        public string MoonPosition { get; set; }
+        public string Lake { get; set; }
+        public string Coordinates { get; set; }
     
         public virtual Catch Catch { get; set; }
         public virtual Statistics Statistics { get; set; }

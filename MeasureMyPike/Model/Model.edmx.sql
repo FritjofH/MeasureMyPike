@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/02/2017 10:59:36
+-- Date Created: 06/02/2017 14:08:47
 -- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike\Model\Model.edmx
 -- --------------------------------------------------
 

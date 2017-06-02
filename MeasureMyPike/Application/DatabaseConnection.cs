@@ -11,64 +11,19 @@ namespace MeasureMyPike
 {
     public class DatabaseConnection
     {
-        private SqlConnection conn;
-
-        private void openConnection()
-        {
-            var connectionString = ConfigurationManager.ConnectionStrings["localHost"].ConnectionString;
-            conn = new SqlConnection(connectionString);
-            if (conn != null && conn.State != ConnectionState.Open)
-            {
-                conn.Open();
-            }
-        }
-
-        private void closeConnection()
-        {
-            if (conn != null && conn.State != ConnectionState.Closed)
-            {
-                conn.Close();
-                conn.Dispose();
-            }
-        }
 
         public string createUser(string lastName, string firstName, string username, string password)
         {
-            openConnection();
-
-            var cmd = new SqlCommand();
-            cmd.CommandText = "SELECT count(*) FROM MeasureMyPike.dbo.Users where Username = @Username";
-
-            cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 50).Value = username;
-
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = conn;
-            cmd.Prepare();
-            var result = (int) cmd.ExecuteScalar();
-
-            if (result == 0) {
-                cmd = new SqlCommand();
-                cmd.CommandText = "INSERT INTO MeasureMyPike.dbo.Users (LastName, FirstName, Username, Password, MemberSince) Values (@LastName, @FirstName, @Username, @Password, @MemberSince)";
-
-                cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = lastName;
-                cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = firstName;
-                cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 50).Value = username;
-                cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 50).Value = password;
-                cmd.Parameters.Add("@MemberSince", SqlDbType.DateTime, 50).Value = DateTime.Now;
-
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = conn;
-                cmd.Prepare();
-                cmd.ExecuteNonQuery();
-                closeConnection();
-
-                return "Användaren har skapats";
-            }
-            else
+            using (var conn = new ModelContainer())
             {
-                closeConnection();
-                return "Det fanns redan en användare med samma namn, var god använd ett annat";
+                if (conn.Users.FirstOrDefault(it => it.Username == username) == null) {
+                    conn.Users.Add(new Model.Users { FirstName = firstName, LastName = lastName, Username = username, Password = password, MemberSince = DateTime.Now });
+                    conn.SaveChanges();
+                    return "Användaren har skapats";
+                }
             }
+            return "Det finns redan en användare med det angivna användarnamnet, försök igen med ett annat användarnamn";
         }
+        
     }
 }

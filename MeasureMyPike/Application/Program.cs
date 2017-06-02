@@ -13,7 +13,7 @@ namespace MeasureMyPike
         {
             DatabaseConnection dbconn = new DatabaseConnection();
             var resultText = dbconn.createUser("Höst", "Fritjof", "hostf", "hemligt");
-            Debug.WriteLine(resultText); 
+            Debug.WriteLine(resultText);
         }
     }
 }

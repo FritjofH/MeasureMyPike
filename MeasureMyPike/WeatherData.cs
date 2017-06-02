@@ -15,7 +15,7 @@ namespace MeasureMyPike
     public partial class WeatherData
     {
         public int Id { get; set; }
-        public string Temperature { get; set; }
+        public short Temperature { get; set; }
         public string Weather { get; set; }
         public string MoonPosition { get; set; }
     

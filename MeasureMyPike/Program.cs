@@ -10,6 +10,8 @@ namespace MeasureMyPike
     {
         static void Main(string[] args)
         {
+            DatabaseConnection dbconn = new DatabaseConnection();
+            dbconn.createUser("Höst", "Fritjof", "hostf", "hemligt");
         }
     }
 }

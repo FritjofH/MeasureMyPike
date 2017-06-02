@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/02/2017 08:58:46
+-- Date Created: 06/01/2017 16:20:03
 -- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike\Model.edmx
 -- --------------------------------------------------
 
@@ -18,46 +18,46 @@ GO
 -- --------------------------------------------------
 
 IF OBJECT_ID(N'[dbo].[FK_UserCatch]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Catch] DROP CONSTRAINT [FK_UserCatch];
+    ALTER TABLE [dbo].[CatchSet] DROP CONSTRAINT [FK_UserCatch];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchComment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Catch] DROP CONSTRAINT [FK_CatchComment];
+    ALTER TABLE [dbo].[CatchSet] DROP CONSTRAINT [FK_CatchComment];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchFish]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Fish] DROP CONSTRAINT [FK_CatchFish];
+    ALTER TABLE [dbo].[FishSet] DROP CONSTRAINT [FK_CatchFish];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchMedia]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Media] DROP CONSTRAINT [FK_CatchMedia];
+    ALTER TABLE [dbo].[MediaSet] DROP CONSTRAINT [FK_CatchMedia];
 GO
 IF OBJECT_ID(N'[dbo].[FK_MediaImage]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Media] DROP CONSTRAINT [FK_MediaImage];
+    ALTER TABLE [dbo].[MediaSet] DROP CONSTRAINT [FK_MediaImage];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchLocation]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Location] DROP CONSTRAINT [FK_CatchLocation];
+    ALTER TABLE [dbo].[LocationSet] DROP CONSTRAINT [FK_CatchLocation];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchLures]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Catch] DROP CONSTRAINT [FK_CatchLures];
+    ALTER TABLE [dbo].[CatchSet] DROP CONSTRAINT [FK_CatchLures];
 GO
 IF OBJECT_ID(N'[dbo].[FK_LuresBrand]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Lures] DROP CONSTRAINT [FK_LuresBrand];
+    ALTER TABLE [dbo].[LuresSet] DROP CONSTRAINT [FK_LuresBrand];
 GO
 IF OBJECT_ID(N'[dbo].[FK_LuresStatistics]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Lures] DROP CONSTRAINT [FK_LuresStatistics];
+    ALTER TABLE [dbo].[LuresSet] DROP CONSTRAINT [FK_LuresStatistics];
 GO
 IF OBJECT_ID(N'[dbo].[FK_FishStatistics]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Fish] DROP CONSTRAINT [FK_FishStatistics];
+    ALTER TABLE [dbo].[FishSet] DROP CONSTRAINT [FK_FishStatistics];
 GO
 IF OBJECT_ID(N'[dbo].[FK_LocationStatistics]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Location] DROP CONSTRAINT [FK_LocationStatistics];
+    ALTER TABLE [dbo].[LocationSet] DROP CONSTRAINT [FK_LocationStatistics];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchStatistics]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Catch] DROP CONSTRAINT [FK_CatchStatistics];
+    ALTER TABLE [dbo].[CatchSet] DROP CONSTRAINT [FK_CatchStatistics];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchWeatherData]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[WeatherData] DROP CONSTRAINT [FK_CatchWeatherData];
+    ALTER TABLE [dbo].[WeatherDataSet] DROP CONSTRAINT [FK_CatchWeatherData];
 GO
 IF OBJECT_ID(N'[dbo].[FK_WeatherDataStatistics]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[WeatherData] DROP CONSTRAINT [FK_WeatherDataStatistics];
+    ALTER TABLE [dbo].[WeatherDataSet] DROP CONSTRAINT [FK_WeatherDataStatistics];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserUserConnections_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserUserConnections] DROP CONSTRAINT [FK_UserUserConnections_User];
@@ -70,41 +70,41 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Users];
+IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserSet];
 GO
-IF OBJECT_ID(N'[dbo].[Catch]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Catch];
+IF OBJECT_ID(N'[dbo].[CatchSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CatchSet];
 GO
-IF OBJECT_ID(N'[dbo].[Fish]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Fish];
+IF OBJECT_ID(N'[dbo].[FishSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[FishSet];
 GO
-IF OBJECT_ID(N'[dbo].[Comment]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Comment];
+IF OBJECT_ID(N'[dbo].[CommentSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CommentSet];
 GO
-IF OBJECT_ID(N'[dbo].[Media]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Media];
+IF OBJECT_ID(N'[dbo].[MediaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MediaSet];
 GO
-IF OBJECT_ID(N'[dbo].[MediaData]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[MediaData];
+IF OBJECT_ID(N'[dbo].[MediaDataSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MediaDataSet];
 GO
-IF OBJECT_ID(N'[dbo].[Location]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Location];
+IF OBJECT_ID(N'[dbo].[LocationSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LocationSet];
 GO
-IF OBJECT_ID(N'[dbo].[Brand]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Brand];
+IF OBJECT_ID(N'[dbo].[BrandSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BrandSet];
 GO
-IF OBJECT_ID(N'[dbo].[Lures]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Lures];
+IF OBJECT_ID(N'[dbo].[LuresSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LuresSet];
 GO
-IF OBJECT_ID(N'[dbo].[Statistics]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Statistics];
+IF OBJECT_ID(N'[dbo].[StatisticsSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[StatisticsSet];
 GO
-IF OBJECT_ID(N'[dbo].[WeatherData]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[WeatherData];
+IF OBJECT_ID(N'[dbo].[WeatherDataSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[WeatherDataSet];
 GO
-IF OBJECT_ID(N'[dbo].[UserConnections]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserConnections];
+IF OBJECT_ID(N'[dbo].[UserConnectionsSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserConnectionsSet];
 GO
 IF OBJECT_ID(N'[dbo].[UserUserConnections]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserUserConnections];
@@ -114,8 +114,8 @@ GO
 -- Creating all tables
 -- --------------------------------------------------
 
--- Creating table 'Users'
-CREATE TABLE [dbo].[Users] (
+-- Creating table 'User'
+CREATE TABLE [dbo].[User] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Username] nvarchar(max)  NOT NULL,
     [LastName] nvarchar(max)  NULL,
@@ -232,9 +232,9 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [Id] in table 'Users'
-ALTER TABLE [dbo].[Users]
-ADD CONSTRAINT [PK_Users]
+-- Creating primary key on [Id] in table 'User'
+ALTER TABLE [dbo].[User]
+ADD CONSTRAINT [PK_User]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -318,7 +318,7 @@ GO
 ALTER TABLE [dbo].[Catch]
 ADD CONSTRAINT [FK_UserCatch]
     FOREIGN KEY ([User_Id])
-    REFERENCES [dbo].[Users]
+    REFERENCES [dbo].[User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -528,7 +528,7 @@ GO
 ALTER TABLE [dbo].[UserUserConnections]
 ADD CONSTRAINT [FK_UserUserConnections_User]
     FOREIGN KEY ([User_Id])
-    REFERENCES [dbo].[Users]
+    REFERENCES [dbo].[User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO

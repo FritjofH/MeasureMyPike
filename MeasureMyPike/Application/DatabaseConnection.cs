@@ -33,35 +33,43 @@ namespace MeasureMyPike
             }
         }
 
-        public void createUser(string lastName, string firstName, string username, string password)
+        public string createUser(string lastName, string firstName, string username, string password)
         {
             openConnection();
 
             cmd = new SqlCommand();
-            cmd.CommandText = "INSERT INTO MeasureMyPike.dbo.Users (LastName, FirstName, Username, Password, MemberSince) Values (@LastName, @FirstName, @Username, @Password, @MemberSince)";
+            cmd.CommandText = "SELECT count(*) FROM MeasureMyPike.dbo.Users where Username = @Username";
 
-            var p = new SqlParameter("@LastName", SqlDbType.NVarChar, 50);
-            p.Value = lastName;
-            cmd.Parameters.Add(p);
-            p = new SqlParameter("@FirstName", SqlDbType.NVarChar, 50);
-            p.Value = firstName;
-            cmd.Parameters.Add(p);
-            p = new SqlParameter("@Username", SqlDbType.NVarChar, 50);
-            p.Value = username;
-            cmd.Parameters.Add(p);
-            p = new SqlParameter("@Password", SqlDbType.NVarChar, 50);
-            p.Value = password;
-            cmd.Parameters.Add(p);
-            p = new SqlParameter("@MemberSince", SqlDbType.DateTime, 50);
-            p.Value = DateTime.Now;
-            cmd.Parameters.Add(p);
+            cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 50).Value = username;
 
             cmd.CommandType = CommandType.Text;
             cmd.Connection = conn;
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            var result = (int) cmd.ExecuteScalar();
 
-            closeConnection();
+            if (result == 0) {
+                cmd = new SqlCommand();
+                cmd.CommandText = "INSERT INTO MeasureMyPike.dbo.Users (LastName, FirstName, Username, Password, MemberSince) Values (@LastName, @FirstName, @Username, @Password, @MemberSince)";
+
+                cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = lastName;
+                cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = firstName;
+                cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 50).Value = username;
+                cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 50).Value = password;
+                cmd.Parameters.Add("@MemberSince", SqlDbType.DateTime, 50).Value = DateTime.Now;
+
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = conn;
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+                closeConnection();
+
+                return "Användaren har skapats";
+            }
+            else
+            {
+                closeConnection();
+                return "Det fanns redan en användare med samma namn, var god använd ett annat";
+            }
         }
     }
 }

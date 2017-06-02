@@ -55,7 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseConnection.cs" />
+    <Compile Include="Application\DatabaseConnection.cs" />
+    <Compile Include="Application\Program.cs" />
     <Compile Include="Model\Brand.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -107,7 +108,6 @@
     <Compile Include="Model\WeatherData.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

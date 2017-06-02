@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/01/2017 17:11:59
+-- Date Created: 06/02/2017 08:58:46
 -- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike\Model.edmx
 -- --------------------------------------------------
 
@@ -70,8 +70,8 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[User]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[User];
+IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users];
 GO
 IF OBJECT_ID(N'[dbo].[Catch]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Catch];

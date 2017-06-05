@@ -46,6 +46,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -131,7 +132,9 @@
     <None Include="Model\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages\EntityFramework.6.1.3\Content\App.config.transform" />
     <None Include="packages\EntityFramework.6.1.3\Content\Web.config.transform" />
     <None Include="packages\EntityFramework.6.1.3\EntityFramework.6.1.3.nupkg" />

@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeasureMyPike
 {
@@ -66,7 +61,8 @@ namespace MeasureMyPike
                 /* Compare the results */
                 for (int i = 0; i < 20; i++)
                     if (hashBytes[i + 16] != hash[i])
-                        throw new UnauthorizedAccessException();
+                        return "Fel lösenord";
+                        //throw new UnauthorizedAccessException();
             }
             return "Rätt lösenord";
         }

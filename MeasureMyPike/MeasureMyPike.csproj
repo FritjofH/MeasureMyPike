@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\BrandService.cs" />
+    <Compile Include="Application\LureService.cs" />
     <Compile Include="Application\DatabaseConnection.cs" />
     <Compile Include="Application\ImageHandler.cs" />
     <Compile Include="Application\Program.cs" />

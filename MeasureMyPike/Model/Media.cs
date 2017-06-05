@@ -15,7 +15,7 @@ namespace MeasureMyPike.Model
     public partial class Media
     {
         public int Id { get; set; }
-        public string MediaType { get; set; }
+        public string MediaFormat { get; set; }
     
         public virtual Catch Catch { get; set; }
         public virtual MediaData Image { get; set; }

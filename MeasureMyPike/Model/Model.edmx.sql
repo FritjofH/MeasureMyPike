@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/02/2017 15:55:41
+-- Date Created: 06/02/2017 17:15:39
 -- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike\Model\Model.edmx
 -- --------------------------------------------------
 
@@ -24,7 +24,7 @@ IF OBJECT_ID(N'[dbo].[FK_CatchComment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Catch] DROP CONSTRAINT [FK_CatchComment];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchFish]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Fish] DROP CONSTRAINT [FK_CatchFish];
+    ALTER TABLE [dbo].[Catch] DROP CONSTRAINT [FK_CatchFish];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchMedia]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Media] DROP CONSTRAINT [FK_CatchMedia];
@@ -33,7 +33,7 @@ IF OBJECT_ID(N'[dbo].[FK_MediaImage]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Media] DROP CONSTRAINT [FK_MediaImage];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchLocation]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Location] DROP CONSTRAINT [FK_CatchLocation];
+    ALTER TABLE [dbo].[Catch] DROP CONSTRAINT [FK_CatchLocation];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchLures]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Catch] DROP CONSTRAINT [FK_CatchLures];
@@ -54,7 +54,7 @@ IF OBJECT_ID(N'[dbo].[FK_CatchStatistics]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Catch] DROP CONSTRAINT [FK_CatchStatistics];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CatchWeatherData]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[WeatherData] DROP CONSTRAINT [FK_CatchWeatherData];
+    ALTER TABLE [dbo].[Catch] DROP CONSTRAINT [FK_CatchWeatherData];
 GO
 IF OBJECT_ID(N'[dbo].[FK_WeatherDataStatistics]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[WeatherData] DROP CONSTRAINT [FK_WeatherDataStatistics];
@@ -130,8 +130,11 @@ CREATE TABLE [dbo].[Catch] (
     [Timestamp] datetime  NOT NULL,
     [User_Id] int  NOT NULL,
     [Comment_Id] int  NOT NULL,
+    [Fish_Id] int  NOT NULL,
+    [Location_Id] int  NOT NULL,
     [Lures_Id] int  NOT NULL,
-    [Statistics_Id] int  NOT NULL
+    [Statistics_Id] int  NULL,
+    [WeatherData_Id] int  NOT NULL
 );
 GO
 
@@ -140,8 +143,7 @@ CREATE TABLE [dbo].[Fish] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Length] nvarchar(max)  NULL,
     [Weight] nvarchar(max)  NULL,
-    [Catch_Id] int  NOT NULL,
-    [Statistics_Id] int  NOT NULL
+    [Statistics_Id] int  NULL
 );
 GO
 
@@ -155,7 +157,7 @@ GO
 -- Creating table 'Media'
 CREATE TABLE [dbo].[Media] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [MediaType] nvarchar(max)  NOT NULL,
+    [MediaFormat] nvarchar(max)  NOT NULL,
     [Catch_Id] int  NOT NULL,
     [Image_Id] int  NOT NULL
 );
@@ -164,9 +166,8 @@ GO
 -- Creating table 'MediaData'
 CREATE TABLE [dbo].[MediaData] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Data] tinyint  NOT NULL,
-    [Length] int  NOT NULL,
-    [Format] nvarchar(max)  NOT NULL
+    [Data] varbinary(max)  NOT NULL,
+    [Length] int  NOT NULL
 );
 GO
 
@@ -175,8 +176,7 @@ CREATE TABLE [dbo].[Location] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Lake] nvarchar(max)  NOT NULL,
     [Coordinates] nvarchar(max)  NULL,
-    [Catch_Id] int  NOT NULL,
-    [Statistics_Id] int  NOT NULL
+    [Statistics_Id] int  NULL
 );
 GO
 
@@ -191,8 +191,8 @@ GO
 CREATE TABLE [dbo].[Lures] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Brand_Id] int  NOT NULL,
-    [Statistics_Id] int  NOT NULL
+    [Brand_Id] int  NULL,
+    [Statistics_Id] int  NULL
 );
 GO
 
@@ -205,11 +205,10 @@ GO
 -- Creating table 'WeatherData'
 CREATE TABLE [dbo].[WeatherData] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Temperature] smallint  NOT NULL,
+    [Temperature] int  NOT NULL,
     [Weather] nvarchar(max)  NOT NULL,
     [MoonPosition] nvarchar(max)  NOT NULL,
-    [Catch_Id] int  NOT NULL,
-    [Statistics_Id] int  NOT NULL
+    [Statistics_Id] int  NULL
 );
 GO
 
@@ -221,8 +220,8 @@ CREATE TABLE [dbo].[UserConnections] (
 );
 GO
 
--- Creating table 'SecuritySet'
-CREATE TABLE [dbo].[SecuritySet] (
+-- Creating table 'Security'
+CREATE TABLE [dbo].[Security] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Password] nvarchar(max)  NOT NULL,
     [User_Id] int  NOT NULL
@@ -305,9 +304,9 @@ ADD CONSTRAINT [PK_UserConnections]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'SecuritySet'
-ALTER TABLE [dbo].[SecuritySet]
-ADD CONSTRAINT [PK_SecuritySet]
+-- Creating primary key on [Id] in table 'Security'
+ALTER TABLE [dbo].[Security]
+ADD CONSTRAINT [PK_Security]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -345,19 +344,19 @@ ON [dbo].[Catch]
     ([Comment_Id]);
 GO
 
--- Creating foreign key on [Catch_Id] in table 'Fish'
-ALTER TABLE [dbo].[Fish]
+-- Creating foreign key on [Fish_Id] in table 'Catch'
+ALTER TABLE [dbo].[Catch]
 ADD CONSTRAINT [FK_CatchFish]
-    FOREIGN KEY ([Catch_Id])
-    REFERENCES [dbo].[Catch]
+    FOREIGN KEY ([Fish_Id])
+    REFERENCES [dbo].[Fish]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_CatchFish'
 CREATE INDEX [IX_FK_CatchFish]
-ON [dbo].[Fish]
-    ([Catch_Id]);
+ON [dbo].[Catch]
+    ([Fish_Id]);
 GO
 
 -- Creating foreign key on [Catch_Id] in table 'Media'
@@ -390,19 +389,19 @@ ON [dbo].[Media]
     ([Image_Id]);
 GO
 
--- Creating foreign key on [Catch_Id] in table 'Location'
-ALTER TABLE [dbo].[Location]
+-- Creating foreign key on [Location_Id] in table 'Catch'
+ALTER TABLE [dbo].[Catch]
 ADD CONSTRAINT [FK_CatchLocation]
-    FOREIGN KEY ([Catch_Id])
-    REFERENCES [dbo].[Catch]
+    FOREIGN KEY ([Location_Id])
+    REFERENCES [dbo].[Location]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_CatchLocation'
 CREATE INDEX [IX_FK_CatchLocation]
-ON [dbo].[Location]
-    ([Catch_Id]);
+ON [dbo].[Catch]
+    ([Location_Id]);
 GO
 
 -- Creating foreign key on [Lures_Id] in table 'Catch'
@@ -495,19 +494,19 @@ ON [dbo].[Catch]
     ([Statistics_Id]);
 GO
 
--- Creating foreign key on [Catch_Id] in table 'WeatherData'
-ALTER TABLE [dbo].[WeatherData]
+-- Creating foreign key on [WeatherData_Id] in table 'Catch'
+ALTER TABLE [dbo].[Catch]
 ADD CONSTRAINT [FK_CatchWeatherData]
-    FOREIGN KEY ([Catch_Id])
-    REFERENCES [dbo].[Catch]
+    FOREIGN KEY ([WeatherData_Id])
+    REFERENCES [dbo].[WeatherData]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_CatchWeatherData'
 CREATE INDEX [IX_FK_CatchWeatherData]
-ON [dbo].[WeatherData]
-    ([Catch_Id]);
+ON [dbo].[Catch]
+    ([WeatherData_Id]);
 GO
 
 -- Creating foreign key on [Statistics_Id] in table 'WeatherData'
@@ -540,8 +539,8 @@ ON [dbo].[UserConnections]
     ([User_Id]);
 GO
 
--- Creating foreign key on [User_Id] in table 'SecuritySet'
-ALTER TABLE [dbo].[SecuritySet]
+-- Creating foreign key on [User_Id] in table 'Security'
+ALTER TABLE [dbo].[Security]
 ADD CONSTRAINT [FK_SecurityUser]
     FOREIGN KEY ([User_Id])
     REFERENCES [dbo].[User]
@@ -551,7 +550,7 @@ GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SecurityUser'
 CREATE INDEX [IX_FK_SecurityUser]
-ON [dbo].[SecuritySet]
+ON [dbo].[Security]
     ([User_Id]);
 GO
 

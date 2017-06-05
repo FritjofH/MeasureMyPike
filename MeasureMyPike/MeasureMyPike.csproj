@@ -45,6 +45,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -56,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\DatabaseConnection.cs" />
+    <Compile Include="Application\ImageHandler.cs" />
     <Compile Include="Application\Program.cs" />
     <Compile Include="Model\Brand.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -144,6 +146,7 @@
     <Content Include="bin\Debug\MeasureMyPike.exe" />
     <Content Include="bin\Debug\MeasureMyPike.pdb" />
     <Content Include="bin\Debug\MeasureMyPike.vshost.exe" />
+    <Content Include="Mockdata\Fisk.jpg" />
     <Content Include="Model\MeasureMyPikeUniqueConstraints.sql" />
     <Content Include="Model\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

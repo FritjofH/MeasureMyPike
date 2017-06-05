@@ -17,10 +17,7 @@ namespace MeasureMyPike.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Catch()
         {
-            this.Fish = new HashSet<Fish>();
             this.Media = new HashSet<Media>();
-            this.Location = new HashSet<Location>();
-            this.WeatherData = new HashSet<WeatherData>();
         }
     
         public int Id { get; set; }
@@ -28,15 +25,12 @@ namespace MeasureMyPike.Model
     
         public virtual User User { get; set; }
         public virtual Comment Comment { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Fish> Fish { get; set; }
+        public virtual Fish Fish { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Media> Media { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Location> Location { get; set; }
+        public virtual Location Location { get; set; }
         public virtual Lures Lures { get; set; }
         public virtual Statistics Statistics { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WeatherData> WeatherData { get; set; }
+        public virtual WeatherData WeatherData { get; set; }
     }
 }

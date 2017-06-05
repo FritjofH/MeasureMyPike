@@ -34,6 +34,22 @@ namespace MeasureMyPike
             return "Det finns redan en användare med det angivna användarnamnet, försök igen med ett annat användarnamn";
         }
 
+        public string deleteUser(string username)
+        {
+            using (var conn = new ModelContainer())
+            {
+                Model.User user = conn.Users.First(u => u.Username == username);
+                if (user != null)
+                {
+                    // exists
+                    conn.Users.Remove(user);
+                    conn.SaveChanges();
+                    return "Användaren har raderats";
+                }
+            
+                return "Det finns ingen användare med det angivna användarnamnet";
+        }
+
         private string hashAndSaltPassword(string password)
         {
             byte[] salt;

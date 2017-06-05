@@ -590,12 +590,12 @@
           <End Type="Model.Location" Role="Location" Multiplicity="1" />
         </Association>
         <Association Name="CatchLures">
-          <End Type="Model.Catch" Role="Catch" Multiplicity="1" />
+          <End Type="Model.Catch" Role="Catch" Multiplicity="0..1" />
           <End Type="Model.Lures" Role="Lures" Multiplicity="1" />
         </Association>
         <Association Name="LuresBrand">
           <End Type="Model.Lures" Role="Lures" Multiplicity="*" />
-          <End Type="Model.Brand" Role="Brand" Multiplicity="0..1" />
+          <End Type="Model.Brand" Role="Brand" Multiplicity="1" />
         </Association>
         <EntityType Name="Statistics">
           <Key>
@@ -839,6 +839,7 @@
       <EndProperty Name="Catch">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+            <Condition ColumnName="Lures_Id" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="LuresBrand" TypeName="Model.LuresBrand" StoreEntitySet="Lures">
       <EndProperty Name="Brand">
@@ -847,7 +848,6 @@
       <EndProperty Name="Lures">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
-      <Condition ColumnName="Brand_Id" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="LuresStatistics" TypeName="Model.LuresStatistics" StoreEntitySet="Lures">
       <EndProperty Name="Statistics">

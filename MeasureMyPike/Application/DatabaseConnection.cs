@@ -19,20 +19,78 @@ namespace MeasureMyPike
             {
                 if (conn.Users.FirstOrDefault(it => it.Username == username) == null) {
 
-                    conn.Users.Add(new Model.User {
+                    conn.Users.Add(new Model.User
+                    {
                         FirstName = firstName,
                         LastName = lastName,
                         Username = username,
                         MemberSince = DateTime.Now,
                         Security = new Model.Security { Password = hashAndSaltPassword(password) }
-                    } );
-                                        
+                    });
+
                     conn.SaveChanges();
                     return "Användaren har skapats";
                 }
             }
             return "Det finns redan en användare med det angivna användarnamnet, försök igen med ett annat användarnamn";
         }
+        public string addLure(string lureName, Model.Brand brand) {
+            using (var conn = new ModelContainer())
+            {
+                if (conn.Lures.FirstOrDefault(it => it.Name == lureName) == null)
+                {
+
+                    conn.Lures.Add(new Model.Lures
+                    {
+                        Name = lureName,
+                        Brand = brand,
+                        Catch = null
+                });
+                conn.SaveChanges();
+                return "Lure har skapats";
+            }
+        }
+            return "Det finns redan en Lure med det angivna Lurenamnet, försök igen med ett annat Lurenamn";
+
+        }
+
+        public string addBrand(Model.Brand brand)
+        {
+            using (var conn = new ModelContainer())
+            {
+                if (conn.Brand.FirstOrDefault(it => it.Name == brand.Name) == null)
+                {
+
+                    conn.Brand.Add(new Model.Brand
+                    {
+                        Name = brand.Name
+
+                    });
+                    conn.SaveChanges();
+                    return "Brand har skapats";
+                }
+            }
+            return "Det finns redan en Brand med det angivna Brandnamnet, försök igen med ett annat Brandnamn";
+
+        }
+
+        public Model.Brand getBrand(Model.Brand brand)
+        {
+            using (var conn = new ModelContainer())
+            {
+                Model.Brand o = conn.Brand.FirstOrDefault(it => it.Id == brand.Id);
+                {
+                    if (o != null)
+                    {
+                        return o;
+                    }
+                    else return null;
+                }
+            }
+        }
+
+
+
 
         private string hashAndSaltPassword(string password)
         {
@@ -71,7 +129,7 @@ namespace MeasureMyPike
             return "Rätt lösenord";
         }
 
-        public string createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition)
+        public string createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Model.Brand brand)
         {
             List<Model.Media> mediaList = new List<Model.Media>();
             mediaList.Add(new Model.Media
@@ -90,7 +148,8 @@ namespace MeasureMyPike
                     User = conn.Users.First(),
                     Comment = new Model.Comment { Text = comment },
                     Media = mediaList,
-                    Lures = new Model.Lures { Name = lures },
+                    Lures = new Model.Lures { Name = lures, Brand = brand},
+                    
                     Fish = new Model.Fish { Length = fishLength, Weight = fishWeight },
                     Location = new Model.Location { Lake = lake, Coordinates = coordinates },
                     WeatherData = new Model.WeatherData { Temperature = temperature, Weather = weather, MoonPosition = moonposition },

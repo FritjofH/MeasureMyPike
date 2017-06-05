@@ -163,7 +163,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Brand_Id" Type="int" Nullable="true" />
+    <Property Name="Brand_Id" Type="int" Nullable="false" />
     <Property Name="Statistics_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Statistics">
@@ -284,7 +284,7 @@
   </Association>
   <Association Name="LuresBrand">
     <End Role="Lures" Type="Model.Store.Lures" Multiplicity="*" />
-    <End Role="Brand" Type="Model.Store.Brand" Multiplicity="0..1" />
+    <End Role="Brand" Type="Model.Store.Brand" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Brand">
         <PropertyRef Name="Id" />
@@ -839,7 +839,6 @@
       <EndProperty Name="Catch">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
-            <Condition ColumnName="Lures_Id" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="LuresBrand" TypeName="Model.LuresBrand" StoreEntitySet="Lures">
       <EndProperty Name="Brand">

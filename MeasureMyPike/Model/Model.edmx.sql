@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/02/2017 17:15:39
--- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike\Model\Model.edmx
+-- Date Created: 06/05/2017 14:43:26
+-- Generated from EDMX file: C:\Users\karlssonjy\Source\Repos\MeasureMyPike\MeasureMyPike\Model\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -63,7 +63,7 @@ IF OBJECT_ID(N'[dbo].[FK_UserUserConnections]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserConnections] DROP CONSTRAINT [FK_UserUserConnections];
 GO
 IF OBJECT_ID(N'[dbo].[FK_SecurityUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SecuritySet] DROP CONSTRAINT [FK_SecurityUser];
+    ALTER TABLE [dbo].[Security] DROP CONSTRAINT [FK_SecurityUser];
 GO
 
 -- --------------------------------------------------
@@ -106,8 +106,8 @@ GO
 IF OBJECT_ID(N'[dbo].[UserConnections]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserConnections];
 GO
-IF OBJECT_ID(N'[dbo].[SecuritySet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[SecuritySet];
+IF OBJECT_ID(N'[dbo].[Security]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Security];
 GO
 
 -- --------------------------------------------------
@@ -191,7 +191,7 @@ GO
 CREATE TABLE [dbo].[Lures] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Brand_Id] int  NULL,
+    [Brand_Id] int  NOT NULL,
     [Statistics_Id] int  NULL
 );
 GO

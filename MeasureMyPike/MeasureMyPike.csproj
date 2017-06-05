@@ -34,10 +34,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -60,8 +62,10 @@
     <Compile Include="Application\BrandService.cs" />
     <Compile Include="Application\LureService.cs" />
     <Compile Include="Application\DatabaseConnection.cs" />
-    <Compile Include="Application\ImageHandler.cs" />
+    <Compile Include="Application\MediaService.cs" />
     <Compile Include="Application\Program.cs" />
+    <Compile Include="Application\SecurityService.cs" />
+    <Compile Include="Application\UserService.cs" />
     <Compile Include="Model\Brand.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -124,7 +128,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="Model\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -134,9 +140,7 @@
     <None Include="Model\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
     <None Include="packages\EntityFramework.6.1.3\Content\App.config.transform" />
     <None Include="packages\EntityFramework.6.1.3\Content\Web.config.transform" />
     <None Include="packages\EntityFramework.6.1.3\EntityFramework.6.1.3.nupkg" />

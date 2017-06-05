@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace MeasureMyPike.Application
 {
-    public class ImageHandler
+    public class MediaService
     {
         public byte[] ImageToByteArray(System.Drawing.Image imageIn)
         {

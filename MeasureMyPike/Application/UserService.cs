@@ -16,7 +16,16 @@ namespace MeasureMyPike.Application
 
             var hashedPassword = ss.hashAndSaltPassword(password);
 
-            return dbconn.createUser(lastName, firstName, username, hashedPassword);
+            Model.User user = new Model.User
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Username = username,
+                MemberSince = DateTime.Now,
+                Security = new Model.Security { Password = hashedPassword }
+            };
+
+            return dbconn.addUser(user);
         }
 
         public bool deleteUser(string username)
@@ -24,6 +33,13 @@ namespace MeasureMyPike.Application
             DatabaseConnection dbconn = new DatabaseConnection();
 
             return dbconn.deleteUser(username);
+        }
+
+        public Model.User getUser(string username)
+        {
+            DatabaseConnection dbconn = new DatabaseConnection();
+
+            return dbconn.getUser(username);
         }
     }
 }

@@ -109,24 +109,6 @@ namespace MeasureMyPike
             }
         }
 
-
-        public string deleteUser(string username)
-        {
-            using (var conn = new ModelContainer())
-            {
-                Model.User user = conn.Users.First(u => u.Username == username);
-                if (user != null)
-                {
-                    // exists
-                    conn.Users.Remove(user);
-                    conn.SaveChanges();
-                    return "Användaren har raderats";
-                }
-
-                return "Det finns ingen användare med det angivna användarnamnet";
-            }
-        }
-
         private string hashAndSaltPassword(string password)
         {
             byte[] salt;
@@ -164,7 +146,7 @@ namespace MeasureMyPike
             return "Rätt lösenord";
         }
 
-        public string createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Model.Brand brand)
+        public bool createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Model.Brand brand)
         {
             List<Model.Media> mediaList = new List<Model.Media>();
             mediaList.Add(new Model.Media

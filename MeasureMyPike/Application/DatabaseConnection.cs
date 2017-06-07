@@ -107,7 +107,7 @@ namespace MeasureMyPike
         }
         */
 
-        public string addBrand(Model.Brand brand)
+        public bool addBrand(Model.Brand brand)
         {
             try {
                 using (var conn = new ModelContainer())

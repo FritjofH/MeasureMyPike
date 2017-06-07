@@ -34,6 +34,7 @@ namespace MeasureMyPike
             }
             return "Det finns redan en användare med det angivna användarnamnet, försök igen med ett annat användarnamn";
         }
+
         public string addLure(string lureName, Model.Brand brand) {
             using (var conn = new ModelContainer())
             {
@@ -45,11 +46,11 @@ namespace MeasureMyPike
                         Name = lureName,
                         Brand = brand,
                         Catch = null
-                });
-                conn.SaveChanges();
-                return "Lure har skapats";
+                    });
+                    conn.SaveChanges();
+                    return "Lure har skapats";
+                }
             }
-        }
             return "Det finns redan en Lure med det angivna Lurenamnet, försök igen med ett annat Lurenamn";
 
         }
@@ -90,8 +91,6 @@ namespace MeasureMyPike
         }
 
 
-
-
         public string deleteUser(string username)
         {
             using (var conn = new ModelContainer())
@@ -104,8 +103,9 @@ namespace MeasureMyPike
                     conn.SaveChanges();
                     return "Användaren har raderats";
                 }
-            
+
                 return "Det finns ingen användare med det angivna användarnamnet";
+            }
         }
 
         private string hashAndSaltPassword(string password)

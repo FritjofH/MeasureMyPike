@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MeasureMyPike.Application
 {
-    class LureService
+    public class LureService
     {
         public void addLure(String name, Model.Brand brand)
         {

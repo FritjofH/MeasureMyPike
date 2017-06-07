@@ -54,6 +54,22 @@ namespace MeasureMyPike
 
         }
 
+
+        public Model.Lures getLures(string lures)
+        {
+            using (var conn = new ModelContainer())
+            {
+                Model.Lures o = conn.Lures.FirstOrDefault(it => it.Name == lures);
+                {
+                    if (o != null)
+                    {
+                        return o;
+                    }
+                    else return null;
+                }
+            }
+        }
+
         public string addBrand(Model.Brand brand)
         {
             using (var conn = new ModelContainer())
@@ -104,8 +120,9 @@ namespace MeasureMyPike
                     conn.SaveChanges();
                     return "Användaren har raderats";
                 }
-            
+
                 return "Det finns ingen användare med det angivna användarnamnet";
+            }
         }
 
         private string hashAndSaltPassword(string password)
@@ -145,7 +162,7 @@ namespace MeasureMyPike
             return "Rätt lösenord";
         }
 
-        public string createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Model.Brand brand)
+        public string createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition)
         {
             List<Model.Media> mediaList = new List<Model.Media>();
             mediaList.Add(new Model.Media
@@ -158,14 +175,17 @@ namespace MeasureMyPike
                 }
             });
 
+            Model.Lures lure = getLures(lures);
+            Model.Brand brnd= lure.Brand;
+
             using (var conn = new ModelContainer())
             {
-                conn.Catch.Add( new Model.Catch {
+                conn.Catch.Add(new Model.Catch {
                     User = conn.Users.First(),
                     Comment = new Model.Comment { Text = comment },
                     Media = mediaList,
                     Lures = new Model.Lures { Name = lures, Brand = brand},
-                    
+                    //Lures = lure,
                     Fish = new Model.Fish { Length = fishLength, Weight = fishWeight },
                     Location = new Model.Location { Lake = lake, Coordinates = coordinates },
                     WeatherData = new Model.WeatherData { Temperature = temperature, Weather = weather, MoonPosition = moonposition },

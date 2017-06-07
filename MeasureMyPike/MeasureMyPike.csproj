@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\BrandService.cs" />
+    <Compile Include="Application\CatchService.cs" />
     <Compile Include="Application\LureService.cs" />
     <Compile Include="Application\DatabaseConnection.cs" />
     <Compile Include="Application\MediaService.cs" />
@@ -155,7 +156,6 @@
     <Content Include="bin\Debug\MeasureMyPike.exe" />
     <Content Include="bin\Debug\MeasureMyPike.pdb" />
     <Content Include="bin\Debug\MeasureMyPike.vshost.exe" />
-    <Content Include="Mockdata\Fisk.jpg" />
     <Content Include="Model\MeasureMyPikeUniqueConstraints.sql" />
     <Content Include="Model\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -1,4 +1,5 @@
 ﻿using System;
+using MeasureMyPike.Model;
 
 namespace MeasureMyPike.Application
 {
@@ -16,6 +17,13 @@ namespace MeasureMyPike.Application
             DatabaseConnection dbconn = new DatabaseConnection();
 
             return dbconn.addLure(lure);
+        }
+
+        public Lures getFirstLure()
+        {
+            DatabaseConnection dbconn = new DatabaseConnection();
+
+            return dbconn.getFirstLure();
         }
 
         /*

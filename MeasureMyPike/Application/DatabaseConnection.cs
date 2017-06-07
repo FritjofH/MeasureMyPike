@@ -1,15 +1,12 @@
-﻿using MeasureMyPike.Application;
+﻿using MeasureMyPike.Model;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Security.Cryptography;
 
 namespace MeasureMyPike
 {
     public class DatabaseConnection
     {
-        public bool addUser(Model.User user)
+        public bool addUser(User user)
         {
             try {
                 using (var conn = new ModelContainer())
@@ -60,7 +57,7 @@ namespace MeasureMyPike
             }
         }
 
-        public bool addLure(Model.Lures lure)
+        public bool addLure(Lures lure)
         {
             try
             {
@@ -85,7 +82,7 @@ namespace MeasureMyPike
         {
             using (var conn = new ModelContainer())
             {
-                Model.Lures lure = getLure(id);
+                Lures lure = getLure(id);
                 if (lure != null)
                 {
                     conn.Lures.Remove(lure);
@@ -97,17 +94,25 @@ namespace MeasureMyPike
             }
         }
 
-        public Model.Lure getLure(string id)
+        public Lure getLure(string id)
         {
             using (var conn = new ModelContainer()) 
             {
-                Model.Lures lure = conn.Lures.First(u => u.id == id);
+                Lures lure = conn.Lures.First(u => u.id == id);
                 return lure;
             }
         }
         */
 
-        public bool addBrand(Model.Brand brand)
+        public Lures getFirstLure()
+        {
+            using (var conn = new ModelContainer())
+            {
+                return conn.Lures.First();
+            }
+        }
+
+        public bool addBrand(Brand brand)
         {
             try {
                 using (var conn = new ModelContainer())
@@ -125,11 +130,11 @@ namespace MeasureMyPike
             }
         }
 
-        public Model.Brand getBrand(Model.Brand brand)
+        public Brand getBrand(Brand brand)
         {
             using (var conn = new ModelContainer())
             {
-                Model.Brand o = conn.Brand.FirstOrDefault(it => it.Id == brand.Id);
+                Brand o = conn.Brand.FirstOrDefault(it => it.Id == brand.Id);
                 {
                     if (o != null)
                     {
@@ -140,7 +145,7 @@ namespace MeasureMyPike
             }
         }
         
-        public bool addCatch(Model.Catch cc)
+        public bool addCatch(Catch cc)
         {
             try
             {

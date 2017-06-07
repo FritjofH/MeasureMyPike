@@ -9,33 +9,29 @@ namespace MeasureMyPike
 {
     public class DatabaseConnection
     {
-        public bool createUser(string lastName, string firstName, string username, string passwordHash)
+        public bool addUser(Model.User user)
         {
-            using (var conn = new ModelContainer())
-            {
-                if (conn.Users.FirstOrDefault(it => it.Username == username) == null)
+            try {
+                using (var conn = new ModelContainer())
                 {
-                    conn.Users.Add(new Model.User
-                    {
-                        FirstName = firstName,
-                        LastName = lastName,
-                        Username = username,
-                        MemberSince = DateTime.Now,
-                        Security = new Model.Security { Password = passwordHash }
-                    });
-
+                    conn.Users.Add(user);
                     conn.SaveChanges();
                     return true;
                 }
             }
-            return false;
+            catch (Exception ex) {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
 
         public bool deleteUser(string username)
         {
             using (var conn = new ModelContainer())
             {
-                Model.User user = conn.Users.First(u => u.Username == username);
+                Model.User user = getUser(username);
                 if (user != null)
                 {
                     conn.Users.Remove(user);
@@ -47,6 +43,15 @@ namespace MeasureMyPike
             }
         }
 
+        public Model.User getUser(string username)
+        {
+            using (var conn = new ModelContainer()) 
+            {
+                Model.User user = conn.Users.First(u => u.Username == username);
+                return user;
+            }
+        }
+
         public string getUserPasswordHash(string username)
         {
             using (var conn = new ModelContainer())
@@ -55,43 +60,69 @@ namespace MeasureMyPike
             }
         }
 
-        public string addLure(string lureName, Model.Brand brand)
+        public bool addLure(Model.Lures lure)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    conn.Lures.Add(lure);
+                    conn.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        /*
+        public bool deleteLure(string id)
         {
             using (var conn = new ModelContainer())
             {
-                if (conn.Lures.FirstOrDefault(it => it.Name == lureName) == null)
+                Model.Lures lure = getLure(id);
+                if (lure != null)
                 {
-
-                    conn.Lures.Add(new Model.Lures
-                    {
-                        Name = lureName,
-                        Brand = brand,
-                        Catch = null
-                    });
+                    conn.Lures.Remove(lure);
                     conn.SaveChanges();
-                    return "Lure har skapats";
+                    return true;
                 }
+
+                return false;
             }
-            return "Det finns redan en Lure med det angivna Lurenamnet, försök igen med ett annat Lurenamn";
         }
+
+        public Model.Lure getLure(string id)
+        {
+            using (var conn = new ModelContainer()) 
+            {
+                Model.Lures lure = conn.Lures.First(u => u.id == id);
+                return lure;
+            }
+        }
+        */
 
         public string addBrand(Model.Brand brand)
         {
-            using (var conn = new ModelContainer())
-            {
-                if (conn.Brand.FirstOrDefault(it => it.Name == brand.Name) == null)
+            try {
+                using (var conn = new ModelContainer())
                 {
-
-                    conn.Brand.Add(new Model.Brand
-                    {
-                        Name = brand.Name
-
-                    });
+                    conn.Brand.Add(brand);
                     conn.SaveChanges();
-                    return "Brand har skapats";
+                    return true;
                 }
             }
-            return "Det finns redan en Brand med det angivna Brandnamnet, försök igen med ett annat Brandnamn";
+            catch (Exception ex) {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
 
         public Model.Brand getBrand(Model.Brand brand)
@@ -109,37 +140,26 @@ namespace MeasureMyPike
             }
         }
         
-        public bool createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Model.Brand brand)
+        public bool addCatch(Model.Catch cc)
         {
-            List<Model.Media> mediaList = new List<Model.Media>();
-            mediaList.Add(new Model.Media
+            try
             {
-                MediaFormat = format,
-                Image = new Model.MediaData
+                using (var conn = new ModelContainer())
                 {
-                    Length = image.Length,
-                    Data = image
+                    conn.Catch.Add(cc);
+                    conn.SaveChanges();
+                    return true;
                 }
-            });
-
-            using (var conn = new ModelContainer())
+            }
+            catch (Exception ex)
             {
-                conn.Catch.Add(new Model.Catch
-                {
-                    User = conn.Users.First(),
-                    Comment = new Model.Comment { Text = comment },
-                    Media = mediaList,
-                    Lures = new Model.Lures { Name = lures, Brand = brand },
-
-                    Fish = new Model.Fish { Length = fishLength, Weight = fishWeight },
-                    Location = new Model.Location { Lake = lake, Coordinates = coordinates },
-                    WeatherData = new Model.WeatherData { Temperature = temperature, Weather = weather, MoonPosition = moonposition },
-                    Timestamp = DateTime.Now
-                });
-
-                conn.SaveChanges();
-                return true;
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
+
+
     }
 }

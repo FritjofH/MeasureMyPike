@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MeasureMyPike.Application;
 using System.IO;
 using System.Drawing;
@@ -19,7 +18,8 @@ namespace ApplicationTest
         }
 
         [TestMethod]
-        public void TestMethod1()
+        [TestCategory("CatchTest")]
+        public void createCatch()
         {
             //Fiskbild och konverting till en bytearray
             Image i = Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Mockdata\\Fisk.jpg");

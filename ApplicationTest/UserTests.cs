@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MeasureMyPike;
-using System.Diagnostics;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MeasureMyPike.Application;
 
 namespace ApplicationTest
@@ -20,6 +17,7 @@ namespace ApplicationTest
         }
 
         [TestMethod]
+        [TestCategory("UserTest")]
         public void createUser()
         {
             //Skapar upp en användare, om inte en med samma användarnamn redan finns
@@ -28,6 +26,7 @@ namespace ApplicationTest
         }
 
         [TestMethod]
+        [TestCategory("UserTest")]
         public void loginUserSucceeds()
         {
             var result = ss.login("hostf", "hemligt");
@@ -35,6 +34,7 @@ namespace ApplicationTest
         }
 
         [TestMethod]
+        [TestCategory("UserTest")]
         public void loginUserFails()
         {
             var result= ss.login("hostf", "fel lösenord");

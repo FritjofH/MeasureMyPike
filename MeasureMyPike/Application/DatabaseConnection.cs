@@ -31,7 +31,7 @@ namespace MeasureMyPike
             return false;
         }
 
-        public string deleteUser(string username)
+        public bool deleteUser(string username)
         {
             using (var conn = new ModelContainer())
             {
@@ -40,14 +40,14 @@ namespace MeasureMyPike
                 {
                     conn.Users.Remove(user);
                     conn.SaveChanges();
-                    return "Användaren har raderats";
+                    return true;
                 }
 
-                return "Det finns ingen användare med det angivna användarnamnet";
+                return false;
             }
         }
 
-        public string getUserPassword(string username)
+        public string getUserPasswordHash(string username)
         {
             using (var conn = new ModelContainer())
             {

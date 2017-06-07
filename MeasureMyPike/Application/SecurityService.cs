@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeasureMyPike.Application
 {
@@ -28,7 +24,7 @@ namespace MeasureMyPike.Application
         {
             DatabaseConnection dbconn = new DatabaseConnection();
 
-            byte[] hashBytes = Convert.FromBase64String(dbconn.getUserPassword(username));
+            byte[] hashBytes = Convert.FromBase64String(dbconn.getUserPasswordHash(username));
 
             byte[] salt = new byte[16];
             Array.Copy(hashBytes, 0, salt, 0, 16);

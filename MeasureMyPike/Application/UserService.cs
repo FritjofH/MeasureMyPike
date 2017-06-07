@@ -14,7 +14,16 @@ namespace MeasureMyPike.Application
 
             SecurityService ss = new SecurityService();
 
-            return dbconn.createUser(lastName, firstName, username, ss.hashAndSaltPassword(password));
+            var hashedPassword = ss.hashAndSaltPassword(password);
+
+            return dbconn.createUser(lastName, firstName, username, hashedPassword);
+        }
+
+        public bool deleteUser(string username)
+        {
+            DatabaseConnection dbconn = new DatabaseConnection();
+
+            return dbconn.deleteUser(username);
         }
     }
 }

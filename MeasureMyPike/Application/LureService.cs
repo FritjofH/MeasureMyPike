@@ -19,12 +19,12 @@ namespace MeasureMyPike.Application
             return dbconn.addLure(lure);
         }
 
-        public Lures getFirstLure()
-        {
-            DatabaseConnection dbconn = new DatabaseConnection();
+        //public Lures getFirstLure()
+        //{
+        //    DatabaseConnection dbconn = new DatabaseConnection();
 
-            return dbconn.getFirstLure();
-        }
+        //    return dbconn.getFirstLure();
+        //}
 
         /*
         public bool deleteLure(string id)

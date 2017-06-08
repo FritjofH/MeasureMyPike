@@ -23,16 +23,27 @@ namespace ApplicationTest
             ls = new LureService();
         }
 
+        //[TestMethod]
+        //[TestCategory("CatchTest")]
+        //public void createCatch()
+        //{
+        //    //Fiskbild och konverting till en bytearray
+        //    Image i = Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Mockdata\\Fisk.jpg");
+
+        //    var result = cs.createCatch(ms.ImageToByteArray(i), ms.getImageFormat(i), "Jag fångade en fisk", ls.getFirstLure(), "75 kilo", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", bs.getBrand(1), "hostf");
+
+        //    Assert.IsTrue(result, "Något gick fel vid skapandet av fångsten");
+        //}
+
         [TestMethod]
         [TestCategory("CatchTest")]
-        public void createCatch()
+        public void createCatc2h()
         {
-            //Fiskbild och konverting till en bytearray
-            Image i = Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Mockdata\\Fisk.jpg");
+            DatabaseConnection dbconn = new DatabaseConnection();
 
-            var result = cs.createCatch(ms.ImageToByteArray(i), ms.getImageFormat(i), "Jag fångade en fisk", ls.getFirstLure(), "75 kilo", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", bs.getBrand(1), "hostf");
+            var result = dbconn.getFirstLure();
 
-            Assert.IsTrue(result, "Något gick fel vid skapandet av fångsten");
+            
         }
     }
 }

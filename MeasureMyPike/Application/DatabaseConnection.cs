@@ -105,11 +105,13 @@ namespace MeasureMyPike
         */
 
         //Tillfällig metod för att programmet ska bygga
-        public Lures getFirstLure()
+        public string getFirstLure()
         {
             using (var conn = new ModelContainer())
             {
-                return conn.Lures.First();
+                var test = conn.Entry(conn.Lures.FirstOrDefault()).Reference(i => i.Brand).CurrentValue;
+
+                return test.Name;
             }
         }
 

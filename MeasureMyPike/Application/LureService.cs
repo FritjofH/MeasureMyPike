@@ -1,31 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
+using MeasureMyPike.Model;
 
 namespace MeasureMyPike.Application
 {
     public class LureService
     {
-        public void addLure(String name, Model.Brand brand)
+        public bool addLure(String lureName, Brand brand)
         {
-            Model.Lures lure = new Model.Lures();
-            lure.Brand = brand;
+            Lures lure = new Lures
+            {
+                Name = lureName,
+                Brand = brand,
+                Catch = null
+            };
+
             DatabaseConnection dbconn = new DatabaseConnection();
-            dbconn.addLure(name, brand);
 
-
-
+            return dbconn.addLure(lure);
         }
+
+        public Lures getFirstLure()
+        {
+            DatabaseConnection dbconn = new DatabaseConnection();
+
+            return dbconn.getFirstLure();
+        }
+
+        /*
+        public bool deleteLure(string id)
+        {
+            DatabaseConnection dbconn = new DatabaseConnection();
+            return dbconn.deleteLure(id);
+        }
+
         public void updateLure(String id)
         {
-
             // lure.Brand.Name = name;
-
-
         }
+        */
+
     }
 }

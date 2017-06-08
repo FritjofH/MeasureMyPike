@@ -1,57 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
+﻿using MeasureMyPike.Model;
+using System;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeasureMyPike
 {
     public class DatabaseConnection
     {
+        public bool addUser(User user)
+        {
+            try {
+                using (var conn = new ModelContainer())
+                {
+                    conn.Users.Add(user);
+                    conn.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex) {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
 
-        public string createUser(string lastName, string firstName, string username, string password)
+        public bool deleteUser(string username)
         {
             using (var conn = new ModelContainer())
             {
-                if (conn.Users.FirstOrDefault(it => it.Username == username) == null) {
-
-                    conn.Users.Add(new Model.User
-                    {
-                        FirstName = firstName,
-                        LastName = lastName,
-                        Username = username,
-                        MemberSince = DateTime.Now,
-                        Security = new Model.Security { Password = hashAndSaltPassword(password) }
-                    });
-
-                    conn.SaveChanges();
-                    return "Användaren har skapats";
-                }
-            }
-            return "Det finns redan en användare med det angivna användarnamnet, försök igen med ett annat användarnamn";
-        }
-        public string addLure(string lureName, Model.Brand brand) {
-            using (var conn = new ModelContainer())
-            {
-                if (conn.Lures.FirstOrDefault(it => it.Name == lureName) == null)
+                User user = getUser(username);
+                if (user != null)
                 {
+                    conn.Users.Remove(user);
+                    conn.SaveChanges();
+                    return true;
+                }
 
-                    conn.Lures.Add(new Model.Lures
-                    {
-                        Name = lureName,
-                        Brand = brand,
-                        Catch = null
-                });
-                conn.SaveChanges();
-                return "Lure har skapats";
+                return false;
             }
-        }
-            return "Det finns redan en Lure med det angivna Lurenamnet, försök igen med ett annat Lurenamn";
-
         }
 
 
@@ -72,94 +58,93 @@ namespace MeasureMyPike
 
         public string addBrand(Model.Brand brand)
         {
+            using (var conn = new ModelContainer()) 
+            {
+                User user = conn.Users.First(u => u.Username == username);
+                return user;
+            }
+        }
+
+        public string getUserPasswordHash(string username)
+        {
             using (var conn = new ModelContainer())
             {
-                if (conn.Brand.FirstOrDefault(it => it.Name == brand.Name) == null)
+                return conn.Users.First(it => it.Username == username).Security.Password;
+            }
+        }
+
+        public bool addLure(Lures lure)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
                 {
-
-                    conn.Brand.Add(new Model.Brand
-                    {
-                        Name = brand.Name
-
-                    });
+                    conn.Lures.Add(lure);
                     conn.SaveChanges();
-                    return "Brand har skapats";
+                    return true;
                 }
             }
-            return "Det finns redan en Brand med det angivna Brandnamnet, försök igen med ett annat Brandnamn";
-
-        }
-
-        public Model.Brand getBrand(Model.Brand brand)
-        {
-            using (var conn = new ModelContainer())
+            catch (Exception ex)
             {
-                Model.Brand o = conn.Brand.FirstOrDefault(it => it.Id == brand.Id);
-                {
-                    if (o != null)
-                    {
-                        return o;
-                    }
-                    else return null;
-                }
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 
-
-
-
-        public string deleteUser(string username)
+        /*
+        public bool deleteLure(string id)
         {
             using (var conn = new ModelContainer())
             {
-                Model.User user = conn.Users.First(u => u.Username == username);
-                if (user != null)
+                Lures lure = getLure(id);
+                if (lure != null)
                 {
-                    // exists
-                    conn.Users.Remove(user);
+                    conn.Lures.Remove(lure);
                     conn.SaveChanges();
-                    return "Användaren har raderats";
+                    return true;
                 }
 
-                return "Det finns ingen användare med det angivna användarnamnet";
+                return false;
             }
         }
 
-        private string hashAndSaltPassword(string password)
+        public Lure getLure(string id)
         {
-            byte[] salt;
-            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
-
-            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
-
-            byte[] hashBytes = new byte[36];
-            Array.Copy(salt, 0, hashBytes, 0, 16);
-            Array.Copy(hash, 0, hashBytes, 16, 20);
-
-            return Convert.ToBase64String(hashBytes);
+            using (var conn = new ModelContainer()) 
+            {
+                Lures lure = conn.Lures.First(u => u.id == id);
+                return lure;
+            }
         }
+        */
 
-        public string login(string username, string password)
+        //Tillfällig metod för att programmet ska bygga
+        public Lures getFirstLure()
         {
             using (var conn = new ModelContainer())
             {
-                /* Fetch the stored value */
-                string savedPasswordHash = conn.Users.First(it => it.Username == username).Security.Password;
-                /* Extract the bytes */
-                byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
-                /* Get the salt */
-                byte[] salt = new byte[16];
-                Array.Copy(hashBytes, 0, salt, 0, 16);
-                /* Compute the hash on the password the user entered */
-                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
-                byte[] hash = pbkdf2.GetBytes(20);
-                /* Compare the results */
-                for (int i = 0; i < 20; i++)
-                    if (hashBytes[i + 16] != hash[i])
-                        throw new UnauthorizedAccessException();
+                return conn.Lures.First();
             }
-            return "Rätt lösenord";
+        }
+
+        public bool addBrand(Brand brand)
+        {
+            try {
+                using (var conn = new ModelContainer())
+                {
+                    conn.Brand.Add(brand);
+                    conn.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex) {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
 
         public string createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition)
@@ -194,7 +179,41 @@ namespace MeasureMyPike
 
                 conn.SaveChanges();
                 return "Skiten funkar";
+        public Brand getBrand(Brand brand)
+        {
+            using (var conn = new ModelContainer())
+            {
+                Brand o = conn.Brand.FirstOrDefault(it => it.Id == brand.Id);
+                {
+                    if (o != null)
+                    {
+                        return o;
+                    }
+                    else return null;
+                }
             }
         }
+        
+        public bool addCatch(Catch cc)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    conn.Catch.Add(cc);
+                    conn.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+
     }
 }

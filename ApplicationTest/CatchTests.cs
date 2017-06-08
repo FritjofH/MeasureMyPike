@@ -29,9 +29,8 @@ namespace ApplicationTest
         {
             //Fiskbild och konverting till en bytearray
             Image i = Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Mockdata\\Fisk.jpg");
-            bs.addBrand("theBrand7");
 
-            var result = cs.createCatch(ms.ImageToByteArray(i), i.RawFormat.ToString(), "Jag fångade en fisk", ls.getFirstLure(), "75 kilo", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", bs.getBrand(1), "hostf");
+            var result = cs.createCatch(ms.ImageToByteArray(i), ms.getImageFormat(i), "Jag fångade en fisk", ls.getFirstLure(), "75 kilo", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", bs.getBrand(1), "hostf");
 
             Assert.IsTrue(result, "Något gick fel vid skapandet av fångsten");
         }

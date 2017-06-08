@@ -28,7 +28,6 @@ public class CatchService
             Comment = new Comment { Text = comment },
             Media = mediaList,
             Lures = lure,
-
             Fish = new Fish { Length = fishLength, Weight = fishWeight },
             Location = new Location { Lake = lake, Coordinates = coordinates },
             WeatherData = new WeatherData { Temperature = temperature, Weather = weather, MoonPosition = moonposition },

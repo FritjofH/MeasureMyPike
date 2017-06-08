@@ -5,9 +5,9 @@ namespace MeasureMyPike.Application
 {
     public class LureService
     {
-        public bool addLure(String lureName, Model.Brand brand)
+        public bool addLure(String lureName, Brand brand)
         {
-            Model.Lures lure = new Model.Lures
+            Lures lure = new Lures
             {
                 Name = lureName,
                 Brand = brand,

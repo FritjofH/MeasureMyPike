@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeasureMyPike.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,13 @@ namespace MeasureMyPike.Application
 
             var hashedPassword = ss.hashAndSaltPassword(password);
 
-            Model.User user = new Model.User
+            User user = new User
             {
                 FirstName = firstName,
                 LastName = lastName,
                 Username = username,
                 MemberSince = DateTime.Now,
-                Security = new Model.Security { Password = hashedPassword }
+                Security = new Security { Password = hashedPassword }
             };
 
             return dbconn.addUser(user);
@@ -35,7 +36,7 @@ namespace MeasureMyPike.Application
             return dbconn.deleteUser(username);
         }
 
-        public Model.User getUser(string username)
+        public User getUser(string username)
         {
             DatabaseConnection dbconn = new DatabaseConnection();
 

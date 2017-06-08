@@ -28,7 +28,7 @@ namespace MeasureMyPike
         {
             using (var conn = new ModelContainer())
             {
-                Model.User user = getUser(username);
+                User user = getUser(username);
                 if (user != null)
                 {
                     conn.Users.Remove(user);
@@ -40,11 +40,11 @@ namespace MeasureMyPike
             }
         }
 
-        public Model.User getUser(string username)
+        public User getUser(string username)
         {
             using (var conn = new ModelContainer()) 
             {
-                Model.User user = conn.Users.First(u => u.Username == username);
+                User user = conn.Users.First(u => u.Username == username);
                 return user;
             }
         }
@@ -104,6 +104,7 @@ namespace MeasureMyPike
         }
         */
 
+        //Tillfällig metod för att programmet ska bygga
         public Lures getFirstLure()
         {
             using (var conn = new ModelContainer())

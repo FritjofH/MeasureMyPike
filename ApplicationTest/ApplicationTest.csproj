@@ -64,6 +64,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CatchTests.cs" />
+    <Compile Include="LureTests.cs" />
     <Compile Include="UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

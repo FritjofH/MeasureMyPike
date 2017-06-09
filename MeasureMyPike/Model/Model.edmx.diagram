@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="Model.Media" Width="1.5" PointX="2.375" PointY="6.625" />
         <EntityTypeShape EntityType="Model.MediaData" Width="1.5" PointX="2.375" PointY="9.25" />
         <EntityTypeShape EntityType="Model.Location" Width="1.5" PointX="10.75" PointY="4.25" />
-        <EntityTypeShape EntityType="Model.Brand" Width="1.5" PointX="5.5" PointY="11.75" />
+        <EntityTypeShape EntityType="Model.Brand" Width="1.5" PointX="5.25" PointY="12" />
         <EntityTypeShape EntityType="Model.Lures" Width="1.5" PointX="5.5" PointY="9.25" />
         <AssociationConnector Association="Model.CatchComment" />
         <AssociationConnector Association="Model.CatchFish" />

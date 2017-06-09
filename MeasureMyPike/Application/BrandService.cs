@@ -4,7 +4,7 @@ namespace MeasureMyPike.Application
 {
     public class BrandService
     {
-        public void addBrand(string name)
+        public void AddBrand(string name)
         {
             Brand brand = new Brand
             {
@@ -14,10 +14,17 @@ namespace MeasureMyPike.Application
             dbconn.addBrand(brand);
         }
 
-        public Brand getBrand(int id)
+        public Brand GetBrand(int id)
         {
             Brand brand = new Brand();
             brand.Id = id;
+            DatabaseConnection dbconn = new DatabaseConnection();
+            return dbconn.getBrand(brand);
+        }
+        public Brand getBrand(string id)
+        {
+            Brand brand = new Brand();
+            brand.Name = id;
             DatabaseConnection dbconn = new DatabaseConnection();
             return dbconn.getBrand(brand);
         }

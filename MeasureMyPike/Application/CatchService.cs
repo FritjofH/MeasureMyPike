@@ -20,11 +20,11 @@ public class CatchService
             }
         });
 
-        User user = dbconn.getUser(username);
+        //User user = dbconn.getUserPasswordHash(username);
 
         Catch cc = new Catch
         {
-            User = user,
+            //User = user,
             Comment = new Comment { Text = comment },
             Media = mediaList,
             Lures = lure,

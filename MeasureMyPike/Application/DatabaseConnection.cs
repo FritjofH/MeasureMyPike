@@ -1,5 +1,6 @@
 ﻿using MeasureMyPike.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MeasureMyPike
@@ -40,12 +41,11 @@ namespace MeasureMyPike
             }
         }
 
-
-        public Model.Lures getLures(string lures)
+        private User getUser(string username)
         {
             using (var conn = new ModelContainer())
             {
-                Model.Lures o = conn.Lures.FirstOrDefault(it => it.Name == lures);
+                Model.User o = conn.Users.FirstOrDefault(it => it.FirstName == username);
                 {
                     if (o != null)
                     {
@@ -56,12 +56,68 @@ namespace MeasureMyPike
             }
         }
 
-        public string addBrand(Model.Brand brand)
+        public Model.Lures getLure(string lure)
         {
-            using (var conn = new ModelContainer()) 
+            using (var conn = new ModelContainer())
             {
-                User user = conn.Users.First(u => u.Username == username);
-                return user;
+                Model.Lures o = conn.Lures.FirstOrDefault(it => it.Name == lure);
+                {
+                    if (o != null)
+                    {
+                        return o;
+                    }
+                    else return null;
+                }
+            }
+        }
+
+        public Model.Lures getLure(int id)
+        {
+            using (var conn = new ModelContainer())
+            {
+                Model.Lures o = conn.Lures.FirstOrDefault(it => it.Id == id);
+                {
+                    if (o != null)
+                    {
+                        return o;
+                    }
+                    else return null;
+                }
+            }
+        }
+
+        public bool updateLure(int id, string lureName)
+        {
+            using (var conn = new ModelContainer())
+            {
+                try
+                {
+                    Model.Lures o = conn.Lures.FirstOrDefault(it => it.Id == id);
+                    {
+                        o.Name = lureName;
+                        conn.SaveChanges();
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                    return false;
+                    
+                }
+                
+            }
+        }
+
+
+
+        public Brand getBrand(string name)
+        {
+            using (var conn = new ModelContainer())
+            {
+                Brand brand = conn.Brand.First(u => u.Name == name);
+                return brand;
             }
         }
 
@@ -160,30 +216,33 @@ namespace MeasureMyPike
                 }
             });
 
-            Model.Lures lure = getLures(lures);
-            Model.Brand brnd= lure.Brand;
+            Model.Lures lure = getLure(lures);
+            Model.Brand brnd = lure.Brand;
 
             using (var conn = new ModelContainer())
             {
-                conn.Catch.Add(new Model.Catch {
+                conn.Catch.Add(new Model.Catch
+                {
                     User = conn.Users.First(),
                     Comment = new Model.Comment { Text = comment },
                     Media = mediaList,
-                    Lures = new Model.Lures { Name = lures, Brand = brand},
+                    Lures = new Model.Lures { Name = lures, Brand = brnd },
                     //Lures = lure,
                     Fish = new Model.Fish { Length = fishLength, Weight = fishWeight },
                     Location = new Model.Location { Lake = lake, Coordinates = coordinates },
                     WeatherData = new Model.WeatherData { Temperature = temperature, Weather = weather, MoonPosition = moonposition },
                     Timestamp = DateTime.Now
-                } );
+                });
 
                 conn.SaveChanges();
                 return "Skiten funkar";
+            }
+        }
         public Brand getBrand(Brand brand)
         {
             using (var conn = new ModelContainer())
             {
-                Brand o = conn.Brand.FirstOrDefault(it => it.Id == brand.Id);
+                Brand o = conn.Brand.FirstOrDefault(it => it.Name == brand.Name);
                 {
                     if (o != null)
                     {

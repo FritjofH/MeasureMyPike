@@ -35,12 +35,12 @@ namespace MeasureMyPike.Application
 
             return dbconn.deleteUser(username);
         }
-
+        /*
         public User getUser(string username)
         {
             DatabaseConnection dbconn = new DatabaseConnection();
 
-            return dbconn.getUser(username);
-        }
+            //return dbconn.getUser(username);
+        }*/
     }
 }

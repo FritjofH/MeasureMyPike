@@ -205,7 +205,7 @@ namespace MeasureMyPike
             }
         }
 
-        public IEnumerable<Brand> getAllBrands()
+        public List<Brand> getAllBrands()
         {
             try
             {

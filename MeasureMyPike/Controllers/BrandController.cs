@@ -6,16 +6,18 @@ using System.Net.Http;
 using System.Web.Http;
 using MeasureMyPike.Models;
 using MeasureMyPike.Service;
+using System.Collections;
 
 namespace MeasureMyPike.Controllers
 {
     public class BrandController : ApiController
     {
         //GET: api/Brand
-        public IEnumerable<Brand> Get()
+        public List<Brand> Get()
         {
             BrandService bs = new BrandService();
-            return bs.getAllBrand();
+            var e = bs.getAllBrand();
+            return e;
         }
 
         // GET: api/Brand/5

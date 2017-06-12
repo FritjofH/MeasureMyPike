@@ -244,6 +244,13 @@
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\BrandService.cs" />
+    <Compile Include="Service\CatchService.cs" />
+    <Compile Include="Service\DatabaseConnection.cs" />
+    <Compile Include="Service\LureService.cs" />
+    <Compile Include="Service\MediaService.cs" />
+    <Compile Include="Service\SecurityService.cs" />
+    <Compile Include="Service\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

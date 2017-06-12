@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MeasureMyPike.Application;
+using MeasureMyPike.Service;
 
 namespace ApplicationTest
 {

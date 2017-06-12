@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace MeasureMyPike.Application
+namespace MeasureMyPike.Service
 {
     public class SecurityService
     {

@@ -1,6 +1,6 @@
-﻿using MeasureMyPike.Model;
+﻿using MeasureMyPike.Models;
 
-namespace MeasureMyPike.Application
+namespace MeasureMyPike.Service
 {
     public class BrandService
     {

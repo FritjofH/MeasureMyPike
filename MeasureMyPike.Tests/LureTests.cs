@@ -1,9 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MeasureMyPike.Application;
+using MeasureMyPike;
 using System.IO;
 using System.Drawing;
-using MeasureMyPike;
 
 namespace ApplicationTest
 {
@@ -32,7 +31,7 @@ namespace ApplicationTest
         {
             int rnd = getRndNr();
             bs.AddBrand("theBrand" + rnd);
-            mmp.Model.Brand b = bs.getBrand("theBrand" + rnd);
+            mmp.Models.Brand b = bs.getBrand("theBrand" + rnd);
             //ls.addLure("MyLure9" + rnd, b);
             Assert.IsTrue(ls.addLure("MyLure9" + rnd, b), "Gick inte att skapa");
             
@@ -44,7 +43,7 @@ namespace ApplicationTest
         {
             int rnd = getRndNr();
             bs.AddBrand("theBrand1" + rnd);
-            mmp.Model.Brand b = bs.getBrand("theBrand1" + rnd);
+            mmp.Models.Brand b = bs.getBrand("theBrand1" + rnd);
             
             Assert.IsTrue(ls.addLure("MyLureorg1" + rnd, b), "Gick inte att skapa");
             

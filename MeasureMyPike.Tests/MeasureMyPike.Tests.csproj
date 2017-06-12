@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <Content Include="MockData\Fisk.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,4 +1,4 @@
-﻿using MeasureMyPike.Model;
+﻿using MeasureMyPike.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace MeasureMyPike
             try {
                 using (var conn = new ModelContainer())
                 {
-                    conn.Users.Add(user);
+                    conn.User.Add(user);
                     conn.SaveChanges();
                     return true;
                 }
@@ -32,7 +32,7 @@ namespace MeasureMyPike
                 User user = getUser(username);
                 if (user != null)
                 {
-                    conn.Users.Remove(user);
+                    conn.User.Remove(user);
                     conn.SaveChanges();
                     return true;
                 }
@@ -45,7 +45,7 @@ namespace MeasureMyPike
         {
             using (var conn = new ModelContainer())
             {
-                Model.User o = conn.Users.FirstOrDefault(it => it.FirstName == username);
+                Models.User o = conn.User.FirstOrDefault(it => it.FirstName == username);
                 {
                     if (o != null)
                     {
@@ -56,11 +56,11 @@ namespace MeasureMyPike
             }
         }
 
-        public Model.Lures getLure(string lure)
+        public Models.Lures getLure(string lure)
         {
             using (var conn = new ModelContainer())
             {
-                Model.Lures o = conn.Lures.FirstOrDefault(it => it.Name == lure);
+                Models.Lures o = conn.Lures.FirstOrDefault(it => it.Name == lure);
                 {
                     if (o != null)
                     {
@@ -71,11 +71,11 @@ namespace MeasureMyPike
             }
         }
 
-        public Model.Lures getLure(int id)
+        public Models.Lures getLure(int id)
         {
             using (var conn = new ModelContainer())
             {
-                Model.Lures o = conn.Lures.FirstOrDefault(it => it.Id == id);
+                Models.Lures o = conn.Lures.FirstOrDefault(it => it.Id == id);
                 {
                     if (o != null)
                     {
@@ -92,7 +92,7 @@ namespace MeasureMyPike
             {
                 try
                 {
-                    Model.Lures o = conn.Lures.FirstOrDefault(it => it.Id == id);
+                    Models.Lures o = conn.Lures.FirstOrDefault(it => it.Id == id);
                     {
                         o.Name = lureName;
                         conn.SaveChanges();
@@ -125,7 +125,7 @@ namespace MeasureMyPike
         {
             using (var conn = new ModelContainer())
             {
-                return conn.Users.First(it => it.Username == username).Security.Password;
+                return conn.User.First(it => it.Username == username).Security.Password;
             }
         }
 
@@ -207,32 +207,32 @@ namespace MeasureMyPike
 
         public string createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition)
         {
-            List<Model.Media> mediaList = new List<Model.Media>();
-            mediaList.Add(new Model.Media
+            List<Models.Media> mediaList = new List<Models.Media>();
+            mediaList.Add(new Models.Media
             {
                 MediaFormat = format,
-                Image = new Model.MediaData
+                Image = new Models.MediaData
                 {
                     Length = image.Length,
                     Data = image
                 }
             });
 
-            Model.Lures lure = getLure(lures);
-            Model.Brand brnd = lure.Brand;
+            Models.Lures lure = getLure(lures);
+            Models.Brand brnd = lure.Brand;
 
             using (var conn = new ModelContainer())
             {
-                conn.Catch.Add(new Model.Catch
+                conn.Catch.Add(new Models.Catch
                 {
-                    User = conn.Users.First(),
-                    Comment = new Model.Comment { Text = comment },
+                    User = conn.User.First(),
+                    Comment = new Models.Comment { Text = comment },
                     Media = mediaList,
-                    Lures = new Model.Lures { Name = lures, Brand = brnd },
+                    Lures = new Models.Lures { Name = lures, Brand = brnd },
                     //Lures = lure,
-                    Fish = new Model.Fish { Length = fishLength, Weight = fishWeight },
-                    Location = new Model.Location { Lake = lake, Coordinates = coordinates },
-                    WeatherData = new Model.WeatherData { Temperature = temperature, Weather = weather, MoonPosition = moonposition },
+                    Fish = new Models.Fish { Length = fishLength, Weight = fishWeight },
+                    Location = new Models.Location { Lake = lake, Coordinates = coordinates },
+                    WeatherData = new Models.WeatherData { Temperature = temperature, Weather = weather, MoonPosition = moonposition },
                     Timestamp = DateTime.Now
                 });
 

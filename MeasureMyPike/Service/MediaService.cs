@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace MeasureMyPike.Application
+namespace MeasureMyPike.Service
 {
     public class MediaService
     {

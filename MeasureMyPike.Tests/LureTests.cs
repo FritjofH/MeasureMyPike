@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MeasureMyPike;
 using System.IO;
 using System.Drawing;
+using MeasureMyPike.Service;
 
 namespace ApplicationTest
 {

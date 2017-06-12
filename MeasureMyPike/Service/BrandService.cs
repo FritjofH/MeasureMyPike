@@ -1,4 +1,5 @@
 ﻿using MeasureMyPike.Models;
+using System.Collections.Generic;
 
 namespace MeasureMyPike.Service
 {
@@ -13,6 +14,13 @@ namespace MeasureMyPike.Service
             DatabaseConnection dbconn = new DatabaseConnection();
             dbconn.addBrand(brand);
         }
+        public void AddBrand(Brand brand)
+        {
+           
+            DatabaseConnection dbconn = new DatabaseConnection();
+            dbconn.addBrand(brand);
+        }
+
 
         public Brand getBrand(int id)
         {
@@ -20,6 +28,12 @@ namespace MeasureMyPike.Service
             brand.Id = id;
             DatabaseConnection dbconn = new DatabaseConnection();
             return dbconn.getBrand(brand);
+        }
+
+        public IEnumerable<Brand> getAllBrand()
+        {
+            DatabaseConnection dbconn = new DatabaseConnection();
+            return dbconn.getAllBrands();
         }
 
         public Brand getBrand(string id)

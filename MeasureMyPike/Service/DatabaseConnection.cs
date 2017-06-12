@@ -205,6 +205,25 @@ namespace MeasureMyPike
             }
         }
 
+        public IEnumerable<Brand> getAllBrands()
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var value = conn.Brand.ToList();
+                    return value;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
         public string createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition)
         {
             List<Models.Media> mediaList = new List<Models.Media>();

@@ -36,7 +36,6 @@ namespace MeasureMyPike.Models.Entity_Framework
         public virtual DbSet<Lures> Lures { get; set; }
         public virtual DbSet<Statistics> Statistics { get; set; }
         public virtual DbSet<WeatherData> WeatherData { get; set; }
-        public virtual DbSet<UserConnections> UserConnections { get; set; }
         public virtual DbSet<Security> Security { get; set; }
     }
 }

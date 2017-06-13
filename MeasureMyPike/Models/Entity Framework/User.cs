@@ -18,7 +18,6 @@ namespace MeasureMyPike.Models.Entity_Framework
         public User()
         {
             this.Catch = new HashSet<Catch>();
-            this.UserConnections = new HashSet<UserConnections>();
         }
     
         public int Id { get; set; }
@@ -29,8 +28,6 @@ namespace MeasureMyPike.Models.Entity_Framework
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Catch> Catch { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserConnections> UserConnections { get; set; }
         public virtual Security Security { get; set; }
     }
 }

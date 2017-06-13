@@ -30,8 +30,6 @@
         <EntityTypeShape EntityType="Model.WeatherData" Width="1.5" PointX="10.75" PointY="1.5" />
         <AssociationConnector Association="Model.CatchWeatherData" />
         <AssociationConnector Association="Model.WeatherDataStatistics" />
-        <EntityTypeShape EntityType="Model.UserConnections" Width="1.5" PointX="8" PointY="1" />
-        <AssociationConnector Association="Model.UserUserConnections" />
         <EntityTypeShape EntityType="Model.Security" Width="1.5" PointX="2.625" PointY="1.125" />
         <AssociationConnector Association="Model.SecurityUser" />
       </Diagram>

@@ -9,6 +9,7 @@ namespace MeasureMyPike.Service
         {
             Brand brand = new Brand { Name = name };
             DatabaseConnection dbconn = new DatabaseConnection();
+            // är Id automatiskt tilldelat då??
             dbconn.addBrand(brand);
         }
 
@@ -22,6 +23,12 @@ namespace MeasureMyPike.Service
         {
             DatabaseConnection dbconn = new DatabaseConnection();
             return dbconn.getBrand(id);
+        }
+
+        public Brand getBrand(string name)
+        {
+            DatabaseConnection dbconn = new DatabaseConnection();
+            return dbconn.getBrand(name);
         }
 
         public List<Models.Application.Brand> getAllBrand()

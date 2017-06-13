@@ -17,7 +17,6 @@
     <EntitySet Name="Lures" EntityType="Model.Store.Lures" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Statistics" EntityType="Model.Store.Statistics" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="WeatherData" EntityType="Model.Store.WeatherData" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserConnections" EntityType="Model.Store.UserConnections" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Security" EntityType="Model.Store.Security" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserCatch" Association="Model.Store.UserCatch">
       <End Role="User" EntitySet="User" />
@@ -74,10 +73,6 @@
     <AssociationSet Name="WeatherDataStatistics" Association="Model.Store.WeatherDataStatistics">
       <End Role="WeatherData" EntitySet="WeatherData" />
       <End Role="Statistics" EntitySet="Statistics" />
-    </AssociationSet>
-    <AssociationSet Name="UserUserConnections" Association="Model.Store.UserUserConnections">
-      <End Role="User" EntitySet="User" />
-      <End Role="UserConnections" EntitySet="UserConnections" />
     </AssociationSet>
     <AssociationSet Name="SecurityUser" Association="Model.Store.SecurityUser">
       <End Role="Security" EntitySet="Security" />
@@ -181,14 +176,6 @@
     <Property Name="Weather" Type="nvarchar(max)" Nullable="false" />
     <Property Name="MoonPosition" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Statistics_Id" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="UserConnections">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FriendsSince" Type="datetime" Nullable="false" />
-    <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Security">
     <Key>
@@ -366,18 +353,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="UserUserConnections">
-    <End Role="User" Type="Model.Store.User" Multiplicity="1" />
-    <End Role="UserConnections" Type="Model.Store.UserConnections" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserConnections">
-        <PropertyRef Name="User_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="SecurityUser">
     <End Role="Security" Type="Model.Store.Security" Multiplicity="*" />
     <End Role="User" Type="Model.Store.User" Multiplicity="1" />
@@ -462,11 +437,6 @@
             <End Role="WeatherData" EntitySet="WeatherData" />
             <End Role="Statistics" EntitySet="Statistics" />
           </AssociationSet>
-          <EntitySet Name="UserConnections" EntityType="Model.UserConnections" />
-          <AssociationSet Name="UserUserConnections" Association="Model.UserUserConnections">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserConnections" EntitySet="UserConnections" />
-          </AssociationSet>
           <EntitySet Name="Security" EntityType="Model.Security" />
           <AssociationSet Name="SecurityUser" Association="Model.SecurityUser">
             <End Role="Security" EntitySet="Security" />
@@ -483,7 +453,6 @@
           <Property Name="FirstName" Type="String" Nullable="true" Unicode="true" />
           <NavigationProperty Name="Catch" Relationship="Model.UserCatch" FromRole="User" ToRole="Catch" />
           <Property Name="MemberSince" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="UserConnections" Relationship="Model.UserUserConnections" FromRole="User" ToRole="UserConnections" />
           <NavigationProperty Name="Security" Relationship="Model.SecurityUser" FromRole="User" ToRole="Security" />
         </EntityType>
         <EntityType Name="Catch">
@@ -590,7 +559,7 @@
           <End Type="Model.Location" Role="Location" Multiplicity="1" />
         </Association>
         <Association Name="CatchLures">
-          <End Type="Model.Catch" Role="Catch" Multiplicity="0..1" />
+          <End Type="Model.Catch" Role="Catch" Multiplicity="*" />
           <End Type="Model.Lures" Role="Lures" Multiplicity="1" />
         </Association>
         <Association Name="LuresBrand">
@@ -642,18 +611,6 @@
         <Association Name="WeatherDataStatistics">
           <End Type="Model.WeatherData" Role="WeatherData" Multiplicity="*" />
           <End Type="Model.Statistics" Role="Statistics" Multiplicity="0..1" />
-        </Association>
-        <EntityType Name="UserConnections">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="User" Relationship="Model.UserUserConnections" FromRole="UserConnections" ToRole="User" />
-          <Property Name="FriendsSince" Type="DateTime" Nullable="false" />
-        </EntityType>
-        <Association Name="UserUserConnections">
-          <End Type="Model.User" Role="User" Multiplicity="1" />
-          <End Type="Model.UserConnections" Role="UserConnections" Multiplicity="*" />
         </Association>
         <EntityType Name="Security">
           <Key>
@@ -765,14 +722,6 @@
           <ScalarProperty Name="Temperature" ColumnName="Temperature" />
           <ScalarProperty Name="Weather" ColumnName="Weather" />
           <ScalarProperty Name="MoonPosition" ColumnName="MoonPosition" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserConnections">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.UserConnections)">
-        <MappingFragment StoreEntitySet="UserConnections">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="FriendsSince" ColumnName="FriendsSince" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -900,14 +849,6 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
       <Condition ColumnName="Statistics_Id" IsNull="false" />
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="UserUserConnections" TypeName="Model.UserUserConnections" StoreEntitySet="UserConnections">
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="User_Id" />
-      </EndProperty>
-      <EndProperty Name="UserConnections">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="SecurityUser" TypeName="Model.SecurityUser" StoreEntitySet="Security">
       <EndProperty Name="User">

@@ -14,10 +14,17 @@ namespace MeasureMyPike.Models.Entity_Framework
     
     public partial class Lures
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Lures()
+        {
+            this.Catch = new HashSet<Catch>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
     
-        public virtual Catch Catch { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Catch> Catch { get; set; }
         public virtual Brand Brand { get; set; }
         public virtual Statistics Statistics { get; set; }
     }

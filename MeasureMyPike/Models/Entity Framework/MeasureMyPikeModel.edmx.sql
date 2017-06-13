@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/12/2017 10:20:08
--- Generated from EDMX file: C:\src\Repos\MeasureMyPike\MeasureMyPike\Models\MeasureMyPikeModel.edmx
+-- Date Created: 06/13/2017 17:07:45
+-- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike\Models\Entity Framework\MeasureMyPikeModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -59,9 +59,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_WeatherDataStatistics]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[WeatherData] DROP CONSTRAINT [FK_WeatherDataStatistics];
 GO
-IF OBJECT_ID(N'[dbo].[FK_UserUserConnections]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserConnections] DROP CONSTRAINT [FK_UserUserConnections];
-GO
 IF OBJECT_ID(N'[dbo].[FK_SecurityUser]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Security] DROP CONSTRAINT [FK_SecurityUser];
 GO
@@ -102,9 +99,6 @@ IF OBJECT_ID(N'[dbo].[Statistics]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[WeatherData]', 'U') IS NOT NULL
     DROP TABLE [dbo].[WeatherData];
-GO
-IF OBJECT_ID(N'[dbo].[UserConnections]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserConnections];
 GO
 IF OBJECT_ID(N'[dbo].[Security]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Security];
@@ -212,14 +206,6 @@ CREATE TABLE [dbo].[WeatherData] (
 );
 GO
 
--- Creating table 'UserConnections'
-CREATE TABLE [dbo].[UserConnections] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [FriendsSince] datetime  NOT NULL,
-    [User_Id] int  NOT NULL
-);
-GO
-
 -- Creating table 'Security'
 CREATE TABLE [dbo].[Security] (
     [Id] int IDENTITY(1,1) NOT NULL,
@@ -295,12 +281,6 @@ GO
 -- Creating primary key on [Id] in table 'WeatherData'
 ALTER TABLE [dbo].[WeatherData]
 ADD CONSTRAINT [PK_WeatherData]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'UserConnections'
-ALTER TABLE [dbo].[UserConnections]
-ADD CONSTRAINT [PK_UserConnections]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -522,21 +502,6 @@ GO
 CREATE INDEX [IX_FK_WeatherDataStatistics]
 ON [dbo].[WeatherData]
     ([Statistics_Id]);
-GO
-
--- Creating foreign key on [User_Id] in table 'UserConnections'
-ALTER TABLE [dbo].[UserConnections]
-ADD CONSTRAINT [FK_UserUserConnections]
-    FOREIGN KEY ([User_Id])
-    REFERENCES [dbo].[User]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UserUserConnections'
-CREATE INDEX [IX_FK_UserUserConnections]
-ON [dbo].[UserConnections]
-    ([User_Id]);
 GO
 
 -- Creating foreign key on [User_Id] in table 'Security'

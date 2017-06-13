@@ -191,6 +191,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Application\Brand.cs" />
+    <Compile Include="Models\Application\Catch.cs" />
+    <Compile Include="Models\Application\Comment.cs" />
+    <Compile Include="Models\Application\Fish.cs" />
+    <Compile Include="Models\Application\Location.cs" />
+    <Compile Include="Models\Application\Lures.cs" />
+    <Compile Include="Models\Application\Media.cs" />
+    <Compile Include="Models\Application\MediaData.cs" />
+    <Compile Include="Models\Application\Security.cs" />
+    <Compile Include="Models\Application\Statistics.cs" />
+    <Compile Include="Models\Application\User.cs" />
+    <Compile Include="Models\Application\WeatherData.cs" />
     <Compile Include="Models\Entity Framework\Brand.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
@@ -237,9 +248,6 @@
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity Framework\User.cs">
-      <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entity Framework\UserConnections.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity Framework\WeatherData.cs">

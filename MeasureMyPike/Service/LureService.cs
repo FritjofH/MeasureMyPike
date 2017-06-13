@@ -1,5 +1,5 @@
 ﻿using System;
-using MeasureMyPike.Models;
+using MeasureMyPike.Models.Entity_Framework;
 
 namespace MeasureMyPike.Service
 {

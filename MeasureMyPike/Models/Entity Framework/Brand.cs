@@ -7,17 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike.Models
+namespace MeasureMyPike.Models.Entity_Framework
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class MediaData
+    public partial class Brand
     {
-        public int Id { get; set; }
-        public byte[] Data { get; set; }
-        public int Length { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Brand()
+        {
+            this.Lures = new HashSet<Lures>();
+        }
     
-        public virtual Media Media { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lures> Lures { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using MeasureMyPike.Models;
-using System.Collections;
+﻿using MeasureMyPike.Models.Entity_Framework;
 using System.Collections.Generic;
 
 namespace MeasureMyPike.Service
@@ -17,7 +16,6 @@ namespace MeasureMyPike.Service
         }
         public void AddBrand(Brand brand)
         {
-           
             DatabaseConnection dbconn = new DatabaseConnection();
             dbconn.addBrand(brand);
         }
@@ -25,18 +23,15 @@ namespace MeasureMyPike.Service
 
         public Brand getBrand(int id)
         {
-            Brand brand = new Brand();
-            brand.Id = id;
             DatabaseConnection dbconn = new DatabaseConnection();
-            return dbconn.getBrand(brand);
+            return dbconn.getBrand(id);
         }
 
-        public List<Brand> getAllBrand()
+        public List<Models.Application.Brand> getAllBrand()
         {
             DatabaseConnection dbconn = new DatabaseConnection();
-            var z = dbconn.getAllBrands();
            
-            return z;
+            return dbconn.getAllBrands();
         }
 
         public Brand getBrand(string id)

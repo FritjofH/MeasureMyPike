@@ -7,16 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike.Models
+namespace MeasureMyPike.Models.Entity_Framework
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class UserConnections
+    public partial class Location
     {
         public int Id { get; set; }
-        public System.DateTime FriendsSince { get; set; }
+        public string Lake { get; set; }
+        public string Coordinates { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual Catch Catch { get; set; }
+        public virtual Statistics Statistics { get; set; }
     }
 }

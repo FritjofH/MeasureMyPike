@@ -190,58 +190,59 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Brand.cs">
+    <Compile Include="Models\Application\Brand.cs" />
+    <Compile Include="Models\Entity Framework\Brand.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Catch.cs">
+    <Compile Include="Models\Entity Framework\Catch.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Comment.cs">
+    <Compile Include="Models\Entity Framework\Comment.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Fish.cs">
+    <Compile Include="Models\Entity Framework\Fish.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Location.cs">
+    <Compile Include="Models\Entity Framework\Location.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Lures.cs">
+    <Compile Include="Models\Entity Framework\Lures.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MeasureMyPikeModel.Context.cs">
+    <Compile Include="Models\Entity Framework\MeasureMyPikeModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MeasureMyPikeModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MeasureMyPikeModel.cs">
+    <Compile Include="Models\Entity Framework\MeasureMyPikeModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MeasureMyPikeModel.Designer.cs">
+    <Compile Include="Models\Entity Framework\MeasureMyPikeModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MeasureMyPikeModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Media.cs">
+    <Compile Include="Models\Entity Framework\Media.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MediaData.cs">
+    <Compile Include="Models\Entity Framework\MediaData.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Security.cs">
+    <Compile Include="Models\Entity Framework\Security.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Statistics.cs">
+    <Compile Include="Models\Entity Framework\Statistics.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs">
+    <Compile Include="Models\Entity Framework\User.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserConnections.cs">
+    <Compile Include="Models\Entity Framework\UserConnections.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\WeatherData.cs">
+    <Compile Include="Models\Entity Framework\WeatherData.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -260,17 +261,18 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\MeasureMyPikeModel.Context.tt">
+    <Content Include="Models\Entity Framework\MeasureMyPikeModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MeasureMyPikeModel.Context.cs</LastGenOutput>
       <DependentUpon>MeasureMyPikeModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\MeasureMyPikeModel.edmx.sql" />
-    <Content Include="Models\MeasureMyPikeModel.tt">
+    <Content Include="Models\Entity Framework\MeasureMyPikeModel.edmx.sql" />
+    <Content Include="Models\Entity Framework\MeasureMyPikeModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MeasureMyPikeModel.cs</LastGenOutput>
       <DependentUpon>MeasureMyPikeModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\Entity Framework\MeasureMyPikeUniqueConstraints.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -295,13 +297,14 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\MeasureMyPikeModel.edmx">
+    <EntityDeploy Include="Models\Entity Framework\MeasureMyPikeModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MeasureMyPikeModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\MeasureMyPikeModel.edmx.diagram">
+    <Content Include="Models\Entity Framework\MeasureMyPikeModel.edmx.diagram">
       <DependentUpon>MeasureMyPikeModel.edmx</DependentUpon>
     </Content>
+    <Content Include="App.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

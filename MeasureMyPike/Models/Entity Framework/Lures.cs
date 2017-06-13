@@ -7,19 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike.Models
+namespace MeasureMyPike.Models.Entity_Framework
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class WeatherData
+    public partial class Lures
     {
         public int Id { get; set; }
-        public int Temperature { get; set; }
-        public string Weather { get; set; }
-        public string MoonPosition { get; set; }
+        public string Name { get; set; }
     
         public virtual Catch Catch { get; set; }
+        public virtual Brand Brand { get; set; }
         public virtual Statistics Statistics { get; set; }
     }
 }

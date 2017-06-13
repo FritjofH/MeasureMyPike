@@ -1,5 +1,5 @@
 ﻿using MeasureMyPike;
-using MeasureMyPike.Models;
+using MeasureMyPike.Models.Entity_Framework;
 using System;
 using System.Collections.Generic;
 

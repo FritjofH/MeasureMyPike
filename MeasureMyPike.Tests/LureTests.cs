@@ -4,10 +4,10 @@ using MeasureMyPike;
 using System.IO;
 using System.Drawing;
 using MeasureMyPike.Service;
+using MeasureMyPike.Models.Entity_Framework;
 
 namespace ApplicationTest
 {
-    using mmp = MeasureMyPike;
     [TestClass]
     public class LureTests
     {        
@@ -31,11 +31,9 @@ namespace ApplicationTest
         public void createLure()
         {
             int rnd = getRndNr();
-            bs.AddBrand("theBrand" + rnd);
-            mmp.Models.Brand b = bs.getBrand("theBrand" + rnd);
-            //ls.addLure("MyLure9" + rnd, b);
-            Assert.IsTrue(ls.addLure("MyLure9" + rnd, b), "Gick inte att skapa");
-            
+            var brand = bs.getBrand(1);
+            var result = ls.addLure("MyLure9" + rnd, brand);
+            Assert.IsTrue(result, "Gick inte att skapa");            
         }
 
         [TestMethod]
@@ -43,10 +41,10 @@ namespace ApplicationTest
         public void updateLure()
         {
             int rnd = getRndNr();
-            bs.AddBrand("theBrand1" + rnd);
-            mmp.Models.Brand b = bs.getBrand("theBrand1" + rnd);
             
-            Assert.IsTrue(ls.addLure("MyLureorg1" + rnd, b), "Gick inte att skapa");
+            Brand brand = bs.getBrand(1);
+            
+            Assert.IsTrue(ls.addLure("MyLureorg1" + rnd, brand), "Gick inte att skapa");
             
             Assert.IsTrue(ls.updateLure(ls.getLure("MyLureorg1" + rnd).Id, "MyLureupd1" + rnd), "Gick inte att skapa");
 

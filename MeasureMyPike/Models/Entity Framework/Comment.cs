@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeasureMyPike.Models
+namespace MeasureMyPike.Models.Entity_Framework
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Security
+    public partial class Comment
     {
         public int Id { get; set; }
-        public string Password { get; set; }
+        public string Text { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual Catch Catch { get; set; }
     }
 }

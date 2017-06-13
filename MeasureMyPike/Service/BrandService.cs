@@ -33,13 +33,5 @@ namespace MeasureMyPike.Service
            
             return dbconn.getAllBrands();
         }
-
-        public Brand getBrand(string id)
-        {
-            Brand brand = new Brand();
-            brand.Name = id;
-            DatabaseConnection dbconn = new DatabaseConnection();
-            return dbconn.getBrand(brand);
-        }
     }
 }

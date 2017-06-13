@@ -46,7 +46,7 @@ namespace ApplicationTest
             
             Assert.IsTrue(ls.addLure("MyLureorg1" + rnd, brand), "Gick inte att skapa");
             
-            Assert.IsTrue(ls.updateLure(ls.getLure("MyLureorg1" + rnd).Id, "MyLureupd1" + rnd), "Gick inte att skapa");
+            Assert.IsTrue(ls.updateLure(ls.getLure(1).Id, "MyLureupd1" + rnd), "Gick inte att skapa");
 
 
         }

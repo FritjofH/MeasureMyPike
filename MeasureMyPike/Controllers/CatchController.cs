@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeasureMyPike.Models.Entity_Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,7 +11,7 @@ namespace MeasureMyPike.Controllers
     public class CatchController : ApiController
     {
         // GET: api/Catch
-        public IEnumerable<Models.Catch> Get()
+        public IEnumerable<Catch> Get()
         {
             CatchService cs = new CatchService();
             
@@ -18,7 +19,7 @@ namespace MeasureMyPike.Controllers
         }
 
         // GET: api/Catch/5
-        public Models.Catch Get(int id)
+        public Catch Get(int id)
         {
             return new CatchService().getCatch(id);
         }

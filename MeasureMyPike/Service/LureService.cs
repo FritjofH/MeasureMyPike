@@ -23,27 +23,12 @@ namespace MeasureMyPike.Service
             return dbconn.addLure(lure);
         }
 
-        //public Lures getFirstLure()
-        //{
-        //    DatabaseConnection dbconn = new DatabaseConnection();
-
-        //    return dbconn.getFirstLure();
-        //}
-
         public Lures getLure(int id)
         {
             DatabaseConnection dbconn = new DatabaseConnection();
 
             return dbconn.getLure(id);
         }
-
-        public Lures getLure(string id)
-        {
-            DatabaseConnection dbconn = new DatabaseConnection();
-
-            return dbconn.getLure(id);
-        }
-
 
       /*  public bool deleteLure(string id)
         {

@@ -42,26 +42,19 @@ namespace MeasureMyPike
             }
         }
 
+        public string getUserPasswordHash(string username)
+        {
+            using (var conn = new ModelContainer())
+            {
+                return conn.User.First(it => it.Username == username).Security.Password;
+            }
+        }
+
         private User getUser(string username)
         {
             using (var conn = new ModelContainer())
             {
                 User o = conn.User.FirstOrDefault(it => it.FirstName == username);
-                {
-                    if (o != null)
-                    {
-                        return o;
-                    }
-                    else return null;
-                }
-            }
-        }
-
-        public Lures getLure(string lure)
-        {
-            using (var conn = new ModelContainer())
-            {
-                Lures o = conn.Lures.FirstOrDefault(it => it.Name == lure);
                 {
                     if (o != null)
                     {
@@ -93,7 +86,7 @@ namespace MeasureMyPike
             {
                 try
                 {
-                    Models.Lures o = conn.Lures.FirstOrDefault(it => it.Id == id);
+                    Lures o = conn.Lures.FirstOrDefault(it => it.Id == id);
                     o.Name = lureName;
                     conn.SaveChanges();
                     return true;
@@ -127,7 +120,32 @@ namespace MeasureMyPike
             }
         }
 
+        public List<Models.Application.Brand> getAllBrands()
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var brands = conn.Brand.ToList();
 
+                    var brandList = new List<Models.Application.Brand>();
+
+                    foreach (var brand in brands)
+                    {
+                        brandList.Add(new Models.Application.Brand { Id = brand.Id, Name = brand.Name });
+                    }
+
+                    return brandList;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
 
         public Brand getBrand(int id)
         {
@@ -136,8 +154,7 @@ namespace MeasureMyPike
                 Brand brand = conn.Brand.First(u => u.Id == id);
                 return brand;
             }
-        }
-        
+        }        
 
         public bool updateBrand(int id, string name)
         {
@@ -145,7 +162,7 @@ namespace MeasureMyPike
             {
                 try
                 {
-                    Models.Brand b = conn.Brand.FirstOrDefault(it => it.Id == id);
+                    Brand b = conn.Brand.FirstOrDefault(it => it.Id == id);
                     b.Name = name;
                     conn.SaveChanges();
                     return true;
@@ -156,14 +173,6 @@ namespace MeasureMyPike
                     Console.WriteLine(ex.Message);
                     return false;
                 }
-            }
-        }
-
-        public string getUserPasswordHash(string username)
-        {
-            using (var conn = new ModelContainer())
-            {
-                return conn.User.First(it => it.Username == username).Security.Password;
             }
         }
 
@@ -214,17 +223,6 @@ namespace MeasureMyPike
         }
         */
 
-        //Tillfällig metod för att programmet ska bygga
-        public string getFirstLure()
-        {
-            using (var conn = new ModelContainer())
-            {
-                var test = conn.Entry(conn.Lures.FirstOrDefault()).Reference(i => i.Brand).CurrentValue;
-
-                return test.Name;
-            }
-        }
-
         public bool addCatch(Catch cc)
         {
             try
@@ -244,70 +242,30 @@ namespace MeasureMyPike
                 return false;
             }
         }
-
-        public List<Models.Application.Brand> getAllBrands()
+        public List<Catch> getAllCatch()
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var brands = conn.Brand.Select(s => s).ToList();
-
-                    var brandList = new List<Models.Application.Brand>();
-
-                    foreach (var brand in brands)
-                    {
-                        brandList.Add(new Models.Application.Brand { Id = brand.Id, Name = brand.Name });
-                    }
-                    
-                    return brandList;
+                    var value = conn.Catch.ToList();
+                    return value;
                 }
             }
             catch (Exception ex)
             {
                 // TODO: better handling
-                Debug.WriteLine(ex.GetType().FullName);
-                Debug.WriteLine(ex.Message);
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
-
-        public string createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition)
-        {
-            List<Media> mediaList = new List<Media>();
-            mediaList.Add(new Media
-            {
-                MediaFormat = format,
-                Image = new MediaData
-                {
-                    Length = image.Length,
-                    Data = image
-                }
-            });
-
-            Lures lure = getLure(lures);
-            Brand brnd = lure.Brand;
-
-            using (var conn = new ModelContainer())
-            {
-                conn.Catch.Add(new Catch
-                {
-                    User = conn.User.First(),
-                    Comment = new Comment { Text = comment },
-                    Media = mediaList,
-                    Lures = new Lures { Name = lures, Brand = brnd },
-                    //Lures = lure,
-                    Fish = new Fish { Length = fishLength, Weight = fishWeight },
-                    Location = new Location { Lake = lake, Coordinates = coordinates },
-                    WeatherData = new WeatherData { Temperature = temperature, Weather = weather, MoonPosition = moonposition },
-                    Timestamp = DateTime.Now
-                });
 
         public Catch getCatch(int id)
         {
             using (var conn = new ModelContainer())
             {
-                Models.Catch cc = conn.Catch.FirstOrDefault(it => it.Id == id);
+                Catch cc = conn.Catch.FirstOrDefault(it => it.Id == id);
                 {
                     if (cc != null)
                     {

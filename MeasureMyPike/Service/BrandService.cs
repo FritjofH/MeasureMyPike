@@ -9,7 +9,6 @@ namespace MeasureMyPike.Service
         {
             Brand brand = new Brand { Name = name };
             DatabaseConnection dbconn = new DatabaseConnection();
-            // är Id automatiskt tilldelat då??
             dbconn.addBrand(brand);
         }
 

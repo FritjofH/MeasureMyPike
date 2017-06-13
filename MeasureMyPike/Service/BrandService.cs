@@ -7,19 +7,17 @@ namespace MeasureMyPike.Service
     {
         public void AddBrand(string name)
         {
-            Brand brand = new Brand
-            {
-                Name = name
-            };
+            Brand brand = new Brand { Name = name };
             DatabaseConnection dbconn = new DatabaseConnection();
+            // är Id automatiskt tilldelat då??
             dbconn.addBrand(brand);
         }
+
         public void AddBrand(Brand brand)
         {
             DatabaseConnection dbconn = new DatabaseConnection();
             dbconn.addBrand(brand);
         }
-
 
         public Brand getBrand(int id)
         {
@@ -32,6 +30,18 @@ namespace MeasureMyPike.Service
             DatabaseConnection dbconn = new DatabaseConnection();
            
             return dbconn.getAllBrands();
+        }
+
+        public void setBrand(int id, string name)
+        {
+            DatabaseConnection dbconn = new DatabaseConnection();
+            dbconn.updateBrand(id, name);
+        }
+
+        public void setBrand(int id, Brand brand)
+        {
+            DatabaseConnection dbconn = new DatabaseConnection();
+            dbconn.updateBrand(id, brand.Name);
         }
     }
 }

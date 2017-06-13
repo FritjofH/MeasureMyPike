@@ -10,30 +10,35 @@ namespace MeasureMyPike.Controllers
     public class CatchController : ApiController
     {
         // GET: api/Catch
-        public IEnumerable<string> Get()
+        public IEnumerable<Models.Catch> Get()
         {
-            return new string[] { "value1", "value2" };
+            CatchService cs = new CatchService();
+            
+            return cs.getAllCatch();
         }
 
         // GET: api/Catch/5
-        public string Get(int id)
+        public Models.Catch Get(int id)
         {
-            return "value";
+            return new CatchService().getCatch(id);
         }
 
         // POST: api/Catch
         public void Post([FromBody]string value)
         {
+            // TODO
         }
 
         // PUT: api/Catch/5
         public void Put(int id, [FromBody]string value)
         {
+            // TODO
         }
 
         // DELETE: api/Catch/5
         public void Delete(int id)
         {
+            new CatchService().deleteCatch(id);
         }
     }
 }

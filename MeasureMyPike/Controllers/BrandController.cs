@@ -21,9 +21,11 @@ namespace MeasureMyPike.Controllers
         }
 
         // GET: api/Brand/5
-        public string Get(int id)
+        public Brand Get(int id)
         {
-            return "value";
+            BrandService bs = new BrandService();
+            var b = bs.getBrand(id);
+            return b;
         }
 
         // POST: api/Brand
@@ -36,6 +38,9 @@ namespace MeasureMyPike.Controllers
         // PUT: api/Brand/5
         public void Put(int id, [FromBody]string value)
         {
+            BrandService bs = new BrandService();
+            bs.setBrand(id, value);
+            
         }
 
         // DELETE: api/Brand/5

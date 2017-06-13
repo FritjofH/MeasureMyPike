@@ -93,31 +93,102 @@ namespace MeasureMyPike
                 try
                 {
                     Models.Lures o = conn.Lures.FirstOrDefault(it => it.Id == id);
-                    {
-                        o.Name = lureName;
-                        conn.SaveChanges();
-                        return true;
-                    }
+                    o.Name = lureName;
+                    conn.SaveChanges();
+                    return true;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.GetType().FullName);
                     Console.WriteLine(ex.Message);
                     return false;
-                    
                 }
-                
             }
         }
 
+        public bool addBrand(Brand brand)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    conn.Brand.Add(brand);
+                    conn.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
 
+        public List<Brand> getAllBrands()
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var value = conn.Brand.ToList();
+                    return value;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
 
         public Brand getBrand(string name)
         {
             using (var conn = new ModelContainer())
             {
-                Brand brand = conn.Brand.First(u => u.Name == name);
-                return brand;
+                try
+                {
+                    Models.Brand brand = conn.Brand.First(u => u.Name == name);
+                    return brand;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                    return null;
+                }
+            }
+        }
+
+        public Brand getBrand(int id)
+        {
+            using (var conn = new ModelContainer())
+            {
+                Brand o = conn.Brand.FirstOrDefault(it => it.Id == id);
+                return o;
+            }
+        }
+
+        public bool updateBrand(int id, string name)
+        {
+            using (var conn = new ModelContainer())
+            {
+                try
+                {
+                    Models.Brand b = conn.Brand.FirstOrDefault(it => it.Id == id);
+                    b.Name = name;
+                    conn.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
             }
         }
 
@@ -187,93 +258,6 @@ namespace MeasureMyPike
             }
         }
 
-        public bool addBrand(Brand brand)
-        {
-            try {
-                using (var conn = new ModelContainer())
-                {
-                    conn.Brand.Add(brand);
-                    conn.SaveChanges();
-                    return true;
-                }
-            }
-            catch (Exception ex) {
-                // TODO: better handling
-                Console.WriteLine(ex.GetType().FullName);
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-        }
-
-        public List<Brand> getAllBrands()
-        {
-            try
-            {
-                using (var conn = new ModelContainer())
-                {
-                    var value = conn.Brand.ToList();
-                    return value;
-                }
-            }
-            catch (Exception ex)
-            {
-                // TODO: better handling
-                Console.WriteLine(ex.GetType().FullName);
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-        }
-
-        public string createCatch(byte[] image, string format, string comment, string lures, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition)
-        {
-            List<Models.Media> mediaList = new List<Models.Media>();
-            mediaList.Add(new Models.Media
-            {
-                MediaFormat = format,
-                Image = new Models.MediaData
-                {
-                    Length = image.Length,
-                    Data = image
-                }
-            });
-
-            Models.Lures lure = getLure(lures);
-            Models.Brand brnd = lure.Brand;
-
-            using (var conn = new ModelContainer())
-            {
-                conn.Catch.Add(new Models.Catch
-                {
-                    User = conn.User.First(),
-                    Comment = new Models.Comment { Text = comment },
-                    Media = mediaList,
-                    Lures = new Models.Lures { Name = lures, Brand = brnd },
-                    //Lures = lure,
-                    Fish = new Models.Fish { Length = fishLength, Weight = fishWeight },
-                    Location = new Models.Location { Lake = lake, Coordinates = coordinates },
-                    WeatherData = new Models.WeatherData { Temperature = temperature, Weather = weather, MoonPosition = moonposition },
-                    Timestamp = DateTime.Now
-                });
-
-                conn.SaveChanges();
-                return "Skiten funkar";
-            }
-        }
-        public Brand getBrand(Brand brand)
-        {
-            using (var conn = new ModelContainer())
-            {
-                Brand o = conn.Brand.FirstOrDefault(it => it.Name == brand.Name);
-                {
-                    if (o != null)
-                    {
-                        return o;
-                    }
-                    else return null;
-                }
-            }
-        }
-        
         public bool addCatch(Catch cc)
         {
             try
@@ -294,6 +278,80 @@ namespace MeasureMyPike
             }
         }
 
+        public List<Catch> getAllCatch()
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var value = conn.Catch.ToList();
+                    return value;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
 
+        public Catch getCatch(int id)
+        {
+            using (var conn = new ModelContainer())
+            {
+                Models.Catch cc = conn.Catch.FirstOrDefault(it => it.Id == id);
+                {
+                    if (cc != null)
+                    {
+                        return cc;
+                    }
+                    else return null;
+                }
+            }
+        }
+
+        public bool updateCatch(int id, Catch cc)
+        {
+            try
+            {
+                if (!deleteCatch(id))
+                {
+                    // specified id was probably not found
+                    return false;
+                }
+                using (var conn = new ModelContainer())
+                {
+                    // add new with same id
+                    cc.Id = id;
+                    conn.Catch.Add(cc);
+                    conn.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public bool deleteCatch(int id)
+        {
+            using (var conn = new ModelContainer())
+            {
+                Catch c = getCatch(id);
+                if (c != null)
+                {
+                    conn.Catch.Remove(c);
+                    conn.SaveChanges();
+                    return true;
+                }
+
+                return false;
+            }
+        }
     }
 }

@@ -25,12 +25,14 @@ namespace ApplicationTest
 
         [TestMethod]
         [TestCategory("CatchTest")]
-        public void createCatch()
+        public void CreateCatch()
         {
             //Fiskbild och konverting till en bytearray
             Image i = Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Mockdata\\Fisk.jpg");
+            bs.AddBrand("Grönlunds Fiske");
+            ls.addLure("Röd Pilk 50g", bs.getBrand("Grönlunds Fiske"));
 
-            var result = cs.createCatch(ms.ImageToByteArray(i), ms.getImageFormat(i), "Jag fångade en fisk", ls.getLure(0), "75 kilo", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", bs.getBrand(1), "hostf");
+            var result = cs.createCatch(ms.ImageToByteArray(i), ms.getImageFormat(i), "Jag fångade en fisk", ls.getLure(0), "75 kilo", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", bs.getBrand(0), "hostf");
 
             Assert.IsTrue(result, "Något gick fel vid skapandet av fångsten");
         }

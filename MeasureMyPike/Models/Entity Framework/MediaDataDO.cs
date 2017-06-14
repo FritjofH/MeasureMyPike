@@ -12,11 +12,12 @@ namespace MeasureMyPike.Models.Entity_Framework
     using System;
     using System.Collections.Generic;
     
-    public partial class Security
+    public partial class MediaDataDO
     {
         public int Id { get; set; }
-        public string Password { get; set; }
+        public byte[] Data { get; set; }
+        public int Length { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual MediaDO Media { get; set; }
     }
 }

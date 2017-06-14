@@ -12,11 +12,13 @@ namespace MeasureMyPike.Models.Entity_Framework
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class LocationDO
     {
         public int Id { get; set; }
-        public string Text { get; set; }
+        public string Lake { get; set; }
+        public string Coordinates { get; set; }
     
-        public virtual Catch Catch { get; set; }
+        public virtual CatchDO Catch { get; set; }
+        public virtual StatisticsDO Statistics { get; set; }
     }
 }

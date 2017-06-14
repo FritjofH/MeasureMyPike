@@ -12,29 +12,29 @@ namespace MeasureMyPike.Models.Entity_Framework
     using System;
     using System.Collections.Generic;
     
-    public partial class Statistics
+    public partial class StatisticsDO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Statistics()
+        public StatisticsDO()
         {
-            this.Lures = new HashSet<Lures>();
-            this.Fish = new HashSet<Fish>();
-            this.Location = new HashSet<Location>();
-            this.Catch = new HashSet<Catch>();
-            this.WeatherData = new HashSet<WeatherData>();
+            this.Lures = new HashSet<LureDO>();
+            this.Fish = new HashSet<FishDO>();
+            this.Location = new HashSet<LocationDO>();
+            this.Catch = new HashSet<CatchDO>();
+            this.WeatherData = new HashSet<WeatherDataDO>();
         }
     
         public int Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lures> Lures { get; set; }
+        public virtual ICollection<LureDO> Lures { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Fish> Fish { get; set; }
+        public virtual ICollection<FishDO> Fish { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Location> Location { get; set; }
+        public virtual ICollection<LocationDO> Location { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Catch> Catch { get; set; }
+        public virtual ICollection<CatchDO> Catch { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WeatherData> WeatherData { get; set; }
+        public virtual ICollection<WeatherDataDO> WeatherData { get; set; }
     }
 }

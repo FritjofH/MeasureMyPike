@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MeasureMyPike.Models.Application
 {
-    public class Lures
+    public class Lure
     {
         public int Id { get; set; }
         public string Name { get; set; }

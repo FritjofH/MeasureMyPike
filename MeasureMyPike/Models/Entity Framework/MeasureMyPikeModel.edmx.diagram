@@ -5,16 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4f866436b3fc465bb531064af58f9e9a" Name="Diagram1" ZoomLevel="74" >
-        <EntityTypeShape EntityType="Model.User" Width="1.625" PointX="5.375" PointY="1" />
-        <EntityTypeShape EntityType="Model.Catch" Width="1.5" PointX="5.5" PointY="4.625" />
+        <EntityTypeShape EntityType="Model.UserDO" Width="1.625" PointX="5.375" PointY="1" />
+        <EntityTypeShape EntityType="Model.CatchDO" Width="1.5" PointX="5.5" PointY="4.625" />
         <AssociationConnector Association="Model.UserCatch" />
-        <EntityTypeShape EntityType="Model.Fish" Width="1.5" PointX="7.75" PointY="7.25" />
-        <EntityTypeShape EntityType="Model.Comment" Width="1.5" PointX="2.375" PointY="4.625" />
-        <EntityTypeShape EntityType="Model.Media" Width="1.5" PointX="2.375" PointY="6.625" />
-        <EntityTypeShape EntityType="Model.MediaData" Width="1.5" PointX="2.375" PointY="9.25" />
-        <EntityTypeShape EntityType="Model.Location" Width="1.5" PointX="10.75" PointY="4.25" />
-        <EntityTypeShape EntityType="Model.Brand" Width="1.5" PointX="5.5" PointY="12.25" />
-        <EntityTypeShape EntityType="Model.Lures" Width="1.5" PointX="5.5" PointY="9.25" />
+        <EntityTypeShape EntityType="Model.FishDO" Width="1.5" PointX="7.75" PointY="7.25" />
+        <EntityTypeShape EntityType="Model.CommentDO" Width="1.5" PointX="2.375" PointY="4.625" />
+        <EntityTypeShape EntityType="Model.MediaDO" Width="1.5" PointX="2.375" PointY="6.625" />
+        <EntityTypeShape EntityType="Model.MediaDataDO" Width="1.5" PointX="2.375" PointY="9.25" />
+        <EntityTypeShape EntityType="Model.LocationDO" Width="1.5" PointX="10.75" PointY="4.25" />
+        <EntityTypeShape EntityType="Model.BrandDO" Width="1.5" PointX="5.5" PointY="12.25" />
+        <EntityTypeShape EntityType="Model.LureDO" Width="1.5" PointX="5.5" PointY="9.25" />
         <AssociationConnector Association="Model.CatchComment" />
         <AssociationConnector Association="Model.CatchFish" />
         <AssociationConnector Association="Model.CatchMedia" />
@@ -22,15 +22,15 @@
         <AssociationConnector Association="Model.CatchLocation" />
         <AssociationConnector Association="Model.CatchLures" />
         <AssociationConnector Association="Model.LuresBrand" />
-        <EntityTypeShape EntityType="Model.Statistics" Width="1.5" PointX="10.75" PointY="6.875" />
+        <EntityTypeShape EntityType="Model.StatisticsDO" Width="1.5" PointX="10.75" PointY="6.875" />
         <AssociationConnector Association="Model.LuresStatistics" />
         <AssociationConnector Association="Model.FishStatistics" />
         <AssociationConnector Association="Model.LocationStatistics" />
         <AssociationConnector Association="Model.CatchStatistics" />
-        <EntityTypeShape EntityType="Model.WeatherData" Width="1.5" PointX="10.75" PointY="1.5" />
+        <EntityTypeShape EntityType="Model.WeatherDataDO" Width="1.5" PointX="10.75" PointY="1.5" />
         <AssociationConnector Association="Model.CatchWeatherData" />
         <AssociationConnector Association="Model.WeatherDataStatistics" />
-        <EntityTypeShape EntityType="Model.Security" Width="1.5" PointX="2.625" PointY="1.125" />
+        <EntityTypeShape EntityType="Model.SecurityDO" Width="1.5" PointX="2.625" PointY="1.125" />
         <AssociationConnector Association="Model.SecurityUser" />
       </Diagram>
     </edmx:Diagrams>

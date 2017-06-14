@@ -25,17 +25,17 @@ namespace MeasureMyPike.Models.Entity_Framework
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<Catch> Catch { get; set; }
-        public virtual DbSet<Fish> Fish { get; set; }
-        public virtual DbSet<Comment> Comment { get; set; }
-        public virtual DbSet<Media> Media { get; set; }
-        public virtual DbSet<MediaData> MediaData { get; set; }
-        public virtual DbSet<Location> Location { get; set; }
-        public virtual DbSet<Brand> Brand { get; set; }
-        public virtual DbSet<Lures> Lures { get; set; }
-        public virtual DbSet<Statistics> Statistics { get; set; }
-        public virtual DbSet<WeatherData> WeatherData { get; set; }
-        public virtual DbSet<Security> Security { get; set; }
+        public virtual DbSet<UserDO> User { get; set; }
+        public virtual DbSet<CatchDO> Catch { get; set; }
+        public virtual DbSet<FishDO> Fish { get; set; }
+        public virtual DbSet<CommentDO> Comment { get; set; }
+        public virtual DbSet<MediaDO> Media { get; set; }
+        public virtual DbSet<MediaDataDO> MediaData { get; set; }
+        public virtual DbSet<LocationDO> Location { get; set; }
+        public virtual DbSet<BrandDO> Brand { get; set; }
+        public virtual DbSet<LureDO> Lure { get; set; }
+        public virtual DbSet<StatisticsDO> Statistics { get; set; }
+        public virtual DbSet<WeatherDataDO> WeatherData { get; set; }
+        public virtual DbSet<SecurityDO> Security { get; set; }
     }
 }

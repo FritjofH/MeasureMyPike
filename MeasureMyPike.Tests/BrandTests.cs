@@ -17,7 +17,7 @@ namespace MeasureMyPike.Tests
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void GetOneBrand()
         {
             Random rnd = new Random();
             var newBrand = new Brand { Name = "Abu garcia" + rnd.Next(1,99)};

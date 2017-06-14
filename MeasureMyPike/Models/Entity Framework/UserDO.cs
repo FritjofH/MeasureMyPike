@@ -12,18 +12,22 @@ namespace MeasureMyPike.Models.Entity_Framework
     using System;
     using System.Collections.Generic;
     
-    public partial class Brand
+    public partial class UserDO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Brand()
+        public UserDO()
         {
-            this.Lures = new HashSet<Lures>();
+            this.Catch = new HashSet<CatchDO>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Username { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public System.DateTime MemberSince { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lures> Lures { get; set; }
+        public virtual ICollection<CatchDO> Catch { get; set; }
+        public virtual SecurityDO Security { get; set; }
     }
 }

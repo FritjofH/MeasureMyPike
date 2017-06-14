@@ -195,29 +195,29 @@
     <Compile Include="Models\Application\Comment.cs" />
     <Compile Include="Models\Application\Fish.cs" />
     <Compile Include="Models\Application\Location.cs" />
-    <Compile Include="Models\Application\Lures.cs" />
+    <Compile Include="Models\Application\Lure.cs" />
     <Compile Include="Models\Application\Media.cs" />
     <Compile Include="Models\Application\MediaData.cs" />
     <Compile Include="Models\Application\Security.cs" />
     <Compile Include="Models\Application\Statistics.cs" />
     <Compile Include="Models\Application\User.cs" />
     <Compile Include="Models\Application\WeatherData.cs" />
-    <Compile Include="Models\Entity Framework\Brand.cs">
+    <Compile Include="Models\Entity Framework\BrandDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity Framework\Catch.cs">
+    <Compile Include="Models\Entity Framework\CatchDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity Framework\Comment.cs">
+    <Compile Include="Models\Entity Framework\CommentDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity Framework\Fish.cs">
+    <Compile Include="Models\Entity Framework\FishDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity Framework\Location.cs">
+    <Compile Include="Models\Entity Framework\LocationDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity Framework\Lures.cs">
+    <Compile Include="Models\Entity Framework\LureDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity Framework\MeasureMyPikeModel.Context.cs">
@@ -235,22 +235,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MeasureMyPikeModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity Framework\Media.cs">
+    <Compile Include="Models\Entity Framework\MediaDataDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity Framework\MediaData.cs">
+    <Compile Include="Models\Entity Framework\MediaDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity Framework\Security.cs">
+    <Compile Include="Models\Entity Framework\SecurityDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity Framework\Statistics.cs">
+    <Compile Include="Models\Entity Framework\StatisticsDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity Framework\User.cs">
+    <Compile Include="Models\Entity Framework\UserDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity Framework\WeatherData.cs">
+    <Compile Include="Models\Entity Framework\WeatherDataDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

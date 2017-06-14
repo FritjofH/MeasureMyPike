@@ -12,12 +12,18 @@ namespace MeasureMyPike.Models.Entity_Framework
     using System;
     using System.Collections.Generic;
     
-    public partial class MediaData
+    public partial class BrandDO
     {
-        public int Id { get; set; }
-        public byte[] Data { get; set; }
-        public int Length { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public BrandDO()
+        {
+            this.Lures = new HashSet<LureDO>();
+        }
     
-        public virtual Media Media { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LureDO> Lures { get; set; }
     }
 }

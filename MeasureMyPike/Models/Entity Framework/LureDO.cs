@@ -12,25 +12,20 @@ namespace MeasureMyPike.Models.Entity_Framework
     using System;
     using System.Collections.Generic;
     
-    public partial class Catch
+    public partial class LureDO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Catch()
+        public LureDO()
         {
-            this.Media = new HashSet<Media>();
+            this.Catch = new HashSet<CatchDO>();
         }
     
         public int Id { get; set; }
-        public System.DateTime Timestamp { get; set; }
+        public string Name { get; set; }
     
-        public virtual User User { get; set; }
-        public virtual Comment Comment { get; set; }
-        public virtual Fish Fish { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Media> Media { get; set; }
-        public virtual Location Location { get; set; }
-        public virtual Lures Lures { get; set; }
-        public virtual Statistics Statistics { get; set; }
-        public virtual WeatherData WeatherData { get; set; }
+        public virtual ICollection<CatchDO> Catch { get; set; }
+        public virtual BrandDO Brand { get; set; }
+        public virtual StatisticsDO Statistics { get; set; }
     }
 }

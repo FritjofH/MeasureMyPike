@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/13/2017 17:07:45
+-- Date Created: 06/14/2017 11:25:33
 -- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike\Models\Entity Framework\MeasureMyPikeModel.edmx
 -- --------------------------------------------------
 
@@ -39,10 +39,10 @@ IF OBJECT_ID(N'[dbo].[FK_CatchLures]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Catch] DROP CONSTRAINT [FK_CatchLures];
 GO
 IF OBJECT_ID(N'[dbo].[FK_LuresBrand]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Lures] DROP CONSTRAINT [FK_LuresBrand];
+    ALTER TABLE [dbo].[Lure] DROP CONSTRAINT [FK_LuresBrand];
 GO
 IF OBJECT_ID(N'[dbo].[FK_LuresStatistics]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Lures] DROP CONSTRAINT [FK_LuresStatistics];
+    ALTER TABLE [dbo].[Lure] DROP CONSTRAINT [FK_LuresStatistics];
 GO
 IF OBJECT_ID(N'[dbo].[FK_FishStatistics]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Fish] DROP CONSTRAINT [FK_FishStatistics];
@@ -91,8 +91,8 @@ GO
 IF OBJECT_ID(N'[dbo].[Brand]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Brand];
 GO
-IF OBJECT_ID(N'[dbo].[Lures]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Lures];
+IF OBJECT_ID(N'[dbo].[Lure]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Lure];
 GO
 IF OBJECT_ID(N'[dbo].[Statistics]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Statistics];
@@ -181,8 +181,8 @@ CREATE TABLE [dbo].[Brand] (
 );
 GO
 
--- Creating table 'Lures'
-CREATE TABLE [dbo].[Lures] (
+-- Creating table 'Lure'
+CREATE TABLE [dbo].[Lure] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Brand_Id] int  NOT NULL,
@@ -266,9 +266,9 @@ ADD CONSTRAINT [PK_Brand]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Lures'
-ALTER TABLE [dbo].[Lures]
-ADD CONSTRAINT [PK_Lures]
+-- Creating primary key on [Id] in table 'Lure'
+ALTER TABLE [dbo].[Lure]
+ADD CONSTRAINT [PK_Lure]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -388,7 +388,7 @@ GO
 ALTER TABLE [dbo].[Catch]
 ADD CONSTRAINT [FK_CatchLures]
     FOREIGN KEY ([Lures_Id])
-    REFERENCES [dbo].[Lures]
+    REFERENCES [dbo].[Lure]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -399,8 +399,8 @@ ON [dbo].[Catch]
     ([Lures_Id]);
 GO
 
--- Creating foreign key on [Brand_Id] in table 'Lures'
-ALTER TABLE [dbo].[Lures]
+-- Creating foreign key on [Brand_Id] in table 'Lure'
+ALTER TABLE [dbo].[Lure]
 ADD CONSTRAINT [FK_LuresBrand]
     FOREIGN KEY ([Brand_Id])
     REFERENCES [dbo].[Brand]
@@ -410,12 +410,12 @@ GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_LuresBrand'
 CREATE INDEX [IX_FK_LuresBrand]
-ON [dbo].[Lures]
+ON [dbo].[Lure]
     ([Brand_Id]);
 GO
 
--- Creating foreign key on [Statistics_Id] in table 'Lures'
-ALTER TABLE [dbo].[Lures]
+-- Creating foreign key on [Statistics_Id] in table 'Lure'
+ALTER TABLE [dbo].[Lure]
 ADD CONSTRAINT [FK_LuresStatistics]
     FOREIGN KEY ([Statistics_Id])
     REFERENCES [dbo].[Statistics]
@@ -425,7 +425,7 @@ GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_LuresStatistics'
 CREATE INDEX [IX_FK_LuresStatistics]
-ON [dbo].[Lures]
+ON [dbo].[Lure]
     ([Statistics_Id]);
 GO
 

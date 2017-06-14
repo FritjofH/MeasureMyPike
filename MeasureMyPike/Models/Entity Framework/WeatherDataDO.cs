@@ -12,12 +12,14 @@ namespace MeasureMyPike.Models.Entity_Framework
     using System;
     using System.Collections.Generic;
     
-    public partial class Media
+    public partial class WeatherDataDO
     {
         public int Id { get; set; }
-        public string MediaFormat { get; set; }
+        public int Temperature { get; set; }
+        public string Weather { get; set; }
+        public string MoonPosition { get; set; }
     
-        public virtual Catch Catch { get; set; }
-        public virtual MediaData Image { get; set; }
+        public virtual CatchDO Catch { get; set; }
+        public virtual StatisticsDO Statistics { get; set; }
     }
 }

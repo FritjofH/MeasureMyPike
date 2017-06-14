@@ -1,9 +1,5 @@
-﻿using MeasureMyPike.Models.Entity_Framework;
-using System;
+﻿using MeasureMyPike.Models.Application;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace MeasureMyPike.Controllers
@@ -11,23 +7,26 @@ namespace MeasureMyPike.Controllers
     public class CatchController : ApiController
     {
         // GET: api/Catch
-        public IEnumerable<Catch> Get()
+        public List<Catch> Get()
         {
-            CatchService cs = new CatchService();
-            
-            return cs.GetAllCatch();
+            var cs = new CatchService();
+            var catchList = cs.GetAllCatch();
+
+            return catchList;
         }
 
         // GET: api/Catch/5
         public Catch Get(int id)
         {
-            return new CatchService().GetCatch(id);
+            var cs = new CatchService();
+            var selectedCatch = cs.GetCatch(id);
+
+            return selectedCatch;
         }
 
         // POST: api/Catch
         public void Post([FromBody]string value)
         {
-            // TODO
         }
 
         // PUT: api/Catch/5
@@ -37,9 +36,12 @@ namespace MeasureMyPike.Controllers
         }
 
         // DELETE: api/Catch/5
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            new CatchService().DeleteCatch(id);
+            var cs = new CatchService();
+            var deleted = cs.DeleteCatch(id);
+
+            return deleted;
         }
     }
 }

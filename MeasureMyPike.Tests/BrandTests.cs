@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MeasureMyPike.Service;
-using MeasureMyPike.Models.Entity_Framework;
+using MeasureMyPike.Models.Application;
 
 namespace MeasureMyPike.Tests
 {
@@ -19,10 +19,8 @@ namespace MeasureMyPike.Tests
         [TestMethod]
         public void GetOneBrand()
         {
-            Random rnd = new Random();
-            var newBrand = new Brand { Name = "Abu garcia" + rnd.Next(1,99)};
-
-            var result = bs.AddBrand(newBrand);
+            var rnd = new Random();
+            var result = bs.AddBrand("Abu garcia" + rnd.Next(1, 99));
 
             Assert.IsNotNull(result);
         }

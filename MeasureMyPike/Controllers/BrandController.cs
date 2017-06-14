@@ -52,9 +52,9 @@ namespace MeasureMyPike.Controllers
         public bool Delete(int id)
         {
             var bs = new BrandService();
-            var removed = bs.DeleteBrand(id);
+            var deleted = bs.DeleteBrand(id);
             
-            return removed;
+            return deleted;
         }
     }
 }

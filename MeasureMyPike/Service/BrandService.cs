@@ -10,26 +10,34 @@ namespace MeasureMyPike.Service
     {
         public Brand AddBrand(string name)
         {
-            var dbconn = new BrandRepository();
+            var brandRepo = new BrandRepository();
             var newBrand = new BrandDO { Name = name };
-            var savedBrand = dbconn.AddBrand(newBrand);
+            var savedBrand = brandRepo.AddBrand(newBrand);
 
             return ConvertToBrand(savedBrand);
         }
 
         public Brand GetBrand(int id)
         {
-            var dbconn = new BrandRepository();
-            var selectedBrand = dbconn.GetBrand(id);
+            var brandRepo = new BrandRepository();
+            var selectedBrand = brandRepo.GetBrand(id);
 
             return ConvertToBrand(selectedBrand);
         }
 
+        public BrandDO GetBrandDO(int id)
+        {
+            var brandRepo = new BrandRepository();
+            var selectedBrand = brandRepo.GetBrand(id);
+
+            return selectedBrand;
+        }
+
         public List<Brand> GetAllBrands()
         {
-            var dbconn = new BrandRepository();
+            var brandRepo = new BrandRepository();
             var brandList = new List<Brand>();
-            var brands = dbconn.GetAllBrands();
+            var brands = brandRepo.GetAllBrands();
 
             foreach (var brand in brands)
             {
@@ -41,18 +49,18 @@ namespace MeasureMyPike.Service
 
         public Brand UpdateBrand(int id, string name)
         {
-            var dbconn = new BrandRepository();
-            var updatedBrand = dbconn.UpdateBrand(id, name);
+            var brandRepo = new BrandRepository();
+            var updatedBrand = brandRepo.UpdateBrand(id, name);
 
             return ConvertToBrand(updatedBrand);
         }
 
         public bool DeleteBrand(int id)
         {
-            var dbconn = new BrandRepository();
-            var removed = dbconn.DeleteBrand(id);
+            var brandRepo = new BrandRepository();
+            var deleted = brandRepo.DeleteBrand(id);
 
-            return (bool)removed;
+            return (bool)deleted;
         }
 
         private Brand ConvertToBrand(BrandDO brandToConvert)

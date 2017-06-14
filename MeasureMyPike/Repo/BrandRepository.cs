@@ -75,9 +75,9 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var brandToRemove = conn.Brand.First(it => it.Id == id);
+                    var brandToDelete = conn.Brand.First(it => it.Id == id);
 
-                    conn.Brand.Remove(brandToRemove);
+                    conn.Brand.Remove(brandToDelete);
                     conn.SaveChanges();
 
                     return true;

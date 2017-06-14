@@ -9,7 +9,7 @@ namespace MeasureMyPike
     public class CatchRepository
     {
 
-        public Catch AddCatch(Catch cc)
+        public CatchDO AddCatch(CatchDO cc)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace MeasureMyPike
                 return null;
             }
         }
-        public List<Catch> GetAllCatch()
+        public List<CatchDO> GetAllCatch()
         {
             try
             {
@@ -47,22 +47,22 @@ namespace MeasureMyPike
             }
         }
 
-        public Catch GetCatch(int id)
+        public CatchDO GetCatch(int id)
         {
             using (var conn = new ModelContainer())
             {
-                Catch cc = conn.Catch.FirstOrDefault(it => it.Id == id);
+                var selectedCatch = conn.Catch.FirstOrDefault(it => it.Id == id);
                 {
-                    if (cc != null)
+                    if (selectedCatch != null)
                     {
-                        return cc;
+                        return selectedCatch;
                     }
                     else return null;
                 }
             }
         }
 
-        public bool UpdateCatch(int id, Catch cc)
+        public bool UpdateCatch(int id, CatchDO cc)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace MeasureMyPike
         {
             using (var conn = new ModelContainer())
             {
-                Catch c = GetCatch(id);
+                var c = GetCatch(id);
                 if (c != null)
                 {
                     conn.Catch.Remove(c);

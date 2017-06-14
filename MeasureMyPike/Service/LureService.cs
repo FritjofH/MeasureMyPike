@@ -1,52 +1,64 @@
 ﻿using System;
 using MeasureMyPike.Models.Entity_Framework;
 using MeasureMyPike.Repo;
+using MeasureMyPike.Models.Application;
 
 namespace MeasureMyPike.Service
 {
     public class LureService
     {
-        public bool AddLure(String lureName, Brand brand)
+        public Lure AddLure(string lureName, Brand brand)
         {
-            Lures lure = new Lures
+            var lureRepo = new LureRepository();
+            var bs = new BrandService();
+
+            var lure = new LureDO
             {
                 Name = lureName,
-                Brand = brand,
+                Brand = bs.GetBrandDO(brand.Id),
                 Catch = null
             };
 
-            LureRepository dbconn = new LureRepository();
+            var createdLure = lureRepo.AddLure(lure);
 
-            return dbconn.AddLure(lure);
+            return convertToLure(createdLure);
         }
 
-        public Lures GetLure(int id)
+        public Lure GetLure(int id)
         {
-            LureRepository dbconn = new LureRepository();
+            var lureRepo = new LureRepository();
+            var selectedLure = lureRepo.GetLure(id);
 
-            return dbconn.GetLure(id);
+            return convertToLure(selectedLure);
         }
 
-        public Lures GetLure(string name)
+        public LureDO GetLureDO(int id)
         {
-            LureRepository dbconn = new LureRepository();
+            var lureRepo = new LureRepository();
+            var selectedLure = lureRepo.GetLure(id);
 
-            return dbconn.GetLure(name);
+            return selectedLure;
         }
 
         public bool DeleteLure(int id)
         {
-            LureRepository dbconn = new LureRepository();
-            return dbconn.DeleteLure(id);
+            var lureRepo = new LureRepository();
+            var deleted = lureRepo.DeleteLure(id);
+
+            return deleted;
         }
 
-        public bool UpdateLure(int id, String name)
+        public bool UpdateLure(int id, string name)
         {
-            LureRepository dbconn = new LureRepository();
+            var lureRepo = new LureRepository();
 
-            return dbconn.UpdateLure(id, name);
+            return lureRepo.UpdateLure(id, name);
         }
         
+        private Lure convertToLure(LureDO lureToConvert)
+        {
+            return new Lure { Id = lureToConvert.Id, Name = lureToConvert.Name };
+        }
 
     }
 }

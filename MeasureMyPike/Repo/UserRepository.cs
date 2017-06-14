@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using MeasureMyPike.Models.Entity_Framework;
 
 namespace MeasureMyPike.Repo
@@ -9,15 +7,16 @@ namespace MeasureMyPike.Repo
     public class UserRepository
     {
 
-        public User AddUser(User user)
+        public UserDO AddUser(UserDO newUser)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var u = conn.User.Add(user);
+                    var createdUser = conn.User.Add(newUser);
                     conn.SaveChanges();
-                    return u;
+
+                    return createdUser;
                 }
             }
             catch (Exception ex)
@@ -31,44 +30,64 @@ namespace MeasureMyPike.Repo
 
         public bool DeleteUser(string username)
         {
-            using (var conn = new ModelContainer())
+            try
             {
-                User user = GetUser(username);
-                if (user != null)
+                using (var conn = new ModelContainer())
                 {
-                    conn.User.Remove(user);
-                    conn.SaveChanges();
-                    return true;
-                }
+                    var user = GetUser(username);
+                    if (user != null)
+                    {
+                        conn.User.Remove(user);
+                        conn.SaveChanges();
 
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
 
         public string GetUserPasswordHash(string username)
         {
-            using (var conn = new ModelContainer())
+            try
             {
-                return conn.User.First(it => it.Username == username).Security.Password;
+                using (var conn = new ModelContainer())
+                {
+                    var passwordHash = conn.User.First(it => it.Username == username).Security.Password;
+
+                    return passwordHash;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
 
-        public User GetUser(string username)
+        public UserDO GetUser(string username)
         {
             using (var conn = new ModelContainer())
             {
-                User o = conn.User.FirstOrDefault(it => it.FirstName == username);
+                var selectedUser = conn.User.FirstOrDefault(it => it.FirstName == username);
                 {
-                    if (o != null)
+                    if (selectedUser != null)
                     {
-                        return o;
+                        return selectedUser;
                     }
                     else return null;
                 }
             }
         }
-
-
-
     }
 }

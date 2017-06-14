@@ -22,7 +22,7 @@ namespace ApplicationTest
         {
             //Skapar upp en användare, om inte en med samma användarnamn redan finns
             var result = us.CreateUser("Höst", "Fritjof", "hostf", "hemligt");
-            Assert.IsTrue(result, "Det finns redan en användare med samma användarnamn");
+            Assert.IsNotNull(result, "Det finns redan en användare med samma användarnamn");
         }
 
         [TestMethod]

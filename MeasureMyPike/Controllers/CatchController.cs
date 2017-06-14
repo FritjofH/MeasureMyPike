@@ -15,13 +15,13 @@ namespace MeasureMyPike.Controllers
         {
             CatchService cs = new CatchService();
             
-            return cs.getAllCatch();
+            return cs.GetAllCatch();
         }
 
         // GET: api/Catch/5
         public Catch Get(int id)
         {
-            return new CatchService().getCatch(id);
+            return new CatchService().GetCatch(id);
         }
 
         // POST: api/Catch
@@ -39,7 +39,7 @@ namespace MeasureMyPike.Controllers
         // DELETE: api/Catch/5
         public void Delete(int id)
         {
-            new CatchService().deleteCatch(id);
+            new CatchService().DeleteCatch(id);
         }
     }
 }

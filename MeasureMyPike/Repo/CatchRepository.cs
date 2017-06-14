@@ -6,66 +6,10 @@ using System.Linq;
 
 namespace MeasureMyPike
 {
-    public class DatabaseConnection
+    public class CatchRepository
     {
-        public User addUser(User user)
-        {
-            try {
-                using (var conn = new ModelContainer())
-                {
-                    var u = conn.User.Add(user);
-                    conn.SaveChanges();
-                    return u;
-                }
-            }
-            catch (Exception ex) {
-                // TODO: better handling
-                Console.WriteLine(ex.GetType().FullName);
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-        }
 
-        public bool deleteUser(string username)
-        {
-            using (var conn = new ModelContainer())
-            {
-                User user = getUser(username);
-                if (user != null)
-                {
-                    conn.User.Remove(user);
-                    conn.SaveChanges();
-                    return true;
-                }
-
-                return false;
-            }
-        }
-
-        public string getUserPasswordHash(string username)
-        {
-            using (var conn = new ModelContainer())
-            {
-                return conn.User.First(it => it.Username == username).Security.Password;
-            }
-        }
-
-        public User getUser(string username)
-        {
-            using (var conn = new ModelContainer())
-            {
-                User o = conn.User.FirstOrDefault(it => it.FirstName == username);
-                {
-                    if (o != null)
-                    {
-                        return o;
-                    }
-                    else return null;
-                }
-            }
-        }
-
-        public Catch addCatch(Catch cc)
+        public Catch AddCatch(Catch cc)
         {
             try
             {
@@ -84,7 +28,7 @@ namespace MeasureMyPike
                 return null;
             }
         }
-        public List<Catch> getAllCatch()
+        public List<Catch> GetAllCatch()
         {
             try
             {
@@ -103,7 +47,7 @@ namespace MeasureMyPike
             }
         }
 
-        public Catch getCatch(int id)
+        public Catch GetCatch(int id)
         {
             using (var conn = new ModelContainer())
             {
@@ -118,11 +62,11 @@ namespace MeasureMyPike
             }
         }
 
-        public bool updateCatch(int id, Catch cc)
+        public bool UpdateCatch(int id, Catch cc)
         {
             try
             {
-                if (!deleteCatch(id))
+                if (!DeleteCatch(id))
                 {
                     // specified id was probably not found
                     return false;
@@ -144,11 +88,11 @@ namespace MeasureMyPike
             }
         }
 
-        public bool deleteCatch(int id)
+        public bool DeleteCatch(int id)
         {
             using (var conn = new ModelContainer())
             {
-                Catch c = getCatch(id);
+                Catch c = GetCatch(id);
                 if (c != null)
                 {
                     conn.Catch.Remove(c);

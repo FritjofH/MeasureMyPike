@@ -1,4 +1,5 @@
 ﻿using MeasureMyPike.Models.Entity_Framework;
+using MeasureMyPike.Repo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,13 @@ namespace MeasureMyPike.Service
 {
     public class UserService
     {
-        public User createUser(string lastName, string firstName, string username, string password)
+        public User CreateUser(string lastName, string firstName, string username, string password)
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
+            UserRepository dbconn = new UserRepository();
 
             SecurityService ss = new SecurityService();
 
-            var hashedPassword = ss.hashAndSaltPassword(password);
+            var hashedPassword = ss.HashAndSaltPassword(password);
 
             User user = new User
             {
@@ -26,21 +27,21 @@ namespace MeasureMyPike.Service
                 Security = new Security { Password = hashedPassword }
             };
 
-            return dbconn.addUser(user);
+            return dbconn.AddUser(user);
         }
 
-        public bool deleteUser(string username)
+        public bool DeleteUser(string username)
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
+            UserRepository dbconn = new UserRepository();
 
-            return dbconn.deleteUser(username);
+            return dbconn.DeleteUser(username);
         }
 
-        public User getUser(string username)
+        public User GetUser(string username)
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
+            UserRepository dbconn = new UserRepository();
 
-            return dbconn.getUser(username);
+            return dbconn.GetUser(username);
         }
     }
 }

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using MeasureMyPike.Repo;
+using System;
 using System.Security.Cryptography;
 
 namespace MeasureMyPike.Service
 {
     public class SecurityService
     {
-        public string hashAndSaltPassword(string password)
+        public string HashAndSaltPassword(string password)
         {
             byte[] salt;
             new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
@@ -20,11 +21,11 @@ namespace MeasureMyPike.Service
             return Convert.ToBase64String(hashBytes);
         }
 
-        public bool login(string username, string password)
+        public bool Login(string username, string password)
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
+            UserRepository userRepo = new UserRepository();
 
-            byte[] hashBytes = Convert.FromBase64String(dbconn.getUserPasswordHash(username));
+            byte[] hashBytes = Convert.FromBase64String(userRepo.GetUserPasswordHash(username));
 
             byte[] salt = new byte[16];
             Array.Copy(hashBytes, 0, salt, 0, 16);

@@ -35,7 +35,7 @@ namespace ApplicationTest
             bs.AddBrand(brand1);
             ls.AddLure(lure1, bs.GetBrand(brand1));
 
-            var result = cs.createCatch(ms.ImageToByteArray(i), ms.getImageFormat(i), "Jag fångade en fisk", ls.GetLure(lure1), "75 kilo", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", bs.GetBrand(brand1), "hostf");
+            var result = cs.CreateCatch(ms.ImageToByteArray(i), ms.getImageFormat(i), "Jag fångade en fisk", ls.GetLure(lure1), "75 kilo", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", bs.GetBrand(brand1), "hostf");
 
             Assert.IsTrue(result, "Något gick fel vid skapandet av fångsten");
         }

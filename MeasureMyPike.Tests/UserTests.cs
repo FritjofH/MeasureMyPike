@@ -21,7 +21,7 @@ namespace ApplicationTest
         public void createUser()
         {
             //Skapar upp en användare, om inte en med samma användarnamn redan finns
-            var result = us.createUser("Höst", "Fritjof", "hostf", "hemligt");
+            var result = us.CreateUser("Höst", "Fritjof", "hostf", "hemligt");
             Assert.IsTrue(result, "Det finns redan en användare med samma användarnamn");
         }
 
@@ -29,7 +29,7 @@ namespace ApplicationTest
         [TestCategory("UserTest")]
         public void loginUserSucceeds()
         {
-            var result = ss.login("hostf", "hemligt");
+            var result = ss.Login("hostf", "hemligt");
             Assert.IsTrue(result," Det angivna lösenordet matchade inte");
         }
 
@@ -37,7 +37,7 @@ namespace ApplicationTest
         [TestCategory("UserTest")]
         public void loginUserFails()
         {
-            var result= ss.login("hostf", "fel lösenord");
+            var result= ss.Login("hostf", "fel lösenord");
             Assert.IsFalse(result, "Det angivna lösenordet matchade");
         }
     }

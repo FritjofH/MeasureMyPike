@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 public class CatchService
 {
-    public Catch createCatch(byte[] image, string format, string comment, Lures lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Brand brand, string username)
+    public Catch CreateCatch(byte[] image, string format, string comment, Lures lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Brand brand, string username)
     {
-        DatabaseConnection dbconn = new DatabaseConnection();
+        CatchRepository dbconn = new CatchRepository();
 
         List<Media> mediaList = new List<Media>();
         mediaList.Add(new Media
@@ -34,14 +34,14 @@ public class CatchService
             Timestamp = DateTime.Now    // TODO: kanske skicka med istället = fångades
         };
 
-        return dbconn.addCatch(cc);
+        return dbconn.AddCatch(cc);
     }
 
-    public bool updateCatch(int id, byte[] image, string format, string comment, Lures lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Brand brand, string username)
+    public bool UpdateCatch(int id, byte[] image, string format, string comment, Lures lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Brand brand, string username)
     {
-        DatabaseConnection dbconn = new DatabaseConnection();
+        CatchRepository dbconn = new CatchRepository();
 
-        var c = dbconn.getCatch(id);
+        var c = dbconn.GetCatch(id);
         c.Comment = new Comment { Text = comment };
         c.Media.Add(new Media { MediaFormat = format, Image = new MediaData { Length=image.Length, Data=image} });
         c.Lures = lure;
@@ -50,29 +50,29 @@ public class CatchService
         c.WeatherData = new WeatherData { Temperature = temperature, Weather = weather, MoonPosition = moonposition };
         c.Timestamp = DateTime.Now; // TODO: kanske skicka med istället
         
-        return dbconn.updateCatch(id, c);
+        return dbconn.UpdateCatch(id, c);
     }
 
-    public List<Catch> getAllCatch()
+    public List<Catch> GetAllCatch()
     {
-        DatabaseConnection dbconn = new DatabaseConnection();
-        var c = dbconn.getAllCatch();
+        CatchRepository dbconn = new CatchRepository();
+        var c = dbconn.GetAllCatch();
 
         return c;
     }
 
-    public Catch getCatch(int id)
+    public Catch GetCatch(int id)
     {
-        DatabaseConnection dbconn = new DatabaseConnection();
-        var c = dbconn.getCatch(id);
+        CatchRepository dbconn = new CatchRepository();
+        var c = dbconn.GetCatch(id);
 
         return c;
     }
 
-    public bool deleteCatch(int id)
+    public bool DeleteCatch(int id)
     {
-        DatabaseConnection dbconn = new DatabaseConnection();
+        CatchRepository dbconn = new CatchRepository();
 
-        return dbconn.deleteCatch(id);
+        return dbconn.DeleteCatch(id);
     }
 }

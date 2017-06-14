@@ -1,6 +1,8 @@
-﻿using MeasureMyPike.Models.Entity_Framework;
+﻿using MeasureMyPike.Models.Application;
+using MeasureMyPike.Models.Entity_Framework;
 using MeasureMyPike.Repo;
 using System.Collections.Generic;
+using System;
 
 namespace MeasureMyPike.Service
 {
@@ -8,41 +10,54 @@ namespace MeasureMyPike.Service
     {
         public Brand AddBrand(string name)
         {
-            Brand brand = new Brand { Name = name };
-            BrandRepository dbconn = new BrandRepository();
-            // är Id automatiskt tilldelat då??
-            return dbconn.AddBrand(brand);
-        }
+            var dbconn = new BrandRepository();
+            var newBrand = new BrandDO { Name = name };
+            var savedBrand = dbconn.AddBrand(newBrand);
 
-        public Brand AddBrand(Brand brand)
-        {
-            BrandRepository dbconn = new BrandRepository();
-            return dbconn.AddBrand(brand);
+            return ConvertToBrand(savedBrand);
         }
 
         public Brand GetBrand(int id)
         {
-            BrandRepository dbconn = new BrandRepository();
-            return dbconn.GetBrand(id);
+            var dbconn = new BrandRepository();
+            var selectedBrand = dbconn.GetBrand(id);
+
+            return ConvertToBrand(selectedBrand);
         }
 
-        public Brand GetBrand(string name)
+        public List<Brand> GetAllBrands()
         {
-            BrandRepository dbconn = new BrandRepository();
-            return dbconn.GetBrand(name);
+            var dbconn = new BrandRepository();
+            var brandList = new List<Brand>();
+            var brands = dbconn.GetAllBrands();
+
+            foreach (var brand in brands)
+            {
+                brandList.Add(ConvertToBrand(brand));
+            }
+
+            return brandList;
         }
 
-        public List<Models.Application.Brand> GetAllBrand()
+        public Brand UpdateBrand(int id, string name)
         {
-            BrandRepository dbconn = new BrandRepository();
-           
-            return dbconn.GetAllBrands();
+            var dbconn = new BrandRepository();
+            var updatedBrand = dbconn.UpdateBrand(id, name);
+
+            return ConvertToBrand(updatedBrand);
         }
 
-        public Brand SetBrand(int id, string name)
+        public bool DeleteBrand(int id)
         {
-            BrandRepository dbconn = new BrandRepository();
-            return dbconn.UpdateBrand(id, name);
+            var dbconn = new BrandRepository();
+            var removed = dbconn.DeleteBrand(id);
+
+            return (bool)removed;
+        }
+
+        private Brand ConvertToBrand(BrandDO brandToConvert)
+        {
+            return new Brand { Id = brandToConvert.Id, Name = brandToConvert.Name };
         }
 
     }

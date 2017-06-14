@@ -9,11 +9,11 @@ namespace MeasureMyPike.Repo
     public class LocationRepository
     {
 
-        public Location GetLocation(int id)
+        public LocationDO GetLocation(int id)
         {            
             using (var conn = new ModelContainer())
             {
-                Location cc = conn.Location.FirstOrDefault(it => it.Id == id);
+                LocationDO cc = conn.Location.FirstOrDefault(it => it.Id == id);
                 {
                     if (cc != null)
                     {
@@ -24,7 +24,7 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public Location AddLocation(Location cc)
+        public LocationDO AddLocation(LocationDO cc)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public List<Location> GetAllLocations()
+        public List<LocationDO> GetAllLocations()
         {
             try
             {
@@ -68,7 +68,7 @@ namespace MeasureMyPike.Repo
             {
                 try
                 {
-                    Location o = conn.Location.FirstOrDefault(it => it.Id == id);
+                    LocationDO o = conn.Location.FirstOrDefault(it => it.Id == id);
                     o.Lake = locationName;
                     o.Coordinates = coordinates;
                     conn.SaveChanges();

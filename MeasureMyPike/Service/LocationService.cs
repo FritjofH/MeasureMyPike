@@ -5,7 +5,7 @@ using System.Web;
 using MeasureMyPike;
 using MeasureMyPike.Repo;
 using MeasureMyPike.Models.Entity_Framework;
-
+using MeasureMyPike.Models.Application;
 
 namespace MeasureMyPike.Service
 {
@@ -14,7 +14,7 @@ namespace MeasureMyPike.Service
 
         public Location AddLocation(String lake, String coordinates)
         {
-            Location location = new Location
+            LocationDO location = new LocationDO
             {                
                 Lake = lake,
                 Coordinates = coordinates                
@@ -22,19 +22,46 @@ namespace MeasureMyPike.Service
 
             LocationRepository dbconn = new LocationRepository();
 
-            return dbconn.AddLocation(location);
+             var locationDO = dbconn.AddLocation(location);
+          
+            return convertLocation(locationDO);
+        }
+
+        private Location convertLocation(LocationDO locationDO)
+        {
+            Location l = new Location();
+            l.Id = locationDO.Id;
+            l.Lake = locationDO.Lake;
+            l.Coordinates = locationDO.Coordinates;
+            return l;
+            
+        }
+        private List<Location> convertLocationList(List<LocationDO> locationDO)
+        {
+            List<Location> locationList = new List<Location>();
+            foreach (LocationDO ldo in locationDO) {
+                Location l = new Location();
+                l.Id = ldo.Id;
+                l.Lake = ldo.Lake;
+                l.Coordinates = ldo.Coordinates;
+                locationList.Add(l);
+             }
+            return locationList;
+
         }
 
         public Location GetLocation(int id)
         {
             LocationRepository dbconn = new LocationRepository();
-            return dbconn.GetLocation(id);
+            var l = dbconn.GetLocation(id);
+            return convertLocation(l);
         }
 
         public List<Location> GetAllLocations()
         {
             LocationRepository dbconn = new LocationRepository();
-            return dbconn.GetAllLocations();
+            List<LocationDO> locationdoList = dbconn.GetAllLocations();
+            return convertLocationList(locationdoList);
         }
 
         public bool UpdateLocation(int id, String name, String coordinates)

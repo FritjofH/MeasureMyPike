@@ -31,8 +31,8 @@ namespace ApplicationTest
         public void createLure()
         {
             int rnd = getRndNr();
-            var brand = bs.getBrand(1);
-            var result = ls.addLure("MyLure9" + rnd, brand);
+            var brand = bs.GetBrand(1);
+            var result = ls.AddLure("MyLure9" + rnd, brand);
             Assert.IsTrue(result, "Gick inte att skapa");            
         }
 
@@ -42,11 +42,11 @@ namespace ApplicationTest
         {
             int rnd = getRndNr();
             
-            Brand brand = bs.getBrand(1);
+            Brand brand = bs.GetBrand(1);
             
-            Assert.IsTrue(ls.addLure("MyLureorg1" + rnd, brand), "Gick inte att skapa");
+            Assert.IsTrue(ls.AddLure("MyLureorg1" + rnd, brand), "Gick inte att skapa");
             
-            Assert.IsTrue(ls.updateLure(ls.getLure(1).Id, "MyLureupd1" + rnd), "Gick inte att skapa");
+            Assert.IsTrue(ls.UpdateLure(ls.GetLure(1).Id, "MyLureupd1" + rnd), "Gick inte att skapa");
 
 
         }

@@ -1,15 +1,12 @@
 ﻿using System;
 using MeasureMyPike.Models.Entity_Framework;
+using MeasureMyPike.Repo;
 
 namespace MeasureMyPike.Service
 {
     public class LureService
     {
-
-
-
-
-        public bool addLure(String lureName, Brand brand)
+        public bool AddLure(String lureName, Brand brand)
         {
             Lures lure = new Lures
             {
@@ -18,29 +15,36 @@ namespace MeasureMyPike.Service
                 Catch = null
             };
 
-            DatabaseConnection dbconn = new DatabaseConnection();
+            LureRepository dbconn = new LureRepository();
 
-            return dbconn.addLure(lure);
+            return dbconn.AddLure(lure);
         }
 
-        public Lures getLure(int id)
+        public Lures GetLure(int id)
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
+            LureRepository dbconn = new LureRepository();
 
-            return dbconn.getLure(id);
+            return dbconn.GetLure(id);
         }
 
-      /*  public bool deleteLure(string id)
+        public Lures GetLure(string name)
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
-            //return dbconn.deleteLure(id);
-        }
-        */
-        public bool updateLure(int id, String name)
-        {
-            DatabaseConnection dbconn = new DatabaseConnection();
+            LureRepository dbconn = new LureRepository();
 
-            return dbconn.updateLure(id, name);
+            return dbconn.GetLure(name);
+        }
+
+        public bool DeleteLure(int id)
+        {
+            LureRepository dbconn = new LureRepository();
+            return dbconn.DeleteLure(id);
+        }
+
+        public bool UpdateLure(int id, String name)
+        {
+            LureRepository dbconn = new LureRepository();
+
+            return dbconn.UpdateLure(id, name);
         }
         
 

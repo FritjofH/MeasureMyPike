@@ -16,7 +16,7 @@ namespace MeasureMyPike.Controllers
         public List<Models.Application.Brand> Get()
         {
             BrandService bs = new BrandService();
-            var brands = bs.getAllBrand();
+            var brands = bs.GetAllBrand();
             return brands;
         }
 
@@ -24,7 +24,7 @@ namespace MeasureMyPike.Controllers
         public Brand Get(int id)
         {
             BrandService bs = new BrandService();
-            var b = bs.getBrand(id);
+            var b = bs.GetBrand(id);
             return b;
         }
 
@@ -39,7 +39,7 @@ namespace MeasureMyPike.Controllers
         public void Put(int id, [FromBody]string value)
         {
             BrandService bs = new BrandService();
-            bs.setBrand(id, value);
+            bs.SetBrand(id, value);
             
         }
 

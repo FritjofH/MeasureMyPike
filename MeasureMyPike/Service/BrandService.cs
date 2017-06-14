@@ -1,53 +1,54 @@
 ﻿using MeasureMyPike.Models.Entity_Framework;
+using MeasureMyPike.Repo;
 using System.Collections.Generic;
 
 namespace MeasureMyPike.Service
 {
     public class BrandService
     {
-        public void AddBrand(string name)
+        public bool AddBrand(string name)
         {
             Brand brand = new Brand { Name = name };
-            DatabaseConnection dbconn = new DatabaseConnection();
+            BrandRepository dbconn = new BrandRepository();
             // är Id automatiskt tilldelat då??
-            dbconn.addBrand(brand);
+            return dbconn.AddBrand(brand);
         }
 
-        public void AddBrand(Brand brand)
+        public bool AddBrand(Brand brand)
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
-            dbconn.addBrand(brand);
+            BrandRepository dbconn = new BrandRepository();
+            return dbconn.AddBrand(brand);
         }
 
-        public Brand getBrand(int id)
+        public Brand GetBrand(int id)
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
-            return dbconn.getBrand(id);
+            BrandRepository dbconn = new BrandRepository();
+            return dbconn.GetBrand(id);
         }
 
-        public Brand getBrand(string name)
+        public Brand GetBrand(string name)
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
-            return dbconn.getBrand(name);
+            BrandRepository dbconn = new BrandRepository();
+            return dbconn.GetBrand(name);
         }
 
-        public List<Models.Application.Brand> getAllBrand()
+        public List<Models.Application.Brand> GetAllBrand()
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
+            BrandRepository dbconn = new BrandRepository();
            
-            return dbconn.getAllBrands();
+            return dbconn.GetAllBrands();
         }
 
-        public void setBrand(int id, string name)
+        public bool SetBrand(int id, string name)
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
-            dbconn.updateBrand(id, name);
+            BrandRepository dbconn = new BrandRepository();
+            return dbconn.UpdateBrand(id, name);
         }
 
-        public void setBrand(int id, Brand brand)
+        public bool SetBrand(int id, Brand brand)
         {
-            DatabaseConnection dbconn = new DatabaseConnection();
-            dbconn.updateBrand(id, brand.Name);
+            BrandRepository dbconn = new BrandRepository();
+            return dbconn.UpdateBrand(id, brand.Name);
         }
     }
 }

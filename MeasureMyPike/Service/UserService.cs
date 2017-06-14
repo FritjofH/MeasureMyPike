@@ -9,7 +9,7 @@ namespace MeasureMyPike.Service
 {
     public class UserService
     {
-        public bool createUser(string lastName, string firstName, string username, string password)
+        public User createUser(string lastName, string firstName, string username, string password)
         {
             DatabaseConnection dbconn = new DatabaseConnection();
 
@@ -35,12 +35,12 @@ namespace MeasureMyPike.Service
 
             return dbconn.deleteUser(username);
         }
-        /*
+
         public User getUser(string username)
         {
             DatabaseConnection dbconn = new DatabaseConnection();
 
-            //return dbconn.getUser(username);
-        }*/
+            return dbconn.getUser(username);
+        }
     }
 }

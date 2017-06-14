@@ -8,21 +8,21 @@ namespace MeasureMyPike
 {
     public class DatabaseConnection
     {
-        public bool addUser(User user)
+        public User addUser(User user)
         {
             try {
                 using (var conn = new ModelContainer())
                 {
-                    conn.User.Add(user);
+                    var u = conn.User.Add(user);
                     conn.SaveChanges();
-                    return true;
+                    return u;
                 }
             }
             catch (Exception ex) {
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
-                return false;
+                return null;
             }
         }
 
@@ -50,7 +50,7 @@ namespace MeasureMyPike
             }
         }
 
-        private User getUser(string username)
+        public User getUser(string username)
         {
             using (var conn = new ModelContainer())
             {
@@ -65,15 +65,15 @@ namespace MeasureMyPike
             }
         }
 
-        public bool addCatch(Catch cc)
+        public Catch addCatch(Catch cc)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    conn.Catch.Add(cc);
+                    var c = conn.Catch.Add(cc);
                     conn.SaveChanges();
-                    return true;
+                    return c;
                 }
             }
             catch (Exception ex)
@@ -81,7 +81,7 @@ namespace MeasureMyPike
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
-                return false;
+                return null;
             }
         }
         public List<Catch> getAllCatch()

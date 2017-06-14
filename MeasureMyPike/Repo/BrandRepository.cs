@@ -9,15 +9,15 @@ namespace MeasureMyPike.Repo
     public class BrandRepository
     {
 
-        public bool AddBrand(Brand brand)
+        public Brand AddBrand(Brand brand)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    conn.Brand.Add(brand);
+                    var b = conn.Brand.Add(brand);
                     conn.SaveChanges();
-                    return true;
+                    return b;
                 }
             }
             catch (Exception ex)
@@ -25,7 +25,7 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
-                return false;
+                return null;
             }
         }
 
@@ -94,7 +94,7 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public bool UpdateBrand(int id, string name)
+        public Brand UpdateBrand(int id, string name)
         {
             using (var conn = new ModelContainer())
             {
@@ -103,14 +103,14 @@ namespace MeasureMyPike.Repo
                     Brand b = conn.Brand.FirstOrDefault(it => it.Id == id);
                     b.Name = name;
                     conn.SaveChanges();
-                    return true;
+                    return b;
                 }
                 catch (Exception ex)
                 {
                     // TODO: better handling
                     Console.WriteLine(ex.GetType().FullName);
                     Console.WriteLine(ex.Message);
-                    return false;
+                    return null;
                 }
             }
         }

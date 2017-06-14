@@ -6,7 +6,7 @@ namespace MeasureMyPike.Service
 {
     public class BrandService
     {
-        public bool AddBrand(string name)
+        public Brand AddBrand(string name)
         {
             Brand brand = new Brand { Name = name };
             BrandRepository dbconn = new BrandRepository();
@@ -14,7 +14,7 @@ namespace MeasureMyPike.Service
             return dbconn.AddBrand(brand);
         }
 
-        public bool AddBrand(Brand brand)
+        public Brand AddBrand(Brand brand)
         {
             BrandRepository dbconn = new BrandRepository();
             return dbconn.AddBrand(brand);
@@ -39,16 +39,11 @@ namespace MeasureMyPike.Service
             return dbconn.GetAllBrands();
         }
 
-        public bool SetBrand(int id, string name)
+        public Brand SetBrand(int id, string name)
         {
             BrandRepository dbconn = new BrandRepository();
             return dbconn.UpdateBrand(id, name);
         }
 
-        public bool SetBrand(int id, Brand brand)
-        {
-            BrandRepository dbconn = new BrandRepository();
-            return dbconn.UpdateBrand(id, brand.Name);
-        }
     }
 }

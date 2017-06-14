@@ -17,7 +17,12 @@ namespace MeasureMyPike.Service
 
         public string getImageFormat(Image imageIn)
         {
-            return typeof(System.Drawing.Imaging.ImageFormat).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static).ToList().ConvertAll(property => property.GetValue(null, null)).Single(image_format => image_format.Equals(imageIn.RawFormat)).ToString();
+            return typeof(System.Drawing.Imaging.ImageFormat)
+                .GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
+                .ToList()
+                .ConvertAll(property => property.GetValue(null, null))
+                .Single(image_format => image_format.Equals(imageIn.RawFormat))
+                .ToString();
         }
     }
 }

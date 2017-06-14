@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class CatchService
 {
-    public bool createCatch(byte[] image, string format, string comment, Lures lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Brand brand, string username)
+    public Catch createCatch(byte[] image, string format, string comment, Lures lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Brand brand, string username)
     {
         DatabaseConnection dbconn = new DatabaseConnection();
 

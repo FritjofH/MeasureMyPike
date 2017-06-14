@@ -186,7 +186,6 @@
     <Compile Include="Controllers\BrandController.cs" />
     <Compile Include="Controllers\CatchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\KalleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

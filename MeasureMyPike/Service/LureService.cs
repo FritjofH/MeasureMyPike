@@ -1,6 +1,7 @@
 ﻿using MeasureMyPike.Models.Entity_Framework;
 using MeasureMyPike.Repo;
 using MeasureMyPike.Models.Application;
+using System.Collections.Generic;
 
 namespace MeasureMyPike.Service
 {
@@ -19,7 +20,7 @@ namespace MeasureMyPike.Service
             };
             var createdLure = lureRepo.AddLure(lure);
 
-            return conversionService.convertToLure(createdLure);
+            return conversionService.ConvertToLure(createdLure);
         }
 
         public Lure GetLure(int id)
@@ -28,7 +29,7 @@ namespace MeasureMyPike.Service
             var conversionService = new ConversionService();
             var selectedLure = lureRepo.GetLure(id);
 
-            return conversionService.convertToLure(selectedLure);
+            return conversionService.ConvertToLure(selectedLure);
         }
 
         public LureDO GetLureDO(int id)
@@ -39,13 +40,18 @@ namespace MeasureMyPike.Service
             return selectedLure;
         }
 
-        public bool DeleteLure(int id)
+        public List<Lure> GetAllLures()
         {
             var lureRepo = new LureRepository();
-            var lureToDelete = GetLureDO(id);
-            var deleted = lureRepo.DeleteLure(lureToDelete);
+            var conversionService = new ConversionService();
+            var lureList = new List<Lure>();
 
-            return deleted;
+            foreach (var lure in lureRepo.GetAllLures())
+            {
+                lureList.Add(conversionService.ConvertToLure(lure));
+            }
+
+            return lureList;
         }
 
         public Lure UpdateLure(int id, string name)
@@ -54,8 +60,16 @@ namespace MeasureMyPike.Service
             var conversionService = new ConversionService();
             var updatedLure = lureRepo.UpdateLure(id, name);
 
-            return conversionService.convertToLure(updatedLure);
+            return conversionService.ConvertToLure(updatedLure);
         }
 
+        public bool DeleteLure(int id)
+        {
+            var lureRepo = new LureRepository();
+            var lureToDelete = GetLureDO(id);
+            var deleted = lureRepo.DeleteLure(lureToDelete);
+
+            return deleted;
+        }
     }
 }

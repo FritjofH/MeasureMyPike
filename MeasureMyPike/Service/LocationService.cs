@@ -35,6 +35,19 @@ namespace MeasureMyPike.Service
 
             return location;
         }
+        public List<Location> GetAllLocations()
+        {
+            var locationRepo = new LocationRepository();
+            var conversionService = new ConversionService();
+            var locationList = new List<Location>();
+
+            foreach (var location in locationRepo.GetAllLocations())
+            {
+                locationList.Add(conversionService.ConvertToLocation(location));
+            }
+
+            return locationList;
+        }
 
         public Location UpdateLocation(int id, string name, string coordinates)
         {

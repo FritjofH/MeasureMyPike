@@ -9,7 +9,7 @@ namespace MeasureMyPike.Service
 {
     public class ConversionService
     {
-        public Lure convertToLure(LureDO lureToConvert)
+        public Lure ConvertToLure(LureDO lureToConvert)
         {
             return new Lure {
                 Id = lureToConvert.Id,

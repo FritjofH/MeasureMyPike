@@ -41,23 +41,20 @@ public class CatchService : ICatchService
         return conversionService.convertToCatch(createdCatch);
     }
 
-    public bool UpdateCatch(int id, byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Brand brand, string username)
+    public Catch GetCatch(int id)
     {
         var catchRepo = new CatchRepository();
-        var lureService = new LureService();
+        var selectedCatch = catchRepo.GetCatch(id);
+        var conversionService = new ConversionService();
 
-        var catchToUpdate = catchRepo.GetCatch(id);
-        catchToUpdate.Comment = new CommentDO { Text = comment };
-        catchToUpdate.Media.Add(new MediaDO { MediaFormat = format, Image = new MediaDataDO { Length=image.Length, Data=image} });
-        catchToUpdate.Lures = lureService.GetLureDO(lure.Id);
-        catchToUpdate.Fish = new FishDO { Length = fishLength, Weight = fishWeight };
-        catchToUpdate.Location = new LocationDO { Lake = lake, Coordinates = coordinates};
-        catchToUpdate.WeatherData = new WeatherDataDO { Temperature = temperature, Weather = weather, MoonPosition = moonposition };
-        catchToUpdate.Timestamp = DateTime.Now; // TODO: kanske skicka med istället
-        
-        var updatedCatch = catchRepo.UpdateCatch(id, catchToUpdate);
+        return conversionService.convertToCatch(selectedCatch);
+    }
+    public CatchDO GetCatchDO(int id)
+    {
+        var catchRepo = new CatchRepository();
+        var selectedCatch = catchRepo.GetCatch(id);
 
-        return updatedCatch;
+        return selectedCatch;
     }
 
     public List<Catch> GetAllCatches()
@@ -74,20 +71,23 @@ public class CatchService : ICatchService
         return catchList;
     }
 
-    public Catch GetCatch(int id)
+    public bool UpdateCatch(int id, byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Brand brand, string username)
     {
         var catchRepo = new CatchRepository();
-        var selectedCatch = catchRepo.GetCatch(id);
-        var conversionService = new ConversionService();
+        var lureService = new LureService();
 
-        return conversionService.convertToCatch(selectedCatch);
-    }
-    public CatchDO GetCatchDO(int id)
-    {
-        var catchRepo = new CatchRepository();
-        var selectedCatch = catchRepo.GetCatch(id);
+        var catchToUpdate = catchRepo.GetCatch(id);
+        catchToUpdate.Comment = new CommentDO { Text = comment };
+        catchToUpdate.Media.Add(new MediaDO { MediaFormat = format, Image = new MediaDataDO { Length = image.Length, Data = image } });
+        catchToUpdate.Lures = lureService.GetLureDO(lure.Id);
+        catchToUpdate.Fish = new FishDO { Length = fishLength, Weight = fishWeight };
+        catchToUpdate.Location = new LocationDO { Lake = lake, Coordinates = coordinates };
+        catchToUpdate.WeatherData = new WeatherDataDO { Temperature = temperature, Weather = weather, MoonPosition = moonposition };
+        catchToUpdate.Timestamp = DateTime.Now; // TODO: kanske skicka med istället
 
-        return selectedCatch;
+        var updatedCatch = catchRepo.UpdateCatch(id, catchToUpdate);
+
+        return updatedCatch;
     }
 
     public bool DeleteCatch(int id)

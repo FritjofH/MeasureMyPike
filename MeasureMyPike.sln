@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeasureMyPike.Application", "MeasureMyPike\MeasureMyPike.Application.csproj", "{9B400F01-54CE-4910-8213-FCA4BBCEB6C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeasureMyPike.Application", "MeasureMyPike.Application\MeasureMyPike.Application.csproj", "{9B400F01-54CE-4910-8213-FCA4BBCEB6C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeasureMyPike.Tests", "MeasureMyPike.Tests\MeasureMyPike.Tests.csproj", "{3CEDC713-9C4E-4BCB-80CD-D68107CC902C}"
 EndProject

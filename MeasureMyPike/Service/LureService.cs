@@ -1,5 +1,4 @@
-﻿using System;
-using MeasureMyPike.Models.Entity_Framework;
+﻿using MeasureMyPike.Models.Entity_Framework;
 using MeasureMyPike.Repo;
 using MeasureMyPike.Models.Application;
 

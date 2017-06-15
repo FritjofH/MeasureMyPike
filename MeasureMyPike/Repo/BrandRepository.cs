@@ -14,10 +14,10 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var brand = conn.Brand.Add(newBrand);
+                    var createdBrand = conn.Brand.Add(newBrand);
                     conn.SaveChanges();
 
-                    return brand;
+                    return createdBrand;
                 }
             }
             catch (Exception ex)
@@ -35,9 +35,9 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var brands = conn.Brand.ToList();
+                    var brandList = conn.Brand.ToList();
 
-                    return brands;
+                    return brandList;
                 }
             }
             catch (Exception ex)
@@ -55,9 +55,9 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var brand = conn.Brand.First(u => u.Id == id);
+                    var selectedBrand = conn.Brand.First(u => u.Id == id);
 
-                    return brand;
+                    return selectedBrand;
                 }
             }
             catch (Exception ex)
@@ -76,7 +76,6 @@ namespace MeasureMyPike.Repo
                 using (var conn = new ModelContainer())
                 {
                     var brandToDelete = conn.Brand.First(it => it.Id == id);
-
                     conn.Brand.Remove(brandToDelete);
                     conn.SaveChanges();
 
@@ -92,18 +91,17 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public BrandDO UpdateBrand(int id, string name)
+        public BrandDO UpdateBrand(BrandDO changedBrand)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-
-                    var brand = conn.Brand.FirstOrDefault(it => it.Id == id);
-                    brand.Name = name;
+                    var brandToUpdate = conn.Brand.FirstOrDefault(it => it.Id == changedBrand.Id);
+                    brandToUpdate.Name = changedBrand.Name;
                     conn.SaveChanges();
 
-                    return brand;
+                    return brandToUpdate;
                 }
             }
             catch (Exception ex)

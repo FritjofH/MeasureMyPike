@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using MeasureMyPike.Models.Entity_Framework;
-using MeasureMyPike.Models.Application;
 
 namespace MeasureMyPike.Repo
 {
@@ -11,13 +9,13 @@ namespace MeasureMyPike.Repo
     {
         public List<LureDO> GetLures()
         {
-
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var l = conn.Lure.ToList();
-                    return l;
+                    var lureList = conn.Lure.ToList();
+
+                    return lureList;
                 }
             }
             catch (Exception ex)
@@ -54,17 +52,17 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public bool UpdateLure(int id, string lureName)
+        public LureDO UpdateLure(int id, string lureName)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-
                     var lureToUpdate = conn.Lure.FirstOrDefault(it => it.Id == id);
                     lureToUpdate.Name = lureName;
                     conn.SaveChanges();
-                    return true;
+
+                    return lureToUpdate;
                 }
             }
             catch (Exception ex)
@@ -72,7 +70,7 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
-                return false;
+                return null;
             }
         }
         public LureDO AddLure(LureDO newLure)
@@ -83,6 +81,7 @@ namespace MeasureMyPike.Repo
                 {
                     var createdLure = conn.Lure.Add(newLure);
                     conn.SaveChanges();
+
                     return createdLure;
                 }
             }
@@ -107,6 +106,7 @@ namespace MeasureMyPike.Repo
                     {
                         conn.Lure.Remove(lure);
                         conn.SaveChanges();
+
                         return true;
                     }
                     return false;

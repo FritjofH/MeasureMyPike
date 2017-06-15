@@ -48,11 +48,12 @@ namespace MeasureMyPike.Service
             return deleted;
         }
 
-        public bool UpdateLure(int id, string name)
+        public Lure UpdateLure(int id, string name)
         {
             var lureRepo = new LureRepository();
+            var updatedLure = lureRepo.UpdateLure(id, name);
 
-            return lureRepo.UpdateLure(id, name);
+            return convertToLure(updatedLure);
         }
         
         private Lure convertToLure(LureDO lureToConvert)

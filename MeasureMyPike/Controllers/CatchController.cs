@@ -10,7 +10,7 @@ namespace MeasureMyPike.Controllers
         public List<Catch> Get()
         {
             var cs = new CatchService();
-            var catchList = cs.GetAllCatch();
+            var catchList = cs.GetAllCatches();
 
             return catchList;
         }

@@ -47,10 +47,11 @@ namespace MeasureMyPike.Service
             return brandList;
         }
 
-        public Brand UpdateBrand(int id, string name)
+        public Brand UpdateBrand(int id)
         {
             var brandRepo = new BrandRepository();
-            var updatedBrand = brandRepo.UpdateBrand(id, name);
+            var brandToUpdate = GetBrandDO(id);
+            var updatedBrand = brandRepo.UpdateBrand(brandToUpdate);
 
             return ConvertToBrand(updatedBrand);
         }

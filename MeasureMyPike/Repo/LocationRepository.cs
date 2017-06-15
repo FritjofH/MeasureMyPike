@@ -10,29 +10,39 @@ namespace MeasureMyPike.Repo
     {
 
         public LocationDO GetLocation(int id)
-        {            
-            using (var conn = new ModelContainer())
-            {
-                LocationDO cc = conn.Location.FirstOrDefault(it => it.Id == id);
-                {
-                    if (cc != null)
-                    {
-                        return cc;
-                    }
-                    else return null;
-                }
-            }
-        }
-
-        public LocationDO AddLocation(LocationDO cc)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var c = conn.Location.Add(cc);
+                    var selectedLocation = conn.Location.FirstOrDefault(it => it.Id == id);
+                    {
+                        if (selectedLocation != null)
+                        {
+                            return selectedLocation;
+                        }
+                        else return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        public LocationDO AddLocation(LocationDO newLocation)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var createdLocation = conn.Location.Add(newLocation);
                     conn.SaveChanges();
-                    return c;
+                    return createdLocation;
                 }
             }
             catch (Exception ex)
@@ -62,25 +72,25 @@ namespace MeasureMyPike.Repo
                 return null;
             }
         }
-        public bool UpdateLocation(int id, string locationName, String coordinates)
+        public LocationDO UpdateLocation(int id, string lake, string coordinates)
         {
-            using (var conn = new ModelContainer())
+            try
             {
-                try
+                using (var conn = new ModelContainer())
                 {
-                    LocationDO o = conn.Location.FirstOrDefault(it => it.Id == id);
-                    o.Lake = locationName;
-                    o.Coordinates = coordinates;
+                    var updatedLocation = conn.Location.FirstOrDefault(it => it.Id == id);
+                    updatedLocation.Lake = lake;
+                    updatedLocation.Coordinates = coordinates;
                     conn.SaveChanges();
-                    return true;
+                    return updatedLocation;
                 }
-                catch (Exception ex)
-                {
-                    // TODO: better handling
-                    Console.WriteLine(ex.GetType().FullName);
-                    Console.WriteLine(ex.Message);
-                    return false;
-                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
 

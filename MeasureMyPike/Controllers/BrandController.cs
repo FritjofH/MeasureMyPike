@@ -4,48 +4,57 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using MeasureMyPike.Models.Entity_Framework;
 using MeasureMyPike.Service;
 using System.Collections;
+using MeasureMyPike.Models.Application;
 
 namespace MeasureMyPike.Controllers
 {
     public class BrandController : ApiController
     {
         //GET: api/Brand
-        public List<Models.Application.Brand> Get()
+        public List<Brand> Get()
         {
-            BrandService bs = new BrandService();
-            var brands = bs.GetAllBrand();
+            var bs = new BrandService();
+            var brands = bs.GetAllBrands();
+
             return brands;
         }
 
         // GET: api/Brand/5
         public Brand Get(int id)
         {
-            BrandService bs = new BrandService();
-            var b = bs.GetBrand(id);
-            return b;
+            var bs = new BrandService();
+            var brand = bs.GetBrand(id);
+
+            return brand;
         }
 
         // POST: api/Brand
-        public void Post([FromBody]Brand value)
+        public Brand Post([FromBody]string name)
         {
-            BrandService bs = new BrandService();
-            bs.AddBrand(value);
+            var bs = new BrandService();
+            var brand = bs.AddBrand(name);
+
+            return brand;
         }
 
         // PUT: api/Brand/5
-        public void Put(int id, [FromBody]string value)
+        public Brand Put(int id, [FromBody]string name)
         {
-            BrandService bs = new BrandService();
-            bs.SetBrand(id, value);
-            
+            var bs = new BrandService();
+            var brand = bs.UpdateBrand(id, name);
+
+            return brand;
         }
 
         // DELETE: api/Brand/5
-        public void Delete(int id)
+        public bool Delete(int id)
         {
+            var bs = new BrandService();
+            var deleted = bs.DeleteBrand(id);
+            
+            return deleted;
         }
     }
 }

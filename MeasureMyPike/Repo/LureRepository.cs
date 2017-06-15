@@ -3,87 +3,66 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MeasureMyPike.Models.Entity_Framework;
+using MeasureMyPike.Models.Application;
 
 namespace MeasureMyPike.Repo
 {
     public class LureRepository
     {
-        public List<Lures> GetLures()
+        public List<LureDO> GetLures()
         {
-            using (var conn = new ModelContainer())
+
+            try
             {
-                try
+                using (var conn = new ModelContainer())
                 {
-                    var l = conn.Lures.ToList();
+                    var l = conn.Lure.ToList();
                     return l;
                 }
-                catch (Exception ex)
-                {
-                    // TODO: better handling
-                    Console.WriteLine(ex.GetType().FullName);
-                    Console.WriteLine(ex.Message);
-                    return null;
-                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
 
-        public Lures GetLure(int id)
-        {
-            using (var conn = new ModelContainer())
-            {
-                Lures o = conn.Lures.FirstOrDefault(it => it.Id == id);
-                {
-                    if (o != null)
-                    {
-                        return o;
-                    }
-                    else return null;
-                }
-            }
-        }
-
-        public Lures GetLure(string name)
-        {
-            using (var conn = new ModelContainer())
-            {
-                Lures o = conn.Lures.FirstOrDefault(it => it.Name == name);
-                {
-                    if (o != null)
-                    {
-                        return o;
-                    }
-                    else return null;
-                }
-            }
-        }
-
-        public bool UpdateLure(int id, string lureName)
-        {
-            using (var conn = new ModelContainer())
-            {
-                try
-                {
-                    Lures o = conn.Lures.FirstOrDefault(it => it.Id == id);
-                    o.Name = lureName;
-                    conn.SaveChanges();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    // TODO: better handling
-                    Console.WriteLine(ex.GetType().FullName);
-                    Console.WriteLine(ex.Message);
-                    return false;
-                }
-            }
-        }
-        public bool AddLure(Lures lure)
+        public LureDO GetLure(int id)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    conn.Lures.Add(lure);
+                    var selectedLure = conn.Lure.FirstOrDefault(it => it.Id == id);
+                    {
+                        if (selectedLure != null)
+                        {
+                            return selectedLure;
+                        }
+                        else return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        public bool UpdateLure(int id, string lureName)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+
+                    var lureToUpdate = conn.Lure.FirstOrDefault(it => it.Id == id);
+                    lureToUpdate.Name = lureName;
                     conn.SaveChanges();
                     return true;
                 }
@@ -96,20 +75,48 @@ namespace MeasureMyPike.Repo
                 return false;
             }
         }
+        public LureDO AddLure(LureDO newLure)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var createdLure = conn.Lure.Add(newLure);
+                    conn.SaveChanges();
+                    return createdLure;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
 
-        
+
         public bool DeleteLure(int id)
         {
-            using (var conn = new ModelContainer())
+            try
             {
-                Lures lure = GetLure(id);
-                if (lure != null)
+                using (var conn = new ModelContainer())
                 {
-                    conn.Lures.Remove(lure);
-                    conn.SaveChanges();
-                    return true;
+                    var lure = GetLure(id);
+                    if (lure != null)
+                    {
+                        conn.Lure.Remove(lure);
+                        conn.SaveChanges();
+                        return true;
+                    }
+                    return false;
                 }
-
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }

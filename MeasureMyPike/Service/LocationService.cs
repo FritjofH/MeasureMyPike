@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MeasureMyPike;
+﻿using System.Collections.Generic;
 using MeasureMyPike.Repo;
 using MeasureMyPike.Models.Entity_Framework;
 using MeasureMyPike.Models.Application;
@@ -13,19 +9,21 @@ namespace MeasureMyPike.Service
     public class LocationService
     {
 
-        public Location AddLocation(String lake, String coordinates)
+        public Location AddLocation(string lake, string coordinates)
         {
-            LocationDO location = new LocationDO
-            {                
-                Lake = lake,
-                Coordinates = coordinates                
-            };
-
-            LocationRepository dbconn = new LocationRepository();
-
-             var locationDO = dbconn.AddLocation(location);
+            var locationRepo = new LocationRepository();
+            var location = new LocationDO { Lake = lake, Coordinates = coordinates };
+            var createdLocation = locationRepo.AddLocation(location);
           
-            return convertLocation(locationDO);
+            return convertToLocation(createdLocation);
+        }
+
+        public Location GetLocation(int id)
+        {
+            var locationRepo = new LocationRepository();
+            var l = locationRepo.GetLocation(id);
+
+            return convertToLocation(l);
         }
     public Location AddLocation(Location location)
     {
@@ -39,55 +37,44 @@ namespace MeasureMyPike.Service
 
         var locationDO = dbconn.AddLocation(locationDo);
 
-        return convertLocation(locationDO);
-    }
-
-
-    private Location convertLocation(LocationDO locationDO)
+        private Location convertLocation(LocationDO locationDO)
         {
-            Location l = new Location();
-            l.Id = locationDO.Id;
-            l.Lake = locationDO.Lake;
-            l.Coordinates = locationDO.Coordinates;
-            return l;
-            
-        }
-        private List<Location> convertLocationList(List<LocationDO> locationDO)
-        {
-            List<Location> locationList = new List<Location>();
-            foreach (LocationDO ldo in locationDO) {
-                Location l = new Location();
-                l.Id = ldo.Id;
-                l.Lake = ldo.Lake;
-                l.Coordinates = ldo.Coordinates;
-                locationList.Add(l);
-             }
+            var locationREpo = new LocationRepository();
+            var locationList = new List<Location>();
+
+            foreach(var location in locationREpo.GetAllLocations())
+            {
+                locationList.Add(convertToLocation(location));
+            }
+
             return locationList;
-
         }
 
-        public Location GetLocation(int id)
+        public Location UpdateLocation(int id, string name, string coordinates)
         {
-            LocationRepository dbconn = new LocationRepository();
-            var l = dbconn.GetLocation(id);
-            return convertLocation(l);
+            var locationRepo = new LocationRepository();
+
+            var updatedLocation = locationRepo.UpdateLocation(id, name, coordinates);
+
+            return convertToLocation(updatedLocation);
         }
 
-        public List<Location> GetAllLocations()
+        private Location convertToLocation(LocationDO locationToConvert)
         {
-            LocationRepository dbconn = new LocationRepository();
-            List<LocationDO> locationdoList = dbconn.GetAllLocations();
-            return convertLocationList(locationdoList);
+            return new Location {
+                Coordinates = locationToConvert.Coordinates,
+                Id = locationToConvert.Id,
+                Lake = locationToConvert.Lake
+            };
         }
+            public bool SetLocation(int id, String name, String coordinates)
+            {
+                LocationRepository dbconn = new LocationRepository();
 
-        public bool SetLocation(int id, String name, String coordinates)
-        {
-            LocationRepository dbconn = new LocationRepository();
+                return dbconn.UpdateLocation(id, name, coordinates);
+            }
 
-            return dbconn.UpdateLocation(id, name, coordinates);
-        }
-
-        public bool DeleteLocation(int id)
+            public bool DeleteLocation(int id)
         {
             LocationRepository dbconn = new LocationRepository();
 

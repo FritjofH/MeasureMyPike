@@ -17,12 +17,12 @@ namespace ApplicationTest
         [TestInitialize]
         public void Initialize()
         {
-            //dbconn = new DatabaseConnection();
             ls = new LureService();
             bs = new BrandService();
         }
         private int getRndNr() {
-            Random r = new Random();
+            var r = new Random();
+
             return r.Next(0, 100); //for ints
         }
     
@@ -30,25 +30,22 @@ namespace ApplicationTest
         [TestCategory("LureTest")]
         public void createLure()
         {
-            int rnd = getRndNr();
+            var rnd = getRndNr();
             var brand = bs.GetBrand(1);
             var result = ls.AddLure("MyLure9" + rnd, brand);
-            Assert.IsTrue(result, "Gick inte att skapa");            
+
+            Assert.IsNotNull(result, "Gick inte att skapa");            
         }
 
         [TestMethod]
         [TestCategory("LureTest")]
         public void updateLure()
         {
-            int rnd = getRndNr();
+            var rnd = getRndNr();
+            var brand = bs.GetBrand(1);
             
-            Brand brand = bs.GetBrand(1);
-            
-            Assert.IsTrue(ls.AddLure("MyLureorg1" + rnd, brand), "Gick inte att skapa");
-            
-            Assert.IsTrue(ls.UpdateLure(ls.GetLure(1).Id, "MyLureupd1" + rnd), "Gick inte att skapa");
-
-
+            Assert.IsNotNull(ls.AddLure("MyLureorg1" + rnd, brand), "Gick inte att skapa");
+            Assert.IsNotNull(ls.UpdateLure(ls.GetLure(1).Id, "MyLureupd1" + rnd), "Gick inte att skapa");
         }
     }
 }

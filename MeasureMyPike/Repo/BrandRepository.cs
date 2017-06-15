@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using MeasureMyPike.Models.Entity_Framework;
 
 namespace MeasureMyPike.Repo
@@ -9,15 +8,16 @@ namespace MeasureMyPike.Repo
     public class BrandRepository
     {
 
-        public Brand AddBrand(Brand brand)
+        public BrandDO AddBrand(BrandDO newBrand)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var b = conn.Brand.Add(brand);
+                    var brand = conn.Brand.Add(newBrand);
                     conn.SaveChanges();
-                    return b;
+
+                    return brand;
                 }
             }
             catch (Exception ex)
@@ -29,7 +29,7 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public List<Models.Application.Brand> GetAllBrands()
+        public List<BrandDO> GetAllBrands()
         {
             try
             {
@@ -37,14 +37,7 @@ namespace MeasureMyPike.Repo
                 {
                     var brands = conn.Brand.ToList();
 
-                    var brandList = new List<Models.Application.Brand>();
-
-                    foreach (var brand in brands)
-                    {
-                        brandList.Add(new Models.Application.Brand { Id = brand.Id, Name = brand.Name });
-                    }
-
-                    return brandList;
+                    return brands;
                 }
             }
             catch (Exception ex)
@@ -56,62 +49,69 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public Brand GetBrand(int id)
+        public BrandDO GetBrand(int id)
         {
-            using (var conn = new ModelContainer())
+            try
             {
-                try
+                using (var conn = new ModelContainer())
                 {
-                    Brand brand = conn.Brand.First(u => u.Id == id);
+                    var brand = conn.Brand.First(u => u.Id == id);
+
                     return brand;
                 }
-                catch (Exception ex)
-                {
-                    // TODO: better handling
-                    Console.WriteLine(ex.GetType().FullName);
-                    Console.WriteLine(ex.Message);
-                    return null;
-                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
 
-        public Brand GetBrand(string name)
+        internal object DeleteBrand(int id)
         {
-            using (var conn = new ModelContainer())
+            try
             {
-                try
+                using (var conn = new ModelContainer())
                 {
-                    Brand brand = conn.Brand.First(u => u.Name == name);
-                    return brand;
-                }
-                catch (Exception ex)
-                {
-                    // TODO: better handling
-                    Console.WriteLine(ex.GetType().FullName);
-                    Console.WriteLine(ex.Message);
-                    return null;
-                }
-            }
-        }
+                    var brandToDelete = conn.Brand.First(it => it.Id == id);
 
-        public Brand UpdateBrand(int id, string name)
-        {
-            using (var conn = new ModelContainer())
-            {
-                try
-                {
-                    Brand b = conn.Brand.FirstOrDefault(it => it.Id == id);
-                    b.Name = name;
+                    conn.Brand.Remove(brandToDelete);
                     conn.SaveChanges();
-                    return b;
+
+                    return true;
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        public BrandDO UpdateBrand(int id, string name)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
                 {
-                    // TODO: better handling
-                    Console.WriteLine(ex.GetType().FullName);
-                    Console.WriteLine(ex.Message);
-                    return null;
+
+                    var brand = conn.Brand.FirstOrDefault(it => it.Id == id);
+                    brand.Name = name;
+                    conn.SaveChanges();
+
+                    return brand;
                 }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
 

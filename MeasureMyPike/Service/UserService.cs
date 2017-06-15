@@ -1,10 +1,7 @@
-﻿using MeasureMyPike.Models.Entity_Framework;
+﻿using MeasureMyPike.Models.Application;
+using MeasureMyPike.Models.Entity_Framework;
 using MeasureMyPike.Repo;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeasureMyPike.Service
 {
@@ -12,22 +9,24 @@ namespace MeasureMyPike.Service
     {
         public User CreateUser(string lastName, string firstName, string username, string password)
         {
-            UserRepository dbconn = new UserRepository();
+            var userRepo = new UserRepository();
 
-            SecurityService ss = new SecurityService();
+            var ss = new SecurityService();
 
             var hashedPassword = ss.HashAndSaltPassword(password);
 
-            User user = new User
+            var user = new UserDO
             {
                 FirstName = firstName,
                 LastName = lastName,
                 Username = username,
                 MemberSince = DateTime.Now,
-                Security = new Security { Password = hashedPassword }
+                Security = new SecurityDO { Password = hashedPassword }
             };
 
-            return dbconn.AddUser(user);
+            var createdUser = userRepo.AddUser(user);
+
+            return convertToUser(createdUser);
         }
 
         public bool DeleteUser(string username)
@@ -41,7 +40,20 @@ namespace MeasureMyPike.Service
         {
             UserRepository dbconn = new UserRepository();
 
-            return dbconn.GetUser(username);
+            var selectedUser = dbconn.GetUser(username);
+
+            return convertToUser(selectedUser);
+        }
+
+        private User convertToUser(UserDO userToConvert)
+        {
+            return new User {
+                FirstName = userToConvert.FirstName,
+                LastName = userToConvert.LastName,
+                MemberSince = userToConvert.MemberSince,
+                Id = userToConvert.Id,
+                Username = userToConvert.Username
+            };
         }
     }
 }

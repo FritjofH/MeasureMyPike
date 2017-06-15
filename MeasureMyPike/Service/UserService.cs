@@ -5,7 +5,7 @@ using System;
 
 namespace MeasureMyPike.Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
         public User CreateUser(string lastName, string firstName, string username, string password)
         {

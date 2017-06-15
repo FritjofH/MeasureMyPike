@@ -254,6 +254,11 @@
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repo\IBrandRepository.cs" />
+    <Compile Include="Repo\ICatchRepository.cs" />
+    <Compile Include="Repo\ILocationRepository.cs" />
+    <Compile Include="Repo\ILureRepository.cs" />
+    <Compile Include="Repo\IUserRepository.cs" />
     <Compile Include="Repo\LocationRepository.cs" />
     <Compile Include="Repo\UserRepository.cs" />
     <Compile Include="Repo\BrandRepository.cs" />
@@ -261,7 +266,14 @@
     <Compile Include="Service\CatchService.cs" />
     <Compile Include="Repo\LureRepository.cs" />
     <Compile Include="Repo\CatchRepository.cs" />
-    <Compile Include="Service\ConversionService.cs" />
+    <Compile Include="Service\IBrandService.cs" />
+    <Compile Include="Service\ICatchService.cs" />
+    <Compile Include="Service\ILocationService.cs" />
+    <Compile Include="Service\ILureService.cs" />
+    <Compile Include="Service\IMediaService.cs" />
+    <Compile Include="Service\ISecurityService.cs" />
+    <Compile Include="Service\IUserService.cs" />
+	<Compile Include="Service\ConversionService.cs" />
     <Compile Include="Service\LocationService.cs" />
     <Compile Include="Service\LureService.cs" />
     <Compile Include="Service\MediaService.cs" />

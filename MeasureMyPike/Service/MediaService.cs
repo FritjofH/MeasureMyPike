@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MeasureMyPike.Service
 {
-    public class MediaService
+    public class MediaService : IMediaService
     {
         public byte[] ImageToByteArray(Image imageIn)
         {

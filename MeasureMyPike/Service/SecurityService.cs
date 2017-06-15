@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 namespace MeasureMyPike.Service
 {
-    public class SecurityService
+    public class SecurityService : ISecurityService
     {
         public string HashAndSaltPassword(string password)
         {

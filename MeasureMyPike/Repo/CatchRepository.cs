@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MeasureMyPike
 {
-    public class CatchRepository
+    public class CatchRepository : ICatchRepository
     {
         public CatchDO AddCatch(CatchDO newCatch)
         {

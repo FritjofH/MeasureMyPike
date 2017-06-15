@@ -6,7 +6,7 @@ using MeasureMyPike.Models.Entity_Framework;
 
 namespace MeasureMyPike.Repo
 {
-    public class LocationRepository
+    public class LocationRepository : ILocationRepository
     {
         public LocationDO GetLocation(int id)
         {

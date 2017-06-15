@@ -5,7 +5,7 @@ using MeasureMyPike.Models.Entity_Framework;
 
 namespace MeasureMyPike.Repo
 {
-    public class LureRepository
+    public class LureRepository : ILureRepository
     {
         public LureDO AddLure(LureDO newLure)
         {

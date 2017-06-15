@@ -5,7 +5,7 @@ using MeasureMyPike.Models.Entity_Framework;
 
 namespace MeasureMyPike.Repo
 {
-    public class BrandRepository
+    public class BrandRepository : IBrandRepository
     {
 
         public BrandDO AddBrand(BrandDO newBrand)

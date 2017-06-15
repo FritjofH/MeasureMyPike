@@ -4,7 +4,7 @@ using MeasureMyPike.Models.Entity_Framework;
 
 namespace MeasureMyPike.Repo
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         public UserDO AddUser(UserDO newUser)
         {

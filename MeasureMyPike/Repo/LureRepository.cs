@@ -7,15 +7,16 @@ namespace MeasureMyPike.Repo
 {
     public class LureRepository
     {
-        public List<LureDO> GetLures()
+        public LureDO AddLure(LureDO newLure)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var lureList = conn.Lure.ToList();
+                    var createdLure = conn.Lure.Add(newLure);
+                    conn.SaveChanges();
 
-                    return lureList;
+                    return createdLure;
                 }
             }
             catch (Exception ex)
@@ -52,6 +53,26 @@ namespace MeasureMyPike.Repo
             }
         }
 
+        public List<LureDO> GetAllLures()
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var lureList = conn.Lure.ToList();
+
+                    return lureList;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
         public LureDO UpdateLure(int id, string lureName)
         {
             try
@@ -73,27 +94,6 @@ namespace MeasureMyPike.Repo
                 return null;
             }
         }
-        public LureDO AddLure(LureDO newLure)
-        {
-            try
-            {
-                using (var conn = new ModelContainer())
-                {
-                    var createdLure = conn.Lure.Add(newLure);
-                    conn.SaveChanges();
-
-                    return createdLure;
-                }
-            }
-            catch (Exception ex)
-            {
-                // TODO: better handling
-                Console.WriteLine(ex.GetType().FullName);
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-        }
-
 
         public bool DeleteLure(int id)
         {

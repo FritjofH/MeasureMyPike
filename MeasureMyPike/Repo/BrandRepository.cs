@@ -29,26 +29,6 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public List<BrandDO> GetAllBrands()
-        {
-            try
-            {
-                using (var conn = new ModelContainer())
-                {
-                    var brandList = conn.Brand.ToList();
-
-                    return brandList;
-                }
-            }
-            catch (Exception ex)
-            {
-                // TODO: better handling
-                Console.WriteLine(ex.GetType().FullName);
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-        }
-
         public BrandDO GetBrand(int id)
         {
             try
@@ -69,17 +49,15 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        internal object DeleteBrand(int id)
+        public List<BrandDO> GetAllBrands()
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var brandToDelete = conn.Brand.First(it => it.Id == id);
-                    conn.Brand.Remove(brandToDelete);
-                    conn.SaveChanges();
+                    var brandList = conn.Brand.ToList();
 
-                    return true;
+                    return brandList;
                 }
             }
             catch (Exception ex)
@@ -113,6 +91,26 @@ namespace MeasureMyPike.Repo
             }
         }
 
+        internal object DeleteBrand(int id)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var brandToDelete = conn.Brand.First(it => it.Id == id);
+                    conn.Brand.Remove(brandToDelete);
+                    conn.SaveChanges();
 
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
     }
 }

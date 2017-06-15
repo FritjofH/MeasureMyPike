@@ -1,14 +1,12 @@
 ﻿using MeasureMyPike.Models.Entity_Framework;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace MeasureMyPike
 {
     public class CatchRepository
     {
-
         public CatchDO AddCatch(CatchDO newCatch)
         {
             try
@@ -19,24 +17,6 @@ namespace MeasureMyPike
                     conn.SaveChanges();
 
                     return createdCatch;
-                }
-            }
-            catch (Exception ex)
-            {
-                // TODO: better handling
-                Console.WriteLine(ex.GetType().FullName);
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-        }
-        public List<CatchDO> GetAllCatch()
-        {
-            try
-            {
-                using (var conn = new ModelContainer())
-                {
-                    var catchList = conn.Catch.ToList();
-                    return catchList;
                 }
             }
             catch (Exception ex)
@@ -62,6 +42,25 @@ namespace MeasureMyPike
                         }
                         else return null;
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        public List<CatchDO> GetAllCatch()
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var catchList = conn.Catch.ToList();
+                    return catchList;
                 }
             }
             catch (Exception ex)

@@ -6,7 +6,6 @@ namespace MeasureMyPike.Repo
 {
     public class UserRepository
     {
-
         public UserDO AddUser(UserDO newUser)
         {
             try
@@ -17,6 +16,31 @@ namespace MeasureMyPike.Repo
                     conn.SaveChanges();
 
                     return createdUser;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        public UserDO GetUser(string username)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var selectedUser = conn.User.FirstOrDefault(it => it.FirstName == username);
+                    {
+                        if (selectedUser != null)
+                        {
+                            return selectedUser;
+                        }
+                        else return null;
+                    }
                 }
             }
             catch (Exception ex)
@@ -75,29 +99,5 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public UserDO GetUser(string username)
-        {
-            try
-            {
-                using (var conn = new ModelContainer())
-                {
-                    var selectedUser = conn.User.FirstOrDefault(it => it.FirstName == username);
-                    {
-                        if (selectedUser != null)
-                        {
-                            return selectedUser;
-                        }
-                        else return null;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // TODO: better handling
-                Console.WriteLine(ex.GetType().FullName);
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-        }
     }
 }

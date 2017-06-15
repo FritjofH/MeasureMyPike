@@ -9,15 +9,16 @@ namespace MeasureMyPike
     public class CatchRepository
     {
 
-        public CatchDO AddCatch(CatchDO cc)
+        public CatchDO AddCatch(CatchDO newCatch)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var c = conn.Catch.Add(cc);
+                    var createdCatch = conn.Catch.Add(newCatch);
                     conn.SaveChanges();
-                    return c;
+
+                    return createdCatch;
                 }
             }
             catch (Exception ex)
@@ -34,8 +35,8 @@ namespace MeasureMyPike
             {
                 using (var conn = new ModelContainer())
                 {
-                    var value = conn.Catch.ToList();
-                    return value;
+                    var catchList = conn.Catch.ToList();
+                    return catchList;
                 }
             }
             catch (Exception ex)
@@ -49,34 +50,45 @@ namespace MeasureMyPike
 
         public CatchDO GetCatch(int id)
         {
-            using (var conn = new ModelContainer())
+            try
             {
-                var selectedCatch = conn.Catch.FirstOrDefault(it => it.Id == id);
+                using (var conn = new ModelContainer())
                 {
-                    if (selectedCatch != null)
+                    var selectedCatch = conn.Catch.FirstOrDefault(it => it.Id == id);
                     {
-                        return selectedCatch;
+                        if (selectedCatch != null)
+                        {
+                            return selectedCatch;
+                        }
+                        else return null;
                     }
-                    else return null;
                 }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
 
-        public bool UpdateCatch(int id, CatchDO cc)
+        public bool UpdateCatch(int id, CatchDO changedCatch)
         {
             try
             {
-                if (!DeleteCatch(id))
-                {
-                    // specified id was probably not found
-                    return false;
-                }
                 using (var conn = new ModelContainer())
                 {
-                    // add new with same id
-                    cc.Id = id;
-                    conn.Catch.Add(cc);
+                    var catchToUpdate = conn.Catch.First(it => it.Id == changedCatch.Id);
+                    catchToUpdate.Location = changedCatch.Location;
+                    catchToUpdate.Lures = changedCatch.Lures;
+                    catchToUpdate.Media = changedCatch.Media;
+                    catchToUpdate.Timestamp = changedCatch.Timestamp;
+                    catchToUpdate.WeatherData = changedCatch.WeatherData;
+                    catchToUpdate.Comment = changedCatch.Comment;
+                    catchToUpdate.Fish = changedCatch.Fish;
                     conn.SaveChanges();
+
                     return true;
                 }
             }
@@ -90,18 +102,28 @@ namespace MeasureMyPike
 
         public bool DeleteCatch(int id)
         {
-            using (var conn = new ModelContainer())
+            try
             {
-                var c = GetCatch(id);
-                if (c != null)
+                using (var conn = new ModelContainer())
                 {
-                    conn.Catch.Remove(c);
-                    conn.SaveChanges();
-                    return true;
-                }
+                    var catchToDelete = GetCatch(id);
+                    if (catchToDelete != null)
+                    {
+                        conn.Catch.Remove(catchToDelete);
+                        conn.SaveChanges();
 
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
-    }
+        }
 }

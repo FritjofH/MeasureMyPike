@@ -34,10 +34,10 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var user = GetUser(username);
-                    if (user != null)
+                    var userToDelete = GetUser(username);
+                    if (userToDelete != null)
                     {
-                        conn.User.Remove(user);
+                        conn.User.Remove(userToDelete);
                         conn.SaveChanges();
 
                         return true;
@@ -77,16 +77,26 @@ namespace MeasureMyPike.Repo
 
         public UserDO GetUser(string username)
         {
-            using (var conn = new ModelContainer())
+            try
             {
-                var selectedUser = conn.User.FirstOrDefault(it => it.FirstName == username);
+                using (var conn = new ModelContainer())
                 {
-                    if (selectedUser != null)
+                    var selectedUser = conn.User.FirstOrDefault(it => it.FirstName == username);
                     {
-                        return selectedUser;
+                        if (selectedUser != null)
+                        {
+                            return selectedUser;
+                        }
+                        else return null;
                     }
-                    else return null;
                 }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
     }

@@ -10,8 +10,9 @@ public class CatchService
     public Catch CreateCatch(byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, string username)
     {
         var catchRepo = new CatchRepository();
-
+        var ls = new LureService();
         var mediaList = new List<MediaDO>();
+
         mediaList.Add(new MediaDO
         {
             MediaFormat = format,
@@ -21,8 +22,6 @@ public class CatchService
                 Data = image
             }
         });
-
-        var ls = new LureService();
 
         var newCatch = new CatchDO
         {
@@ -46,21 +45,21 @@ public class CatchService
         var catchRepo = new CatchRepository();
         var ls = new LureService();
 
-        var c = catchRepo.GetCatch(id);
-        c.Comment = new CommentDO { Text = comment };
-        c.Media.Add(new MediaDO { MediaFormat = format, Image = new MediaDataDO { Length=image.Length, Data=image} });
-        c.Lures = ls.GetLureDO(lure.Id);
-        c.Fish = new FishDO { Length = fishLength, Weight = fishWeight };
-        c.Location = new LocationDO { Lake = lake, Coordinates = coordinates};
-        c.WeatherData = new WeatherDataDO { Temperature = temperature, Weather = weather, MoonPosition = moonposition };
-        c.Timestamp = DateTime.Now; // TODO: kanske skicka med istället
+        var catchToUpdate = catchRepo.GetCatch(id);
+        catchToUpdate.Comment = new CommentDO { Text = comment };
+        catchToUpdate.Media.Add(new MediaDO { MediaFormat = format, Image = new MediaDataDO { Length=image.Length, Data=image} });
+        catchToUpdate.Lures = ls.GetLureDO(lure.Id);
+        catchToUpdate.Fish = new FishDO { Length = fishLength, Weight = fishWeight };
+        catchToUpdate.Location = new LocationDO { Lake = lake, Coordinates = coordinates};
+        catchToUpdate.WeatherData = new WeatherDataDO { Temperature = temperature, Weather = weather, MoonPosition = moonposition };
+        catchToUpdate.Timestamp = DateTime.Now; // TODO: kanske skicka med istället
         
-        var updatedCatch = catchRepo.UpdateCatch(id, c);
+        var updatedCatch = catchRepo.UpdateCatch(id, catchToUpdate);
 
         return updatedCatch;
     }
 
-    public List<Catch> GetAllCatch()
+    public List<Catch> GetAllCatches()
     {
         var catchRepo = new CatchRepository();
         var catchList = new List<Catch>(); 
@@ -84,7 +83,6 @@ public class CatchService
     public bool DeleteCatch(int id)
     {
         var catchRepo = new CatchRepository();
-
         var deleted = catchRepo.DeleteCatch(id);
 
         return deleted;
@@ -92,11 +90,11 @@ public class CatchService
 
     private Catch convertToCatch(CatchDO catchToConvert)
     {
-        var medias = new List<int>();
+        var mediaList = new List<int>();
 
         foreach (var media in catchToConvert.Media)
         {
-            medias.Add(media.Id);
+            mediaList.Add(media.Id);
         }
 
         var catchToReturn = new Catch
@@ -106,7 +104,7 @@ public class CatchService
             Id = catchToConvert.Id,
             LocationId = catchToConvert.Location.Id,
             LuresId = catchToConvert.Lures.Id,
-            MediaId = medias,
+            MediaId = mediaList,
             Timestamp = catchToConvert.Timestamp,
             UserId = catchToConvert.User.Id,
             WeatherData = catchToConvert.WeatherData.Id

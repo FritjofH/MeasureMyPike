@@ -60,8 +60,9 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var value = conn.Location.ToList();
-                    return value;
+                    var locationList = conn.Location.ToList();
+
+                    return locationList;
                 }
             }
             catch (Exception ex)
@@ -82,6 +83,7 @@ namespace MeasureMyPike.Repo
                     updatedLocation.Lake = lake;
                     updatedLocation.Coordinates = coordinates;
                     conn.SaveChanges();
+
                     return updatedLocation;
                 }
             }

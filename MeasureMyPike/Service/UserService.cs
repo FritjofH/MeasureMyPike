@@ -10,11 +10,8 @@ namespace MeasureMyPike.Service
         public User CreateUser(string lastName, string firstName, string username, string password)
         {
             var userRepo = new UserRepository();
-
             var ss = new SecurityService();
-
             var hashedPassword = ss.HashAndSaltPassword(password);
-
             var user = new UserDO
             {
                 FirstName = firstName,
@@ -23,7 +20,6 @@ namespace MeasureMyPike.Service
                 MemberSince = DateTime.Now,
                 Security = new SecurityDO { Password = hashedPassword }
             };
-
             var createdUser = userRepo.AddUser(user);
 
             return convertToUser(createdUser);
@@ -31,16 +27,15 @@ namespace MeasureMyPike.Service
 
         public bool DeleteUser(string username)
         {
-            UserRepository dbconn = new UserRepository();
+            var userRepo = new UserRepository();
 
-            return dbconn.DeleteUser(username);
+            return userRepo.DeleteUser(username);
         }
 
         public User GetUser(string username)
         {
-            UserRepository dbconn = new UserRepository();
-
-            var selectedUser = dbconn.GetUser(username);
+            var userRepo = new UserRepository();
+            var selectedUser = userRepo.GetUser(username);
 
             return convertToUser(selectedUser);
         }

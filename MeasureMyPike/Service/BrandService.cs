@@ -12,16 +12,18 @@ namespace MeasureMyPike.Service
             var brandRepo = new BrandRepository();
             var newBrand = new BrandDO { Name = name };
             var savedBrand = brandRepo.AddBrand(newBrand);
+            var conversionService = new ConversionService();
 
-            return ConvertToBrand(savedBrand);
+            return conversionService.ConvertToBrand(savedBrand);
         }
 
         public Brand GetBrand(int id)
         {
             var brandRepo = new BrandRepository();
             var selectedBrand = brandRepo.GetBrand(id);
+            var conversionService = new ConversionService();
 
-            return ConvertToBrand(selectedBrand);
+            return conversionService.ConvertToBrand(selectedBrand);
         }
 
         public BrandDO GetBrandDO(int id)
@@ -37,10 +39,11 @@ namespace MeasureMyPike.Service
             var brandRepo = new BrandRepository();
             var brandList = new List<Brand>();
             var brands = brandRepo.GetAllBrands();
+            var conversionService = new ConversionService();
 
             foreach (var brand in brands)
             {
-                brandList.Add(ConvertToBrand(brand));
+                brandList.Add(conversionService.ConvertToBrand(brand));
             }
 
             return brandList;
@@ -51,23 +54,18 @@ namespace MeasureMyPike.Service
             var brandRepo = new BrandRepository();
             var brandToUpdate = GetBrandDO(id);
             var updatedBrand = brandRepo.UpdateBrand(brandToUpdate);
+            var cs = new ConversionService();
 
-            return ConvertToBrand(updatedBrand);
+            return cs.ConvertToBrand(updatedBrand);
         }
 
         public bool DeleteBrand(int id)
         {
             var brandRepo = new BrandRepository();
             var brandToDelete = GetBrandDO(id);
-
             var deleted = brandRepo.DeleteBrand(brandToDelete);
 
             return (bool)deleted;
-        }
-
-        private Brand ConvertToBrand(BrandDO brandToConvert)
-        {
-            return new Brand { Id = brandToConvert.Id, Name = brandToConvert.Name };
         }
 
     }

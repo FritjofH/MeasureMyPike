@@ -10,8 +10,9 @@ public class CatchService
     public Catch CreateCatch(byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, string username)
     {
         var catchRepo = new CatchRepository();
-        var ls = new LureService();
+        var lureService = new LureService();
         var mediaList = new List<MediaDO>();
+        var conversionService = new ConversionService();
 
         mediaList.Add(new MediaDO
         {
@@ -28,7 +29,7 @@ public class CatchService
             //User = user,
             Comment = new CommentDO { Text = comment },
             Media = mediaList,
-            Lures = ls.GetLureDO(lure.Id),
+            Lures = lureService.GetLureDO(lure.Id),
             Fish = new FishDO { Length = fishLength, Weight = fishWeight },
             Location = new LocationDO { Lake = lake, Coordinates = coordinates },
             WeatherData = new WeatherDataDO { Temperature = temperature, Weather = weather, MoonPosition = moonposition },
@@ -37,18 +38,18 @@ public class CatchService
 
         var createdCatch = catchRepo.AddCatch(newCatch);
 
-        return convertToCatch(createdCatch);
+        return conversionService.convertToCatch(createdCatch);
     }
 
     public bool UpdateCatch(int id, byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Brand brand, string username)
     {
         var catchRepo = new CatchRepository();
-        var ls = new LureService();
+        var lureService = new LureService();
 
         var catchToUpdate = catchRepo.GetCatch(id);
         catchToUpdate.Comment = new CommentDO { Text = comment };
         catchToUpdate.Media.Add(new MediaDO { MediaFormat = format, Image = new MediaDataDO { Length=image.Length, Data=image} });
-        catchToUpdate.Lures = ls.GetLureDO(lure.Id);
+        catchToUpdate.Lures = lureService.GetLureDO(lure.Id);
         catchToUpdate.Fish = new FishDO { Length = fishLength, Weight = fishWeight };
         catchToUpdate.Location = new LocationDO { Lake = lake, Coordinates = coordinates};
         catchToUpdate.WeatherData = new WeatherDataDO { Temperature = temperature, Weather = weather, MoonPosition = moonposition };
@@ -62,11 +63,12 @@ public class CatchService
     public List<Catch> GetAllCatches()
     {
         var catchRepo = new CatchRepository();
-        var catchList = new List<Catch>(); 
+        var catchList = new List<Catch>();
+        var conversionService = new ConversionService();
 
         foreach (var catchDO in catchRepo.GetAllCatch())
         {
-            catchList.Add(convertToCatch(catchDO));
+            catchList.Add(conversionService.convertToCatch(catchDO));
         }
 
         return catchList;
@@ -76,8 +78,9 @@ public class CatchService
     {
         var catchRepo = new CatchRepository();
         var selectedCatch = catchRepo.GetCatch(id);
+        var conversionService = new ConversionService();
 
-        return convertToCatch(selectedCatch);
+        return conversionService.convertToCatch(selectedCatch);
     }
     public CatchDO GetCatchDO(int id)
     {
@@ -94,30 +97,5 @@ public class CatchService
         var deleted = catchRepo.DeleteCatch(catchToDelete);
 
         return deleted;
-    }
-
-    private Catch convertToCatch(CatchDO catchToConvert)
-    {
-        var mediaList = new List<int>();
-
-        foreach (var media in catchToConvert.Media)
-        {
-            mediaList.Add(media.Id);
-        }
-
-        var catchToReturn = new Catch
-        {
-            CommentId = catchToConvert.Comment.Id,
-            FishId = catchToConvert.Fish.Id,
-            Id = catchToConvert.Id,
-            LocationId = catchToConvert.Location.Id,
-            LuresId = catchToConvert.Lures.Id,
-            MediaId = mediaList,
-            Timestamp = catchToConvert.Timestamp,
-            UserId = catchToConvert.User.Id,
-            WeatherData = catchToConvert.WeatherData.Id
-        };
-
-        return catchToReturn;
     }
 }

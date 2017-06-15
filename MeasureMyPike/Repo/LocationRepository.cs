@@ -96,6 +96,21 @@ namespace MeasureMyPike.Repo
             }
         }
 
+        public bool DeleteLocation(int id)
+        {
+            using (var conn = new ModelContainer())
+            {
+                LocationDO location = GetLocation(id);
+                if (location != null)
+                {
+                    conn.Location.Remove(location);
+                    conn.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+        }
+
 
     }
 }

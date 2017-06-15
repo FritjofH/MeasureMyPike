@@ -4,6 +4,7 @@ using MeasureMyPike.Models.Entity_Framework;
 using MeasureMyPike.Models.Application;
 
 namespace MeasureMyPike.Service
+
 {
     public class LocationService
     {
@@ -13,48 +14,73 @@ namespace MeasureMyPike.Service
             var locationRepo = new LocationRepository();
             var location = new LocationDO { Lake = lake, Coordinates = coordinates };
             var createdLocation = locationRepo.AddLocation(location);
-          
-            return convertToLocation(createdLocation);
+
+            return ConvertToLocation(createdLocation);
         }
 
         public Location GetLocation(int id)
         {
             var locationRepo = new LocationRepository();
-            var l = locationRepo.GetLocation(id);
+            var location = locationRepo.GetLocation(id);
 
-            return convertToLocation(l);
+            return ConvertToLocation(location);
         }
-
-        public List<Location> GetAllLocations()
+        public List<Location> AddLocation(Location location)
         {
-            var locationREpo = new LocationRepository();
-            var locationList = new List<Location>();
-
-            foreach(var location in locationREpo.GetAllLocations())
+            var locationDo = new LocationDO
             {
-                locationList.Add(convertToLocation(location));
-            }
+                Lake = location.Lake,
+                Coordinates = location.Coordinates
+            };
 
-            return locationList;
-        }
-
-        public Location UpdateLocation(int id, string name, string coordinates)
-        {
             var locationRepo = new LocationRepository();
 
-            var updatedLocation = locationRepo.UpdateLocation(id, name, coordinates);
-
-            return convertToLocation(updatedLocation);
+            var locationDO = locationRepo.AddLocation(locationDo);
+            return ConvertLocation(locationDO);
         }
+            private List<Location> ConvertLocation(LocationDO locationDO)
+            {
+                var locationREpo = new LocationRepository();
+                var locationList = new List<Location>();
 
-        private Location convertToLocation(LocationDO locationToConvert)
+                foreach (var location in locationREpo.GetAllLocations())
+                {
+                    locationList.Add(ConvertToLocation(location));
+                }
+
+                return locationList;
+            }
+
+            public Location UpdateLocation(int id, string name, string coordinates)
+            {
+                var locationRepo = new LocationRepository();
+
+                var updatedLocation = locationRepo.UpdateLocation(id, name, coordinates);
+
+                return ConvertToLocation(updatedLocation);
+            }
+
+        private Location ConvertToLocation(LocationDO locationToConvert)
         {
-            return new Location {
+            return new Location
+            {
                 Coordinates = locationToConvert.Coordinates,
                 Id = locationToConvert.Id,
                 Lake = locationToConvert.Lake
             };
         }
 
+            public bool DeleteLocation(int id)
+            {
+            var locationRepo = new LocationRepository();
+
+                return locationRepo.DeleteLocation(id);
+            }
+            public Location SetLocation(int id, string name, string coordinates)
+            {
+                var locationRepo = new LocationRepository();
+
+                return ConvertToLocation(locationRepo.UpdateLocation(id, name, coordinates));
+            }        
+        }
     }
-}

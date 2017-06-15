@@ -118,9 +118,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MeasureMyPike\MeasureMyPike.Application.csproj">
+    <ProjectReference Include="..\MeasureMyPike\MeasureMyPike.csproj">
       <Project>{9B400F01-54CE-4910-8213-FCA4BBCEB6C0}</Project>
-      <Name>MeasureMyPike.Application</Name>
+      <Name>MeasureMyPike</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

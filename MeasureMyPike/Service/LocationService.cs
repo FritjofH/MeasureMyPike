@@ -8,6 +8,7 @@ using MeasureMyPike.Models.Entity_Framework;
 using MeasureMyPike.Models.Application;
 
 namespace MeasureMyPike.Service
+
 {
     public class LocationService
     {
@@ -26,8 +27,23 @@ namespace MeasureMyPike.Service
           
             return convertLocation(locationDO);
         }
+    public Location AddLocation(Location location)
+    {
+        LocationDO locationDo = new LocationDO
+        {
+            Lake = location.Lake,
+            Coordinates = location.Coordinates
+        };
 
-        private Location convertLocation(LocationDO locationDO)
+        LocationRepository dbconn = new LocationRepository();
+
+        var locationDO = dbconn.AddLocation(locationDo);
+
+        return convertLocation(locationDO);
+    }
+
+
+    private Location convertLocation(LocationDO locationDO)
         {
             Location l = new Location();
             l.Id = locationDO.Id;
@@ -64,11 +80,18 @@ namespace MeasureMyPike.Service
             return convertLocationList(locationdoList);
         }
 
-        public bool UpdateLocation(int id, String name, String coordinates)
+        public bool SetLocation(int id, String name, String coordinates)
         {
             LocationRepository dbconn = new LocationRepository();
 
             return dbconn.UpdateLocation(id, name, coordinates);
+        }
+
+        public bool DeleteLocation(int id)
+        {
+            LocationRepository dbconn = new LocationRepository();
+
+            return dbconn.DeleteLocation(id);
         }
 
 

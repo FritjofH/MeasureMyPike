@@ -4,36 +4,46 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using MeasureMyPike.Models.Application;
+using MeasureMyPike.Service;
 
 namespace MeasureMyPike.Controllers
 {
     public class LocationController : ApiController
     {
         // GET: api/Location
-        public IEnumerable<string> Get()
+        public IEnumerable<Location> Get()
         {
-            return new string[] { "value1", "value2" };
+            LocationService cs = new LocationService();
+
+            return cs.GetAllLocations();
         }
 
         // GET: api/Location/5
-        public string Get(int id)
+        public Location Get(int id)
         {
-            return "value";
+            return new LocationService().GetLocation(id);            
         }
 
         // POST: api/Location
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Location value)
         {
+            LocationService cs = new LocationService();
+            cs.AddLocation(value);
         }
 
         // PUT: api/Location/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, String name, String coordinates)
         {
+            LocationService cs = new LocationService();
+            cs.SetLocation(id, name, coordinates);
         }
 
         // DELETE: api/Location/5
         public void Delete(int id)
         {
+            LocationService cs = new LocationService();
+            cs.DeleteLocation(id);
         }
     }
 }

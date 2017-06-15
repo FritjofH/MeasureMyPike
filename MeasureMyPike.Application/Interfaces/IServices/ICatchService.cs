@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using MeasureMyPike.Models.Application;
-using MeasureMyPike.Models.Entity_Framework;
+using MeasureMyPike.Domain.Models;
 
 public interface ICatchService
 {

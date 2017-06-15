@@ -1,10 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MeasureMyPike;
-using System.IO;
-using System.Drawing;
 using MeasureMyPike.Service;
-using MeasureMyPike.Models.Entity_Framework;
 
 namespace ApplicationTest
 {

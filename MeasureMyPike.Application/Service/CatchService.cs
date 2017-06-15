@@ -1,6 +1,6 @@
 ﻿using MeasureMyPike;
 using MeasureMyPike.Models.Application;
-using MeasureMyPike.Models.Entity_Framework;
+using MeasureMyPike.Domain.Models;
 using MeasureMyPike.Service;
 using System;
 using System.Collections.Generic;

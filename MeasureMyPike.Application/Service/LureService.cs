@@ -1,4 +1,4 @@
-﻿using MeasureMyPike.Models.Entity_Framework;
+﻿using MeasureMyPike.Domain.Models;
 using MeasureMyPike.Repo;
 using MeasureMyPike.Models.Application;
 using System.Collections.Generic;

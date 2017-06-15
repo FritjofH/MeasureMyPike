@@ -91,13 +91,12 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        internal object DeleteBrand(int id)
+        public bool DeleteBrand(BrandDO brandToDelete)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var brandToDelete = conn.Brand.First(it => it.Id == id);
                     conn.Brand.Remove(brandToDelete);
                     conn.SaveChanges();
 
@@ -109,7 +108,7 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
-                return null;
+                return false;
             }
         }
     }

@@ -28,8 +28,10 @@ namespace MeasureMyPike.Service
         public bool DeleteUser(string username)
         {
             var userRepo = new UserRepository();
+            var userToDelete = GetUserDO(username);
+            var deleted = userRepo.DeleteUser(userToDelete);
 
-            return userRepo.DeleteUser(username);
+            return deleted;
         }
 
         public User GetUser(string username)
@@ -38,6 +40,13 @@ namespace MeasureMyPike.Service
             var selectedUser = userRepo.GetUser(username);
 
             return convertToUser(selectedUser);
+        }
+        public UserDO GetUserDO(string username)
+        {
+            var userRepo = new UserRepository();
+            var selectedUser = userRepo.GetUser(username);
+
+            return selectedUser;
         }
 
         private User convertToUser(UserDO userToConvert)

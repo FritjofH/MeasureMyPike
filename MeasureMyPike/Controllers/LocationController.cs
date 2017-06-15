@@ -22,17 +22,17 @@ namespace MeasureMyPike.Controllers
         }
 
         // POST: api/Location
-        public void Post([FromBody]Location value)
+        public void Post([FromBody]string lake, string coordinates)
         {
             LocationService cs = new LocationService();
-            cs.AddLocation(value);
+            cs.AddLocation(lake, coordinates);
         }
 
         // PUT: api/Location/5
         public void Put(int id, string name, string coordinates)
         {
             LocationService cs = new LocationService();
-            cs.SetLocation(id, name, coordinates);
+            cs.UpdateLocation(id, name, coordinates);
         }
 
         // DELETE: api/Location/5

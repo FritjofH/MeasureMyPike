@@ -42,7 +42,8 @@ namespace MeasureMyPike.Service
         public bool DeleteLure(int id)
         {
             var lureRepo = new LureRepository();
-            var deleted = lureRepo.DeleteLure(id);
+            var lureToDelete = GetLureDO(id);
+            var deleted = lureRepo.DeleteLure(lureToDelete);
 
             return deleted;
         }

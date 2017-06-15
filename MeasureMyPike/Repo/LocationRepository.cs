@@ -8,7 +8,6 @@ namespace MeasureMyPike.Repo
 {
     public class LocationRepository
     {
-
         public LocationDO GetLocation(int id)
         {
             try
@@ -96,21 +95,24 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public bool DeleteLocation(int id)
+        public bool DeleteLocation(LocationDO locationToDelete)
         {
-            using (var conn = new ModelContainer())
+            try
             {
-                LocationDO location = GetLocation(id);
-                if (location != null)
+                using (var conn = new ModelContainer())
                 {
-                    conn.Location.Remove(location);
+                    conn.Location.Remove(locationToDelete);
                     conn.SaveChanges();
                     return true;
                 }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
-
-
     }
 }

@@ -79,11 +79,19 @@ public class CatchService
 
         return convertToCatch(selectedCatch);
     }
+    public CatchDO GetCatchDO(int id)
+    {
+        var catchRepo = new CatchRepository();
+        var selectedCatch = catchRepo.GetCatch(id);
+
+        return selectedCatch;
+    }
 
     public bool DeleteCatch(int id)
     {
         var catchRepo = new CatchRepository();
-        var deleted = catchRepo.DeleteCatch(id);
+        var catchToDelete = GetCatchDO(id);
+        var deleted = catchRepo.DeleteCatch(catchToDelete);
 
         return deleted;
     }

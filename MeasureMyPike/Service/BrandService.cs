@@ -58,7 +58,9 @@ namespace MeasureMyPike.Service
         public bool DeleteBrand(int id)
         {
             var brandRepo = new BrandRepository();
-            var deleted = brandRepo.DeleteBrand(id);
+            var brandToDelete = GetBrandDO(id);
+
+            var deleted = brandRepo.DeleteBrand(brandToDelete);
 
             return (bool)deleted;
         }

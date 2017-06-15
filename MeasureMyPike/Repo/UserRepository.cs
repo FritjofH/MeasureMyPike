@@ -52,22 +52,16 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public bool DeleteUser(string username)
+        public bool DeleteUser(UserDO userToDelete)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var userToDelete = GetUser(username);
-                    if (userToDelete != null)
-                    {
-                        conn.User.Remove(userToDelete);
-                        conn.SaveChanges();
+                    conn.User.Remove(userToDelete);
+                    conn.SaveChanges();
 
-                        return true;
-                    }
-
-                    return false;
+                    return true;
                 }
             }
             catch (Exception ex)

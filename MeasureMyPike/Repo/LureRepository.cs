@@ -95,21 +95,16 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public bool DeleteLure(int id)
+        public bool DeleteLure(LureDO lureToDelete)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var lure = GetLure(id);
-                    if (lure != null)
-                    {
-                        conn.Lure.Remove(lure);
-                        conn.SaveChanges();
+                    conn.Lure.Remove(lureToDelete);
+                    conn.SaveChanges();
 
-                        return true;
-                    }
-                    return false;
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -120,6 +115,5 @@ namespace MeasureMyPike.Repo
                 return false;
             }
         }
-
     }
 }

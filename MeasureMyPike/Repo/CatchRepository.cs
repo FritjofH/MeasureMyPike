@@ -99,22 +99,16 @@ namespace MeasureMyPike
             }
         }
 
-        public bool DeleteCatch(int id)
+        public bool DeleteCatch(CatchDO catchToDelete)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var catchToDelete = GetCatch(id);
-                    if (catchToDelete != null)
-                    {
-                        conn.Catch.Remove(catchToDelete);
-                        conn.SaveChanges();
+                    conn.Catch.Remove(catchToDelete);
+                    conn.SaveChanges();
 
-                        return true;
-                    }
-
-                    return false;
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -124,5 +118,5 @@ namespace MeasureMyPike
                 return false;
             }
         }
-        }
+    }
 }

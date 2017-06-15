@@ -25,40 +25,22 @@ namespace MeasureMyPike.Service
 
             return ConvertToLocation(location);
         }
-        public List<Location> AddLocation(Location location)
+
+        public LocationDO GetLocationDO(int id)
         {
-            var locationDo = new LocationDO
-            {
-                Lake = location.Lake,
-                Coordinates = location.Coordinates
-            };
-
             var locationRepo = new LocationRepository();
+            var location = locationRepo.GetLocation(id);
 
-            var locationDO = locationRepo.AddLocation(locationDo);
-            return ConvertLocation(locationDO);
+            return location;
         }
-            private List<Location> ConvertLocation(LocationDO locationDO)
-            {
-                var locationREpo = new LocationRepository();
-                var locationList = new List<Location>();
 
-                foreach (var location in locationREpo.GetAllLocations())
-                {
-                    locationList.Add(ConvertToLocation(location));
-                }
+        public Location UpdateLocation(int id, string name, string coordinates)
+        {
+            var locationRepo = new LocationRepository();
+            var updatedLocation = locationRepo.UpdateLocation(id, name, coordinates);
 
-                return locationList;
-            }
-
-            public Location UpdateLocation(int id, string name, string coordinates)
-            {
-                var locationRepo = new LocationRepository();
-
-                var updatedLocation = locationRepo.UpdateLocation(id, name, coordinates);
-
-                return ConvertToLocation(updatedLocation);
-            }
+            return ConvertToLocation(updatedLocation);
+        }
 
         private Location ConvertToLocation(LocationDO locationToConvert)
         {
@@ -70,17 +52,13 @@ namespace MeasureMyPike.Service
             };
         }
 
-            public bool DeleteLocation(int id)
-            {
+        public bool DeleteLocation(int id)
+        {
             var locationRepo = new LocationRepository();
+            var locationToDelete = GetLocationDO(id);
+            var deleted = locationRepo.DeleteLocation(locationToDelete);
 
-                return locationRepo.DeleteLocation(id);
-            }
-            public Location SetLocation(int id, string name, string coordinates)
-            {
-                var locationRepo = new LocationRepository();
-
-                return ConvertToLocation(locationRepo.UpdateLocation(id, name, coordinates));
-            }        
+            return deleted;
         }
     }
+}

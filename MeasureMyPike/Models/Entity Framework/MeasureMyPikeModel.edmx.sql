@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/14/2017 11:25:33
--- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike\Models\Entity Framework\MeasureMyPikeModel.edmx
+-- Date Created: 06/15/2017 09:21:22
+-- Generated from EDMX file: C:\Users\karlssonjy\Source\Repos\MeasureMyPike\MeasureMyPike\Models\Entity Framework\MeasureMyPikeModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;

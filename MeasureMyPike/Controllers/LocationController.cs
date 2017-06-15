@@ -12,12 +12,12 @@ namespace MeasureMyPike.Controllers
     public class LocationController : ApiController
     {
         // GET: api/Location
-        public IEnumerable<Location> Get()
-        {
-            LocationService cs = new LocationService();
+        //public IEnumerable<Location> Get()
+        //{
+        //    var cs = new LocationService();
 
-            return cs.GetAllLocations();
-        }
+        //    return cs.GetAllLocations();
+        //}
 
         // GET: api/Location/5
         public Location Get(int id)

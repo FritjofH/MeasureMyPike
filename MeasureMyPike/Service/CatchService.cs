@@ -5,7 +5,7 @@ using MeasureMyPike.Service;
 using System;
 using System.Collections.Generic;
 
-public class CatchService
+public class CatchService : ICatchService
 {
     public Catch CreateCatch(byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, string username)
     {

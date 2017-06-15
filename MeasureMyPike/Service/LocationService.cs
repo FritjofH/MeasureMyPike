@@ -6,7 +6,7 @@ using MeasureMyPike.Models.Application;
 namespace MeasureMyPike.Service
 
 {
-    public class LocationService
+    public class LocationService : ILocationService
     {
 
         public Location AddLocation(string lake, string coordinates)

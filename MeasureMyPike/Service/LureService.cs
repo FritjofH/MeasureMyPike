@@ -4,7 +4,7 @@ using MeasureMyPike.Models.Application;
 
 namespace MeasureMyPike.Service
 {
-    public class LureService
+    public class LureService : ILureService
     {
         public Lure AddLure(string lureName, Brand brand)
         {

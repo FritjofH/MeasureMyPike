@@ -5,38 +5,42 @@ using System.Collections.Generic;
 
 namespace MeasureMyPike.Service
 {
-    public class BrandService
+    public class BrandService : IBrandService
     {
+        private IBrandRepository iBrandRepository;
+            public BrandService() {
+            iBrandRepository = new BrandRepository();
+        }
         public Brand AddBrand(string name)
         {
-            var brandRepo = new BrandRepository();
+            //var brandRepo = new BrandRepository();
             var newBrand = new BrandDO { Name = name };
-            var savedBrand = brandRepo.AddBrand(newBrand);
+            var savedBrand = iBrandRepository.AddBrand(newBrand);
 
             return ConvertToBrand(savedBrand);
         }
 
         public Brand GetBrand(int id)
         {
-            var brandRepo = new BrandRepository();
-            var selectedBrand = brandRepo.GetBrand(id);
+            //var brandRepo = new BrandRepository();
+            var selectedBrand = iBrandRepository.GetBrand(id);
 
             return ConvertToBrand(selectedBrand);
         }
 
         public BrandDO GetBrandDO(int id)
         {
-            var brandRepo = new BrandRepository();
-            var selectedBrand = brandRepo.GetBrand(id);
+            //var brandRepo = new BrandRepository();
+            var selectedBrand = iBrandRepository.GetBrand(id);
 
             return selectedBrand;
         }
 
         public List<Brand> GetAllBrands()
         {
-            var brandRepo = new BrandRepository();
+            //var brandRepo = new BrandRepository();
             var brandList = new List<Brand>();
-            var brands = brandRepo.GetAllBrands();
+            var brands = iBrandRepository.GetAllBrands();
 
             foreach (var brand in brands)
             {
@@ -48,19 +52,19 @@ namespace MeasureMyPike.Service
 
         public Brand UpdateBrand(int id, string newName)
         {
-            var brandRepo = new BrandRepository();
+            //var brandRepo = new BrandRepository();
             var brandToUpdate = GetBrandDO(id);
-            var updatedBrand = brandRepo.UpdateBrand(brandToUpdate);
+            var updatedBrand = iBrandRepository.UpdateBrand(brandToUpdate);
 
             return ConvertToBrand(updatedBrand);
         }
 
         public bool DeleteBrand(int id)
         {
-            var brandRepo = new BrandRepository();
+            //var brandRepo = new BrandRepository();
             var brandToDelete = GetBrandDO(id);
 
-            var deleted = brandRepo.DeleteBrand(brandToDelete);
+            var deleted = iBrandRepository.DeleteBrand(brandToDelete);
 
             return (bool)deleted;
         }

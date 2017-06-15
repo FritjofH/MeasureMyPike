@@ -29,7 +29,7 @@ namespace MeasureMyPike.Controllers
         }
 
         // PUT: api/Location/5
-        public void Put(int id, String name, String coordinates)
+        public void Put(int id, string name, string coordinates)
         {
             LocationService cs = new LocationService();
             cs.SetLocation(id, name, coordinates);

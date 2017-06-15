@@ -46,7 +46,7 @@ namespace MeasureMyPike.Service
             return brandList;
         }
 
-        public Brand UpdateBrand(int id)
+        public Brand UpdateBrand(int id, string newName)
         {
             var brandRepo = new BrandRepository();
             var brandToUpdate = GetBrandDO(id);

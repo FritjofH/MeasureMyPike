@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using MeasureMyPike.Web.Areas.HelpPage.ModelDescriptions;
-using MeasureMyPike.Web.Areas.HelpPage.Models;
+using MeasureMyPike.Areas.HelpPage.ModelDescriptions;
+using MeasureMyPike.Areas.HelpPage.Models;
 
-namespace MeasureMyPike.Web.Areas.HelpPage.Controllers
+namespace MeasureMyPike.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

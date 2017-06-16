@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace MeasureMyPike.Web.Areas.HelpPage.ModelDescriptions
+namespace MeasureMyPike.Areas.HelpPage.ModelDescriptions
 {
     public class EnumTypeModelDescription : ModelDescription
     {

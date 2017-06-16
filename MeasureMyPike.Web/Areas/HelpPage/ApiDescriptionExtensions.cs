@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace MeasureMyPike.Web.Areas.HelpPage
+namespace MeasureMyPike.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

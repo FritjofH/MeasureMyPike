@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MeasureMyPike.Web")]
+[assembly: AssemblyTitle("MeasureMyPike")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DLM")]
-[assembly: AssemblyProduct("MeasureMyPike.Web")]
+[assembly: AssemblyProduct("MeasureMyPike")]
 [assembly: AssemblyCopyright("Copyright © DLM 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6fa8c526-36a0-449f-8816-a4561a4ba6a2")]
+[assembly: Guid("d6075005-1298-4491-8f0c-ab5c04bc155e")]
 
 // Version information for an assembly consists of the following four values:
 //

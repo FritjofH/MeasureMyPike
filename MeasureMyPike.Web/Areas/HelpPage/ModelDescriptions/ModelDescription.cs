@@ -1,6 +1,6 @@
 using System;
 
-namespace MeasureMyPike.Web.Areas.HelpPage.ModelDescriptions
+namespace MeasureMyPike.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

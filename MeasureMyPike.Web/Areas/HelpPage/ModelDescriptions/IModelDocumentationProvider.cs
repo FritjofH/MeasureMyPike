@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace MeasureMyPike.Web.Areas.HelpPage.ModelDescriptions
+namespace MeasureMyPike.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

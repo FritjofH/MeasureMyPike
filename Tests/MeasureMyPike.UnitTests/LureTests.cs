@@ -41,7 +41,7 @@ namespace ApplicationTest
             var brand = bs.GetBrand(1);
             
             Assert.IsNotNull(ls.AddLure("MyLureorg1" + rnd, brand), "Gick inte att skapa");
-            Assert.IsNotNull(ls.UpdateLure(ls.GetLure(1).Id, "MyLureupd1" + rnd), "Gick inte att skapa");
+            Assert.IsNotNull(ls.UpdateLure(ls.GetLure(1).id, "MyLureupd1" + rnd), "Gick inte att skapa");
         }
     }
 }

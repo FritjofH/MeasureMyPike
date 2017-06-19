@@ -7,7 +7,7 @@ namespace MeasureMyPike.Models.Application
 {
     public class Comment
     {
-        public int Id { get; set; }
-        public string Text { get; set; }
+        public int id { get; set; }
+        public string text { get; set; }
     }
 }

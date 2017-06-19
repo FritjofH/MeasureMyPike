@@ -15,7 +15,7 @@ namespace MeasureMyPike.Service
             var lure = new LureDO
             {
                 Name = lureName,
-                Brand = brandService.GetBrandDO(brand.Id),
+                Brand = brandService.GetBrandDO(brand.id),
                 Catch = null
             };
             var createdLure = lureRepo.AddLure(lure);

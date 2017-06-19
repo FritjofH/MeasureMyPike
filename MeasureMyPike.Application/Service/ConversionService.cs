@@ -12,8 +12,8 @@ namespace MeasureMyPike.Service
         public Lure ConvertToLure(LureDO lureToConvert)
         {
             return new Lure {
-                Id = lureToConvert.Id,
-                Name = lureToConvert.Name
+                id = lureToConvert.Id,
+                name = lureToConvert.Name
             };
         }
 
@@ -21,9 +21,9 @@ namespace MeasureMyPike.Service
         {
             return new Location
             {
-                Coordinates = locationToConvert.Coordinates,
-                Id = locationToConvert.Id,
-                Lake = locationToConvert.Lake
+                coordinates = locationToConvert.Coordinates,
+                id = locationToConvert.Id,
+                lake = locationToConvert.Lake
             };
         }
 
@@ -38,15 +38,15 @@ namespace MeasureMyPike.Service
 
             return new Catch
             {
-                CommentId = catchToConvert.Comment.Id,
-                FishId = catchToConvert.Fish.Id,
-                Id = catchToConvert.Id,
-                LocationId = catchToConvert.Location.Id,
-                LuresId = catchToConvert.Lures.Id,
-                MediaId = mediaList,
-                Timestamp = catchToConvert.Timestamp,
-                UserId = catchToConvert.User.Id,
-                WeatherData = catchToConvert.WeatherData.Id
+                commentId = catchToConvert.Comment.Id,
+                fishId = catchToConvert.Fish.Id,
+                id = catchToConvert.Id,
+                locationId = catchToConvert.Location.Id,
+                luresId = catchToConvert.Lures.Id,
+                mediaId = mediaList,
+                timestamp = catchToConvert.Timestamp,
+                userId = catchToConvert.User.Id,
+                weatherData = catchToConvert.WeatherData.Id
             };
         }
 
@@ -54,11 +54,11 @@ namespace MeasureMyPike.Service
         {
             return new User
             {
-                FirstName = userToConvert.FirstName,
-                LastName = userToConvert.LastName,
-                MemberSince = userToConvert.MemberSince,
-                Id = userToConvert.Id,
-                Username = userToConvert.Username
+                firstName = userToConvert.FirstName,
+                lastName = userToConvert.LastName,
+                memberSince = userToConvert.MemberSince,
+                id = userToConvert.Id,
+                username = userToConvert.Username
             };
         }
 
@@ -71,18 +71,18 @@ namespace MeasureMyPike.Service
             else
                 return new Brand
                 {
-                    Id = brandToConvert.Id
+                    id = brandToConvert.Id
                     ,
-                    Name = brandToConvert.Name
+                    name = brandToConvert.Name
                 };
         }
 
         public Fish convertToFish(FishDO fishToConvert)
         {
             return new Fish {
-                Id = fishToConvert.Id,
-                Length = fishToConvert.Length,
-                Weight = fishToConvert.Weight
+                id = fishToConvert.Id,
+                length = fishToConvert.Length,
+                weight = fishToConvert.Weight
             };
         }
     }

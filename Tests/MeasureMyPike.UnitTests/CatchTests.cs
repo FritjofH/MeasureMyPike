@@ -31,9 +31,9 @@ namespace ApplicationTest
             var lure1 = "Röd Pilk 50g";
 
             var createdBrand = bs.AddBrand("Grönlunds Fiske");
-            var createdLure = ls.AddLure(lure1, bs.GetBrand(createdBrand.Id));
+            var createdLure = ls.AddLure(lure1, bs.GetBrand(createdBrand.id));
 
-            var result = cs.CreateCatch(ms.ImageToByteArray(i), ms.getImageFormat(i), "Jag fångade en fisk", ls.GetLure(createdLure.Id), "75 kilo", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", "hostf");
+            var result = cs.CreateCatch(ms.ImageToByteArray(i), ms.getImageFormat(i), "Jag fångade en fisk", ls.GetLure(createdLure.id), "75 kilo", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", "hostf");
 
             Assert.IsNotNull(result, "Något gick fel vid skapandet av fångsten");
         }

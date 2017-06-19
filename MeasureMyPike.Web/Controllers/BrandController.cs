@@ -1,14 +1,11 @@
 ﻿using System.Web.Http;
 using MeasureMyPike.Models.Application;
 using MeasureMyPike.Service;
-
 using System.Net;
 using System.Net.Http;
 
-
 namespace MeasureMyPike.Controllers
-{
-    
+{    
     public class BrandController : ApiController
     {
         private IBrandService iBrandService;
@@ -19,7 +16,6 @@ namespace MeasureMyPike.Controllers
         //GET: api/Brand
         public HttpResponseMessage Get()
         {
-            //var bs = new BrandService();
             var brands = iBrandService.GetAllBrands();
             if (brands == null)
             {
@@ -35,7 +31,6 @@ namespace MeasureMyPike.Controllers
         // GET: api/Brand/5
         public HttpResponseMessage Get(int id)
         {
-            //var bs = new BrandService();
             var brand = iBrandService.GetBrand(id);
             if (brand == null)
             {
@@ -52,7 +47,6 @@ namespace MeasureMyPike.Controllers
         [HttpPost]
         public HttpResponseMessage Post([FromBody]Brand name)
         {
-            var bs = new BrandService();
             var brand = iBrandService.AddBrand(name.name);
             if (brand == null)
             {
@@ -68,7 +62,6 @@ namespace MeasureMyPike.Controllers
         // PUT: api/Brand/5
         public HttpResponseMessage Put(int id, [FromBody]string name)
         {
-            //var bs = new BrandService();
             var brand = iBrandService.UpdateBrand(id, name);
             if (brand == null)
             {
@@ -84,7 +77,6 @@ namespace MeasureMyPike.Controllers
         // DELETE: api/Brand/5
         public bool Delete(int id)
         {
-            //var bs = new BrandService();
             var deleted = iBrandService.DeleteBrand(id);
             
             return deleted;

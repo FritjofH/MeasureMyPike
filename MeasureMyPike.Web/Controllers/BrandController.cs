@@ -43,6 +43,7 @@ namespace MeasureMyPike.Controllers
         }
 
         // POST: api/Brand
+        [HttpPost]
         public Brand Post([FromBody]string name)
         {
             //var bs = new BrandService();

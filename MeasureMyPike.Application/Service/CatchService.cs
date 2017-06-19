@@ -12,6 +12,8 @@ public class CatchService : ICatchService
         var catchRepo = new CatchRepository();
         var lureService = new LureService();
         var mediaList = new List<MediaDO>();
+        var conversionService = new ConversionService();
+        var userService = new UserService();
 
         mediaList.Add(new MediaDO
         {

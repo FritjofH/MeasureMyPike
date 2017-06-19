@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import { Http, Response } from '@angular/http';
 
 @Injectable()
-export class FishService {
+export class BrandService {
 
     constructor(private http: Http) { }
 
-    getFishes(): Observable<any[]> {
+    getBrands(): Observable<any[]> {
         return this.http.get("/api/Brand")
             .map(this.extractData)
             .catch(this.handleError);

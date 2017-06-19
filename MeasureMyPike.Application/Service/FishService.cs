@@ -1,33 +1,18 @@
-﻿using MeasureMyPike.Models.Entity_Framework;
-using MeasureMyPike.Repo;
+﻿using MeasureMyPike.Repo;
 using MeasureMyPike.Models.Application;
+using MeasureMyPike.Domain.Models;
 
 namespace MeasureMyPike.Service
 {
     public class FishService
     {
-        //public Fish AddFish(string length, string weight)
-        //{
-        //    var fishRepo = new FishRepository();
-
-        //    var fish = new FishDO
-        //    {
-        //        Length = length,
-        //        Weight = weight
-        //    };
-
-        //    var createdFish = fishRepo.AddFish(fish);
-
-        //    return convertToFish(createdFish);
-        //}
-
-
         public Fish GetFish(int id)
         {
+            var conversionService = new ConversionService();
             var fishRepo = new FishRepository();
             var selectedFish = fishRepo.GetFish(id);
 
-            return convertToFish(selectedFish);
+            return conversionService.convertToFish(selectedFish);
         }
 
         public FishDO GetFishDO(int id)
@@ -48,15 +33,11 @@ namespace MeasureMyPike.Service
 
         public Fish UpdateFish(int id, string length, string weight)
         {
+            var conversionService = new ConversionService();
             var fishRepo = new FishRepository();
             var updatedFish = fishRepo.UpdateFish(id, length, weight);
 
-            return convertToFish(updatedFish);
-        }
-
-        private Fish convertToFish(FishDO fishToConvert)
-        {
-            return new Fish { Id = fishToConvert.Id, Length = fishToConvert.Length, Weight = fishToConvert.Weight };
+            return conversionService.convertToFish(updatedFish);
         }
 
     }

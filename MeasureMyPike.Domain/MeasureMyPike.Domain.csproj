@@ -51,12 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IRepositories\IBrandRepository.cs" />
-    <Compile Include="Interfaces\IRepositories\ICatchRepository.cs" />
-    <Compile Include="Interfaces\IRepositories\IFishRepository.cs" />
-    <Compile Include="Interfaces\IRepositories\ILocationRepository.cs" />
-    <Compile Include="Interfaces\IRepositories\ILureRepository.cs" />
-    <Compile Include="Interfaces\IRepositories\IUserRepository.cs" />
+    <Compile Include="Interfaces\IBrandRepository.cs" />
+    <Compile Include="Interfaces\ICatchRepository.cs" />
+    <Compile Include="Interfaces\IFishRepository.cs" />
+    <Compile Include="Interfaces\ILocationRepository.cs" />
+    <Compile Include="Interfaces\ILureRepository.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Models\BrandDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>

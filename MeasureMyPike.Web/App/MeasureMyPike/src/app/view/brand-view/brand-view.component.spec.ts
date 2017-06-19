@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FishViewComponent } from './fish-view.component';
+import { BrandViewComponent } from './brand-view.component';
 
-describe('FishViewComponent', () => {
-  let component: FishViewComponent;
-  let fixture: ComponentFixture<FishViewComponent>;
+describe('BrandViewComponent', () => {
+  let component: BrandViewComponent;
+  let fixture: ComponentFixture<BrandViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FishViewComponent ]
+      declarations: [ BrandViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FishViewComponent);
+    fixture = TestBed.createComponent(BrandViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

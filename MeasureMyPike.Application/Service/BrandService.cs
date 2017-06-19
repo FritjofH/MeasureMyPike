@@ -13,7 +13,7 @@ namespace MeasureMyPike.Service
         }
         public Brand AddBrand(string name)
         {
-            //var brandRepo = new BrandRepository();
+            
             var newBrand = new BrandDO { Name = name };
             var conversionService = new ConversionService();
             var savedBrand = iBrandRepository.AddBrand(newBrand);
@@ -23,7 +23,6 @@ namespace MeasureMyPike.Service
 
         public Brand GetBrand(int id)
         {
-            //var brandRepo = new BrandRepository();
             var conversionService = new ConversionService();
             var selectedBrand = iBrandRepository.GetBrand(id);
 
@@ -32,7 +31,6 @@ namespace MeasureMyPike.Service
 
         public BrandDO GetBrandDO(int id)
         {
-            //var brandRepo = new BrandRepository();
             var selectedBrand = iBrandRepository.GetBrand(id);
 
             return selectedBrand;
@@ -40,7 +38,6 @@ namespace MeasureMyPike.Service
 
         public List<Brand> GetAllBrands()
         {
-            //var brandRepo = new BrandRepository();
             var conversionService = new ConversionService();
             var brandList = new List<Brand>();
             var brands = iBrandRepository.GetAllBrands();
@@ -49,22 +46,12 @@ namespace MeasureMyPike.Service
             {
                 brandList.Add(conversionService.ConvertToBrand(brand));
             }
-
-            //var barandList = new List<Brand>();
-            //barandList.Add(new Brand
-            //{
-            //    Id = 0,
-            //    Name = "Muppet"
-            //});
-
-            //return barandList;
-
+            
             return brandList;
         }
 
         public Brand UpdateBrand(int id, string newName)
         {
-            //var brandRepo = new BrandRepository();
             var conversionService = new ConversionService();
             var brandToUpdate = GetBrandDO(id);
             brandToUpdate.Name = newName;
@@ -75,11 +62,8 @@ namespace MeasureMyPike.Service
 
         public bool DeleteBrand(int id)
         {
-            //var brandRepo = new BrandRepository();
-            //var brandToDelete = GetBrandDO(id);
-
-            var deleted = iBrandRepository.DeleteBrand(id);
-
+            var brandToDelete = iBrandRepository.GetBrand(id);
+            var deleted = iBrandRepository.DeleteBrand(brandToDelete);
             return (bool)deleted;
         }
 

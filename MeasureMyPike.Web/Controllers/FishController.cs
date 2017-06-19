@@ -21,11 +21,12 @@ namespace MeasureMyPike.Controllers
             return fish;
         }
 
-        // POST: api/Fish
-        public Fish Post([FromBody]int Id, [FromBody]string Length, [FromBody]string Weight)
+        [HttpPost]
+        public Fish Post(Fish inputFish)
         {
-            var fish = iFishService.UpdateFish(Id, Length, Weight);
-            return fish;
+            return iFishService.UpdateFish(inputFish.id, inputFish.length, inputFish.weight);
         }
+
+
     }
 }

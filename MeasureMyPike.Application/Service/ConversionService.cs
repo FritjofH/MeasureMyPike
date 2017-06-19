@@ -64,10 +64,17 @@ namespace MeasureMyPike.Service
 
         public Brand ConvertToBrand(BrandDO brandToConvert)
         {
-            return new Brand {
-                Id = brandToConvert.Id
-                , Name = brandToConvert.Name
-            };
+            if (brandToConvert == null)
+            {
+                return null;
+            }
+            else
+                return new Brand
+                {
+                    Id = brandToConvert.Id
+                    ,
+                    Name = brandToConvert.Name
+                };
         }
 
         public Fish convertToFish(FishDO fishToConvert)

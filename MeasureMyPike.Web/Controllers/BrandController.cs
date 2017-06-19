@@ -8,11 +8,12 @@ using System.Net.Http;
 
 namespace MeasureMyPike.Controllers
 {
-    
+
     public class BrandController : ApiController
     {
         private IBrandService iBrandService;
-        private BrandController() {
+        private BrandController()
+        {
             iBrandService = new BrandService();
         }
 
@@ -50,44 +51,55 @@ namespace MeasureMyPike.Controllers
 
         // POST: api/Brand
         [HttpPost]
-        public HttpResponseMessage Post([FromBody]Brand name)
+        public HttpResponseMessage Post([FromBody]Brand brand)
         {
             var bs = new BrandService();
-            var brand = iBrandService.AddBrand(name.name);
-            if (brand == null)
+            var lbrand = iBrandService.AddBrand(brand.name);
+            if (lbrand == null)
             {
                 var message = string.Format("Could not add brand");
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, brand);
+                return Request.CreateResponse(HttpStatusCode.OK, lbrand);
             }
         }
 
         // PUT: api/Brand/5
-        public HttpResponseMessage Put(int id, [FromBody]string name)
+        [HttpPut]
+        public HttpResponseMessage Put(int id, [FromBody]Brand brand)
         {
             //var bs = new BrandService();
-            var brand = iBrandService.UpdateBrand(id, name);
-            if (brand == null)
+            var ibrand = iBrandService.UpdateBrand(brand.id, brand.name);
+            if (ibrand == null)
             {
                 var message = string.Format("Could not update brand");
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, brand);
-            }            
+                return Request.CreateResponse(HttpStatusCode.OK, ibrand);
+            }
         }
 
         // DELETE: api/Brand/5
-        public bool Delete(int id)
+        [HttpDelete]
+        public HttpResponseMessage Delete(int id)
         {
             //var bs = new BrandService();
             var deleted = iBrandService.DeleteBrand(id);
-            
-            return deleted;
+
+
+            if (deleted == false)
+            {
+                var message = string.Format("Could not delete brand");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, deleted);
+            }
         }
     }
 }

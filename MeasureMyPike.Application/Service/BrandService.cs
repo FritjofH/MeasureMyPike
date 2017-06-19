@@ -67,6 +67,7 @@ namespace MeasureMyPike.Service
             //var brandRepo = new BrandRepository();
             var conversionService = new ConversionService();
             var brandToUpdate = GetBrandDO(id);
+            brandToUpdate.Name = newName;
             var updatedBrand = iBrandRepository.UpdateBrand(brandToUpdate);
 
             return conversionService.ConvertToBrand(updatedBrand);
@@ -75,9 +76,9 @@ namespace MeasureMyPike.Service
         public bool DeleteBrand(int id)
         {
             //var brandRepo = new BrandRepository();
-            var brandToDelete = GetBrandDO(id);
+            //var brandToDelete = GetBrandDO(id);
 
-            var deleted = iBrandRepository.DeleteBrand(brandToDelete);
+            var deleted = iBrandRepository.DeleteBrand(id);
 
             return (bool)deleted;
         }

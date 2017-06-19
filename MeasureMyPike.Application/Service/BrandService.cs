@@ -50,6 +50,15 @@ namespace MeasureMyPike.Service
                 brandList.Add(conversionService.ConvertToBrand(brand));
             }
 
+            //var barandList = new List<Brand>();
+            //barandList.Add(new Brand
+            //{
+            //    Id = 0,
+            //    Name = "Muppet"
+            //});
+
+            //return barandList;
+
             return brandList;
         }
 

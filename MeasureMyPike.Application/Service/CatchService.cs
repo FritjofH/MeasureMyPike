@@ -12,7 +12,6 @@ public class CatchService : ICatchService
         var catchRepo = new CatchRepository();
         var lureService = new LureService();
         var mediaList = new List<MediaDO>();
-        var conversionService = new ConversionService();
 
         mediaList.Add(new MediaDO
         {
@@ -24,9 +23,10 @@ public class CatchService : ICatchService
             }
         });
 
+
         var newCatch = new CatchDO
         {
-            //User = user,
+            User = userService.GetUserDO("hostf"),
             Comment = new CommentDO { Text = comment },
             Media = mediaList,
             Lures = lureService.GetLureDO(lure.Id),
@@ -97,5 +97,30 @@ public class CatchService : ICatchService
         var deleted = catchRepo.DeleteCatch(catchToDelete);
 
         return deleted;
+    }
+
+    private Catch convertToCatch(CatchDO catchToConvert)
+    {
+        var mediaList = new List<int>();
+
+        foreach (var media in catchToConvert.Media)
+        {
+            mediaList.Add(media.Id);
+        }
+
+        var catchToReturn = new Catch
+        {
+            CommentId = catchToConvert.Comment.Id,
+            FishId = catchToConvert.Fish.Id,
+            Id = catchToConvert.Id,
+            LocationId = catchToConvert.Location.Id,
+            LuresId = catchToConvert.Lures.Id,
+            MediaId = mediaList,
+            Timestamp = catchToConvert.Timestamp,
+            UserId = catchToConvert.User.Id,
+            WeatherData = catchToConvert.WeatherData.Id
+        };
+
+        return catchToReturn;
     }
 }

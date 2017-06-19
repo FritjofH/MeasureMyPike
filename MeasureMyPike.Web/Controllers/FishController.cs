@@ -17,8 +17,14 @@ namespace MeasureMyPike.Controllers
         //GET: api/Fish
         public Fish Get(int id)
         {
-            var fish = iFishService.Id();
+            var fish = iFishService.GetFish(id);
             return fish;
+        }
+
+        [HttpPost]
+        public Fish Post(Fish inputFish)
+        {
+            return iFishService.UpdateFish(inputFish.id, inputFish.length, inputFish.weight);
         }
 
 

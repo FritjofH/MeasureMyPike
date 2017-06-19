@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MeasureMyPike.Domain.Models;
+using MeasureMyPike.Models.Application;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +8,14 @@ using System.Threading.Tasks;
 
 namespace MeasureMyPike.Application.Interfaces
 {
-    public class IFishService
+    public interface IFishService
     {
-        public int Id { get; set; }
-        public string Length { get; set; }
-        public string Weight { get; set; }
+        Fish GetFish(int id);
+
+        FishDO GetFishDO(int id);
+
+        bool DeleteFish(int id);
+
+        Fish UpdateFish(int id, string length, string weight);
     }
 }

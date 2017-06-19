@@ -69,5 +69,14 @@ namespace MeasureMyPike.Service
                 , Name = brandToConvert.Name
             };
         }
+
+        public Fish convertToFish(FishDO fishToConvert)
+        {
+            return new Fish {
+                Id = fishToConvert.Id,
+                Length = fishToConvert.Length,
+                Weight = fishToConvert.Weight
+            };
+        }
     }
 }

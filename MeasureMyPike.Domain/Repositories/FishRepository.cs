@@ -1,33 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MeasureMyPike.Models.Entity_Framework;
+using MeasureMyPike.Domain.Models;
 
 namespace MeasureMyPike.Repo
 {
     public class FishRepository
     {
-        public FishDO AddFish(FishDO newFish)
-        {
-            try
-            {
-                using (var conn = new ModelContainer())
-                {
-                    var createdFish = conn.Fish.Add(newFish);
-                    conn.SaveChanges();
-
-                    return createdFish;
-                }
-            }
-            catch (Exception ex)
-            {
-                // TODO: better handling
-                Console.WriteLine(ex.GetType().FullName);
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-        }
-
         public FishDO GetFish(int id)
         {
             try

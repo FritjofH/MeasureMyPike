@@ -17,10 +17,15 @@ namespace MeasureMyPike.Controllers
         //GET: api/Fish
         public Fish Get(int id)
         {
-            var fish = iFishService.Id();
+            var fish = iFishService.GetFish(id);
             return fish;
         }
 
-
+        // POST: api/Fish
+        public Fish Post([FromBody]int Id, [FromBody]string Length, [FromBody]string Weight)
+        {
+            var fish = iFishService.UpdateFish(Id, Length, Weight);
+            return fish;
+        }
     }
 }

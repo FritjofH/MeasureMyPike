@@ -3,6 +3,10 @@ using System.Web.Http;
 using MeasureMyPike.Models.Application;
 using MeasureMyPike.Service;
 
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+
 namespace MeasureMyPike.Controllers
 {
     
@@ -23,12 +27,19 @@ namespace MeasureMyPike.Controllers
         }
 
         // GET: api/Brand/5
-        public Brand Get(int id)
+        public HttpResponseMessage Get(int id)
         {
             //var bs = new BrandService();
             var brand = iBrandService.GetBrand(id);
-
-            return brand;
+            if (brand == null)
+            {
+                var message = string.Format("Product with id = {0} not found", id);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, brand);
+            }
         }
 
         // POST: api/Brand

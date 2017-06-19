@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using MeasureMyPike.Domain.Models;
+using MeasureMyPike.Models.Entity_Framework;
 
 namespace MeasureMyPike.Repo
 {
-    public class UserRepository : IUserRepository
+    public class FishRepository
     {
-        public UserDO AddUser(UserDO newUser)
+        public FishDO AddFish(FishDO newFish)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var createdUser = conn.User.Add(newUser);
+                    var createdFish = conn.Fish.Add(newFish);
                     conn.SaveChanges();
 
-                    return createdUser;
+                    return createdFish;
                 }
             }
             catch (Exception ex)
@@ -27,17 +28,17 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public UserDO GetUser(string username)
+        public FishDO GetFish(int id)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedUser = conn.User.FirstOrDefault(it => it.Username == username);
+                    var selectedFish = conn.Fish.FirstOrDefault(it => it.Id == id);
                     {
-                        if (selectedUser != null)
+                        if (selectedFish != null)
                         {
-                            return selectedUser;
+                            return selectedFish;
                         }
                         else return null;
                     }
@@ -52,13 +53,55 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public bool DeleteUser(UserDO userToDelete)
+        public List<FishDO> GetAllFishes()
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    conn.User.Remove(userToDelete);
+                    var fishList = conn.Fish.ToList();
+
+                    return fishList;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        public FishDO UpdateFish(int id, string length, string weight)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var fishToUpdate = conn.Fish.FirstOrDefault(it => it.Id == id);
+                    fishToUpdate.Id = id;
+                    conn.SaveChanges();
+
+                    return fishToUpdate;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        public bool DeleteFish(FishDO fishToDelete)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    conn.Fish.Remove(fishToDelete);
                     conn.SaveChanges();
 
                     return true;
@@ -72,26 +115,5 @@ namespace MeasureMyPike.Repo
                 return false;
             }
         }
-
-        public string GetUserPasswordHash(string username)
-        {
-            try
-            {
-                using (var conn = new ModelContainer())
-                {
-                    var passwordHash = conn.User.First(it => it.Username == username).Security.Password;
-
-                    return passwordHash;
-                }
-            }
-            catch (Exception ex)
-            {
-                // TODO: better handling
-                Console.WriteLine(ex.GetType().FullName);
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-        }
-
     }
 }

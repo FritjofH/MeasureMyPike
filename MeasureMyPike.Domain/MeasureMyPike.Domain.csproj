@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IRepositories\IBrandRepository.cs" />
     <Compile Include="Interfaces\IRepositories\ICatchRepository.cs" />
+    <Compile Include="Interfaces\IRepositories\IFishRepository.cs" />
     <Compile Include="Interfaces\IRepositories\ILocationRepository.cs" />
     <Compile Include="Interfaces\IRepositories\ILureRepository.cs" />
     <Compile Include="Interfaces\IRepositories\IUserRepository.cs" />

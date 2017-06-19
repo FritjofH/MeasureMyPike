@@ -12,6 +12,7 @@ public class CatchService
         var catchRepo = new CatchRepository();
         var ls = new LureService();
         var mediaList = new List<MediaDO>();
+        var userService = new UserService();
 
         mediaList.Add(new MediaDO
         {
@@ -23,9 +24,10 @@ public class CatchService
             }
         });
 
+
         var newCatch = new CatchDO
         {
-            //User = user,
+            User = userService.GetUserDO("hostf"),
             Comment = new CommentDO { Text = comment },
             Media = mediaList,
             Lures = ls.GetLureDO(lure.Id),
@@ -100,9 +102,12 @@ public class CatchService
     {
         var mediaList = new List<int>();
 
-        foreach (var media in catchToConvert.Media)
+        if (catchToConvert.Media.Count > 0)
         {
-            mediaList.Add(media.Id);
+            foreach (var media in catchToConvert.Media)
+            {
+                mediaList.Add(media.Id);
+            }
         }
 
         var catchToReturn = new Catch

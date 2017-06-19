@@ -254,6 +254,7 @@
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repo\FishRepository.cs" />
     <Compile Include="Repo\LocationRepository.cs" />
     <Compile Include="Repo\UserRepository.cs" />
     <Compile Include="Repo\BrandRepository.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Service\CatchService.cs" />
     <Compile Include="Repo\LureRepository.cs" />
     <Compile Include="Repo\CatchRepository.cs" />
+    <Compile Include="Service\FishService.cs" />
     <Compile Include="Service\LocationService.cs" />
     <Compile Include="Service\LureService.cs" />
     <Compile Include="Service\MediaService.cs" />

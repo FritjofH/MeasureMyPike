@@ -21,7 +21,6 @@ namespace MeasureMyPike.Tests
         {
             var rnd = new Random();
             var result = bs.AddBrand("Abu garcia" + rnd.Next(1, 99));
-
             Assert.IsNotNull(result);
         }
     }

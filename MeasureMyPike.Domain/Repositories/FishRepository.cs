@@ -60,7 +60,8 @@ namespace MeasureMyPike.Repo
                 using (var conn = new ModelContainer())
                 {
                     var fishToUpdate = conn.Fish.FirstOrDefault(it => it.Id == id);
-                    fishToUpdate.Id = id;
+                    fishToUpdate.Length = length;
+                    fishToUpdate.Weight = weight;
                     conn.SaveChanges();
 
                     return fishToUpdate;

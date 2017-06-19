@@ -186,8 +186,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\BrandController.cs" />
     <Compile Include="Controllers\CatchController.cs" />
+    <Compile Include="Controllers\FishController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Global.asax.cs">
@@ -203,6 +205,8 @@
     <Content Include="App\MeasureMyPike\src\app\app.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.css" />
     <Content Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.html" />
+    <Content Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.css" />
+    <Content Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.html" />
     <Content Include="App\MeasureMyPike\src\favicon.ico" />
     <Content Include="App\MeasureMyPike\src\index.html" />
     <Content Include="App\MeasureMyPike\src\styles.css" />
@@ -309,10 +313,14 @@
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\app.component.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\app.module.ts" />
-    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\brand.service.spec.ts" />
-    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\brand.service.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\brand\brand.service.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\brand\brand.service.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\user\user.service.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\user\user.service.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.spec.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\environments\environment.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\main.ts" />

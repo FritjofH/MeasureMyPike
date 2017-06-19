@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BrandService } from '../../service/brand.service';
+import { BrandService } from '../../service/brand/brand.service';
 
 @Component({
   selector: 'app-brand-view',

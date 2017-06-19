@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
+
 namespace MeasureMyPike.Controllers
 {
     
@@ -18,12 +19,19 @@ namespace MeasureMyPike.Controllers
         }
 
         //GET: api/Brand
-        public List<Brand> Get()
+        public HttpResponseMessage Get()
         {
             //var bs = new BrandService();
             var brands = iBrandService.GetAllBrands();
-
-            return brands;
+            if (brands == null)
+            {
+                var message = string.Format("No Brands found");
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, brands);
+            }
         }
 
         // GET: api/Brand/5
@@ -33,7 +41,7 @@ namespace MeasureMyPike.Controllers
             var brand = iBrandService.GetBrand(id);
             if (brand == null)
             {
-                var message = string.Format("Product with id = {0} not found", id);
+                var message = string.Format("Brand with id = {0} not found", id);
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
             }
             else
@@ -43,21 +51,35 @@ namespace MeasureMyPike.Controllers
         }
 
         // POST: api/Brand
-        public Brand Post([FromBody]string name)
+        public HttpResponseMessage Post([FromBody]Brand name)
         {
-            //var bs = new BrandService();
-            var brand = iBrandService.AddBrand(name);
-
-            return brand;
+           var bs = new BrandService();
+            var brand = iBrandService.AddBrand(name.Name);
+            if (brand == null)
+            {
+                var message = string.Format("Could not add brand");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, brand);
+            }
         }
 
         // PUT: api/Brand/5
-        public Brand Put(int id, [FromBody]string name)
+        public HttpResponseMessage Put(int id, [FromBody]string name)
         {
             //var bs = new BrandService();
             var brand = iBrandService.UpdateBrand(id, name);
-
-            return brand;
+            if (brand == null)
+            {
+                var message = string.Format("Could not update brand");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, brand);
+            }            
         }
 
         // DELETE: api/Brand/5

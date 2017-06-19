@@ -1,10 +1,11 @@
 ﻿using MeasureMyPike.Repo;
 using MeasureMyPike.Models.Application;
 using MeasureMyPike.Domain.Models;
+using MeasureMyPike.Application.Interfaces;
 
 namespace MeasureMyPike.Service
 {
-    public class FishService
+    public class FishService : IFishService
     {
         public Fish GetFish(int id)
         {
@@ -39,6 +40,5 @@ namespace MeasureMyPike.Service
 
             return conversionService.convertToFish(updatedFish);
         }
-
     }
 }

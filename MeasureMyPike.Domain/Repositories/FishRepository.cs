@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using MeasureMyPike.Domain.Models;
+using MeasureMyPike.Domain.Interfaces.IRepositories;
 
 namespace MeasureMyPike.Repo
 {
-    public class FishRepository
+    public class FishRepository : IFishRepository
     {
         public FishDO GetFish(int id)
         {

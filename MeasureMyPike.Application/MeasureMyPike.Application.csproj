@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IBrandService.cs" />
     <Compile Include="Interfaces\ICatchService.cs" />
+    <Compile Include="Interfaces\IFishService.cs" />
     <Compile Include="Interfaces\ILocationService.cs" />
     <Compile Include="Interfaces\ILureService.cs" />
     <Compile Include="Interfaces\IMediaService.cs" />

@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Web.Http;
+﻿using System.Web.Http;
 using MeasureMyPike.Models.Application;
 using MeasureMyPike.Service;
 
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 
 
 namespace MeasureMyPike.Controllers
@@ -51,10 +49,11 @@ namespace MeasureMyPike.Controllers
         }
 
         // POST: api/Brand
+        [HttpPost]
         public HttpResponseMessage Post([FromBody]Brand name)
         {
-           var bs = new BrandService();
-            var brand = iBrandService.AddBrand(name.Name);
+            var bs = new BrandService();
+            var brand = iBrandService.AddBrand(name.name);
             if (brand == null)
             {
                 var message = string.Format("Could not add brand");

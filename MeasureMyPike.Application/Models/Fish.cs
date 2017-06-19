@@ -7,8 +7,8 @@ namespace MeasureMyPike.Models.Application
 {
     public class Fish
     {
-        public int Id { get; set; }
-        public string Length { get; set; }
-        public string Weight { get; set; }
+        public int id { get; set; }
+        public string length { get; set; }
+        public string weight { get; set; }
     }
 }

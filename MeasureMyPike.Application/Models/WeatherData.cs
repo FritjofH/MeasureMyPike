@@ -7,9 +7,9 @@ namespace MeasureMyPike.Models.Application
 {
     public class WeatherData
     {
-        public int Id { get; set; }
-        public int Temperature { get; set; }
-        public string Weather { get; set; }
-        public string MoonPosition { get; set; }
+        public int id { get; set; }
+        public int temperature { get; set; }
+        public string weather { get; set; }
+        public string moonPosition { get; set; }
     }
 }

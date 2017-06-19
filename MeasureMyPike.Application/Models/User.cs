@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace MeasureMyPike.Models.Application
 {
     public class User
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public System.DateTime MemberSince { get; set; }
+        public int id { get; set; }
+        public string username { get; set; }
+        public string lastName { get; set; }
+        public string firstName { get; set; }
+        public DateTime memberSince { get; set; }
     }
 }

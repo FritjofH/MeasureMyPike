@@ -31,7 +31,7 @@ public class CatchService : ICatchService
             User = userService.GetUserDO("hostf"),
             Comment = new CommentDO { Text = comment },
             Media = mediaList,
-            Lures = lureService.GetLureDO(lure.Id),
+            Lures = lureService.GetLureDO(lure.id),
             Fish = new FishDO { Length = fishLength, Weight = fishWeight },
             Location = new LocationDO { Lake = lake, Coordinates = coordinates },
             WeatherData = new WeatherDataDO { Temperature = temperature, Weather = weather, MoonPosition = moonposition },
@@ -81,7 +81,7 @@ public class CatchService : ICatchService
         var catchToUpdate = catchRepo.GetCatch(id);
         catchToUpdate.Comment = new CommentDO { Text = comment };
         catchToUpdate.Media.Add(new MediaDO { MediaFormat = format, Image = new MediaDataDO { Length = image.Length, Data = image } });
-        catchToUpdate.Lures = lureService.GetLureDO(lure.Id);
+        catchToUpdate.Lures = lureService.GetLureDO(lure.id);
         catchToUpdate.Fish = new FishDO { Length = fishLength, Weight = fishWeight };
         catchToUpdate.Location = new LocationDO { Lake = lake, Coordinates = coordinates };
         catchToUpdate.WeatherData = new WeatherDataDO { Temperature = temperature, Weather = weather, MoonPosition = moonposition };
@@ -112,15 +112,15 @@ public class CatchService : ICatchService
 
         var catchToReturn = new Catch
         {
-            CommentId = catchToConvert.Comment.Id,
-            FishId = catchToConvert.Fish.Id,
-            Id = catchToConvert.Id,
-            LocationId = catchToConvert.Location.Id,
-            LuresId = catchToConvert.Lures.Id,
-            MediaId = mediaList,
-            Timestamp = catchToConvert.Timestamp,
-            UserId = catchToConvert.User.Id,
-            WeatherData = catchToConvert.WeatherData.Id
+            commentId = catchToConvert.Comment.Id,
+            fishId = catchToConvert.Fish.Id,
+            id = catchToConvert.Id,
+            locationId = catchToConvert.Location.Id,
+            luresId = catchToConvert.Lures.Id,
+            mediaId = mediaList,
+            timestamp = catchToConvert.Timestamp,
+            userId = catchToConvert.User.Id,
+            weatherData = catchToConvert.WeatherData.Id
         };
 
         return catchToReturn;

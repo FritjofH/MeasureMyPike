@@ -18,6 +18,7 @@
     <EntitySet Name="Statistics" EntityType="Model.Store.Statistics" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="WeatherData" EntityType="Model.Store.WeatherData" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Security" EntityType="Model.Store.Security" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TackleBox" EntityType="Model.Store.TackleBox" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserCatch" Association="Model.Store.UserCatch">
       <End Role="User" EntitySet="User" />
       <End Role="Catch" EntitySet="Catch" />
@@ -78,6 +79,14 @@
       <End Role="Security" EntitySet="Security" />
       <End Role="User" EntitySet="User" />
     </AssociationSet>
+    <AssociationSet Name="UserDOTackleBoxDO" Association="Model.Store.UserDOTackleBoxDO">
+      <End Role="UserDO" EntitySet="User" />
+      <End Role="TackleBoxDO" EntitySet="TackleBox" />
+    </AssociationSet>
+    <AssociationSet Name="LureDOTackleBoxDO" Association="Model.Store.LureDOTackleBoxDO">
+      <End Role="LureDO" EntitySet="Lure" />
+      <End Role="TackleBoxDO" EntitySet="TackleBox" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="User">
     <Key>
@@ -88,6 +97,7 @@
     <Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
     <Property Name="FirstName" Type="nvarchar(max)" Nullable="true" />
     <Property Name="MemberSince" Type="datetime" Nullable="false" />
+    <Property Name="TackleBoxDO_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Catch">
     <Key>
@@ -158,8 +168,11 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Weight" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Colour" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Brand_Id" Type="int" Nullable="false" />
     <Property Name="Statistics_Id" Type="int" Nullable="true" />
+    <Property Name="TackleBoxDO_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Statistics">
     <Key>
@@ -184,6 +197,13 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TackleBox">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DatePurchased" Type="datetime" Nullable="true" />
   </EntityType>
   <Association Name="UserCatch">
     <End Role="User" Type="Model.Store.User" Multiplicity="1" />
@@ -365,6 +385,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="UserDOTackleBoxDO">
+    <End Role="UserDO" Type="Model.Store.User" Multiplicity="*" />
+    <End Role="TackleBoxDO" Type="Model.Store.TackleBox" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TackleBoxDO">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserDO">
+        <PropertyRef Name="TackleBoxDO_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LureDOTackleBoxDO">
+    <End Role="LureDO" Type="Model.Store.Lure" Multiplicity="*" />
+    <End Role="TackleBoxDO" Type="Model.Store.TackleBox" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TackleBoxDO">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LureDO">
+        <PropertyRef Name="TackleBoxDO_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -442,6 +486,15 @@
             <End Role="Security" EntitySet="Security" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <EntitySet Name="TackleBox" EntityType="Model.TackleBoxDO" />
+          <AssociationSet Name="UserDOTackleBoxDO" Association="Model.UserDOTackleBoxDO">
+            <End Role="UserDO" EntitySet="User" />
+            <End Role="TackleBoxDO" EntitySet="TackleBox" />
+          </AssociationSet>
+          <AssociationSet Name="LureDOTackleBoxDO" Association="Model.LureDOTackleBoxDO">
+            <End Role="LureDO" EntitySet="Lure" />
+            <End Role="TackleBoxDO" EntitySet="TackleBox" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="UserDO">
           <Key>
@@ -454,6 +507,7 @@
           <NavigationProperty Name="Catch" Relationship="Model.UserCatch" FromRole="User" ToRole="Catch" />
           <Property Name="MemberSince" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Security" Relationship="Model.SecurityUser" FromRole="User" ToRole="Security" />
+          <NavigationProperty Name="TackleBoxDO" Relationship="Model.UserDOTackleBoxDO" FromRole="UserDO" ToRole="TackleBoxDO" />
         </EntityType>
         <EntityType Name="CatchDO">
           <Key>
@@ -537,6 +591,9 @@
           <NavigationProperty Name="Catch" Relationship="Model.CatchLures" FromRole="Lures" ToRole="Catch" />
           <NavigationProperty Name="Brand" Relationship="Model.LuresBrand" FromRole="Lures" ToRole="Brand" />
           <NavigationProperty Name="Statistics" Relationship="Model.LuresStatistics" FromRole="Lures" ToRole="Statistics" />
+          <NavigationProperty Name="TackleBoxDO" Relationship="Model.LureDOTackleBoxDO" FromRole="LureDO" ToRole="TackleBoxDO" />
+          <Property Name="Weight" Type="String" Nullable="true" Unicode="true" />
+          <Property Name="Colour" Type="String" Unicode="true" Nullable="true" />
         </EntityType>
         <Association Name="CatchComment">
           <End Type="Model.CatchDO" Role="Catch" Multiplicity="1" />
@@ -624,6 +681,23 @@
           <End Type="Model.SecurityDO" Role="Security" Multiplicity="1" />
           <End Type="Model.UserDO" Role="User" Multiplicity="1" />
         </Association>
+        <EntityType Name="TackleBoxDO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatePurchased" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="UserDO" Relationship="Model.UserDOTackleBoxDO" FromRole="TackleBoxDO" ToRole="UserDO" />
+          <NavigationProperty Name="LureDO" Relationship="Model.LureDOTackleBoxDO" FromRole="TackleBoxDO" ToRole="LureDO" />
+        </EntityType>
+        <Association Name="UserDOTackleBoxDO">
+          <End Type="Model.UserDO" Role="UserDO" Multiplicity="1" />
+          <End Type="Model.TackleBoxDO" Role="TackleBoxDO" Multiplicity="1" />
+        </Association>
+        <Association Name="LureDOTackleBoxDO">
+          <End Type="Model.LureDO" Role="LureDO" Multiplicity="*" />
+          <End Type="Model.TackleBoxDO" Role="TackleBoxDO" Multiplicity="1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -705,6 +779,8 @@
         <MappingFragment StoreEntitySet="Lure">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Colour" ColumnName="Colour" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -730,6 +806,14 @@
         <MappingFragment StoreEntitySet="Security">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TackleBox">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.TackleBoxDO)">
+        <MappingFragment StoreEntitySet="TackleBox">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DatePurchased" ColumnName="DatePurchased" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -855,6 +939,22 @@
         <ScalarProperty Name="Id" ColumnName="User_Id" />
       </EndProperty>
       <EndProperty Name="Security">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserDOTackleBoxDO" TypeName="Model.UserDOTackleBoxDO" StoreEntitySet="User">
+      <EndProperty Name="TackleBoxDO">
+        <ScalarProperty Name="Id" ColumnName="TackleBoxDO_Id" />
+      </EndProperty>
+      <EndProperty Name="UserDO">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LureDOTackleBoxDO" TypeName="Model.LureDOTackleBoxDO" StoreEntitySet="Lure">
+      <EndProperty Name="TackleBoxDO">
+        <ScalarProperty Name="Id" ColumnName="TackleBoxDO_Id" />
+      </EndProperty>
+      <EndProperty Name="LureDO">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

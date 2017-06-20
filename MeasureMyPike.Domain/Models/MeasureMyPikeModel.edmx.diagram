@@ -32,6 +32,9 @@
         <AssociationConnector Association="Model.WeatherDataStatistics" />
         <EntityTypeShape EntityType="Model.SecurityDO" Width="1.5" PointX="2.625" PointY="1.125" />
         <AssociationConnector Association="Model.SecurityUser" />
+        <EntityTypeShape EntityType="Model.TackleBoxDO" Width="1.5" PointX="15.875" PointY="4.375" />
+        <AssociationConnector Association="Model.UserDOTackleBoxDO" />
+        <AssociationConnector Association="Model.LureDOTackleBoxDO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

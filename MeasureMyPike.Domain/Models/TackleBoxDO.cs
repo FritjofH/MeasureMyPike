@@ -12,23 +12,19 @@ namespace MeasureMyPike.Domain.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserDO
+    public partial class TackleBoxDO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserDO()
+        public TackleBoxDO()
         {
-            this.Catch = new HashSet<CatchDO>();
+            this.LureDO = new HashSet<LureDO>();
         }
     
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public System.DateTime MemberSince { get; set; }
+        public Nullable<System.DateTime> DatePurchased { get; set; }
     
+        public virtual UserDO UserDO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CatchDO> Catch { get; set; }
-        public virtual SecurityDO Security { get; set; }
-        public virtual TackleBoxDO TackleBoxDO { get; set; }
+        public virtual ICollection<LureDO> LureDO { get; set; }
     }
 }

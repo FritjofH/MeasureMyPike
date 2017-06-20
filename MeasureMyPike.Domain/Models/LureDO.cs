@@ -22,10 +22,13 @@ namespace MeasureMyPike.Domain.Models
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Weight { get; set; }
+        public string Colour { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CatchDO> Catch { get; set; }
         public virtual BrandDO Brand { get; set; }
         public virtual StatisticsDO Statistics { get; set; }
+        public virtual TackleBoxDO TackleBoxDO { get; set; }
     }
 }

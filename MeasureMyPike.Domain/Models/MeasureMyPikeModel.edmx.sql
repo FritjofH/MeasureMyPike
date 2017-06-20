@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/15/2017 16:14:11
+-- Date Created: 06/20/2017 13:00:36
 -- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike.Domain\Models\MeasureMyPikeModel.edmx
 -- --------------------------------------------------
 
@@ -114,7 +114,8 @@ CREATE TABLE [dbo].[User] (
     [Username] nvarchar(50)  NOT NULL,
     [LastName] nvarchar(max)  NULL,
     [FirstName] nvarchar(max)  NULL,
-    [MemberSince] datetime  NOT NULL
+    [MemberSince] datetime  NOT NULL,
+    [TackleBoxDO_Id] int  NOT NULL
 );
 GO
 
@@ -185,8 +186,11 @@ GO
 CREATE TABLE [dbo].[Lure] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
+    [Weight] nvarchar(max)  NULL,
+    [Colour] nvarchar(max)  NULL,
     [Brand_Id] int  NOT NULL,
-    [Statistics_Id] int  NULL
+    [Statistics_Id] int  NULL,
+    [TackleBoxDO_Id] int  NOT NULL
 );
 GO
 
@@ -211,6 +215,13 @@ CREATE TABLE [dbo].[Security] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Password] nvarchar(max)  NOT NULL,
     [User_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'TackleBox'
+CREATE TABLE [dbo].[TackleBox] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [DatePurchased] datetime  NULL
 );
 GO
 
@@ -287,6 +298,12 @@ GO
 -- Creating primary key on [Id] in table 'Security'
 ALTER TABLE [dbo].[Security]
 ADD CONSTRAINT [PK_Security]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'TackleBox'
+ALTER TABLE [dbo].[TackleBox]
+ADD CONSTRAINT [PK_TackleBox]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -517,6 +534,36 @@ GO
 CREATE INDEX [IX_FK_SecurityUser]
 ON [dbo].[Security]
     ([User_Id]);
+GO
+
+-- Creating foreign key on [TackleBoxDO_Id] in table 'User'
+ALTER TABLE [dbo].[User]
+ADD CONSTRAINT [FK_UserDOTackleBoxDO]
+    FOREIGN KEY ([TackleBoxDO_Id])
+    REFERENCES [dbo].[TackleBox]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserDOTackleBoxDO'
+CREATE INDEX [IX_FK_UserDOTackleBoxDO]
+ON [dbo].[User]
+    ([TackleBoxDO_Id]);
+GO
+
+-- Creating foreign key on [TackleBoxDO_Id] in table 'Lure'
+ALTER TABLE [dbo].[Lure]
+ADD CONSTRAINT [FK_LureDOTackleBoxDO]
+    FOREIGN KEY ([TackleBoxDO_Id])
+    REFERENCES [dbo].[TackleBox]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_LureDOTackleBoxDO'
+CREATE INDEX [IX_FK_LureDOTackleBoxDO]
+ON [dbo].[Lure]
+    ([TackleBoxDO_Id]);
 GO
 
 -- --------------------------------------------------

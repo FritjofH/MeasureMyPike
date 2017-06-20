@@ -203,7 +203,6 @@
     <Content Include="App\MeasureMyPike\protractor.conf.js" />
     <Content Include="App\MeasureMyPike\src\app\app.component.css" />
     <Content Include="App\MeasureMyPike\src\app\app.component.html" />
-    <Content Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.css" />
     <Content Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.css" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.html" />
@@ -253,6 +252,7 @@
     <Content Include="App\MeasureMyPike\tslint.json" />
     <Content Include="App\MeasureMyPike\src\main.scss" />
     <Content Include="App\MeasureMyPike\src\app\app.component.scss" />
+    <Content Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

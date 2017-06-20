@@ -37,5 +37,6 @@ namespace MeasureMyPike.Domain.Models
         public virtual DbSet<StatisticsDO> Statistics { get; set; }
         public virtual DbSet<WeatherDataDO> WeatherData { get; set; }
         public virtual DbSet<SecurityDO> Security { get; set; }
+        public virtual DbSet<TackleBoxDO> TackleBox { get; set; }
     }
 }

@@ -1,6 +1,9 @@
 ﻿<h2>Dragmärken:</h2>
 <div>
-    <ul>
-        <li *ngFor="let brand of brands"><p>{{brand.name}}</p></li>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action" *ngFor="let brand of brandList" (click)="onRowClicked(brand)"><p>{{brand.name}}</p></li>
     </ul>
+</div>
+<div>
+    <p>{{selectedBrand}}</p>
 </div>

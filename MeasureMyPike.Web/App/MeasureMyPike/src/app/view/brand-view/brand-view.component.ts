@@ -20,10 +20,16 @@ export class BrandViewComponent implements OnInit {
         });
     }
 
-    private onRowClicked(item) {
-        this.brandService.getBrand(item.id).subscribe(it => {
-            this.selectedBrand = it
-        });
+    public selectBrand(selected) {
+
+        if (this.selectedBrand && selected.name == this.selectedBrand.name) {
+            this.selectedBrand = null;
+        }
+        else {
+            this.selectedBrand = selected;
+        }
+
+        //this.selectedBrand.emit(this.selectedBrand);
     }
 
 }

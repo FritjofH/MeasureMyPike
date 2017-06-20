@@ -4,7 +4,7 @@ using MeasureMyPike.Domain.Models;
 
 public interface ICatchService
 {
-    Catch CreateCatch(byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, string username);
+    Catch AddCatch(byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, string username);
     bool DeleteCatch(int id);
     List<Catch> GetAllCatches();
     Catch GetCatch(int id);

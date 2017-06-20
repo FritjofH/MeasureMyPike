@@ -33,7 +33,7 @@ namespace MeasureMyPike.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage Post (Fish inputFish)
+        public HttpResponseMessage Post([FromBody]Fish inputFish)
         {
             var ifish = iFishService.UpdateFish(inputFish.id, inputFish.length, inputFish.weight);
             if (ifish == null)

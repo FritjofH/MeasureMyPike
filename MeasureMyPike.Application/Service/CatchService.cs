@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class CatchService : ICatchService
 {
-    public Catch CreateCatch(byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, string username)
+    public Catch AddCatch(byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, string username)
     {
         var catchRepo = new CatchRepository();
         var lureService = new LureService();

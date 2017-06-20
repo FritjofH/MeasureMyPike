@@ -63,9 +63,9 @@ namespace MeasureMyPike.Controllers
             }
         }
 
-        // PUT: api/Brand/5
+        // PUT: api/Brand/
         [HttpPut]
-        public HttpResponseMessage Put(int id, [FromBody]Brand brand)
+        public HttpResponseMessage Put([FromBody]Brand brand)
         {
             //var bs = new BrandService();
             var ibrand = iBrandService.UpdateBrand(brand.id, brand.name);

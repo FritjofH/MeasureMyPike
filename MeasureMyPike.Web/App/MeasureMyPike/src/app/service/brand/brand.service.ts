@@ -13,6 +13,20 @@ export class BrandService {
             .catch(this.handleError);
     }
 
+    getBrand(int: number): Observable<any[]> {
+        if (int != null) {
+            return this.http.get("/api/Brand")
+                .map(this.extractData)
+                .catch(this.handleError);
+        }
+    }
+
+    updateBrand(id: number, name: string): Observable<any[]> {
+        return this.http.put("/api/Brand", { "id": id, "name": name })
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     private extractData(res: Response) {
         let body = res.json();
         return body || {};

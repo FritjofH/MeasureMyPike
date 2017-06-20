@@ -23,7 +23,7 @@ namespace MeasureMyPike.Controllers
 
         // GET: api/User/5
         [HttpGet]
-        public HttpResponseMessage Get(User inputUser)
+        public HttpResponseMessage Get(newUser inputUser)
         {
             var user = iUserService.GetUser(inputUser.username);
             if (user == null)

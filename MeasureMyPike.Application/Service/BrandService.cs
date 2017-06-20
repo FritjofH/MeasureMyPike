@@ -64,6 +64,7 @@ namespace MeasureMyPike.Service
         {
             var brandToDelete = iBrandRepository.GetBrand(id);
             var deleted = iBrandRepository.DeleteBrand(brandToDelete);
+
             return (bool)deleted;
         }
 

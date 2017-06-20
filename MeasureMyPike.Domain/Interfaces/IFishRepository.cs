@@ -12,6 +12,6 @@ namespace MeasureMyPike.Domain.Interfaces.IRepositories
         FishDO GetFish(int id);
         List<FishDO> GetAllFishes();
         FishDO UpdateFish(int id, string length, string weight);
-        bool DeleteFish(FishDO fishToDelete);
+        bool DeleteFish(int id);
     }
 }

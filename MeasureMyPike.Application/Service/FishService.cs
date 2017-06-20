@@ -27,8 +27,7 @@ namespace MeasureMyPike.Service
         public bool DeleteFish(int id)
         {
             var fishRepo = new FishRepository();
-            var fishToDelete = GetFishDO(id);
-            var deleted = fishRepo.DeleteFish(fishToDelete);
+            var deleted = fishRepo.DeleteFish(id);
             return deleted;
         }
 

@@ -3,6 +3,8 @@ using System.Web.Http;
 using MeasureMyPike.Models.Application;
 using MeasureMyPike.Service;
 using MeasureMyPike.Application.Interfaces;
+using System.Net.Http;
+using System.Net;
 
 namespace MeasureMyPike.Controllers
 {
@@ -14,11 +16,20 @@ namespace MeasureMyPike.Controllers
             iFishService = new FishService();
         }
 
-        //GET: api/Fish
-        public Fish Get(int id)
+        // PUT: api/Fish/5
+        [HttpGet]
+        public HttpResponseMessage Get(int id)
         {
             var fish = iFishService.GetFish(id);
-            return fish;
+            if (fish == null)
+            {
+                var message = string.Format("Could not find fish with id: {0}", id);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, fish);
+            }
         }
 
         [HttpPost]
@@ -27,6 +38,9 @@ namespace MeasureMyPike.Controllers
             return iFishService.UpdateFish(inputFish.id, inputFish.length, inputFish.weight);
         }
 
-
+        //public bool Delete(int id)
+        //{
+        //    return iFishService.DeleteFish(id);
+        //}
     }
 }

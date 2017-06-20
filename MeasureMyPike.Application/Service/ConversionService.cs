@@ -79,6 +79,10 @@ namespace MeasureMyPike.Service
 
         public Fish convertToFish(FishDO fishToConvert)
         {
+            if (fishToConvert == null)
+            {
+                return null;
+            }
             return new Fish {
                 id = fishToConvert.Id,
                 length = fishToConvert.Length,

@@ -76,12 +76,13 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public bool DeleteFish(FishDO fishToDelete)
+        public bool DeleteFish(int id)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
+                    var fishToDelete = conn.Fish.First(it => it.Id == id);
                     conn.Fish.Remove(fishToDelete);
                     conn.SaveChanges();
 

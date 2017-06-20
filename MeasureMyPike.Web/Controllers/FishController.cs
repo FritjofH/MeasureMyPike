@@ -33,14 +33,18 @@ namespace MeasureMyPike.Controllers
         }
 
         [HttpPost]
-        public Fish Post(Fish inputFish)
+        public HttpResponseMessage Post (Fish inputFish)
         {
-            return iFishService.UpdateFish(inputFish.id, inputFish.length, inputFish.weight);
-        }
-
-        //public bool Delete(int id)
-        //{
-        //    return iFishService.DeleteFish(id);
-        //}
+            var ifish = iFishService.UpdateFish(inputFish.id, inputFish.length, inputFish.weight);
+            if (ifish == null)
+            {
+                var message = string.Format("Could not find fish with id: {0}", inputFish.id);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, ifish);
+            }
+       }
     }
-}
+    }

@@ -20,7 +20,6 @@ namespace MeasureMyPike.Controllers
         //GET: api/Brand
         public HttpResponseMessage Get()
         {
-            //var bs = new BrandService();
             var brands = iBrandService.GetAllBrands();
             if (brands == null)
             {
@@ -36,7 +35,6 @@ namespace MeasureMyPike.Controllers
         // GET: api/Brand/5
         public HttpResponseMessage Get(int id)
         {
-            //var bs = new BrandService();
             var brand = iBrandService.GetBrand(id);
             if (brand == null)
             {
@@ -52,8 +50,7 @@ namespace MeasureMyPike.Controllers
         // POST: api/Brand
         [HttpPost]
         public HttpResponseMessage Post([FromBody]Brand brand)
-        {
-            var bs = new BrandService();
+        {            
             var lbrand = iBrandService.AddBrand(brand.name);
             if (lbrand == null)
             {

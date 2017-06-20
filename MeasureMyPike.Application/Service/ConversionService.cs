@@ -11,6 +11,10 @@ namespace MeasureMyPike.Service
     {
         public Lure ConvertToLure(LureDO lureToConvert)
         {
+            if (lureToConvert == null)
+            {
+                return null;
+            }
             return new Lure {
                 id = lureToConvert.Id,
                 name = lureToConvert.Name
@@ -19,6 +23,10 @@ namespace MeasureMyPike.Service
 
         public Location ConvertToLocation(LocationDO locationToConvert)
         {
+            if (locationToConvert == null)
+            {
+                return null;
+            }
             return new Location
             {
                 coordinates = locationToConvert.Coordinates,
@@ -29,6 +37,10 @@ namespace MeasureMyPike.Service
 
         public Catch convertToCatch(CatchDO catchToConvert)
         {
+            if (catchToConvert == null)
+            {
+                return null;
+            }
             var mediaList = new List<int>();
 
             foreach (var media in catchToConvert.Media)
@@ -52,6 +64,10 @@ namespace MeasureMyPike.Service
 
         public User convertToUser(UserDO userToConvert)
         {
+            if (userToConvert == null)
+            {
+                return null;
+            }
             return new User
             {
                 firstName = userToConvert.FirstName,

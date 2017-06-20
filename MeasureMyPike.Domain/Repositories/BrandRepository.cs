@@ -94,12 +94,12 @@ namespace MeasureMyPike.Repo
         public bool DeleteBrand(BrandDO brandToDelete)
         {
             try
-            {
+            {                
                 using (var conn = new ModelContainer())
                 {
+                    conn.Brand.Attach(brandToDelete);
                     conn.Brand.Remove(brandToDelete);
                     conn.SaveChanges();
-
                     return true;
                 }
             }

@@ -19,6 +19,7 @@
     <EntitySet Name="WeatherData" EntityType="Model.Store.WeatherData" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Security" EntityType="Model.Store.Security" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TackleBox" EntityType="Model.Store.TackleBox" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LureDOTackleBoxDO" EntityType="Model.Store.LureDOTackleBoxDO" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserCatch" Association="Model.Store.UserCatch">
       <End Role="User" EntitySet="User" />
       <End Role="Catch" EntitySet="Catch" />
@@ -83,9 +84,13 @@
       <End Role="UserDO" EntitySet="User" />
       <End Role="TackleBoxDO" EntitySet="TackleBox" />
     </AssociationSet>
-    <AssociationSet Name="LureDOTackleBoxDO" Association="Model.Store.LureDOTackleBoxDO">
+    <AssociationSet Name="FK_LureDOTackleBoxDO_LureDO" Association="Model.Store.FK_LureDOTackleBoxDO_LureDO">
       <End Role="LureDO" EntitySet="Lure" />
+      <End Role="LureDOTackleBoxDO" EntitySet="LureDOTackleBoxDO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LureDOTackleBoxDO_TackleBoxDO" Association="Model.Store.FK_LureDOTackleBoxDO_TackleBoxDO">
       <End Role="TackleBoxDO" EntitySet="TackleBox" />
+      <End Role="LureDOTackleBoxDO" EntitySet="LureDOTackleBoxDO" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="User">
@@ -168,11 +173,10 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Weight" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Weight" Type="int" Nullable="true" />
     <Property Name="Colour" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Brand_Id" Type="int" Nullable="false" />
     <Property Name="Statistics_Id" Type="int" Nullable="true" />
-    <Property Name="TackleBoxDO_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Statistics">
     <Key>
@@ -204,6 +208,14 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DatePurchased" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="LureDOTackleBoxDO">
+    <Key>
+      <PropertyRef Name="LureDO_Id" />
+      <PropertyRef Name="TackleBoxDO_Id" />
+    </Key>
+    <Property Name="LureDO_Id" Type="int" Nullable="false" />
+    <Property Name="TackleBoxDO_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="UserCatch">
     <End Role="User" Type="Model.Store.User" Multiplicity="1" />
@@ -397,14 +409,26 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="LureDOTackleBoxDO">
-    <End Role="LureDO" Type="Model.Store.Lure" Multiplicity="*" />
+  <Association Name="FK_LureDOTackleBoxDO_LureDO">
+    <End Role="LureDO" Type="Model.Store.Lure" Multiplicity="1" />
+    <End Role="LureDOTackleBoxDO" Type="Model.Store.LureDOTackleBoxDO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LureDO">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LureDOTackleBoxDO">
+        <PropertyRef Name="LureDO_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LureDOTackleBoxDO_TackleBoxDO">
+    <End Role="LureDOTackleBoxDO" Type="Model.Store.LureDOTackleBoxDO" Multiplicity="*" />
     <End Role="TackleBoxDO" Type="Model.Store.TackleBox" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="TackleBoxDO">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="LureDO">
+      <Dependent Role="LureDOTackleBoxDO">
         <PropertyRef Name="TackleBoxDO_Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -592,7 +616,7 @@
           <NavigationProperty Name="Brand" Relationship="Model.LuresBrand" FromRole="Lures" ToRole="Brand" />
           <NavigationProperty Name="Statistics" Relationship="Model.LuresStatistics" FromRole="Lures" ToRole="Statistics" />
           <NavigationProperty Name="TackleBoxDO" Relationship="Model.LureDOTackleBoxDO" FromRole="LureDO" ToRole="TackleBoxDO" />
-          <Property Name="Weight" Type="String" Nullable="true" Unicode="true" />
+          <Property Name="Weight" Type="Int32" Nullable="true" />
           <Property Name="Colour" Type="String" Unicode="true" Nullable="true" />
         </EntityType>
         <Association Name="CatchComment">
@@ -696,7 +720,7 @@
         </Association>
         <Association Name="LureDOTackleBoxDO">
           <End Type="Model.LureDO" Role="LureDO" Multiplicity="*" />
-          <End Type="Model.TackleBoxDO" Role="TackleBoxDO" Multiplicity="1" />
+          <End Type="Model.TackleBoxDO" Role="TackleBoxDO" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -950,12 +974,12 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="LureDOTackleBoxDO" TypeName="Model.LureDOTackleBoxDO" StoreEntitySet="Lure">
+    <AssociationSetMapping Name="LureDOTackleBoxDO" TypeName="Model.LureDOTackleBoxDO" StoreEntitySet="LureDOTackleBoxDO">
+      <EndProperty Name="LureDO">
+        <ScalarProperty Name="Id" ColumnName="LureDO_Id" />
+      </EndProperty>
       <EndProperty Name="TackleBoxDO">
         <ScalarProperty Name="Id" ColumnName="TackleBoxDO_Id" />
-      </EndProperty>
-      <EndProperty Name="LureDO">
-        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

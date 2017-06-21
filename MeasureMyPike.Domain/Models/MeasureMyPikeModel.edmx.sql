@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/19/2017 15:23:41
--- Generated from EDMX file: C:\Users\karlssonjy\Source\Repos\MeasureMyPike\MeasureMyPike.Domain\Models\MeasureMyPikeModel.edmx
+-- Date Created: 06/21/2017 13:23:49
+-- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike.Domain\Models\MeasureMyPikeModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -62,6 +62,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_SecurityUser]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Security] DROP CONSTRAINT [FK_SecurityUser];
 GO
+IF OBJECT_ID(N'[dbo].[FK_UserDOTackleBoxDO]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[User] DROP CONSTRAINT [FK_UserDOTackleBoxDO];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LureDOTackleBoxDO]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Lure] DROP CONSTRAINT [FK_LureDOTackleBoxDO];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -103,6 +109,9 @@ GO
 IF OBJECT_ID(N'[dbo].[Security]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Security];
 GO
+IF OBJECT_ID(N'[dbo].[TackleBox]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TackleBox];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -114,7 +123,8 @@ CREATE TABLE [dbo].[User] (
     [Username] nvarchar(50)  NOT NULL,
     [LastName] nvarchar(max)  NULL,
     [FirstName] nvarchar(max)  NULL,
-    [MemberSince] datetime  NOT NULL
+    [MemberSince] datetime  NOT NULL,
+    [TackleBoxDO_Id] int  NOT NULL
 );
 GO
 
@@ -185,6 +195,8 @@ GO
 CREATE TABLE [dbo].[Lure] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
+    [Weight] int  NULL,
+    [Colour] nvarchar(max)  NULL,
     [Brand_Id] int  NOT NULL,
     [Statistics_Id] int  NULL
 );
@@ -211,6 +223,20 @@ CREATE TABLE [dbo].[Security] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Password] nvarchar(max)  NOT NULL,
     [User_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'TackleBox'
+CREATE TABLE [dbo].[TackleBox] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [DatePurchased] datetime  NULL
+);
+GO
+
+-- Creating table 'LureDOTackleBoxDO'
+CREATE TABLE [dbo].[LureDOTackleBoxDO] (
+    [LureDO_Id] int  NOT NULL,
+    [TackleBoxDO_Id] int  NOT NULL
 );
 GO
 
@@ -288,6 +314,18 @@ GO
 ALTER TABLE [dbo].[Security]
 ADD CONSTRAINT [PK_Security]
     PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'TackleBox'
+ALTER TABLE [dbo].[TackleBox]
+ADD CONSTRAINT [PK_TackleBox]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [LureDO_Id], [TackleBoxDO_Id] in table 'LureDOTackleBoxDO'
+ALTER TABLE [dbo].[LureDOTackleBoxDO]
+ADD CONSTRAINT [PK_LureDOTackleBoxDO]
+    PRIMARY KEY CLUSTERED ([LureDO_Id], [TackleBoxDO_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -517,6 +555,45 @@ GO
 CREATE INDEX [IX_FK_SecurityUser]
 ON [dbo].[Security]
     ([User_Id]);
+GO
+
+-- Creating foreign key on [TackleBoxDO_Id] in table 'User'
+ALTER TABLE [dbo].[User]
+ADD CONSTRAINT [FK_UserDOTackleBoxDO]
+    FOREIGN KEY ([TackleBoxDO_Id])
+    REFERENCES [dbo].[TackleBox]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserDOTackleBoxDO'
+CREATE INDEX [IX_FK_UserDOTackleBoxDO]
+ON [dbo].[User]
+    ([TackleBoxDO_Id]);
+GO
+
+-- Creating foreign key on [LureDO_Id] in table 'LureDOTackleBoxDO'
+ALTER TABLE [dbo].[LureDOTackleBoxDO]
+ADD CONSTRAINT [FK_LureDOTackleBoxDO_LureDO]
+    FOREIGN KEY ([LureDO_Id])
+    REFERENCES [dbo].[Lure]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [TackleBoxDO_Id] in table 'LureDOTackleBoxDO'
+ALTER TABLE [dbo].[LureDOTackleBoxDO]
+ADD CONSTRAINT [FK_LureDOTackleBoxDO_TackleBoxDO]
+    FOREIGN KEY ([TackleBoxDO_Id])
+    REFERENCES [dbo].[TackleBox]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_LureDOTackleBoxDO_TackleBoxDO'
+CREATE INDEX [IX_FK_LureDOTackleBoxDO_TackleBoxDO]
+ON [dbo].[LureDOTackleBoxDO]
+    ([TackleBoxDO_Id]);
 GO
 
 -- --------------------------------------------------

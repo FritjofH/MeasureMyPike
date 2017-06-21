@@ -10,7 +10,7 @@ namespace MeasureMyPike.Models.Application
         public int id { get; set; }
         public string name { get; set; }
         public int brandId { get; set; }
-        public int weight { get; set; }
+        public int? weight { get; set; }
         public string colour { get; set; }
     }
 }

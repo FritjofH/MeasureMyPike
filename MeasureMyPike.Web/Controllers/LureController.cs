@@ -30,13 +30,13 @@ namespace MeasureMyPike.Controllers
             }
         }
 
-        [HttpPost]
-        public HttpResponseMessage Post([FromBody] Lure inputLure)
+        [HttpPut]
+        public HttpResponseMessage Put([FromBody] Lure inputLure)
         {
             var ilure = iLureService.UpdateLure(inputLure.id, inputLure.brandId, inputLure.name, inputLure.weight, inputLure.colour);
             if (ilure == null)
             {
-                var message = string.Format("Could not find fish with id: {0}", inputLure.id);
+                var message = string.Format("Could not find lure with id: {0}", inputLure.id);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
             }
             else
@@ -45,13 +45,13 @@ namespace MeasureMyPike.Controllers
             }
         }
 
-        [HttpPut]
-        public HttpResponseMessage Put([FromBody] Lure inputLure)
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody] Lure inputLure)
         {
             var ilure = iLureService.AddLure(inputLure.name, inputLure.brandId, inputLure.weight, inputLure.colour);
             if (ilure == null)
             {
-                var message = string.Format("Could not find fish with id: {0}", inputLure.id);
+                var message = string.Format("Could not find lure with id: {0}", inputLure.id);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
             }
             else

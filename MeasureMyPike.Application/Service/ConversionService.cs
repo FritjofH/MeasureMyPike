@@ -17,7 +17,10 @@ namespace MeasureMyPike.Service
             }
             return new Lure {
                 id = lureToConvert.Id,
-                name = lureToConvert.Name
+                name = lureToConvert.Name,
+                weight = lureToConvert.Weight,
+                colour = lureToConvert.Colour,
+                brandId = lureToConvert.Brand.Id
             };
         }
 

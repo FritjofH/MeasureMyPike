@@ -7,7 +7,7 @@ namespace MeasureMyPike.Service
 {
     public class LureService : ILureService
     {
-        public Lure AddLure(string lureName, int brandId, int weight, string colour)
+        public Lure AddLure(string lureName, int brandId, int? weight, string colour)
         {
             var lureRepo = new LureRepository();
             var brandService = new BrandService();
@@ -16,7 +16,8 @@ namespace MeasureMyPike.Service
             {
                 Name = lureName,
                 Brand = brandService.GetBrandDO(brandId),
-                Catch = null
+                Colour = colour,
+                Weight = weight
             };
             var createdLure = lureRepo.AddLure(lure);
 
@@ -54,7 +55,7 @@ namespace MeasureMyPike.Service
             return lureList;
         }
 
-        public Lure UpdateLure(int id, int brand, string name, int weight, string colour)
+        public Lure UpdateLure(int id, int brand, string name, int? weight, string colour)
         {
             var lureRepo = new LureRepository();
             var conversionService = new ConversionService();

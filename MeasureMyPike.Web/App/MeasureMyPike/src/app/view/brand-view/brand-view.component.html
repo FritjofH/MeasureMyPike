@@ -1,13 +1,13 @@
-﻿<h2>Dragmärken:</h2>
+﻿<h2 class="unselectable">Dragmärken:</h2>
 <div>
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-action clickable" [class.nodeselected]="selectedBrand?.name == brand.name" *ngFor="let brand of brandList" (click)="selectBrand(brand)">
+    <ul class="list-group unselectable">
+        <li class="list-group-item list-group-item-action clickable unselectable" [class.active]="selectedBrand?.id == brand.id" *ngFor="let brand of brandList" (click)="selectBrand(brand)">
             <p>{{brand.name}}</p>
         </li>
     </ul>
 </div>
 <div>
     <br/>
-    <p class="center-align">Valt märke:</p>
-    <p class="center-align">{{selectedBrand?.name}}</p>
+    <p class="center-align unselectable">Valt märke:</p>
+    <p class="center-align unselectable">{{selectedBrand?.name}}</p>
 </div>

@@ -13,6 +13,7 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
+                    conn.Brand.Attach(newLure.Brand);
                     var createdLure = conn.Lure.Add(newLure);
                     conn.SaveChanges();
 

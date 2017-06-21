@@ -22,7 +22,7 @@ export class BrandViewComponent implements OnInit {
 
     public selectBrand(selected) {
 
-        if (this.selectedBrand && selected.name == this.selectedBrand.name) {
+        if (this.selectedBrand && selected.id == this.selectedBrand.id) {
             this.selectedBrand = null;
         }
         else {

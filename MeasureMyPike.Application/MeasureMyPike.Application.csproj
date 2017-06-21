@@ -51,6 +51,7 @@
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\Catch.cs" />
+    <Compile Include="Models\CatchInputVO.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Fish.cs" />
     <Compile Include="Models\Location.cs" />

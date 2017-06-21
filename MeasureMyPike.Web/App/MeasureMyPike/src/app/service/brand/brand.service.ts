@@ -14,11 +14,9 @@ export class BrandService {
     }
 
     getBrand(int: number): Observable<any[]> {
-        if (int != null) {
             return this.http.get("/api/Brand")
                 .map(this.extractData)
                 .catch(this.handleError);
-        }
     }
 
     updateBrand(id: number, name: string): Observable<any[]> {

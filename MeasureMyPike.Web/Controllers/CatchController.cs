@@ -1,32 +1,76 @@
 ﻿using MeasureMyPike.Models.Application;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace MeasureMyPike.Controllers
 {
     public class CatchController : ApiController
     {
-        // GET: api/Catch
-        public List<Catch> Get()
+        private ICatchService iCatchService;
+        private CatchController()
         {
-            var cs = new CatchService();
-            var catchList = cs.GetAllCatches();
-
-            return catchList;
+            iCatchService = new CatchService();
+        }
+        // GET: api/Catch
+      
+            
+        public HttpResponseMessage Get()
+        {
+            var catchList = iCatchService.GetAllCatches();
+            if (catchList == null)
+            {
+                var message = string.Format("No Catches found");
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, catchList);
+            }
         }
 
         // GET: api/Catch/5
-        public Catch Get(int id)
+        public HttpResponseMessage Get(int id)
         {
-            var cs = new CatchService();
-            var selectedCatch = cs.GetCatch(id);
-
-            return selectedCatch;
+            var catchList = iCatchService.GetCatch(id);
+            if (catchList == null)
+            {
+                var message = string.Format("No Catches found");
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, catchList);
+            }
         }
 
+
+        public int id { get; set; }
+        public DateTime timestamp { get; set; }
+        public int userId { get; set; }
+        public int commentId { get; set; }
+        public int fishId { get; set; }
+        public List<int> mediaId { get; set; }
+        public int locationId { get; set; }
+        public int luresId { get; set; }
+        public int weatherData { get; set; }
         // POST: api/Catch
-        public void Post([FromBody]string value)
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]Catch catch2)
         {
+//byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, string username)
+    
+                var lbrand = iCatchService.AddCatch(catch2.mediaId, null, catch2.commentId);
+            if (lbrand == null)
+            {
+                var message = string.Format("Could not add brand");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, lbrand);
+            }
         }
 
         // PUT: api/Catch/5

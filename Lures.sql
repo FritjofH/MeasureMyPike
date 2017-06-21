@@ -1,0 +1,5 @@
+﻿  INSERT INTO Lure (Name, Weight, Colour, Brand_Id) VALUES ('HI-LO 15 CM', 40, 'Atomic Perch', 1), ('TORMENTOR 11 CM', 20, 'Green/Orange', 1)
+  INSERT INTO Lure (Name, Weight, Colour, Brand_Id) VALUES ('Berkley Power Blade', 11, 'Assassin', 2), ('Berkley Power Blade', 11, 'Bluegill', 2), ('Berkley Power Blade', 11, 'Fire Tiger', 2)
+  INSERT INTO Lure (Name, Weight, Colour, Brand_Id) VALUES ('X-Rap Twitchin Minnow', 14, 'Albino Shiner', 5), ('X-Rap Twitchin Mullet', 20, 'Blue Sardine', 5)
+  INSERT INTO Lure (Name, Weight, Colour, Brand_Id) VALUES ('Deviator Belly Up', 22, 'Dirty Roach', 7), ('Freestyler V2', 42, 'Firetiger', 7), ('3D Roach Jerkster', 66, 'Dirty Roach', 7)
+  INSERT INTO Lure (Name, Weight, Colour, Brand_Id) VALUES ('Zalt11F10', 20, 'Red/White', 13), ('Zalt11F02', 20, 'Parrot', 13)

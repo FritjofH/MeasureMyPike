@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/21/2017 13:23:49
+-- Date Created: 06/21/2017 13:52:40
 -- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike.Domain\Models\MeasureMyPikeModel.edmx
 -- --------------------------------------------------
 
@@ -65,8 +65,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserDOTackleBoxDO]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[User] DROP CONSTRAINT [FK_UserDOTackleBoxDO];
 GO
-IF OBJECT_ID(N'[dbo].[FK_LureDOTackleBoxDO]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Lure] DROP CONSTRAINT [FK_LureDOTackleBoxDO];
+IF OBJECT_ID(N'[dbo].[FK_LureDOTackleBoxDO_LureDO]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LureDOTackleBoxDO] DROP CONSTRAINT [FK_LureDOTackleBoxDO_LureDO];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LureDOTackleBoxDO_TackleBoxDO]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LureDOTackleBoxDO] DROP CONSTRAINT [FK_LureDOTackleBoxDO_TackleBoxDO];
 GO
 
 -- --------------------------------------------------
@@ -111,6 +114,9 @@ IF OBJECT_ID(N'[dbo].[Security]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[TackleBox]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TackleBox];
+GO
+IF OBJECT_ID(N'[dbo].[LureDOTackleBoxDO]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LureDOTackleBoxDO];
 GO
 
 -- --------------------------------------------------
@@ -187,16 +193,16 @@ GO
 -- Creating table 'Brand'
 CREATE TABLE [dbo].[Brand] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL
+    [Name] nvarchar(50)  NOT NULL
 );
 GO
 
 -- Creating table 'Lure'
 CREATE TABLE [dbo].[Lure] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
     [Weight] int  NULL,
-    [Colour] nvarchar(max)  NULL,
+    [Colour] nvarchar(35)  NULL,
     [Brand_Id] int  NOT NULL,
     [Statistics_Id] int  NULL
 );

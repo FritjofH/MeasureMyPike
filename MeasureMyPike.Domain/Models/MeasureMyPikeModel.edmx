@@ -165,16 +165,16 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
   </EntityType>
   <EntityType Name="Lure">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Weight" Type="int" Nullable="true" />
-    <Property Name="Colour" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Colour" Type="nvarchar" Nullable="true" MaxLength="35" />
     <Property Name="Brand_Id" Type="int" Nullable="false" />
     <Property Name="Statistics_Id" Type="int" Nullable="true" />
   </EntityType>
@@ -603,7 +603,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" Unicode="true" MaxLength="50" />
           <NavigationProperty Name="Lures" Relationship="Model.LuresBrand" FromRole="Brand" ToRole="Lures" />
         </EntityType>
         <EntityType Name="LureDO">
@@ -611,13 +611,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" Unicode="true" MaxLength="50" />
           <NavigationProperty Name="Catch" Relationship="Model.CatchLures" FromRole="Lures" ToRole="Catch" />
           <NavigationProperty Name="Brand" Relationship="Model.LuresBrand" FromRole="Lures" ToRole="Brand" />
           <NavigationProperty Name="Statistics" Relationship="Model.LuresStatistics" FromRole="Lures" ToRole="Statistics" />
           <NavigationProperty Name="TackleBoxDO" Relationship="Model.LureDOTackleBoxDO" FromRole="LureDO" ToRole="TackleBoxDO" />
           <Property Name="Weight" Type="Int32" Nullable="true" />
-          <Property Name="Colour" Type="String" Unicode="true" Nullable="true" />
+          <Property Name="Colour" Type="String" Unicode="true" Nullable="true" MaxLength="35" />
         </EntityType>
         <Association Name="CatchComment">
           <End Type="Model.CatchDO" Role="Catch" Multiplicity="1" />

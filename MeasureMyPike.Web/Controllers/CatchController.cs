@@ -44,34 +44,24 @@ namespace MeasureMyPike.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, catchList);
             }
         }
-
-
-        public int id { get; set; }
-        public DateTime timestamp { get; set; }
-        public int userId { get; set; }
-        public int commentId { get; set; }
-        public int fishId { get; set; }
-        public List<int> mediaId { get; set; }
-        public int locationId { get; set; }
-        public int luresId { get; set; }
-        public int weatherData { get; set; }
-        // POST: api/Catch
-        [HttpPost]
-        public HttpResponseMessage Post([FromBody]Catch catch2)
-        {
-//byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, string username)
+        
+//        // POST: api/Catch
+//        [HttpPost]
+//        public HttpResponseMessage Post([FromBody]Catch catch2)
+//        {
+////byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, string username)
     
-                var lbrand = iCatchService.AddCatch(catch2.mediaId, null, catch2.commentId);
-            if (lbrand == null)
-            {
-                var message = string.Format("Could not add brand");
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, lbrand);
-            }
-        }
+//            var lbrand = iCatchService.AddCatch(catch2.mediaId, null, catch2.commentId);
+//            if (lbrand == null)
+//            {
+//                var message = string.Format("Could not add brand");
+//                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
+//            }
+//            else
+//            {
+//                return Request.CreateResponse(HttpStatusCode.OK, lbrand);
+//            }
+//        }
 
         // PUT: api/Catch/5
         public void Put(int id, [FromBody]string value)

@@ -10,8 +10,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeasureMyPike.Application", "MeasureMyPike.Application\MeasureMyPike.Application.csproj", "{8352896E-5DE1-4B50-A8F3-364CA10E0D8B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D5B932F2-0FAD-4194-AB5F-DA00ABB21388}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\MockData\Brands.sql = Tests\MockData\Brands.sql
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeasureMyPike.UnitTests", "Tests\MeasureMyPike.UnitTests\MeasureMyPike.UnitTests.csproj", "{3CEDC713-9C4E-4BCB-80CD-D68107CC902C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MockData", "MockData", "{B8AFB544-1EF6-4DFE-99A4-3C47BA21EB6B}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\MockData\Brands.sql = Tests\MockData\Brands.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,5 +49,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3CEDC713-9C4E-4BCB-80CD-D68107CC902C} = {D5B932F2-0FAD-4194-AB5F-DA00ABB21388}
+		{B8AFB544-1EF6-4DFE-99A4-3C47BA21EB6B} = {D5B932F2-0FAD-4194-AB5F-DA00ABB21388}
 	EndGlobalSection
 EndGlobal

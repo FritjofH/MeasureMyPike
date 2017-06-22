@@ -30,6 +30,22 @@ namespace MeasureMyPike.Controllers
             }
         }
 
+        [HttpGet]
+        public HttpResponseMessage Get()
+        {
+            var lure = iLureService.getAllLures();
+            if (lure == null)
+            {
+                var message = string.Format("Could not find any lures");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
+
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, lure);
+            }
+        }
+
         [HttpPut]
         public HttpResponseMessage Put([FromBody] Lure inputLure)
         {

@@ -1,13 +1,19 @@
-﻿<h2 class="unselectable">Dragmärken:</h2>
-<div>
-    <ul class="list-group unselectable">
-        <li class="list-group-item list-group-item-action clickable unselectable" [class.active]="selectedBrand?.id == brand.id" *ngFor="let brand of brandList" (click)="selectBrand(brand)">
-            <p>{{brand.name}}</p>
-        </li>
-    </ul>
-</div>
-<div>
-    <br/>
-    <p class="center-align unselectable">Valt märke:</p>
-    <p class="center-align unselectable">{{selectedBrand?.name}}</p>
+﻿<div style="text-align: center; height: 90%">
+    <div class="centered-div" style="height: 8%;">
+        <h2 class="unselectable">Dragmärken:</h2>
+    </div>
+    <div class="centered-div" style="height: 60%; overflow: scroll; overflow-x: hidden; border-bottom: solid;">
+        <ul class="list-group unselectable">
+            <li class="list-group-item list-group-item-action clickable unselectable" [class.active]="selectedBrand?.id == brand.id" *ngFor="let brand of brandList" (click)="selectBrand(brand)">
+                <p>{{brand.name}}</p>
+            </li>
+        </ul>
+    </div>
+    <div class="centered-div" *ngIf="selectedBrand != null" style="height:22%; padding-top: 0.2%;">
+        <p class="unselectable">Valt märke: <b>{{selectedBrand?.name}}</b></p>
+        <form>
+            <input type="text" placeholder="Nytt namn"/>
+            <input type="submit" value="Ändra"/>
+        </form>
+    </div>
 </div>

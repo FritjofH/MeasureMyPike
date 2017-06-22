@@ -1,5 +1,6 @@
 ﻿using MeasureMyPike.Models.Application;
 using MeasureMyPike.Domain.Models;
+using System.Collections.Generic;
 
 namespace MeasureMyPike.Service
 {
@@ -10,5 +11,6 @@ namespace MeasureMyPike.Service
         Lure GetLure(int id);
         LureDO GetLureDO(int id);
         Lure UpdateLure(int id, int brandId, string name, int? weight, string colour);
+        List<Lure> getAllLures();
     }
 }

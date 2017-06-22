@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MeasureMyPike.Domain.Models;
+using System.Data.Entity;
 
 namespace MeasureMyPike.Repo
 {
@@ -35,7 +36,7 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedLure = conn.Lure.FirstOrDefault(it => it.Id == id);
+                    var selectedLure = conn.Lure.Where(it => it.Id == id).Include(it => it.Brand).FirstOrDefault();
                     {
                         if (selectedLure != null)
                         {
@@ -60,7 +61,7 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var lureList = conn.Lure.ToList();
+                    var lureList = conn.Lure.Include(it => it.Brand).ToList();
 
                     return lureList;
                 }

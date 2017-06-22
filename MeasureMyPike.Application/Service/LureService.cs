@@ -2,6 +2,7 @@
 using MeasureMyPike.Repo;
 using MeasureMyPike.Models.Application;
 using System.Collections.Generic;
+using System;
 
 namespace MeasureMyPike.Service
 {
@@ -71,6 +72,20 @@ namespace MeasureMyPike.Service
             var deleted = lureRepo.DeleteLure(lureToDelete);
 
             return deleted;
+        }
+
+        public List<Lure> getAllLures()
+        {
+            var lureRepo = new LureRepository();
+            var conversionService = new ConversionService();
+            var lureList = new List<Lure>();
+
+            foreach (var lure in lureRepo.GetAllLures())
+            {
+                lureList.Add(conversionService.ConvertToLure(lure));
+            }
+
+            return lureList;
         }
     }
 }

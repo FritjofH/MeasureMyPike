@@ -14,22 +14,36 @@ export class BrandViewComponent implements OnInit {
 
     public selectedBrand: any;
 
+    public newName: string;
+
     ngOnInit() {
-        this.brandService.getBrands().subscribe(it => {
-            this.brandList = it;
-        });
+        this.getBrands();
     }
 
-    public selectBrand(selected) {
+    public getBrands() {
+        this.brandService.getBrands().subscribe(it => {
+            this.brandList = it;
+        })
+    };
+
+    public getBrand(selected) {
 
         if (this.selectedBrand && selected.id == this.selectedBrand.id) {
             this.selectedBrand = null;
         }
         else {
             this.selectedBrand = selected;
+            this.newName = null;
         }
 
         //this.selectedBrand.emit(this.selectedBrand);
     }
 
+    public updateBrand() {
+        this.brandService.updateBrand(this.selectedBrand.id, this.newName).subscribe(it => {
+            this.selectedBrand = it;
+            this.getBrands();
+            this.newName = null;
+        })
+    }
 }

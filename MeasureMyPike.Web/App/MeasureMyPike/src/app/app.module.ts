@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BrandService } from './service/brand/brand.service';
@@ -16,7 +17,8 @@ import { UserViewComponent } from './view/user-view/user-view.component';
     ],
     imports: [
         BrowserModule,
-        HttpModule
+        HttpModule,
+        FormsModule
     ],
     providers: [
         BrandService,

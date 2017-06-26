@@ -19,7 +19,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MockData", "MockData", "{B8AFB544-1EF6-4DFE-99A4-3C47BA21EB6B}"
 	ProjectSection(SolutionItems) = preProject
 		Tests\MockData\Brands.sql = Tests\MockData\Brands.sql
-		Lures.sql = Lures.sql
+		Tests\MockData\Lures.sql = Tests\MockData\Lures.sql
 	EndProjectSection
 EndProject
 Global

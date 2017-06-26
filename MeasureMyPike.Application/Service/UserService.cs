@@ -18,7 +18,8 @@ namespace MeasureMyPike.Service
                 LastName = lastName,
                 Username = username,
                 MemberSince = DateTime.Now,
-                Security = new SecurityDO { Password = hashedPassword }
+                Security = new SecurityDO { Password = hashedPassword },
+                TackleBox = new TackleBoxDO { }
             };
             var createdUser = userRepo.AddUser(user);
             var conversionService = new ConversionService();

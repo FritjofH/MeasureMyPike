@@ -17,14 +17,14 @@ namespace MeasureMyPike.Domain.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TackleBoxDO()
         {
-            this.LureDO = new HashSet<LureDO>();
+            this.Lure = new HashSet<LureDO>();
         }
     
         public int Id { get; set; }
         public Nullable<System.DateTime> DatePurchased { get; set; }
     
-        public virtual UserDO UserDO { get; set; }
+        public virtual UserDO User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LureDO> LureDO { get; set; }
+        public virtual ICollection<LureDO> Lure { get; set; }
     }
 }

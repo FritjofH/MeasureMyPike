@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="Model.MediaDO" Width="1.5" PointX="2.375" PointY="6.625" />
         <EntityTypeShape EntityType="Model.MediaDataDO" Width="1.5" PointX="2.375" PointY="9.25" />
         <EntityTypeShape EntityType="Model.LocationDO" Width="1.5" PointX="10.75" PointY="4.25" />
-        <EntityTypeShape EntityType="Model.BrandDO" Width="1.5" PointX="5.5" PointY="12.25" />
+        <EntityTypeShape EntityType="Model.BrandDO" Width="1.5" PointX="5.5" PointY="12.625" />
         <EntityTypeShape EntityType="Model.LureDO" Width="1.5" PointX="5.5" PointY="9.25" />
         <AssociationConnector Association="Model.CatchComment" />
         <AssociationConnector Association="Model.CatchFish" />
@@ -33,8 +33,8 @@
         <EntityTypeShape EntityType="Model.SecurityDO" Width="1.5" PointX="2.625" PointY="1.125" />
         <AssociationConnector Association="Model.SecurityUser" />
         <EntityTypeShape EntityType="Model.TackleBoxDO" Width="1.5" PointX="15.875" PointY="4.375" />
-        <AssociationConnector Association="Model.UserDOTackleBoxDO" />
-        <AssociationConnector Association="Model.LureDOTackleBoxDO" />
+        <AssociationConnector Association="Model.UserTackleBox" />
+        <AssociationConnector Association="Model.LureTackleBox" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

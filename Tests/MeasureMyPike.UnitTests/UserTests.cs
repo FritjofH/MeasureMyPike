@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MeasureMyPike.Service;
+using System;
 
 namespace ApplicationTest
 {
@@ -20,9 +21,14 @@ namespace ApplicationTest
         [TestCategory("UserTest")]
         public void createUser()
         {
+            var rnd = new Random();
+            var enamn = "Efternamn" + rnd.Next(1, 99);
+            var userid = "userid" + rnd.Next(1, 99);
             //Skapar upp en användare, om inte en med samma användarnamn redan finns
-            var result = us.CreateUser("Höst", "Fritjof", "hostf", "hemligt");
+            var result = us.CreateUser(enamn, "Förnamn", userid, "hemligt");
             Assert.IsNotNull(result, "Det finns redan en användare med samma användarnamn");
+            //cleanup
+            us.DeleteUser(userid);
         }
 
         [TestMethod]

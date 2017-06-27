@@ -7,7 +7,7 @@ namespace MeasureMyPike.Tests
     [TestClass]
     public class BrandTests
     {
-        BrandService bs;
+        IBrandService bs;
 
         [TestInitialize]
         public void Initialize()

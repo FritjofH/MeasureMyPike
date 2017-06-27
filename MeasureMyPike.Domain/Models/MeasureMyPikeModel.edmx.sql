@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/21/2017 13:52:40
--- Generated from EDMX file: C:\Repos\MeasureMyPike\MeasureMyPike.Domain\Models\MeasureMyPikeModel.edmx
+-- Date Created: 06/26/2017 14:06:03
+-- Generated from EDMX file: C:\src\Repos\MeasureMyPike\MeasureMyPike.Domain\Models\MeasureMyPikeModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -62,14 +62,14 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_SecurityUser]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Security] DROP CONSTRAINT [FK_SecurityUser];
 GO
-IF OBJECT_ID(N'[dbo].[FK_UserDOTackleBoxDO]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[User] DROP CONSTRAINT [FK_UserDOTackleBoxDO];
+IF OBJECT_ID(N'[dbo].[FK_UserTackleBox]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[User] DROP CONSTRAINT [FK_UserTackleBox];
 GO
-IF OBJECT_ID(N'[dbo].[FK_LureDOTackleBoxDO_LureDO]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[LureDOTackleBoxDO] DROP CONSTRAINT [FK_LureDOTackleBoxDO_LureDO];
+IF OBJECT_ID(N'[dbo].[FK_LureTackleBox_Lure]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LureDOTackleBoxDO] DROP CONSTRAINT [FK_LureTackleBox_Lure];
 GO
-IF OBJECT_ID(N'[dbo].[FK_LureDOTackleBoxDO_TackleBoxDO]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[LureDOTackleBoxDO] DROP CONSTRAINT [FK_LureDOTackleBoxDO_TackleBoxDO];
+IF OBJECT_ID(N'[dbo].[FK_LureTackleBox_TackleBox]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LureDOTackleBoxDO] DROP CONSTRAINT [FK_LureTackleBox_TackleBox];
 GO
 
 -- --------------------------------------------------
@@ -130,7 +130,7 @@ CREATE TABLE [dbo].[User] (
     [LastName] nvarchar(max)  NULL,
     [FirstName] nvarchar(max)  NULL,
     [MemberSince] datetime  NOT NULL,
-    [TackleBoxDO_Id] int  NOT NULL
+    [TackleBox_Id] int  NOT NULL
 );
 GO
 
@@ -239,10 +239,10 @@ CREATE TABLE [dbo].[TackleBox] (
 );
 GO
 
--- Creating table 'LureDOTackleBoxDO'
-CREATE TABLE [dbo].[LureDOTackleBoxDO] (
-    [LureDO_Id] int  NOT NULL,
-    [TackleBoxDO_Id] int  NOT NULL
+-- Creating table 'LureTackleBox'
+CREATE TABLE [dbo].[LureTackleBox] (
+    [Lure_Id] int  NOT NULL,
+    [TackleBox_Id] int  NOT NULL
 );
 GO
 
@@ -328,10 +328,10 @@ ADD CONSTRAINT [PK_TackleBox]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [LureDO_Id], [TackleBoxDO_Id] in table 'LureDOTackleBoxDO'
-ALTER TABLE [dbo].[LureDOTackleBoxDO]
-ADD CONSTRAINT [PK_LureDOTackleBoxDO]
-    PRIMARY KEY CLUSTERED ([LureDO_Id], [TackleBoxDO_Id] ASC);
+-- Creating primary key on [Lure_Id], [TackleBox_Id] in table 'LureTackleBox'
+ALTER TABLE [dbo].[LureTackleBox]
+ADD CONSTRAINT [PK_LureTackleBox]
+    PRIMARY KEY CLUSTERED ([Lure_Id], [TackleBox_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -563,43 +563,43 @@ ON [dbo].[Security]
     ([User_Id]);
 GO
 
--- Creating foreign key on [TackleBoxDO_Id] in table 'User'
+-- Creating foreign key on [TackleBox_Id] in table 'User'
 ALTER TABLE [dbo].[User]
-ADD CONSTRAINT [FK_UserDOTackleBoxDO]
-    FOREIGN KEY ([TackleBoxDO_Id])
+ADD CONSTRAINT [FK_UserTackleBox]
+    FOREIGN KEY ([TackleBox_Id])
     REFERENCES [dbo].[TackleBox]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_UserDOTackleBoxDO'
-CREATE INDEX [IX_FK_UserDOTackleBoxDO]
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserTackleBox'
+CREATE INDEX [IX_FK_UserTackleBox]
 ON [dbo].[User]
-    ([TackleBoxDO_Id]);
+    ([TackleBox_Id]);
 GO
 
--- Creating foreign key on [LureDO_Id] in table 'LureDOTackleBoxDO'
-ALTER TABLE [dbo].[LureDOTackleBoxDO]
-ADD CONSTRAINT [FK_LureDOTackleBoxDO_LureDO]
-    FOREIGN KEY ([LureDO_Id])
+-- Creating foreign key on [Lure_Id] in table 'LureTackleBox'
+ALTER TABLE [dbo].[LureTackleBox]
+ADD CONSTRAINT [FK_LureTackleBox_Lure]
+    FOREIGN KEY ([Lure_Id])
     REFERENCES [dbo].[Lure]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [TackleBoxDO_Id] in table 'LureDOTackleBoxDO'
-ALTER TABLE [dbo].[LureDOTackleBoxDO]
-ADD CONSTRAINT [FK_LureDOTackleBoxDO_TackleBoxDO]
-    FOREIGN KEY ([TackleBoxDO_Id])
+-- Creating foreign key on [TackleBox_Id] in table 'LureTackleBox'
+ALTER TABLE [dbo].[LureTackleBox]
+ADD CONSTRAINT [FK_LureTackleBox_TackleBox]
+    FOREIGN KEY ([TackleBox_Id])
     REFERENCES [dbo].[TackleBox]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_LureDOTackleBoxDO_TackleBoxDO'
-CREATE INDEX [IX_FK_LureDOTackleBoxDO_TackleBoxDO]
-ON [dbo].[LureDOTackleBoxDO]
-    ([TackleBoxDO_Id]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_LureTackleBox_TackleBox'
+CREATE INDEX [IX_FK_LureTackleBox_TackleBox]
+ON [dbo].[LureTackleBox]
+    ([TackleBox_Id]);
 GO
 
 -- --------------------------------------------------

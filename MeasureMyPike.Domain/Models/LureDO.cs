@@ -18,7 +18,7 @@ namespace MeasureMyPike.Domain.Models
         public LureDO()
         {
             this.Catch = new HashSet<CatchDO>();
-            this.TackleBoxDO = new HashSet<TackleBoxDO>();
+            this.TackleBox = new HashSet<TackleBoxDO>();
         }
     
         public int Id { get; set; }
@@ -31,6 +31,6 @@ namespace MeasureMyPike.Domain.Models
         public virtual BrandDO Brand { get; set; }
         public virtual StatisticsDO Statistics { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TackleBoxDO> TackleBoxDO { get; set; }
+        public virtual ICollection<TackleBoxDO> TackleBox { get; set; }
     }
 }

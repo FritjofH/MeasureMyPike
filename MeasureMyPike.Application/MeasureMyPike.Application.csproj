@@ -72,6 +72,7 @@
     <Compile Include="Service\LureService.cs" />
     <Compile Include="Service\MediaService.cs" />
     <Compile Include="Service\SecurityService.cs" />
+    <Compile Include="Models\TackleBox.cs" />
     <Compile Include="Service\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

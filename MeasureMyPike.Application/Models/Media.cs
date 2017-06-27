@@ -7,8 +7,8 @@ namespace MeasureMyPike.Models.Application
 {
     public class Media
     {
-        public int id { get; set; }
-        public string mediaFormat { get; set; }
-        public int mediaDataId { get; set; }
+        public int Id { get; set; }
+        public string MediaFormat { get; set; }
+        public int MediaDataId { get; set; }
     }
 }

@@ -7,8 +7,8 @@ namespace MeasureMyPike.Models.Application
 {
     public class Security
     {
-        public int id { get; set; }
-        public string password { get; set; }
-        public int userId { get; set; }
+        public int Id { get; set; }
+        public string Password { get; set; }
+        public int UserId { get; set; }
     }
 }

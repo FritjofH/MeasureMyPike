@@ -13,7 +13,7 @@ namespace MeasureMyPike.Service
             var fishRepo = new FishRepository();
             var selectedFish = fishRepo.GetFish(id);
 
-            return conversionService.convertToFish(selectedFish);
+            return conversionService.ConvertToFish(selectedFish);
         }
 
         public FishDO GetFishDO(int id)
@@ -37,7 +37,7 @@ namespace MeasureMyPike.Service
             var fishRepo = new FishRepository();
             var updatedFish = fishRepo.UpdateFish(id, length, weight);
 
-            return conversionService.convertToFish(updatedFish);
+            return conversionService.ConvertToFish(updatedFish);
         }
     }
 }

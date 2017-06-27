@@ -45,13 +45,9 @@ namespace MeasureMyPike.Service
 
         public bool DeleteUser(string username)
         {
-            var userRepo = new UserRepository();
-            var tackleBoxRepo = new TackleBoxRepository();
             var userToDelete = GetUserDO(username);
-            var tackleBoxToDelete = userToDelete.TackleBox;
+            var userRepo = new UserRepository();
             var deleted = userRepo.DeleteUser(userToDelete);
-
-            tackleBoxRepo.DeleteTackleBox(tackleBoxToDelete);
 
             return deleted;
         }

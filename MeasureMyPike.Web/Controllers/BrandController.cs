@@ -68,15 +68,15 @@ namespace MeasureMyPike.Controllers
         public HttpResponseMessage Put([FromBody]Brand brand)
         {
             //var bs = new BrandService();
-            var ibrand = iBrandService.UpdateBrand(brand.Id, brand.Name);
-            if (ibrand == null)
+            bool result = iBrandService.UpdateBrand(brand.Id, brand.Name);
+            if (!result )
             {
                 var message = string.Format("Could not update brand");
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, ibrand);
+                return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
 

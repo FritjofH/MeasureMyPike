@@ -50,14 +50,13 @@ namespace MeasureMyPike.Service
             return brandList;
         }
 
-        public Brand UpdateBrand(int id, string newName)
+        public bool UpdateBrand(int id, string newName)
         {
             var conversionService = new ConversionService();
             var brandToUpdate = GetBrandDO(id);
             brandToUpdate.Name = newName;
-            var updatedBrand = iBrandRepository.UpdateBrand(brandToUpdate);
+            return iBrandRepository.UpdateBrand(brandToUpdate);
 
-            return conversionService.ConvertToBrand(updatedBrand);
         }
 
         public bool DeleteBrand(int id)

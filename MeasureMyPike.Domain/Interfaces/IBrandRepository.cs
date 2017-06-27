@@ -9,6 +9,6 @@ namespace MeasureMyPike.Repo
         bool DeleteBrand(BrandDO brandToDelete);
         List<BrandDO> GetAllBrands();
         BrandDO GetBrand(int id);
-        BrandDO UpdateBrand(BrandDO changedBrand);
+        bool UpdateBrand(BrandDO changedBrand);
     }
 }

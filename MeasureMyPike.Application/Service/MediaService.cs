@@ -15,7 +15,7 @@ namespace MeasureMyPike.Service
             }
         }
 
-        public string getImageFormat(Image imageIn)
+        public string GetImageFormat(Image imageIn)
         {
             return typeof(System.Drawing.Imaging.ImageFormat)
                 .GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)

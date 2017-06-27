@@ -11,6 +11,6 @@ namespace MeasureMyPike.Service
         List<Brand> GetAllBrands();
         Brand GetBrand(int id);
         BrandDO GetBrandDO(int id);
-        Brand UpdateBrand(int id, string newName);
+        bool UpdateBrand(int id, string newName);
     }
 }

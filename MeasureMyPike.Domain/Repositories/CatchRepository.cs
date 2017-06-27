@@ -24,6 +24,12 @@ namespace MeasureMyPike
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -49,6 +55,12 @@ namespace MeasureMyPike
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -68,6 +80,12 @@ namespace MeasureMyPike
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -79,6 +97,7 @@ namespace MeasureMyPike
                 using (var conn = new ModelContainer())
                 {
                     var catchToUpdate = conn.Catch.First(it => it.Id == changedCatch.Id);
+                    conn.Catch.Attach(catchToUpdate);
                     catchToUpdate.Location = changedCatch.Location;
                     catchToUpdate.Lures = changedCatch.Lures;
                     catchToUpdate.Media = changedCatch.Media;
@@ -95,6 +114,12 @@ namespace MeasureMyPike
             {
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return false;
             }
         }
@@ -105,6 +130,7 @@ namespace MeasureMyPike
             {
                 using (var conn = new ModelContainer())
                 {
+                    conn.Catch.Attach(catchToDelete);
                     conn.Catch.Remove(catchToDelete);
                     conn.SaveChanges();
 
@@ -115,6 +141,12 @@ namespace MeasureMyPike
             {
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return false;
             }
         }

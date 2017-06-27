@@ -6,12 +6,12 @@ using System.Net.Http;
 
 namespace MeasureMyPike.Controllers
 {
-    public class newUser
+    public class NewUser
     {
-        public string lastName { get; set; }
-        public string firstName { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 
     public class UserController : ApiController
@@ -23,12 +23,12 @@ namespace MeasureMyPike.Controllers
 
         // GET: api/User/5
         [HttpGet]
-        public HttpResponseMessage Get(newUser inputUser)
+        public HttpResponseMessage Get(NewUser inputUser)
         {
-            var user = iUserService.GetUser(inputUser.username);
+            var user = iUserService.GetUser(inputUser.Username);
             if (user == null)
             {
-                var message = string.Format("User with id = {0} not found", inputUser.username);
+                var message = string.Format("User with id = {0} not found", inputUser.Username);
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
             }
             else
@@ -39,9 +39,9 @@ namespace MeasureMyPike.Controllers
 
         // POST: api/User
         [HttpPost]
-        public HttpResponseMessage Post([FromBody]newUser newUser)
+        public HttpResponseMessage Post([FromBody]NewUser newUser)
         {
-            var user = iUserService.CreateUser(newUser.lastName, newUser.firstName, newUser.username, newUser.password);
+            var user = iUserService.CreateUser(newUser.LastName, newUser.FirstName, newUser.Username, newUser.Password);
             if (user == null)
             {
                 var message = string.Format("Could not add user");
@@ -71,9 +71,9 @@ namespace MeasureMyPike.Controllers
 
         // DELETE: api/User/5
         [HttpDelete]
-        public bool Delete([FromBody]newUser userToDelete)
+        public bool Delete([FromBody]NewUser userToDelete)
         {
-            var deleted = iUserService.DeleteUser(userToDelete.username);
+            var deleted = iUserService.DeleteUser(userToDelete.Username);
 
             return deleted;
         }

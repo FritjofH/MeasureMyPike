@@ -8,7 +8,7 @@ namespace MeasureMyPike.Service
 {
     public class LureService : ILureService
     {
-        public Lure AddLure(string lureName, int brandId, int? weight, string colour)
+        public Lure AddLure(string lureName, int brandId, int weight, string colour)
         {
             var lureRepo = new LureRepository();
             var brandService = new BrandService();
@@ -56,36 +56,23 @@ namespace MeasureMyPike.Service
             return lureList;
         }
 
-        public Lure UpdateLure(int id, int brand, string name, int? weight, string colour)
+        public bool UpdateLure(int id, int brand, string name, int weight, string colour)
         {
             var lureRepo = new LureRepository();
             var conversionService = new ConversionService();
-            var updatedLure = lureRepo.UpdateLure(id, name);
+            return lureRepo.UpdateLure(id, name, weight, colour);
 
-            return conversionService.ConvertToLure(updatedLure);
         }
 
         public bool DeleteLure(int id)
         {
             var lureRepo = new LureRepository();
             var lureToDelete = GetLureDO(id);
+            System.Console.WriteLine("got lure with id {0} : {1}", id, lureToDelete);
             var deleted = lureRepo.DeleteLure(lureToDelete);
-
+            
             return deleted;
         }
 
-        public List<Lure> getAllLures()
-        {
-            var lureRepo = new LureRepository();
-            var conversionService = new ConversionService();
-            var lureList = new List<Lure>();
-
-            foreach (var lure in lureRepo.GetAllLures())
-            {
-                lureList.Add(conversionService.ConvertToLure(lure));
-            }
-
-            return lureList;
-        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MeasureMyPike.Service;
+using MeasureMyPike.Models.Application;
 
 namespace ApplicationTest
 {
@@ -19,29 +20,56 @@ namespace ApplicationTest
         private int getRndNr() {
             var r = new Random();
 
-            return r.Next(0, 100); //for ints
+            return r.Next(0, 99);
         }
     
-        //[TestMethod]
-        //[TestCategory("LureTest")]
-        //public void createLure()
-        //{
-        //    var rnd = getRndNr();
-        //    var brand = bs.GetBrand(1);
-        //    var result = ls.AddLure("MyLure9" + rnd, brand);
+        [TestMethod]
+        [TestCategory("LureTest")]
+        public void AddOneLure()
+        {
+            Brand newBrand = bs.AddBrand("testBrand" + getRndNr());
 
-        //    Assert.IsNotNull(result, "Gick inte att skapa");            
-        //}
+            Assert.IsNotNull(newBrand);
 
-        //[TestMethod]
-        //[TestCategory("LureTest")]
-        //public void updateLure()
-        //{
-        //    var rnd = getRndNr();
-        //    var brand = bs.GetBrand(1);
-            
-        //    Assert.IsNotNull(ls.AddLure("MyLureorg1" + rnd, brand), "Gick inte att skapa");
-        //    Assert.IsNotNull(ls.UpdateLure(ls.GetLure(1).id, "MyLureupd1" + rnd), "Gick inte att skapa");
-        //}
+            int brandid = newBrand.Id;
+            var weight = 27;
+            string color = "Green";
+            Lure theLure = ls.AddLure("Luretest" + getRndNr(), brandid, weight, color);
+
+            Assert.IsNotNull(theLure, "Gick inte att skapa Lure");
+
+            int lureid = theLure.Id;
+
+            // cleanup
+            Assert.IsTrue(ls.DeleteLure(lureid), "Could not delete lure with id " + lureid);
+            Assert.IsTrue(bs.DeleteBrand(brandid), "Could not delete brand with id " + brandid);
+        }
+
+        [TestMethod]
+        [TestCategory("LureTest")]
+        public void ChangeOneLure()
+        {
+            Brand newBrand = bs.AddBrand("testBrand" + getRndNr());
+
+            Assert.IsNotNull(newBrand);
+
+            int brandid = newBrand.Id;
+            var weight = 22;
+            string color = "Blue";
+            Lure theLure = ls.AddLure("Luretest" + getRndNr(), brandid, weight, color);
+
+            Assert.IsNotNull(theLure, "Kan inte skapa Lure");
+
+            int lureid = theLure.Id;
+            ls.UpdateLure(lureid, brandid, "AnotherName", weight+1, color);
+            Lure newLure = ls.GetLure(lureid);
+
+            Assert.AreEqual("AnotherName", newLure.Name);
+            Assert.AreEqual(weight+1, newLure.Weight);
+
+            // cleanup
+            Assert.IsTrue(ls.DeleteLure(lureid), "Could not delete lure with id "+ lureid);
+            Assert.IsTrue(bs.DeleteBrand(brandid), "Could not delete brand with id " + brandid);
+        }
     }
 }

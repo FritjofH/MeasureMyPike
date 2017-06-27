@@ -29,6 +29,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -49,22 +55,29 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
 
-        public FishDO UpdateFish(int id, string length, string weight)
+        public bool UpdateFish(int id, string length, string weight)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
                     var fishToUpdate = conn.Fish.FirstOrDefault(it => it.Id == id);
+                    conn.Fish.Attach(fishToUpdate);
                     fishToUpdate.Length = length;
                     fishToUpdate.Weight = weight;
                     conn.SaveChanges();
 
-                    return fishToUpdate;
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -72,7 +85,13 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
-                return null;
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
+                return false;
             }
         }
 
@@ -83,6 +102,7 @@ namespace MeasureMyPike.Repo
                 using (var conn = new ModelContainer())
                 {
                     var fishToDelete = conn.Fish.First(it => it.Id == id);
+                    conn.Fish.Attach(fishToDelete);
                     conn.Fish.Remove(fishToDelete);
                     conn.SaveChanges();
 
@@ -94,6 +114,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return false;
             }
         }

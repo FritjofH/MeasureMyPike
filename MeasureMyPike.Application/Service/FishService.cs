@@ -31,13 +31,11 @@ namespace MeasureMyPike.Service
             return deleted;
         }
 
-        public Fish UpdateFish(int id, string length, string weight)
+        public bool UpdateFish(int id, string length, string weight)
         {
             var conversionService = new ConversionService();
             var fishRepo = new FishRepository();
-            var updatedFish = fishRepo.UpdateFish(id, length, weight);
-
-            return conversionService.ConvertToFish(updatedFish);
+            return fishRepo.UpdateFish(id, length, weight);
         }
     }
 }

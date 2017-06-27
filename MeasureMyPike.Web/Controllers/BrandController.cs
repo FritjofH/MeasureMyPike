@@ -51,7 +51,7 @@ namespace MeasureMyPike.Controllers
         [HttpPost]
         public HttpResponseMessage Post([FromBody]Brand brand)
         {            
-            var lbrand = iBrandService.AddBrand(brand.name);
+            var lbrand = iBrandService.AddBrand(brand.Name);
             if (lbrand == null)
             {
                 var message = string.Format("Could not add brand");
@@ -68,7 +68,7 @@ namespace MeasureMyPike.Controllers
         public HttpResponseMessage Put([FromBody]Brand brand)
         {
             //var bs = new BrandService();
-            var ibrand = iBrandService.UpdateBrand(brand.id, brand.name);
+            var ibrand = iBrandService.UpdateBrand(brand.Id, brand.Name);
             if (ibrand == null)
             {
                 var message = string.Format("Could not update brand");

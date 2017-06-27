@@ -19,12 +19,12 @@ namespace MeasureMyPike.Service
                 Username = username,
                 MemberSince = DateTime.Now,
                 Security = new SecurityDO { Password = hashedPassword },
-                TackleBox = new TackleBoxDO { }
+                TackleBox = new TackleBoxDO { } // create empty tacklebox for the user
             };
             var createdUser = userRepo.AddUser(user);
             var conversionService = new ConversionService();
 
-            return conversionService.convertToUser(createdUser);
+            return conversionService.ConvertToUser(createdUser);
         }
 
         public User GetUser(string username)
@@ -33,7 +33,7 @@ namespace MeasureMyPike.Service
             var selectedUser = userRepo.GetUser(username);
             var conversionService = new ConversionService();
 
-            return conversionService.convertToUser(selectedUser);
+            return conversionService.ConvertToUser(selectedUser);
         }
         public UserDO GetUserDO(string username)
         {
@@ -46,8 +46,12 @@ namespace MeasureMyPike.Service
         public bool DeleteUser(string username)
         {
             var userRepo = new UserRepository();
+            var tackleBoxRepo = new TackleBoxRepository();
             var userToDelete = GetUserDO(username);
+            var tackleBoxToDelete = userToDelete.TackleBox;
             var deleted = userRepo.DeleteUser(userToDelete);
+
+            tackleBoxRepo.DeleteTackleBox(tackleBoxToDelete);
 
             return deleted;
         }

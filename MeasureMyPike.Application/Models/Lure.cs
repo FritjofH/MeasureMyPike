@@ -7,10 +7,10 @@ namespace MeasureMyPike.Models.Application
 {
     public class Lure
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public int brandId { get; set; }
-        public int? weight { get; set; }
-        public string colour { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int BrandId { get; set; }
+        public int? Weight { get; set; }
+        public string Colour { get; set; }
     }
 }

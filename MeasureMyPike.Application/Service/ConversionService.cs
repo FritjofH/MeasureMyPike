@@ -16,11 +16,11 @@ namespace MeasureMyPike.Service
                 return null;
             }
             return new Lure {
-                id = lureToConvert.Id,
-                name = lureToConvert.Name,
-                weight = lureToConvert.Weight,
-                colour = lureToConvert.Colour,
-                brandId = lureToConvert.Brand.Id
+                Id = lureToConvert.Id,
+                Name = lureToConvert.Name,
+                Weight = lureToConvert.Weight,
+                Colour = lureToConvert.Colour,
+                BrandId = lureToConvert.Brand.Id
             };
         }
 
@@ -32,13 +32,13 @@ namespace MeasureMyPike.Service
             }
             return new Location
             {
-                coordinates = locationToConvert.Coordinates,
-                id = locationToConvert.Id,
-                lake = locationToConvert.Lake
+                Coordinates = locationToConvert.Coordinates,
+                Id = locationToConvert.Id,
+                Lake = locationToConvert.Lake
             };
         }
 
-        public Catch convertToCatch(CatchDO catchToConvert)
+        public Catch ConvertToCatch(CatchDO catchToConvert)
         {
             if (catchToConvert == null)
             {
@@ -53,19 +53,19 @@ namespace MeasureMyPike.Service
 
             return new Catch
             {
-                commentId = catchToConvert.Comment.Id,
-                fishId = catchToConvert.Fish.Id,
-                id = catchToConvert.Id,
-                locationId = catchToConvert.Location.Id,
-                luresId = catchToConvert.Lures.Id,
-                mediaId = mediaList,
-                timestamp = catchToConvert.Timestamp,
-                userId = catchToConvert.User.Id,
-                weatherData = catchToConvert.WeatherData.Id
+                CommentId = catchToConvert.Comment.Id,
+                FishId = catchToConvert.Fish.Id,
+                Id = catchToConvert.Id,
+                LocationId = catchToConvert.Location.Id,
+                LuresId = catchToConvert.Lures.Id,
+                MediaId = mediaList,
+                Timestamp = catchToConvert.Timestamp,
+                UserId = catchToConvert.User.Id,
+                WeatherData = catchToConvert.WeatherData.Id
             };
         }
 
-        public User convertToUser(UserDO userToConvert)
+        public User ConvertToUser(UserDO userToConvert)
         {
             if (userToConvert == null)
             {
@@ -73,11 +73,24 @@ namespace MeasureMyPike.Service
             }
             return new User
             {
-                firstName = userToConvert.FirstName,
-                lastName = userToConvert.LastName,
-                memberSince = userToConvert.MemberSince,
-                id = userToConvert.Id,
-                username = userToConvert.Username
+                Firstname = userToConvert.FirstName,
+                Lastname = userToConvert.LastName,
+                MemberSince = userToConvert.MemberSince,
+                Id = userToConvert.Id,
+                Username = userToConvert.Username
+            };
+        }
+
+        public TackleBox ConvertToTackleBox(TackleBoxDO tackleBoxToConvert)
+        {
+            if (tackleBoxToConvert == null)
+            {
+                return null;
+            }
+            return new TackleBox
+            {
+                Id = tackleBoxToConvert.Id,
+                DatePurchased = tackleBoxToConvert.DatePurchased
             };
         }
 
@@ -90,22 +103,22 @@ namespace MeasureMyPike.Service
             else
                 return new Brand
                 {
-                    id = brandToConvert.Id
+                    Id = brandToConvert.Id
                     ,
-                    name = brandToConvert.Name
+                    Name = brandToConvert.Name
                 };
         }
 
-        public Fish convertToFish(FishDO fishToConvert)
+        public Fish ConvertToFish(FishDO fishToConvert)
         {
             if (fishToConvert == null)
             {
                 return null;
             }
             return new Fish {
-                id = fishToConvert.Id,
-                length = fishToConvert.Length,
-                weight = fishToConvert.Weight
+                Id = fishToConvert.Id,
+                Length = fishToConvert.Length,
+                Weight = fishToConvert.Weight
             };
         }
     }

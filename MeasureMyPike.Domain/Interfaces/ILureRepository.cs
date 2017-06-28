@@ -9,6 +9,6 @@ namespace MeasureMyPike.Repo
         bool DeleteLure(LureDO lureToDelete);
         List<LureDO> GetAllLures();
         LureDO GetLure(int id);
-        LureDO UpdateLure(int id, string lureName);
+        bool UpdateLure(int id, string lureName, int weight, string colour);
     }
 }

@@ -36,7 +36,7 @@ namespace MeasureMyPike.Controllers
         public HttpResponseMessage Post([FromBody]Fish inputFish)
         {
             var ifish = iFishService.UpdateFish(inputFish.Id, inputFish.Length, inputFish.Weight);
-            if (ifish == null)
+            if (!ifish)
             {
                 var message = string.Format("Could not find fish with id: {0}", inputFish.Id);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);

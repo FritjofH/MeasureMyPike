@@ -9,6 +9,6 @@ namespace MeasureMyPike.Repo
         bool DeleteLocation(LocationDO locationToDelete);
         List<LocationDO> GetAllLocations();
         LocationDO GetLocation(int id);
-        LocationDO UpdateLocation(int id, string lake, string coordinates);
+        bool UpdateLocation(int id, string lake, string coordinates);
     }
 }

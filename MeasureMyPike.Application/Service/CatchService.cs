@@ -28,7 +28,7 @@ public class CatchService : ICatchService
 
         var newCatch = new CatchDO
         {
-            User = userService.GetUserDO("hostf"),
+            User = userService.GetUserDO(username),
             Comment = new CommentDO { Text = comment },
             Media = mediaList,
             Lures = lureService.GetLureDO(lure.Id),
@@ -73,13 +73,25 @@ public class CatchService : ICatchService
         return catchList;
     }
 
+    // TODO: Här borde vi tänka om.
+    // När man bara ska ändra tex kommentaren så ska den väl inte skapa en ny MediaDO, ny FishDO, ny LocationDO och ny WeatherDO utan bara ändra det som är icke null tex.???
+    //
     public bool UpdateCatch(int id, byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, Brand brand, string username)
     {
         var catchRepo = new CatchRepository();
         var lureService = new LureService();
 
         var catchToUpdate = catchRepo.GetCatch(id);
-        catchToUpdate.Comment = new CommentDO { Text = comment };
+
+        if (catchToUpdate.Comment != null)
+        {
+            catchToUpdate.Comment.Text = comment;
+        }
+        else
+        {
+            catchToUpdate.Comment = new CommentDO { Text = comment };
+        }
+        
         catchToUpdate.Media.Add(new MediaDO { MediaFormat = format, Image = new MediaDataDO { Length = image.Length, Data = image } });
         catchToUpdate.Lures = lureService.GetLureDO(lure.Id);
         catchToUpdate.Fish = new FishDO { Length = fishLength, Weight = fishWeight };
@@ -87,9 +99,7 @@ public class CatchService : ICatchService
         catchToUpdate.WeatherData = new WeatherDataDO { Temperature = temperature, Weather = weather, MoonPosition = moonposition };
         catchToUpdate.Timestamp = DateTime.Now; // TODO: kanske skicka med istället
 
-        var updatedCatch = catchRepo.UpdateCatch(id, catchToUpdate);
-
-        return updatedCatch;
+        return catchRepo.UpdateCatch(id, catchToUpdate);
     }
 
     public bool DeleteCatch(int id)
@@ -101,7 +111,7 @@ public class CatchService : ICatchService
         return deleted;
     }
 
-    private Catch convertToCatch(CatchDO catchToConvert)
+    private Catch ConvertToCatch(CatchDO catchToConvert)
     {
         var mediaList = new List<int>();
 

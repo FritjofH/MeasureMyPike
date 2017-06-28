@@ -2,16 +2,18 @@
 using MeasureMyPike.Service;
 using System.IO;
 using System.Drawing;
+using System;
 
 namespace ApplicationTest
 {
     [TestClass]
     public class CatchTests
     {
-        CatchService cs;
-        MediaService ms;
-        BrandService bs;
-        LureService ls;
+        ICatchService cs;
+        IMediaService ms;
+        IBrandService bs;
+        ILureService ls;
+        IUserService us;
 
         [TestInitialize]
         public void Initialize()
@@ -20,22 +22,53 @@ namespace ApplicationTest
             ms = new MediaService();
             bs = new BrandService();
             ls = new LureService();
+            us = new UserService();
         }
 
-        //[TestMethod]
-        //[TestCategory("CatchTest")]
-        //public void CreateCatch()
-        //{
-        //    //Fiskbild och konverting till en bytearray
-        //    Image i = Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Mockdata\\Fisk.jpg");
-        //    var lure1 = "Röd Pilk 50g";
+        [TestMethod]
+        [TestCategory("CatchTest")]
+        public void CreateCatch()
+        {
+            var rnd = new Random();
 
-        //    var createdBrand = bs.AddBrand("Grönlunds Fiske");
-        //    var createdLure = ls.AddLure(lure1, bs.GetBrand(createdBrand.id));
+            //Fiskbild och konverting till en bytearray
+            Image testImage = Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Mockdata\\Fisk.jpg");
+            string lureName = "testLure" + rnd.Next(0,99);
+            string brandName = "testBrand" + rnd.Next(0,99);
+            int weight = 24;
+            string color = "Red";
+            string fnamn = "Förnamn" + rnd.Next(0, 99);
+            string enamn = "Efternamn" + rnd.Next(0, 99);
+            string userName = "testUser" + rnd.Next(0, 99);
+            string pass = "hemligt";
 
-        //    var result = cs.CreateCatch(ms.ImageToByteArray(i), ms.getImageFormat(i), "Jag fångade en fisk", ls.GetLure(createdLure.id), "75 kilo", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", "hostf");
+            Console.WriteLine(lureName+", "+brandName);
+            //Skapar upp en användare, om inte en med samma användarnamn redan finns
+            var createdUser = us.CreateUser(enamn, fnamn, userName, pass);
 
-        //    Assert.IsNotNull(result, "Något gick fel vid skapandet av fångsten");
-        //}
+            Assert.IsNotNull(createdUser, "Kan inte skapa testUser "+userName);
+
+            var createdBrand = bs.AddBrand(brandName);
+
+            Assert.IsNotNull(createdBrand, "Kunde inte skapa Brand "+brandName);
+
+            int brandId = createdBrand.Id;
+            var createdLure = ls.AddLure(lureName, createdBrand.Id, weight, color);
+
+            Assert.IsNotNull(createdLure, "Kunde inte skapa Lure "+lureName);
+
+            int lureId = createdLure.Id;
+            var createdCatch = cs.AddCatch(ms.ImageToByteArray(testImage), ms.GetImageFormat(testImage), "Jag fångade en fisk", createdLure, "75 kg", "300cm (mellan ögonen)", "Storsjön", "xy", 22, "Soligt", "I himmlen", userName);
+
+            Assert.IsNotNull(createdCatch, "Något gick fel vid skapandet av fångsten");
+
+            int catchId = createdCatch.Id;
+
+            // cleanup
+            Assert.IsTrue(cs.DeleteCatch(catchId), "Kan inte radera testCatch med Id=" + catchId);
+            Assert.IsTrue(ls.DeleteLure(lureId), "Kan inte radera testLure " + lureName + " med Id=" + lureId);
+            Assert.IsTrue(bs.DeleteBrand(brandId), "Kan inte radera testBrand " + brandName + " med Id=" + brandId);
+            Assert.IsTrue(us.DeleteUser(userName), "Kan inte radera testUser " + userName + " med Id=" + createdUser.Id);
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace MeasureMyPike.Service
 {
     public interface IMediaService
     {
-        string getImageFormat(Image imageIn);
+        string GetImageFormat(Image imageIn);
         byte[] ImageToByteArray(Image imageIn);
     }
 }

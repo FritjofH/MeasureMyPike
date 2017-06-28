@@ -26,6 +26,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -51,6 +57,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -71,21 +83,32 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
 
-        public LureDO UpdateLure(int id, string lureName)
+        public bool UpdateLure(int id, string lureName, int weight, string colour)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
                     var lureToUpdate = conn.Lure.FirstOrDefault(it => it.Id == id);
+
+                    conn.Lure.Attach(lureToUpdate);
+                    
                     lureToUpdate.Name = lureName;
+                    lureToUpdate.Weight = weight;
+                    lureToUpdate.Colour = colour;
                     conn.SaveChanges();
 
-                    return lureToUpdate;
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -93,7 +116,13 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
-                return null;
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
+                return false;
             }
         }
 
@@ -103,6 +132,7 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
+                    conn.Lure.Attach(lureToDelete);
                     conn.Lure.Remove(lureToDelete);
                     conn.SaveChanges();
 
@@ -114,6 +144,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return false;
             }
         }

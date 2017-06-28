@@ -25,7 +25,15 @@ namespace MeasureMyPike.Service
         {
             UserRepository userRepo = new UserRepository();
 
-            byte[] hashBytes = Convert.FromBase64String(userRepo.GetUserPasswordHash(username));
+            string hashString = userRepo.GetUserPasswordHash(username);
+            if (hashString == null)
+            {
+                Console.WriteLine("Username "+username+" not found or password is empty");
+                return false;
+            }
+            Console.WriteLine("Username " + username + " found with hashString = " + hashString);
+
+            byte[] hashBytes = Convert.FromBase64String(hashString);
 
             byte[] salt = new byte[16];
             Array.Copy(hashBytes, 0, salt, 0, 16);
@@ -34,8 +42,10 @@ namespace MeasureMyPike.Service
             byte[] hash = pbkdf2.GetBytes(20);
             for (int i = 0; i < 20; i++)
                 if (hashBytes[i + 16] != hash[i])
+                {
                     //throw new UnauthorizedAccessException();
                     return false;
+                }
             return true;
         }
     }

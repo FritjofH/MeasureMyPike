@@ -33,7 +33,7 @@ namespace MeasureMyPike.Controllers
         [HttpGet]
         public HttpResponseMessage Get()
         {
-            var lure = iLureService.getAllLures();
+            var lure = iLureService.GetAllLures();
             if (lure == null)
             {
                 var message = string.Format("Could not find any lures");
@@ -50,7 +50,7 @@ namespace MeasureMyPike.Controllers
         public HttpResponseMessage Put([FromBody] Lure inputLure)
         {
             var ilure = iLureService.UpdateLure(inputLure.Id, inputLure.BrandId, inputLure.Name, inputLure.Weight, inputLure.Colour);
-            if (ilure == null)
+            if (!ilure)
             {
                 var message = string.Format("Could not find lure with id: {0}", inputLure.Id);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);

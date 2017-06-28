@@ -29,8 +29,7 @@ namespace MeasureMyPike.Service
 
         public User GetUser(string username)
         {
-            var userRepo = new UserRepository();
-            var selectedUser = userRepo.GetUser(username);
+            var selectedUser = GetUserDO(username);
             var conversionService = new ConversionService();
 
             return conversionService.ConvertToUser(selectedUser);
@@ -45,13 +44,9 @@ namespace MeasureMyPike.Service
 
         public bool DeleteUser(string username)
         {
-            var userRepo = new UserRepository();
-            var tackleBoxRepo = new TackleBoxRepository();
             var userToDelete = GetUserDO(username);
-            var tackleBoxToDelete = userToDelete.TackleBox;
+            var userRepo = new UserRepository();
             var deleted = userRepo.DeleteUser(userToDelete);
-
-            tackleBoxRepo.DeleteTackleBox(tackleBoxToDelete);
 
             return deleted;
         }

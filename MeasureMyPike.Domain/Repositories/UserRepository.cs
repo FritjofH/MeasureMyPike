@@ -28,6 +28,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -38,7 +44,7 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedUser = conn.User.FirstOrDefault(it => it.Username == username);
+                    var selectedUser = conn.User.Include("TackleBox").Include("Security").FirstOrDefault(it => it.Username == username);
                     {
                         if (selectedUser != null)
                         {
@@ -53,6 +59,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -63,6 +75,13 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
+                    conn.User.Attach(userToDelete);
+                    conn.Security.Attach(userToDelete.Security);
+                    conn.Security.Remove(userToDelete.Security);
+
+                    conn.TackleBox.Attach(userToDelete.TackleBox);
+                    conn.TackleBox.Remove(userToDelete.TackleBox);
+
                     conn.User.Remove(userToDelete);
                     conn.SaveChanges();
 
@@ -74,6 +93,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return false;
             }
         }
@@ -84,9 +109,12 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var passwordHash = conn.User.First(it => it.Username == username).Security.Password;
-
-                    return passwordHash;
+                    var user = conn.User.First(it => it.Username == username);
+                    if (user != null)
+                    {
+                        return user.Security.Password;
+                    }
+                    return null;
                 }
             }
             catch (Exception ex)
@@ -94,6 +122,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }

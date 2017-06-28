@@ -29,6 +29,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -49,6 +55,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -69,21 +81,28 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
-        public LocationDO UpdateLocation(int id, string lake, string coordinates)
+        public bool UpdateLocation(int id, string lake, string coordinates)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
                     var updatedLocation = conn.Location.FirstOrDefault(it => it.Id == id);
+                    conn.Location.Attach(updatedLocation);
                     updatedLocation.Lake = lake;
                     updatedLocation.Coordinates = coordinates;
                     conn.SaveChanges();
 
-                    return updatedLocation;
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -91,7 +110,13 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
-                return null;
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
+                return false;
             }
         }
 
@@ -101,6 +126,7 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
+                    conn.Location.Attach(locationToDelete);
                     conn.Location.Remove(locationToDelete);
                     conn.SaveChanges();
                     return true;
@@ -111,6 +137,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return false;
             }
         }

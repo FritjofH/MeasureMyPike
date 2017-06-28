@@ -26,6 +26,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -46,6 +52,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -59,6 +71,7 @@ namespace MeasureMyPike.Repo
                     conn.TackleBox.Attach(tackleBoxToDelete);
                     // we should disconnect all Lures that belong to this tacklebox!
                     // or is that done automagically?
+                    conn.TackleBox.Attach(tackleBoxToDelete);
                     tackleBoxToDelete.Lure.Clear();
                     conn.TackleBox.Remove(tackleBoxToDelete);
                     conn.SaveChanges();
@@ -70,6 +83,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return false;
             }
         }

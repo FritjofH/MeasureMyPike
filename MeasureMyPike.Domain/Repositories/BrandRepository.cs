@@ -14,10 +14,10 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var createdBrand = conn.Brand.Add(newBrand);
+                    var created = conn.Brand.Add(newBrand);
                     conn.SaveChanges();
 
-                    return createdBrand;
+                    return created;
                 }
             }
             catch (Exception ex)
@@ -25,6 +25,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -35,9 +41,9 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedBrand = conn.Brand.First(u => u.Id == id);
+                    var selected = conn.Brand.First(u => u.Id == id);
 
-                    return selectedBrand;
+                    return selected;
                 }
             }
             catch (Exception ex)
@@ -45,6 +51,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
@@ -55,9 +67,9 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var brandList = conn.Brand.ToList();
+                    var result = conn.Brand.ToList();
 
-                    return brandList;
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -65,21 +77,28 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return null;
             }
         }
 
-        public BrandDO UpdateBrand(BrandDO changedBrand)
+        public bool UpdateBrand(BrandDO changedBrand)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
                     var brandToUpdate = conn.Brand.FirstOrDefault(it => it.Id == changedBrand.Id);
+                    conn.Brand.Attach(brandToUpdate);
                     brandToUpdate.Name = changedBrand.Name;
                     conn.SaveChanges();
 
-                    return brandToUpdate;
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -87,7 +106,13 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
-                return null;
+                while (ex.InnerException != null) 
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
+                return false;
             }
         }
 
@@ -108,6 +133,12 @@ namespace MeasureMyPike.Repo
                 // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
                 return false;
             }
         }

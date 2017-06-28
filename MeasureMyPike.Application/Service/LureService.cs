@@ -27,9 +27,8 @@ namespace MeasureMyPike.Service
 
         public Lure GetLure(int id)
         {
-            var lureRepo = new LureRepository();
             var conversionService = new ConversionService();
-            var selectedLure = lureRepo.GetLure(id);
+            var selectedLure = GetLureDO(id);
 
             return conversionService.ConvertToLure(selectedLure);
         }
@@ -59,7 +58,6 @@ namespace MeasureMyPike.Service
         public bool UpdateLure(int id, int brand, string name, int weight, string colour)
         {
             var lureRepo = new LureRepository();
-            var conversionService = new ConversionService();
             return lureRepo.UpdateLure(id, name, weight, colour);
 
         }

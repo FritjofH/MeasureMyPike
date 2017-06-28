@@ -41,6 +41,8 @@ namespace ApplicationTest
             string enamn = "Efternamn" + rnd.Next(0, 99);
             string userName = "testUser" + rnd.Next(0, 99);
             string pass = "hemligt";
+
+            Console.WriteLine(lureName+", "+brandName);
             //Skapar upp en användare, om inte en med samma användarnamn redan finns
             var createdUser = us.CreateUser(enamn, fnamn, userName, pass);
 
@@ -63,10 +65,10 @@ namespace ApplicationTest
             int catchId = createdCatch.Id;
 
             // cleanup
-            Assert.IsTrue(cs.DeleteCatch(catchId), "Kan inte radera testCatch "+createdCatch);
-            Assert.IsTrue(ls.DeleteLure(lureId), "Kan inte radera testLure "+lureName);
-            Assert.IsTrue(bs.DeleteBrand(brandId), "Kan inte radera testBrand "+brandName);
-            Assert.IsTrue(us.DeleteUser(userName), "Kan inte radera testUser "+userName);
+            Assert.IsTrue(cs.DeleteCatch(catchId), "Kan inte radera testCatch med Id=" + catchId);
+            Assert.IsTrue(ls.DeleteLure(lureId), "Kan inte radera testLure " + lureName + " med Id=" + lureId);
+            Assert.IsTrue(bs.DeleteBrand(brandId), "Kan inte radera testBrand " + brandName + " med Id=" + brandId);
+            Assert.IsTrue(us.DeleteUser(userName), "Kan inte radera testUser " + userName + " med Id=" + createdUser.Id);
         }
     }
 }

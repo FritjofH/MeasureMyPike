@@ -39,7 +39,7 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedUser = conn.User.FirstOrDefault(it => it.Username == username);
+                    var selectedUser = conn.User.Include("TackleBox").Include("Security").FirstOrDefault(it => it.Username == username);
                     {
                         if (selectedUser != null)
                         {

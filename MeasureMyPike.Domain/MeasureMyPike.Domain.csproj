@@ -54,6 +54,7 @@
     <Compile Include="Interfaces\IBrandRepository.cs" />
     <Compile Include="Interfaces\ICatchRepository.cs" />
     <Compile Include="Interfaces\IFishRepository.cs" />
+    <Compile Include="Interfaces\IMediaRepository.cs" />
     <Compile Include="Interfaces\ILocationRepository.cs" />
     <Compile Include="Interfaces\ILureRepository.cs" />
     <Compile Include="Interfaces\ITackleBoxRepository.cs" />
@@ -113,6 +114,7 @@
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\MediaRepository.cs" />
     <Compile Include="Repositories\TackleBoxRepository.cs" />
     <Compile Include="Repositories\BrandRepository.cs" />
     <Compile Include="Repositories\CatchRepository.cs" />

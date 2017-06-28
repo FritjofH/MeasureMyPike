@@ -29,8 +29,7 @@ namespace MeasureMyPike.Service
 
         public User GetUser(string username)
         {
-            var userRepo = new UserRepository();
-            var selectedUser = userRepo.GetUser(username);
+            var selectedUser = GetUserDO(username);
             var conversionService = new ConversionService();
 
             return conversionService.ConvertToUser(selectedUser);

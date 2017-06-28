@@ -14,10 +14,10 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var createdBrand = conn.Brand.Add(newBrand);
+                    var created = conn.Brand.Add(newBrand);
                     conn.SaveChanges();
 
-                    return createdBrand;
+                    return created;
                 }
             }
             catch (Exception ex)
@@ -41,9 +41,9 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedBrand = conn.Brand.First(u => u.Id == id);
+                    var selected = conn.Brand.First(u => u.Id == id);
 
-                    return selectedBrand;
+                    return selected;
                 }
             }
             catch (Exception ex)
@@ -67,9 +67,9 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var brandList = conn.Brand.ToList();
+                    var result = conn.Brand.ToList();
 
-                    return brandList;
+                    return result;
                 }
             }
             catch (Exception ex)

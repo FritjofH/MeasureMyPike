@@ -205,7 +205,7 @@
     <Content Include="App\MeasureMyPike\src\app\app.component.css" />
     <Content Include="App\MeasureMyPike\src\app\app.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.html" />
-    <Content Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.css" />
+    <None Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.scss" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.html" />
     <Content Include="App\MeasureMyPike\src\favicon.ico" />
     <Content Include="App\MeasureMyPike\src\index.html" />

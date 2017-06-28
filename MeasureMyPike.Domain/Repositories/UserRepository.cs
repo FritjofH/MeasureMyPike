@@ -13,6 +13,11 @@ namespace MeasureMyPike.Repo
                 using (var conn = new ModelContainer())
                 {
                     var createdUser = conn.User.Add(newUser);
+                    conn.Security.Attach(newUser.Security);
+                    conn.Security.Add(newUser.Security);
+                    conn.TackleBox.Attach(newUser.TackleBox);
+                    conn.TackleBox.Add(newUser.TackleBox);
+
                     conn.SaveChanges();
 
                     return createdUser;

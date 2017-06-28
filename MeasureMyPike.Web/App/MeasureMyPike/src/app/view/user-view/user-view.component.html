@@ -1,6 +1,38 @@
-﻿<h2>Användare:</h2>
-<div>
-    <ul>
-        <li *ngFor="let user of users"><p>{{user.username}}</p></li>
-    </ul>
+﻿<div class="row">
+    <div class="col-6">
+        <h2>Registrera ny användare:</h2>
+    </div>
 </div>
+
+<form name="userForm">
+    <div class="row">
+        <div class="col-3">
+            <md-input-container>
+                <input mdInput type="text" [(ngModel)]="firstName" name="firstName" placeholder="Förnamn" maxlength="25" minlength="2">
+            </md-input-container>
+        </div>
+        <div class="col-3">
+            <md-input-container>
+                <input mdInput type="text" [(ngModel)]="lastName" name="lastName" placeholder="Efternamn" maxlength="25" minlength="2">
+            </md-input-container>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <md-input-container>
+                <input mdInput type="text" [(ngModel)]="username" name="username" placeholder="Användarnamn" maxlength="20" minlength="4">
+            </md-input-container>
+        </div>
+        <div class="col-3">
+            <md-input-container>
+                <input mdInput class="form-control" type="text" [type]="showPassword.checked ? 'text' : 'password'" [(ngModel)]="password" name="password" placeholder="Lösenord (4-20 tecken)" maxlength="20" minlength="4">
+            </md-input-container>
+            <md-checkbox #showPassword><i class="material-icons">remove_red_eye</i></md-checkbox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input type="submit" name="submit" value="Registrera" (click)="registerUser()" />
+        </div>
+    </div>
+</form>

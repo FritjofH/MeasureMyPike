@@ -13,8 +13,14 @@ export class UserService {
             .catch(this.handleError);
     }
 
-    getUser(int): Observable<any[]> {
+    getUser(int: number): Observable<any[]> {
         return this.http.get("/api/User")
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    registerUser(lastName: string, firstName: string, username: string, password: string): Observable<any> {
+        return this.http.post("/api/User", {"lastName": lastName, "firstName": firstName, "username": username, "password": password })
             .map(this.extractData)
             .catch(this.handleError);
     }

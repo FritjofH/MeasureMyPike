@@ -105,7 +105,9 @@
     <Compile Include="UserTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App.config" />
+    <Content Include="App.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="MockData\Fisk.jpg" />
   </ItemGroup>
   <ItemGroup>

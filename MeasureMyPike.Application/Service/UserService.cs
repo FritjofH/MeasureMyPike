@@ -42,9 +42,26 @@ namespace MeasureMyPike.Service
             return selectedUser;
         }
 
+        public UserDO GetUserDO(int id)
+        {
+            var userRepo = new UserRepository();
+            var selectedUser = userRepo.GetUser(id);
+
+            return selectedUser;
+        }
+
         public bool DeleteUser(string username)
         {
             var userToDelete = GetUserDO(username);
+            var userRepo = new UserRepository();
+            var deleted = userRepo.DeleteUser(userToDelete);
+
+            return deleted;
+        }
+
+        public bool DeleteUser(int id)
+        {
+            var userToDelete = GetUserDO(id);
             var userRepo = new UserRepository();
             var deleted = userRepo.DeleteUser(userToDelete);
 

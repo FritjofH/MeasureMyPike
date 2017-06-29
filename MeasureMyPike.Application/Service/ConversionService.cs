@@ -34,7 +34,19 @@ namespace MeasureMyPike.Service
             {
                 Coordinates = locationToConvert.Coordinates,
                 Id = locationToConvert.Id,
-                Lake = locationToConvert.Lake
+            };
+        }
+
+        public Lake ConvertToLake(LakeDO lakeToConvert)
+        {
+            if (lakeToConvert == null)
+            {
+                return null;
+            }
+            return new Lake
+            {
+                Name = lakeToConvert.Name,
+                Id = lakeToConvert.Id,
             };
         }
 

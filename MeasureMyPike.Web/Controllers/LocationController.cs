@@ -20,13 +20,6 @@ namespace MeasureMyPike.Controllers
             return new LocationService().GetLocation(id);            
         }
 
-        // POST: api/Location
-        public void Post([FromBody]string lake, string coordinates)
-        {
-            LocationService cs = new LocationService();
-            cs.AddLocation(lake, coordinates);
-        }
-
         // PUT: api/Location/5
         public void Put(int id, string name, string coordinates)
         {

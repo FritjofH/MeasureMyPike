@@ -15,10 +15,10 @@ namespace MeasureMyPike.Domain.Models
     public partial class LocationDO
     {
         public int Id { get; set; }
-        public string Lake { get; set; }
         public string Coordinates { get; set; }
     
         public virtual CatchDO Catch { get; set; }
         public virtual StatisticsDO Statistics { get; set; }
+        public virtual LakeDO Lake { get; set; }
     }
 }

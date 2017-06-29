@@ -5,10 +5,9 @@ using System.Web;
 
 namespace MeasureMyPike.Models.Application
 {
-    public class Location
+    public class Lake
     {
         public int Id { get; set; }
-        public string LakeName { get; set; }
-        public string Coordinates { get; set; }
+        public string Name { get; set; }
     }
 }

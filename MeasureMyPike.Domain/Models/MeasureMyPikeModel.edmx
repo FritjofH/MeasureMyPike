@@ -19,6 +19,7 @@
     <EntitySet Name="WeatherData" EntityType="Model.Store.WeatherData" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Security" EntityType="Model.Store.Security" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TackleBox" EntityType="Model.Store.TackleBox" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Lake" EntityType="Model.Store.Lake" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="LureTackleBox" EntityType="Model.Store.LureTackleBox" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserCatch" Association="Model.Store.UserCatch">
       <End Role="User" EntitySet="User" />
@@ -92,6 +93,10 @@
       <End Role="TackleBox" EntitySet="TackleBox" />
       <End Role="LureTackleBox" EntitySet="LureTackleBox" />
     </AssociationSet>
+    <AssociationSet Name="LakeLocation" Association="Model.Store.LakeLocation">
+      <End Role="Lake" EntitySet="Lake" />
+      <End Role="Location" EntitySet="Location" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="User">
     <Key>
@@ -156,9 +161,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Lake" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Coordinates" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Statistics_Id" Type="int" Nullable="true" />
+    <Property Name="Lake_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Brand">
     <Key>
@@ -208,6 +213,13 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DatePurchased" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Lake">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="LureTackleBox">
     <Key>
@@ -409,6 +421,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="LakeLocation">
+    <End Role="Lake" Type="Model.Store.Lake" Multiplicity="1" />
+    <End Role="Location" Type="Model.Store.Location" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lake">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Location">
+        <PropertyRef Name="Lake_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_LureTackleBox_Lure">
     <End Role="Lure" Type="Model.Store.Lure" Multiplicity="1" />
     <End Role="LureTackleBox" Type="Model.Store.LureTackleBox" Multiplicity="*" />
@@ -519,6 +543,11 @@
             <End Role="Lure" EntitySet="Lure" />
             <End Role="TackleBox" EntitySet="TackleBox" />
           </AssociationSet>
+          <EntitySet Name="Lake" EntityType="Model.LakeDO" />
+          <AssociationSet Name="LakeLocation" Association="Model.LakeLocation">
+            <End Role="Lake" EntitySet="Lake" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="UserDO">
           <Key>
@@ -594,9 +623,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Catch" Relationship="Model.CatchLocation" FromRole="Location" ToRole="Catch" />
-          <Property Name="Lake" Type="String" Nullable="false" Unicode="true" />
           <Property Name="Coordinates" Type="String" Nullable="true" />
           <NavigationProperty Name="Statistics" Relationship="Model.LocationStatistics" FromRole="Location" ToRole="Statistics" />
+          <NavigationProperty Name="Lake" Relationship="Model.LakeLocation" FromRole="Location" ToRole="Lake" />
         </EntityType>
         <EntityType Name="BrandDO">
           <Key>
@@ -722,6 +751,18 @@
           <End Type="Model.LureDO" Role="Lure" Multiplicity="*" />
           <End Type="Model.TackleBoxDO" Role="TackleBox" Multiplicity="*" />
         </Association>
+        <EntityType Name="LakeDO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Location" Relationship="Model.LakeLocation" FromRole="Lake" ToRole="Location" />
+        </EntityType>
+        <Association Name="LakeLocation">
+          <End Type="Model.LakeDO" Role="Lake" Multiplicity="1" />
+          <End Type="Model.LocationDO" Role="Location" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -785,7 +826,6 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model.LocationDO)">
         <MappingFragment StoreEntitySet="Location">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Lake" ColumnName="Lake" />
           <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -838,6 +878,14 @@
         <MappingFragment StoreEntitySet="TackleBox">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DatePurchased" ColumnName="DatePurchased" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lake">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.LakeDO)">
+        <MappingFragment StoreEntitySet="Lake">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -980,6 +1028,14 @@
       </EndProperty>
       <EndProperty Name="TackleBox">
         <ScalarProperty Name="Id" ColumnName="TackleBox_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LakeLocation" TypeName="Model.LakeLocation" StoreEntitySet="Location">
+      <EndProperty Name="Lake">
+        <ScalarProperty Name="Id" ColumnName="Lake_Id" />
+      </EndProperty>
+      <EndProperty Name="Location">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

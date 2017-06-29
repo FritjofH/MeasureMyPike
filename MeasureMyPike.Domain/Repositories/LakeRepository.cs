@@ -1,25 +1,27 @@
-﻿using MeasureMyPike.Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
+using MeasureMyPike.Domain.Models;
 
-namespace MeasureMyPike
+namespace MeasureMyPike.Repo
 {
-    public class CatchRepository : ICatchRepository
+    public class LakeRepository : ILakeRepository
     {
-        public CatchDO AddCatch(CatchDO newCatch)
+        public LakeDO GetLake(int id)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    conn.Lure.Attach(newCatch.Lures);
-                    conn.Brand.Attach(newCatch.Lures.Brand);
-                    conn.User.Attach(newCatch.User);
-                    var createdCatch = conn.Catch.Add(newCatch);
-                    conn.SaveChanges();
-
-                    return createdCatch;
+                    var selected = conn.Lake.FirstOrDefault(it => it.Id == id);
+                    {
+                        if (selected != null)
+                        {
+                            return selected;
+                        }
+                        else return null;
+                    }
                 }
             }
             catch (Exception ex)
@@ -36,18 +38,17 @@ namespace MeasureMyPike
                 return null;
             }
         }
-
-        public CatchDO GetCatch(int id)
+        public LakeDO GetLake(string name)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedCatch = conn.Catch.FirstOrDefault(it => it.Id == id);
+                    var selected = conn.Lake.FirstOrDefault(it => it.Name == name);
                     {
-                        if (selectedCatch != null)
+                        if (selected != null)
                         {
-                            return selectedCatch;
+                            return selected;
                         }
                         else return null;
                     }
@@ -68,14 +69,15 @@ namespace MeasureMyPike
             }
         }
 
-        public List<CatchDO> GetAllCatch()
+        public LakeDO AddLake(LakeDO newLake)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var catchList = conn.Catch.ToList();
-                    return catchList;
+                    var created = conn.Lake.Add(newLake);
+                    conn.SaveChanges();
+                    return created;
                 }
             }
             catch (Exception ex)
@@ -93,21 +95,40 @@ namespace MeasureMyPike
             }
         }
 
-        public bool UpdateCatch(int id, CatchDO changedCatch)
+        public List<LakeDO> GetAllLakes()
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var catchToUpdate = conn.Catch.First(it => it.Id == changedCatch.Id);
-                    conn.Catch.Attach(catchToUpdate);
-                    catchToUpdate.Location = changedCatch.Location;
-                    catchToUpdate.Lures = changedCatch.Lures;
-                    catchToUpdate.Media = changedCatch.Media;
-                    catchToUpdate.Timestamp = changedCatch.Timestamp;
-                    catchToUpdate.WeatherData = changedCatch.WeatherData;
-                    catchToUpdate.Comment = changedCatch.Comment;
-                    catchToUpdate.Fish = changedCatch.Fish;
+                    var list = conn.Lake.ToList();
+
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
+                return null;
+            }
+        }
+        public bool UpdateLake(int id, string name)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var updated = conn.Lake.FirstOrDefault(it => it.Id == id);
+                    conn.Lake.Attach(updated);
+                    updated.Name = name;
                     conn.SaveChanges();
 
                     return true;
@@ -115,6 +136,7 @@ namespace MeasureMyPike
             }
             catch (Exception ex)
             {
+                // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
                 while (ex.InnerException != null)
@@ -127,41 +149,21 @@ namespace MeasureMyPike
             }
         }
 
-        public bool DeleteCatch(CatchDO catchToDelete)
+        public bool DeleteLake(LakeDO lakeToDelete)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    conn.Catch.Attach(catchToDelete);
-                    conn.User.Attach(catchToDelete.User);
-                    conn.Comment.Attach(catchToDelete.Comment);
-                    conn.Fish.Attach(catchToDelete.Fish);
-                    conn.Location.Attach(catchToDelete.Location);
-                    conn.Lake.Attach(catchToDelete.Location.Lake);
-                    conn.Lure.Attach(catchToDelete.Lures);
-                    conn.WeatherData.Attach(catchToDelete.WeatherData);
-
-                    while (catchToDelete.Media.Count > 0)
-                    {
-                        conn.Media.Attach(catchToDelete.Media.First());
-                        conn.MediaData.Remove(catchToDelete.Media.First().Image);
-                        conn.Media.Remove(catchToDelete.Media.First());
-                    }
-
-                    conn.Location.Remove(catchToDelete.Location);
-                    conn.WeatherData.Remove(catchToDelete.WeatherData);
-                    conn.Fish.Remove(catchToDelete.Fish);
-                    conn.Comment.Remove(catchToDelete.Comment);
-                    conn.Catch.Remove(catchToDelete);
-
+                    conn.Lake.Attach(lakeToDelete);
+                    conn.Lake.Remove(lakeToDelete);
                     conn.SaveChanges();
-
                     return true;
                 }
             }
             catch (Exception ex)
             {
+                // TODO: better handling
                 Console.WriteLine(ex.GetType().FullName);
                 Console.WriteLine(ex.Message);
                 while (ex.InnerException != null)

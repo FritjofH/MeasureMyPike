@@ -7,6 +7,7 @@ namespace MeasureMyPike.Service
     {
         User CreateUser(string lastName, string firstName, string username, string password);
         bool DeleteUser(string username);
+        bool DeleteUser(int id);
         User GetUser(string username);
         UserDO GetUserDO(string username);
     }

@@ -17,7 +17,7 @@ namespace ApplicationTest
             ls = new LureService();
             bs = new BrandService();
         }
-        private int getRndNr() {
+        private int GetRndNr() {
             var r = new Random();
 
             return r.Next(0, 99);
@@ -27,14 +27,14 @@ namespace ApplicationTest
         [TestCategory("LureTest")]
         public void AddOneLure()
         {
-            Brand newBrand = bs.AddBrand("testBrand" + getRndNr());
+            Brand newBrand = bs.AddBrand("testBrand" + GetRndNr());
 
-            Assert.IsNotNull(newBrand);
+            Assert.IsNotNull(newBrand, "Kan inte skapa Brand");
 
             int brandid = newBrand.Id;
             var weight = 27;
             string color = "Green";
-            Lure theLure = ls.AddLure("Luretest" + getRndNr(), brandid, weight, color);
+            Lure theLure = ls.AddLure("Luretest" + GetRndNr(), brandid, weight, color);
 
             Assert.IsNotNull(theLure, "Gick inte att skapa Lure");
 
@@ -49,14 +49,14 @@ namespace ApplicationTest
         [TestCategory("LureTest")]
         public void ChangeOneLure()
         {
-            Brand newBrand = bs.AddBrand("testBrand" + getRndNr());
+            Brand newBrand = bs.AddBrand("testBrand" + GetRndNr());
 
-            Assert.IsNotNull(newBrand);
+            Assert.IsNotNull(newBrand, "Kan inte skapa Brand");
 
             int brandid = newBrand.Id;
             var weight = 22;
             string color = "Blue";
-            Lure theLure = ls.AddLure("Luretest" + getRndNr(), brandid, weight, color);
+            Lure theLure = ls.AddLure("Luretest" + GetRndNr(), brandid, weight, color);
 
             Assert.IsNotNull(theLure, "Kan inte skapa Lure");
 

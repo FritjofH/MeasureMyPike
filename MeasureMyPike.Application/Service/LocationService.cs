@@ -8,17 +8,6 @@ namespace MeasureMyPike.Service
 {
     public class LocationService : ILocationService
     {
-
-        public Location AddLocation(string lake, string coordinates)
-        {
-            var locationRepo = new LocationRepository();
-            var conversionService = new ConversionService();
-            var location = new LocationDO { Lake = lake, Coordinates = coordinates };
-            var createdLocation = locationRepo.AddLocation(location);
-
-            return conversionService.ConvertToLocation(createdLocation);
-        }
-
         public Location GetLocation(int id)
         {
             var locationRepo = new LocationRepository();
@@ -35,6 +24,7 @@ namespace MeasureMyPike.Service
 
             return location;
         }
+
         public List<Location> GetAllLocations()
         {
             var locationRepo = new LocationRepository();
@@ -53,7 +43,7 @@ namespace MeasureMyPike.Service
         {
             var locationRepo = new LocationRepository();
             var conversionService = new ConversionService();
-            return locationRepo.UpdateLocation(id, name, coordinates);
+            return locationRepo.UpdateLocation(id, coordinates);
         }
 
         public bool DeleteLocation(int id)

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/26/2017 14:06:03
+-- Date Created: 06/29/2017 13:20:20
 -- Generated from EDMX file: C:\src\Repos\MeasureMyPike\MeasureMyPike.Domain\Models\MeasureMyPikeModel.edmx
 -- --------------------------------------------------
 
@@ -66,10 +66,13 @@ IF OBJECT_ID(N'[dbo].[FK_UserTackleBox]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[User] DROP CONSTRAINT [FK_UserTackleBox];
 GO
 IF OBJECT_ID(N'[dbo].[FK_LureTackleBox_Lure]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[LureDOTackleBoxDO] DROP CONSTRAINT [FK_LureTackleBox_Lure];
+    ALTER TABLE [dbo].[LureTackleBox] DROP CONSTRAINT [FK_LureTackleBox_Lure];
 GO
 IF OBJECT_ID(N'[dbo].[FK_LureTackleBox_TackleBox]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[LureDOTackleBoxDO] DROP CONSTRAINT [FK_LureTackleBox_TackleBox];
+    ALTER TABLE [dbo].[LureTackleBox] DROP CONSTRAINT [FK_LureTackleBox_TackleBox];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LakeDOLocationDO]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Location] DROP CONSTRAINT [FK_LakeDOLocationDO];
 GO
 
 -- --------------------------------------------------
@@ -115,8 +118,11 @@ GO
 IF OBJECT_ID(N'[dbo].[TackleBox]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TackleBox];
 GO
-IF OBJECT_ID(N'[dbo].[LureDOTackleBoxDO]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[LureDOTackleBoxDO];
+IF OBJECT_ID(N'[dbo].[Lake]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Lake];
+GO
+IF OBJECT_ID(N'[dbo].[LureTackleBox]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LureTackleBox];
 GO
 
 -- --------------------------------------------------
@@ -184,9 +190,9 @@ GO
 -- Creating table 'Location'
 CREATE TABLE [dbo].[Location] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Lake] nvarchar(max)  NOT NULL,
     [Coordinates] nvarchar(max)  NULL,
-    [Statistics_Id] int  NULL
+    [Statistics_Id] int  NULL,
+    [Lake_Id] int  NOT NULL
 );
 GO
 
@@ -236,6 +242,13 @@ GO
 CREATE TABLE [dbo].[TackleBox] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DatePurchased] datetime  NULL
+);
+GO
+
+-- Creating table 'Lake'
+CREATE TABLE [dbo].[Lake] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -325,6 +338,12 @@ GO
 -- Creating primary key on [Id] in table 'TackleBox'
 ALTER TABLE [dbo].[TackleBox]
 ADD CONSTRAINT [PK_TackleBox]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Lake'
+ALTER TABLE [dbo].[Lake]
+ADD CONSTRAINT [PK_Lake]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -600,6 +619,21 @@ GO
 CREATE INDEX [IX_FK_LureTackleBox_TackleBox]
 ON [dbo].[LureTackleBox]
     ([TackleBox_Id]);
+GO
+
+-- Creating foreign key on [Lake_Id] in table 'Location'
+ALTER TABLE [dbo].[Location]
+ADD CONSTRAINT [FK_LakeLocation]
+    FOREIGN KEY ([Lake_Id])
+    REFERENCES [dbo].[Lake]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_LakeLocation'
+CREATE INDEX [IX_FK_LakeLocation]
+ON [dbo].[Location]
+    ([Lake_Id]);
 GO
 
 -- --------------------------------------------------

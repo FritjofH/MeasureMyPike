@@ -14,7 +14,7 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedLocation = conn.Location.FirstOrDefault(it => it.Id == id);
+                    var selectedLocation = conn.Location.Include("Lake").FirstOrDefault(it => it.Id == id);
                     {
                         if (selectedLocation != null)
                         {
@@ -46,6 +46,7 @@ namespace MeasureMyPike.Repo
                 using (var conn = new ModelContainer())
                 {
                     var createdLocation = conn.Location.Add(newLocation);
+                    conn.Lake.Attach(newLocation.Lake);
                     conn.SaveChanges();
                     return createdLocation;
                 }
@@ -71,7 +72,7 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var locationList = conn.Location.ToList();
+                    var locationList = conn.Location.Include("Lake").ToList();
 
                     return locationList;
                 }
@@ -90,7 +91,7 @@ namespace MeasureMyPike.Repo
                 return null;
             }
         }
-        public bool UpdateLocation(int id, string lake, string coordinates)
+        public bool UpdateLocation(int id, string coordinates)
         {
             try
             {
@@ -98,7 +99,6 @@ namespace MeasureMyPike.Repo
                 {
                     var updatedLocation = conn.Location.FirstOrDefault(it => it.Id == id);
                     conn.Location.Attach(updatedLocation);
-                    updatedLocation.Lake = lake;
                     updatedLocation.Coordinates = coordinates;
                     conn.SaveChanges();
 

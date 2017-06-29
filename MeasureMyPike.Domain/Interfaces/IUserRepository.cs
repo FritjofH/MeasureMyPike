@@ -7,6 +7,7 @@ namespace MeasureMyPike.Repo
         UserDO AddUser(UserDO newUser);
         bool DeleteUser(UserDO userToDelete);
         UserDO GetUser(string username);
+        UserDO GetUser(int id);
         string GetUserPasswordHash(string username);
     }
 }

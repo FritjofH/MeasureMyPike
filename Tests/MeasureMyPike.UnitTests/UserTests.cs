@@ -23,11 +23,11 @@ namespace ApplicationTest
         {
             var rnd = new Random();
             string enamn = "Efternamn" + rnd.Next(1, 99);
-            string userid = "userid" + rnd.Next(1, 99);
+            string userid = "useridc" + rnd.Next(1, 99);
             //Skapar upp en användare, om inte en med samma användarnamn redan finns
             var result = us.CreateUser(enamn, "Förnamn", userid, "hemligt");
 
-            Assert.IsNotNull(result, "Det finns redan en användare med samma användarnamn");
+            Assert.IsNotNull(result, "Kunde inte skapa användare " + userid);
             
             //cleanup
             Assert.IsTrue(us.DeleteUser(userid),"Kan inte radera användare "+userid);
@@ -40,7 +40,7 @@ namespace ApplicationTest
             var rnd = new Random();
             string fnamn = "Förnamn" + rnd.Next(0, 99);
             string enamn = "Efternamn" + rnd.Next(0, 99);
-            string userid = "userid" + rnd.Next(0, 99);
+            string userid = "useridl" + rnd.Next(0, 99);
             string pass = "hemligt";
             //Skapar upp en användare, om inte en med samma användarnamn redan finns
             var result = us.CreateUser(enamn, fnamn, userid, pass);
@@ -48,7 +48,7 @@ namespace ApplicationTest
             Assert.IsNotNull(result, "Kunde inte skapa tillfällig användare "+userid);
 
             var loginResult = ss.Login(userid, pass);
-            Assert.IsTrue(loginResult,"Det angivna lösenordet matchade inte vilket det borde göra");
+            Assert.IsTrue(loginResult,"Det gick inte logga in med korrekt lösenord");
 
             //cleanup
             Assert.IsTrue(us.DeleteUser(userid), "Kan inte radera tillfällig användare " + userid);
@@ -61,7 +61,7 @@ namespace ApplicationTest
             var rnd = new Random();
             string fnamn = "Förnamn" + rnd.Next(0, 99);
             string enamn = "Efternamn" + rnd.Next(0, 99);
-            string userid = "userid" + rnd.Next(0, 99);
+            string userid = "useridw" + rnd.Next(0, 99);
             string pass = "hemligt";
             string felpass = "fel lösenord";
             //Skapar upp en användare, om inte en med samma användarnamn redan finns
@@ -70,7 +70,7 @@ namespace ApplicationTest
             Assert.IsNotNull(result, "Kunde inte skapa tillfällig användare " + userid);
 
             var loginResult = ss.Login(userid, felpass);
-            Assert.IsFalse(loginResult, "Det felaktiga lösenordet matchade vilket det inte borde göra");
+            Assert.IsFalse(loginResult, "Det gick logga in med fel lösenord");
 
             //cleanup
             Assert.IsTrue(us.DeleteUser(userid), "Kan inte radera tillfällig användare " + userid);

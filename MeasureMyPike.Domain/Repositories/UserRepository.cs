@@ -69,6 +69,37 @@ namespace MeasureMyPike.Repo
             }
         }
 
+        public UserDO GetUser(int id)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var selectedUser = conn.User.Include("TackleBox").Include("Security").FirstOrDefault(it => it.Id == id);
+                    {
+                        if (selectedUser != null)
+                        {
+                            return selectedUser;
+                        }
+                        else return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
+                return null;
+            }
+        }
+
         public bool DeleteUser(UserDO userToDelete)
         {
             try

@@ -45,6 +45,7 @@
     <Compile Include="Interfaces\IBrandService.cs" />
     <Compile Include="Interfaces\ICatchService.cs" />
     <Compile Include="Interfaces\IFishService.cs" />
+    <Compile Include="Interfaces\ILakeService.cs" />
     <Compile Include="Interfaces\ILocationService.cs" />
     <Compile Include="Interfaces\ILureService.cs" />
     <Compile Include="Interfaces\IMediaService.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Models\CatchInputVO.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Fish.cs" />
+    <Compile Include="Models\Lake.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Lure.cs" />
     <Compile Include="Models\Media.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="Service\CatchService.cs" />
     <Compile Include="Service\ConversionService.cs" />
     <Compile Include="Service\FishService.cs" />
+    <Compile Include="Service\LakeService.cs" />
     <Compile Include="Service\LocationService.cs" />
     <Compile Include="Service\LureService.cs" />
     <Compile Include="Service\MediaService.cs" />

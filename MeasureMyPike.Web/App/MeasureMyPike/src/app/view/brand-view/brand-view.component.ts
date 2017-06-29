@@ -11,9 +11,7 @@ export class BrandViewComponent implements OnInit {
     constructor(private brandService: BrandService) { }
 
     public brandList: any[];
-
     public selectedBrand: any;
-
     public newName: string;
 
     ngOnInit() {
@@ -27,7 +25,6 @@ export class BrandViewComponent implements OnInit {
     };
 
     public getBrand(selected) {
-
         if (this.selectedBrand && selected.id == this.selectedBrand.id) {
             this.selectedBrand = null;
         }
@@ -35,8 +32,6 @@ export class BrandViewComponent implements OnInit {
             this.selectedBrand = selected;
             this.newName = null;
         }
-
-        //this.selectedBrand.emit(this.selectedBrand);
     }
 
     public updateBrand() {

@@ -1,3 +1,7 @@
 ﻿h1 {
     text-decoration:underline;
 }
+
+:host /deep/ .mat-icon-button {
+    line-height: 0px;
+}

@@ -8,3 +8,10 @@
         margin: 0px 0px 0px 0px;
     }
 }
+
+.overflow-list {
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 400px;
+    max-width: 400px;
+}

@@ -208,6 +208,12 @@
     <None Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.scss" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.html" />
     <Content Include="App\MeasureMyPike\src\favicon.ico" />
+    <Content Include="App\MeasureMyPike\src\Icons\big-pike.png" />
+    <Content Include="App\MeasureMyPike\src\Icons\big-pike.svg" />
+    <Content Include="App\MeasureMyPike\src\Icons\exit.png" />
+    <Content Include="App\MeasureMyPike\src\Icons\exit.svg" />
+    <Content Include="App\MeasureMyPike\src\Icons\notebook.png" />
+    <Content Include="App\MeasureMyPike\src\Icons\notebook.svg" />
     <Content Include="App\MeasureMyPike\src\index.html" />
     <Content Include="App\MeasureMyPike\src\styles.css" />
     <Content Include="Areas\HelpPage\HelpPage.css" />

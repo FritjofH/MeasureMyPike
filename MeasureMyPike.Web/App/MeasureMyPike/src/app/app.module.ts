@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { MaterialModule, MdCheckboxModule, MdInputModule, MdButtonModule, MdTooltipModule, MdSidenavModule } from '@angular/material';
+import { MaterialModule, MdCheckboxModule, MdInputModule, MdButtonModule, MdTooltipModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations/';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -28,8 +28,7 @@ import { UserViewComponent } from './view/user-view/user-view.component';
         BrowserAnimationsModule,
         FlexLayoutModule,
         MdButtonModule,
-        MdTooltipModule,
-        MdSidenavModule
+        MdTooltipModule
     ],
     providers: [
         BrandService,

@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
     public title = 'MeasureMyPike';
+    public loggedIn: boolean = true;
 
     constructor() {
     }

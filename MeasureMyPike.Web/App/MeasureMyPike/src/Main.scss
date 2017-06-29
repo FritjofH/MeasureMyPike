@@ -22,7 +22,6 @@ textarea {
 
 .grid-container {
     width: 100%;
-    max-width: 1920px;
 }
 
 /*-- our cleafix hack -- */
@@ -134,4 +133,8 @@ textarea {
     .col-6 {
         width: 100%;
     }
+}
+
+[hidden] {
+    display: none;
 }

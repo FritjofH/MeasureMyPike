@@ -22,13 +22,14 @@ namespace MeasureMyPike.Controllers
         }
 
         // GET: api/User/5
+        //går inte igenom från frontend
         [HttpGet]
-        public HttpResponseMessage Get(NewUser inputUser)
+        public HttpResponseMessage Get([FromUri]string newUser)
         {
-            var user = iUserService.GetUser(inputUser.Username);
+            var user = iUserService.GetUser(newUser);
             if (user == null)
             {
-                var message = string.Format("User with id = {0} not found", inputUser.Username);
+                var message = string.Format("User with id = {0} not found", newUser);
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
             }
             else

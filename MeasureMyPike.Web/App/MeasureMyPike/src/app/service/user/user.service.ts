@@ -13,8 +13,16 @@ export class UserService {
             .catch(this.handleError);
     }
 
-    getUser(int: number): Observable<any[]> {
+    getUser(int: number): Observable<any> {
         return this.http.get("/api/User")
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    loginUser(username: string, password: string): Observable<any> {
+        //TODO login med lösenord
+        //komplexa objekt i gets fungerar inte?
+        return this.http.get("/api/User/" + username)
             .map(this.extractData)
             .catch(this.handleError);
     }

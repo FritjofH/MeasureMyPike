@@ -1,24 +1,30 @@
-<!--TODO: fixa hidden on not logged in-->
+ï»¿    <!--TODO: fixa hidden on not logged in-->
 <md-toolbar md-scroll-shrink [hidden]="loggedIn" style="border: thin; border-color: black;" fxLayoutAlign="center center">
-    <b>{{title}}</b>
-    <button type="button" md-icon-button>
+    <b style="padding-right:5px;">{{title}}</b>
+    <nav>
         <span mdTooltip="Din profil">
-            <md-icon>face</md-icon>
+            <a routerLink="/user" routerLinkActive="active">
+                <md-icon>face</md-icon>
+            </a>
         </span>
-    </button>
-    <button type="button" md-button>
-        <span mdTooltip="Ny fångst">
-            Ny fångst
-        </span>
-    </button>
-    <button type="button" md-icon-button>
-        <span style="text-align:right;" mdTooltip="Logga ut">
-            <md-icon>close</md-icon>
-        </span>
-    </button>
-</md-toolbar>
 
-<div class="grid-container">
-    <!--<app-brand-view></app-brand-view>-->
-    <app-user-view></app-user-view>
-</div>
+        <!--TODO: Fixa catch i frontend-->
+        <!--<span mdTooltip="Ny fÃ¥ngst">
+            <a routerlink="/user">
+                <md-icon>add</md-icon>
+            </a>
+        </span>-->
+        <span style="text-align:right;" mdTooltip="DragmÃ¤rken">
+            <a routerLink="/brands" routerLinkActive="active">
+                <md-icon>list</md-icon>
+            </a>
+        </span>
+
+        <button type="button" (click)="logout()" md-icon-button>
+            <span style="text-align:right;" mdTooltip="Logga ut">
+                <md-icon>close</md-icon>
+            </span>
+        </button>
+    </nav>
+</md-toolbar>
+<router-outlet></router-outlet>

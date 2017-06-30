@@ -1,0 +1,45 @@
+﻿<div fxLayout="column" fxLayoutAlign="center center">
+    <h3>Logga in:</h3>
+    <div *ngIf="!successfulLogin">
+        <form name="loginForm">
+            <div class="row" flex>
+                <div class="col-6">
+                    <md-input-container class="wideInput">
+                        <input mdInput
+                               type="text"
+                               [ngModel]="username"
+                               name="username"
+                               placeholder="Användarnamn" />
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div class="row" flex>
+                <div class="col-6">
+                    <md-input-container>
+                        <input mdInput class="form-control"
+                               type="text"
+                               [type]="showPassword.checked ? 'text' : 'password'"
+                               [ngModel]="password"
+                               name="password"
+                               placeholder="Lösenord" />
+                    </md-input-container>
+                    <md-checkbox #showPassword><i class="material-icons">remove_red_eye</i></md-checkbox>
+                </div>
+            </div>
+
+            <div class="row" flex>
+                <div class="col-6">
+                    <input type="submit"
+                           [disabled]="username == null || password == null"
+                           name="submit"
+                           value="Logga in"
+                           (click)="login()" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="successfulLogin">
+        <p>Du är nu inloggad</p>
+    </div>
+</div>

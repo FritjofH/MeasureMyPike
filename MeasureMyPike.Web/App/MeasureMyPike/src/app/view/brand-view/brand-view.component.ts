@@ -6,6 +6,7 @@ import { BrandService } from '../../service/brand/brand.service';
   templateUrl: './brand-view.component.html',
   styleUrls: ['./brand-view.component.scss']
 })
+
 export class BrandViewComponent implements OnInit {
 
     constructor(private brandService: BrandService) { }

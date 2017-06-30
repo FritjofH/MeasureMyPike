@@ -1,7 +1,4 @@
-﻿h1 {
-    text-decoration:underline;
-}
-
-:host /deep/ .mat-icon-button {
-    line-height: 0px;
+﻿:host /deep/ .mat-icon {
+    margin-top: 8px;
+    margin-left: 4px;
 }

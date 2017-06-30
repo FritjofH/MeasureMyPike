@@ -202,11 +202,12 @@
     <Content Include="App\MeasureMyPike\.gitignore" />
     <Content Include="App\MeasureMyPike\karma.conf.js" />
     <Content Include="App\MeasureMyPike\protractor.conf.js" />
-    <Content Include="App\MeasureMyPike\src\app\app.component.css" />
     <Content Include="App\MeasureMyPike\src\app\app.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.html" />
-    <None Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.scss" />
-    <Content Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.html" />
+    <Content Include="App\MeasureMyPike\src\app\view\user-view\loginUser-view.component.scss" />
+    <None Include="App\MeasureMyPike\src\app\view\user-view\registerUser-view.component.scss" />
+    <Content Include="App\MeasureMyPike\src\app\view\user-view\loginUser-view.component.html" />
+    <Content Include="App\MeasureMyPike\src\app\view\user-view\registerUser-view.component.html" />
     <Content Include="App\MeasureMyPike\src\favicon.ico" />
     <Content Include="App\MeasureMyPike\src\Icons\big-pike.png" />
     <Content Include="App\MeasureMyPike\src\Icons\big-pike.svg" />
@@ -282,7 +283,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\MeasureMyPike\src\app\view\fish-view\" />
     <Folder Include="App_Data\" />
     <Folder Include="Views\Lure\" />
   </ItemGroup>
@@ -327,8 +327,10 @@
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\user\user.service.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.spec.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.ts" />
-    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.spec.ts" />
-    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\user-view.component.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\loginUser-view.component.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\loginUser-view.component.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\registerUser-view.component.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\registerUser-view.component.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\environments\environment.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\main.ts" />

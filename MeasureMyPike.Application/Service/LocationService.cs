@@ -39,7 +39,7 @@ namespace MeasureMyPike.Service
             return locationList;
         }
 
-        public bool UpdateLocation(int id, string name, string coordinates)
+        public bool UpdateLocation(int id, string coordinates)
         {
             var locationRepo = new LocationRepository();
             var conversionService = new ConversionService();

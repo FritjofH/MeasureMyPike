@@ -43,7 +43,7 @@ namespace MeasureMyPike
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedCatch = conn.Catch.FirstOrDefault(it => it.Id == id);
+                    var selectedCatch = conn.Catch.Include("Media").Include("Lures").Include("Location").Include("Comment").Include("Fish").Include("User").Include("WeatherData").Include("Statistics").FirstOrDefault(it => it.Id == id);
                     {
                         if (selectedCatch != null)
                         {
@@ -74,7 +74,7 @@ namespace MeasureMyPike
             {
                 using (var conn = new ModelContainer())
                 {
-                    var catchList = conn.Catch.ToList();
+                    var catchList = conn.Catch.Include("Media").Include("Lures").Include("Location").Include("Comment").Include("Fish").Include("User").Include("WeatherData").Include("Statistics").ToList();
                     return catchList;
                 }
             }
@@ -108,6 +108,7 @@ namespace MeasureMyPike
                     catchToUpdate.WeatherData = changedCatch.WeatherData;
                     catchToUpdate.Comment = changedCatch.Comment;
                     catchToUpdate.Fish = changedCatch.Fish;
+                    catchToUpdate.Statistics = changedCatch.Statistics;
                     conn.SaveChanges();
 
                     return true;

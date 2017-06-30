@@ -8,6 +8,6 @@ namespace MeasureMyPike.Service
         bool DeleteLocation(int id);
         Location GetLocation(int id);
         LocationDO GetLocationDO(int id);
-        bool UpdateLocation(int id, string name, string coordinates);
+        bool UpdateLocation(int id, string coordinates);
     }
 }

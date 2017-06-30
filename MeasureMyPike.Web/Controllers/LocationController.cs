@@ -21,10 +21,10 @@ namespace MeasureMyPike.Controllers
         }
 
         // PUT: api/Location/5
-        public void Put(int id, string name, string coordinates)
+        public void Put(int id, string coordinates)
         {
             LocationService cs = new LocationService();
-            cs.UpdateLocation(id, name, coordinates);
+            cs.UpdateLocation(id, coordinates);
         }
 
         // DELETE: api/Location/5

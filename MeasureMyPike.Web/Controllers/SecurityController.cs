@@ -31,6 +31,7 @@ namespace MeasureMyPike.Controllers
             }
             else
             {
+                //här ska jwt fixas
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }

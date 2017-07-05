@@ -1,11 +1,13 @@
 ﻿import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Http, Response } from '@angular/http';
+import { contentHeaders } from '../../common/headers';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserService {
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, public router: Router) { }
 
     getUsers(): Observable<any[]> {
         return this.http.get("/api/User")
@@ -19,12 +21,18 @@ export class UserService {
             .catch(this.handleError);
     }
 
-    loginUser(username: string, password: string): Observable<any> {
-        //TODO login med lösenord
-        //komplexa objekt i gets fungerar inte?
-        return this.http.get("/api/User/" + username)
-            .map(this.extractData)
-            .catch(this.handleError);
+    login(username: string, password: string) {
+        this.http.post('/api/Security', { "username": username, "password": password }, { headers: contentHeaders })
+            .subscribe(
+            response => {
+                localStorage.setItem('id_token', response.json().id_token);
+                this.router.navigate(['brands']);
+            },
+            error => {
+                alert(error.text());
+                console.log(error.text());
+            }
+            );
     }
 
     registerUser(lastName: string, firstName: string, username: string, password: string): Observable<any> {

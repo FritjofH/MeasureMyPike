@@ -22,7 +22,6 @@ namespace MeasureMyPike.Controllers
         }
 
         // GET: api/User/5
-        //går inte igenom från frontend
         [HttpGet]
         public HttpResponseMessage Get([FromUri]string newUser)
         {

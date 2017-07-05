@@ -7,6 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations/';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AUTH_PROVIDERS } from 'angular2-jwt';
+
+import { AuthGuard } from './common/auth.guard';
 import { AppComponent } from './app.component';
 import { BrandService } from './service/brand/brand.service';
 import { BrandViewComponent } from './view/brand-view/brand-view.component';
@@ -16,15 +19,23 @@ import { LoginUserViewComponent } from './view/user-view/loginUser-view.componen
 
 const appRoutes: Routes = [
     {
-        path: 'user',
+        path: 'signup',
         component: RegisterUserViewComponent
     },
     {
         path: 'brands',
-        component: BrandViewComponent
+        component: BrandViewComponent, canActivate: [AuthGuard]
     },
     {
         path: '',
+        component: LoginUserViewComponent
+    },
+    {
+        path: '**',
+        component: LoginUserViewComponent
+    },
+    {
+        path: 'login',
         component: LoginUserViewComponent
     }
 ];
@@ -53,7 +64,9 @@ const appRoutes: Routes = [
     ],
     providers: [
         BrandService,
-        UserService
+        UserService,
+        AuthGuard,
+        AUTH_PROVIDERS
     ],
     bootstrap: [AppComponent]
 })

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,22 +10,12 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
     public title = 'MeasureMyPike';
-    public loggedIn: boolean = true;
-    public brandViewVisible: boolean = false;
-    public userViewVisible: boolean = false;
-    public catchViewVisible: boolean = false;
 
-    constructor() {
+    constructor(public router: Router) {
     }
 
-    public logout() {
-        this.hideAll();
-        this.loggedIn = false;
-    }
-
-    private hideAll() {
-        this.brandViewVisible = false;
-        this.catchViewVisible = false;
-        this.userViewVisible = false;
+    logout() {
+        localStorage.removeItem('id_token');
+        this.router.navigate(['login']);
     }
 }

@@ -7,7 +7,7 @@
                     <md-input-container class="wideInput">
                         <input mdInput
                                type="text"
-                               [ngModel]="username"
+                               #username
                                name="username"
                                placeholder="Användarnamn" />
                     </md-input-container>
@@ -20,7 +20,7 @@
                         <input mdInput class="form-control"
                                type="text"
                                [type]="showPassword.checked ? 'text' : 'password'"
-                               [ngModel]="password"
+                               #password
                                name="password"
                                placeholder="Lösenord" />
                     </md-input-container>
@@ -34,10 +34,11 @@
                            [disabled]="username == null || password == null"
                            name="submit"
                            value="Logga in"
-                           (click)="login()" />
+                           (click)="login($event, username.value, password.value)" />
                 </div>
             </div>
         </form>
+        <a [routerLink]="['/signup']">Click here to Signup</a>
     </div>
     <div *ngIf="successfulLogin">
         <p>Du är nu inloggad</p>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from '../../service/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-user-view',
@@ -7,28 +8,17 @@ import { UserService } from '../../service/user/user.service';
     styleUrls: ['./loginUser-view.component.scss']
 })
 
-export class LoginUserViewComponent implements OnInit {
-    
-    public username: string;
-    public password: string;
-    public submitted: boolean;
-    public successfulLogin: boolean;
-
-    constructor(private userService: UserService) { }
-
-    ngOnInit(): void {
-        this.username = "";
-        this.password = "";
-        this.submitted = false;
-        this.successfulLogin = false;
+export class LoginUserViewComponent {
+    constructor(private userService: UserService, public router: Router) {
     }
 
+    login(event, username, password) {
+        event.preventDefault();
+        this.userService.login(username, password);
+    }
 
-    public login() {
-        this.submitted = true;
-        this.userService.loginUser(this.username, this.password).subscribe(it => {
-            this.successfulLogin = true;
-        })
+    signup(event) {
+        event.preventDefault();
+        this.router.navigate(['signup']);
     }
 }
-

@@ -1,4 +1,5 @@
-﻿using MeasureMyPike.Repo;
+﻿using MeasureMyPike.Models.Application;
+using MeasureMyPike.Repo;
 using System;
 using System.Security.Cryptography;
 
@@ -21,15 +22,17 @@ namespace MeasureMyPike.Service
             return Convert.ToBase64String(hashBytes);
         }
 
-        public bool Login(string username, string password)
+        public User Login(string username, string password)
         {
-            UserRepository userRepo = new UserRepository();
+            var userRepo = new UserRepository();
+            var userService = new UserService();
 
-            string hashString = userRepo.GetUserPasswordHash(username);
+            var user = userService.GetUser(username);
+            var hashString = userRepo.GetUserPasswordHash(username);
             if (hashString == null)
             {
                 Console.WriteLine("Username "+username+" not found or password is empty");
-                return false;
+                return null;
             }
             Console.WriteLine("Username " + username + " found with hashString = " + hashString);
 
@@ -44,9 +47,9 @@ namespace MeasureMyPike.Service
                 if (hashBytes[i + 16] != hash[i])
                 {
                     //throw new UnauthorizedAccessException();
-                    return false;
+                    return null;
                 }
-            return true;
+            return user;
         }
     }
 }

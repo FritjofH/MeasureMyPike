@@ -48,7 +48,7 @@ namespace ApplicationTest
             Assert.IsNotNull(result, "Kunde inte skapa tillfällig användare "+userid);
 
             var loginResult = ss.Login(userid, pass);
-            Assert.IsTrue(loginResult,"Det gick inte logga in med korrekt lösenord");
+            Assert.IsNotNull(loginResult,"Det gick inte logga in med korrekt lösenord");
 
             //cleanup
             Assert.IsTrue(us.DeleteUser(userid), "Kan inte radera tillfällig användare " + userid);
@@ -70,7 +70,7 @@ namespace ApplicationTest
             Assert.IsNotNull(result, "Kunde inte skapa tillfällig användare " + userid);
 
             var loginResult = ss.Login(userid, felpass);
-            Assert.IsFalse(loginResult, "Det gick logga in med fel lösenord");
+            Assert.IsNotNull(loginResult, "Det gick logga in med fel lösenord");
 
             //cleanup
             Assert.IsTrue(us.DeleteUser(userid), "Kan inte radera tillfällig användare " + userid);

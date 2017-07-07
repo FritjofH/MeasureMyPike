@@ -1,13 +1,13 @@
 ﻿<div fxLayout="column" fxLayoutAlign="center center">
     <h3>Logga in:</h3>
-    <div *ngIf="!successfulLogin">
+    <div>
         <form name="loginForm">
             <div class="row" flex>
                 <div class="col-6">
                     <md-input-container class="wideInput">
                         <input mdInput
                                type="text"
-                               #username
+                               [(ngModel)]="username"
                                name="username"
                                placeholder="Användarnamn" />
                     </md-input-container>
@@ -20,7 +20,7 @@
                         <input mdInput class="form-control"
                                type="text"
                                [type]="showPassword.checked ? 'text' : 'password'"
-                               #password
+                               [(ngModel)]="password" 
                                name="password"
                                placeholder="Lösenord" />
                     </md-input-container>
@@ -28,19 +28,18 @@
                 </div>
             </div>
 
-            <div class="row" flex>
+            <div class="row">
                 <div class="col-6">
                     <input type="submit"
-                           [disabled]="username == null || password == null"
+                           [disabled]="username == null || password == null || username.length < 4 || password.length < 4"
                            name="submit"
                            value="Logga in"
-                           (click)="login($event, username.value, password.value)" />
+                           (click)="login($event)" />
                 </div>
             </div>
         </form>
-        <a [routerLink]="['/signup']">Click here to Signup</a>
-    </div>
-    <div *ngIf="successfulLogin">
-        <p>Du är nu inloggad</p>
+        <div class="row">
+            <a [routerLink]="['/signup']"><p>Click here to Signup</p></a>
+        </div>
     </div>
 </div>

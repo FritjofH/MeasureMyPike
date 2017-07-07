@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 
 namespace MeasureMyPike.Controllers
@@ -24,17 +25,19 @@ namespace MeasureMyPike.Controllers
         public HttpResponseMessage Post([FromBody]LoginUser loginUser)
         {
             var user = isecurityService.Login(loginUser.Username, loginUser.Password);
-            if (user == false)
+            if (user == null)
             {
                 var message = string.Format("Fel lösenord eller användarnamn");
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
             }
-            else
-            {
-                //här ska jwt fixas
 
-                return Request.CreateResponse(HttpStatusCode.OK);
-            }
+            //här ska jwt fixas
+            var token = TokenManager.CreateToken(user);
+
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            responseMessage.Headers.Add("token", token);
+
+            return responseMessage;
         }
     }
 }

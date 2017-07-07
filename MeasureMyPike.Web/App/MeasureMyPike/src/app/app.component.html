@@ -2,7 +2,13 @@
 <md-toolbar md-scroll-shrink [hidden]="loggedIn" style="border: thin; border-color: black;" fxLayoutAlign="center center">
     <b style="padding-right:5px;">{{title}}</b>
     <nav>
-        <span mdTooltip="Din profil">
+        <span *ngIf="!loggedIn()" mdTooltip="Logga in">
+            <a routerLink="/login" routerLinkActive="active">
+                <md-icon>face</md-icon>
+            </a>
+        </span>
+
+        <span *ngIf="loggedIn()" mdTooltip="Din profil">
             <a routerLink="/user" routerLinkActive="active">
                 <md-icon>face</md-icon>
             </a>
@@ -14,13 +20,13 @@
                 <md-icon>add</md-icon>
             </a>
         </span>-->
-        <span style="text-align:right;" mdTooltip="Dragmärken">
+        <span *ngIf="loggedIn()" style="text-align:right;" mdTooltip="Dragmärken">
             <a routerLink="/brands" routerLinkActive="active">
                 <md-icon>list</md-icon>
             </a>
         </span>
 
-        <button type="button" (click)="logout()" md-icon-button>
+        <button *ngIf="loggedIn()" type="button" (click)="logout()" md-icon-button>
             <span style="text-align:right;" mdTooltip="Logga ut">
                 <md-icon>close</md-icon>
             </span>

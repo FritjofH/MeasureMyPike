@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { MaterialModule, MdCheckboxModule, MdInputModule, MdButtonModule, MdTooltipModule } from '@angular/material';
+import { MaterialModule, MdCheckboxModule, MdInputModule, MdButtonModule, MdTooltipModule, MdDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations/';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
@@ -14,13 +14,15 @@ import { AppComponent } from './app.component';
 import { BrandService } from './service/brand/brand.service';
 import { BrandViewComponent } from './view/brand-view/brand-view.component';
 import { UserService } from './service/user/user.service';
-import { RegisterUserViewComponent } from './view/user-view/registerUser-view.component';
-import { LoginUserViewComponent } from './view/user-view/loginUser-view.component';
+import { UserRegisterViewComponent } from './view/user-view/Register/userRegister-view.component';
+import { UserLoginViewComponent } from './view/user-view/Login/userLogin-view.component';
+import { UserProfileViewComponent } from './view/user-view/Profile/userProfile-view.component';
+import { LogoutDialogComponent } from './common/logout/logoutDialog.component';
 
 const appRoutes: Routes = [
     {
         path: 'signup',
-        component: RegisterUserViewComponent
+        component: UserRegisterViewComponent
     },
     {
         path: 'brands',
@@ -28,15 +30,15 @@ const appRoutes: Routes = [
     },
     {
         path: '',
-        component: LoginUserViewComponent
+        component: UserLoginViewComponent
     },
     {
         path: '**',
-        component: LoginUserViewComponent
+        component: UserLoginViewComponent
     },
     {
         path: 'login',
-        component: LoginUserViewComponent
+        component: UserLoginViewComponent
     }
 ];
 
@@ -44,8 +46,10 @@ const appRoutes: Routes = [
     declarations: [
         AppComponent,
         BrandViewComponent,
-        RegisterUserViewComponent,
-        LoginUserViewComponent
+        UserRegisterViewComponent,
+        UserLoginViewComponent,
+        UserProfileViewComponent,
+        LogoutDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -60,13 +64,17 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         FlexLayoutModule,
         MdButtonModule,
-        MdTooltipModule
+        MdTooltipModule,
+        MdDialogModule
     ],
     providers: [
         BrandService,
         UserService,
         AuthGuard,
         AUTH_PROVIDERS
+    ],
+    entryComponents: [
+        LogoutDialogComponent
     ],
     bootstrap: [AppComponent]
 })

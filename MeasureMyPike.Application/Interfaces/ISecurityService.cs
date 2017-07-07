@@ -1,8 +1,10 @@
-﻿namespace MeasureMyPike.Service
+﻿using MeasureMyPike.Models.Application;
+
+namespace MeasureMyPike.Service
 {
     public interface ISecurityService
     {
         string HashAndSaltPassword(string password);
-        bool Login(string username, string password);
+        User Login(string username, string password);
     }
 }

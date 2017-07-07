@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Http, Response } from '@angular/http';
+import { tokenNotExpired } from 'angular2-jwt';
 import { contentHeaders } from '../../common/headers';
 import { Router } from '@angular/router';
 
@@ -25,7 +26,7 @@ export class UserService {
         this.http.post('/api/Security', { "username": username, "password": password }, { headers: contentHeaders })
             .subscribe(
             response => {
-                localStorage.setItem('id_token', response.json().id_token);
+                sessionStorage.setItem('token', response.headers.get('token'));
                 this.router.navigate(['brands']);
             },
             error => {
@@ -39,6 +40,15 @@ export class UserService {
         return this.http.post("/api/User", {"lastName": lastName, "firstName": firstName, "username": username, "password": password })
             .map(this.extractData)
             .catch(this.handleError);
+    }
+
+    public loggedIn() {
+        return tokenNotExpired();
+    }
+
+    logout() {
+        sessionStorage.removeItem('token');
+        this.router.navigate(['login']);
     }
 
     private extractData(res: Response) {

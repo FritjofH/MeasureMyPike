@@ -1,26 +1,42 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Http, Response } from '@angular/http';
+import { AuthHttp, JwtHelper } from 'angular2-jwt';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class BrandService {
 
-    constructor(private http: Http) { }
+    jwt: string;
+    decodedJwt: string;
+    response: string;
+    api: string;
+    jwtHelper: JwtHelper = new JwtHelper();
+    jwtExpired: any;
+    jwtDate: any;
+
+    constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
+        this.jwt = sessionStorage.getItem('token');
+
+        this.decodedJwt = this.jwtHelper.decodeToken(this.jwt);
+        this.jwtDate = this.jwtHelper.getTokenExpirationDate(this.jwt);
+        this.jwtExpired = this.jwtHelper.isTokenExpired(this.jwt);
+    }
 
     getBrands(): Observable<any[]> {
-        return this.http.get("/api/Brand")
+        return this.authHttp.get("/api/Brand")
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     getBrand(int: number): Observable<any[]> {
-            return this.http.get("/api/Brand")
+        return this.authHttp.get("/api/Brand")
                 .map(this.extractData)
                 .catch(this.handleError);
     }
 
     updateBrand(id: number, name: string): Observable<any[]> {
-        return this.http.put("/api/Brand", { "id": id, "name": name })
+        return this.authHttp.put("/api/Brand", { "id": id, "name": name })
             .map(this.extractData)
             .catch(this.handleError);
     }

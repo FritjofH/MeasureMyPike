@@ -16,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MeasureMyPike</RootNamespace>
     <AssemblyName>MeasureMyPike</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -28,6 +28,7 @@
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,22 +59,32 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.4\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -122,6 +133,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -166,6 +178,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\LureController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\TokenManager.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\BrandController.cs" />
     <Compile Include="Controllers\CatchController.cs" />
@@ -183,10 +196,15 @@
     <Content Include="App\MeasureMyPike\protractor.conf.js" />
     <Content Include="App\MeasureMyPike\src\app\app.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.html" />
-    <Content Include="App\MeasureMyPike\src\app\view\user-view\loginUser-view.component.scss" />
-    <None Include="App\MeasureMyPike\src\app\view\user-view\registerUser-view.component.scss" />
-    <Content Include="App\MeasureMyPike\src\app\view\user-view\loginUser-view.component.html" />
-    <Content Include="App\MeasureMyPike\src\app\view\user-view\registerUser-view.component.html" />
+    <Content Include="App\MeasureMyPike\src\app\view\home-view\home-view.component.html" />
+    <Content Include="App\MeasureMyPike\src\app\view\user-view\Login\userLogin-view.component.scss" />
+    <Content Include="App\MeasureMyPike\src\app\view\user-view\Profile\userProfile-view.component.scss" />
+    <Content Include="App\MeasureMyPike\src\app\common\logout\logoutDialog.component.scss" />
+    <Content Include="App\MeasureMyPike\src\app\view\home-view\home-view.component.scss" />
+    <None Include="App\MeasureMyPike\src\app\view\user-view\Register\userRegister-view.component.scss" />
+    <Content Include="App\MeasureMyPike\src\app\view\user-view\Login\userLogin-view.component.html" />
+    <Content Include="App\MeasureMyPike\src\app\view\user-view\Profile\userProfile-view.component.html" />
+    <Content Include="App\MeasureMyPike\src\app\view\user-view\Register\userRegister-view.component.html" />
     <Content Include="App\MeasureMyPike\src\favicon.ico" />
     <Content Include="App\MeasureMyPike\src\Icons\big-pike.png" />
     <Content Include="App\MeasureMyPike\src\Icons\big-pike.svg" />
@@ -301,16 +319,25 @@
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\app.component.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\app.module.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\common\headers.ts" />
+    <Content Include="App\MeasureMyPike\src\app\common\logout\logoutDialog.component.html" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\common\logout\logoutDialog.component.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\common\logout\logoutDialog.component.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\brand\brand.service.spec.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\brand\brand.service.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\home\home.service.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\home\home.service.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\user\user.service.spec.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\user\user.service.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.spec.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.ts" />
-    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\loginUser-view.component.ts" />
-    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\loginUser-view.component.spec.ts" />
-    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\registerUser-view.component.spec.ts" />
-    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\registerUser-view.component.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\home-view\home-view.component.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\home-view\home-view.component.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\Login\userLogin-view.component.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\Login\userLogin-view.component.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\Profile\userProfile-view.component.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\Profile\userProfile-view.component.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\Register\userRegister-view.component.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\Register\userRegister-view.component.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\common\auth.guard.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\environments\environment.ts" />

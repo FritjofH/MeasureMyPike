@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate {
         }
 
         // If not, they redirect them to the login page
+        sessionStorage.removeItem('token');
         this.router.navigate(['/login']);
         return false;
     }

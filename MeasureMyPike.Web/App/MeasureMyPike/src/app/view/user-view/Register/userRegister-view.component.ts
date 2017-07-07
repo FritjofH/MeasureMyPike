@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../service/user/user.service';
+import { UserService } from '../../../service/user/user.service';
 
 @Component({
     selector: 'app-user-view',
-    templateUrl: './registerUser-view.component.html',
-    styleUrls: ['./registerUser-view.component.scss']
+    templateUrl: './userRegister-view.component.html',
+    styleUrls: ['./userRegister-view.component.scss']
 })
 
-export class RegisterUserViewComponent implements OnInit {
+export class UserRegisterViewComponent implements OnInit {
 
     public firstName: string;
     public lastName: string;

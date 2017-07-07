@@ -1,4 +1,5 @@
-﻿using MeasureMyPike.Repo;
+﻿using MeasureMyPike.Application.Common;
+using MeasureMyPike.Repo;
 using MeasureMyPike.Models.Application;
 using MeasureMyPike.Domain.Models;
 using MeasureMyPike.Application.Interfaces;
@@ -9,7 +10,7 @@ namespace MeasureMyPike.Service
     {
         public Fish GetFish(int id)
         {
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var fishRepo = new FishRepository();
             var selectedFish = fishRepo.GetFish(id);
 
@@ -33,7 +34,7 @@ namespace MeasureMyPike.Service
 
         public bool UpdateFish(int id, string length, string weight)
         {
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var fishRepo = new FishRepository();
             return fishRepo.UpdateFish(id, length, weight);
         }

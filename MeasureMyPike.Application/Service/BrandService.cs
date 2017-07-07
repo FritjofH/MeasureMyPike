@@ -1,4 +1,5 @@
 ﻿using MeasureMyPike.Models.Application;
+using MeasureMyPike.Application.Common;
 using MeasureMyPike.Domain.Models;
 using MeasureMyPike.Repo;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace MeasureMyPike.Service
         {
             
             var newBrand = new BrandDO { Name = name };
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var savedBrand = iBrandRepository.AddBrand(newBrand);
 
             return conversionService.ConvertToBrand(savedBrand);
@@ -23,7 +24,7 @@ namespace MeasureMyPike.Service
 
         public Brand GetBrand(int id)
         {
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var selectedBrand = iBrandRepository.GetBrand(id);
 
             return conversionService.ConvertToBrand(selectedBrand);
@@ -38,7 +39,7 @@ namespace MeasureMyPike.Service
 
         public List<Brand> GetAllBrands()
         {
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var brandList = new List<Brand>();
             var brands = iBrandRepository.GetAllBrands();
 
@@ -52,7 +53,7 @@ namespace MeasureMyPike.Service
 
         public bool UpdateBrand(int id, string newName)
         {
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var brandToUpdate = GetBrandDO(id);
             brandToUpdate.Name = newName;
             return iBrandRepository.UpdateBrand(brandToUpdate);

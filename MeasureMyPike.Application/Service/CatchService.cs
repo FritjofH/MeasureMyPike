@@ -4,6 +4,7 @@ using MeasureMyPike.Domain.Models;
 using MeasureMyPike.Service;
 using System;
 using System.Collections.Generic;
+using MeasureMyPike.Application.Common;
 
 public class CatchService : ICatchService
 {
@@ -14,7 +15,7 @@ public class CatchService : ICatchService
         var lakeService = new LakeService();
         var locationService = new LocationService();
         var mediaList = new List<MediaDO>();
-        var conversionService = new ConversionService();
+        var conversionService = new ConversionUtil();
         var userService = new UserService();
         string moonposition = ""; 
         if (additionalInformation.Length > 0)
@@ -55,7 +56,7 @@ public class CatchService : ICatchService
     {
         var catchRepo = new CatchRepository();
         var selectedCatch = catchRepo.GetCatch(id);
-        var conversionService = new ConversionService();
+        var conversionService = new ConversionUtil();
 
         return conversionService.ConvertToCatch(selectedCatch);
     }
@@ -71,7 +72,7 @@ public class CatchService : ICatchService
     {
         var catchRepo = new CatchRepository();
         var catchList = new List<Catch>();
-        var conversionService = new ConversionService();
+        var conversionService = new ConversionUtil();
 
         foreach (var catchDO in catchRepo.GetAllCatch())
         {

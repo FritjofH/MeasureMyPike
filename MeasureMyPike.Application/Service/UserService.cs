@@ -1,5 +1,6 @@
 ﻿using MeasureMyPike.Models.Application;
 using MeasureMyPike.Domain.Models;
+using MeasureMyPike.Application.Common;
 using MeasureMyPike.Repo;
 using System;
 
@@ -22,7 +23,7 @@ namespace MeasureMyPike.Service
                 TackleBox = new TackleBoxDO { } // create empty tacklebox for the user
             };
             var createdUser = userRepo.AddUser(user);
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
 
             return conversionService.ConvertToUser(createdUser);
         }
@@ -30,7 +31,7 @@ namespace MeasureMyPike.Service
         public User GetUser(string username)
         {
             var selectedUser = GetUserDO(username);
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
 
             return conversionService.ConvertToUser(selectedUser);
         }

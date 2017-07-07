@@ -1,4 +1,5 @@
-﻿using MeasureMyPike.Models.Application;
+﻿using MeasureMyPike.Application.Common;
+using MeasureMyPike.Models.Application;
 using MeasureMyPike.Repo;
 using System;
 using System.Security.Cryptography;

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\MoonUtil.cs" />
     <Compile Include="Interfaces\IBrandService.cs" />
     <Compile Include="Interfaces\ICatchService.cs" />
     <Compile Include="Interfaces\IFishService.cs" />
@@ -54,7 +55,6 @@
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\Catch.cs" />
-    <Compile Include="Models\CatchInputVO.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Fish.cs" />
     <Compile Include="Models\Lake.cs" />
@@ -69,7 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\BrandService.cs" />
     <Compile Include="Service\CatchService.cs" />
-    <Compile Include="Service\ConversionService.cs" />
+    <Compile Include="Common\ConversionUtil.cs" />
     <Compile Include="Service\FishService.cs" />
     <Compile Include="Service\LakeService.cs" />
     <Compile Include="Service\LocationService.cs" />

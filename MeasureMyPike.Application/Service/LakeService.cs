@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MeasureMyPike.Application.Common;
+using System.Collections.Generic;
 using MeasureMyPike.Repo;
 using MeasureMyPike.Domain.Models;
 using MeasureMyPike.Models.Application;
@@ -12,7 +13,7 @@ namespace MeasureMyPike.Service
         public Lake AddLake(string name)
         {
             var lakeRepo = new LakeRepository();
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var lake = new LakeDO { Name = name };
             var createdLake = lakeRepo.AddLake(lake);
 
@@ -32,7 +33,7 @@ namespace MeasureMyPike.Service
         public List<Lake> GetAllLakes()
         {
             var lakeRepo = new LakeRepository();
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var lakeList = new List<Lake>();
 
             foreach (var lake in lakeRepo.GetAllLakes())
@@ -46,7 +47,7 @@ namespace MeasureMyPike.Service
         public Lake GetLake(int id)
         {
             var lake = GetLakeDO(id);
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
 
             return conversionService.ConvertToLake(lake);
 
@@ -55,7 +56,7 @@ namespace MeasureMyPike.Service
         public Lake GetLake(string name)
         {
             var lake = GetLakeDO(name);
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
 
             return conversionService.ConvertToLake(lake);
         }
@@ -63,7 +64,7 @@ namespace MeasureMyPike.Service
         public LakeDO GetLakeDO(int id)
         {
             var lakeRepo = new LakeRepository();
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var lake = lakeRepo.GetLake(id);
 
             return lake;
@@ -72,7 +73,7 @@ namespace MeasureMyPike.Service
         public LakeDO GetLakeDO(string name)
         {
             var lakeRepo = new LakeRepository();
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var lake = lakeRepo.GetLake(name);
 
             return lake;

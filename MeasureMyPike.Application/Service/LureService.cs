@@ -1,4 +1,5 @@
-﻿using MeasureMyPike.Domain.Models;
+﻿using MeasureMyPike.Application.Common;
+using MeasureMyPike.Domain.Models;
 using MeasureMyPike.Repo;
 using MeasureMyPike.Models.Application;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace MeasureMyPike.Service
         {
             var lureRepo = new LureRepository();
             var brandService = new BrandService();
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var lure = new LureDO
             {
                 Name = lureName,
@@ -27,7 +28,7 @@ namespace MeasureMyPike.Service
 
         public Lure GetLure(int id)
         {
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var selectedLure = GetLureDO(id);
 
             return conversionService.ConvertToLure(selectedLure);
@@ -44,7 +45,7 @@ namespace MeasureMyPike.Service
         public List<Lure> GetAllLures()
         {
             var lureRepo = new LureRepository();
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var lureList = new List<Lure>();
 
             foreach (var lure in lureRepo.GetAllLures())

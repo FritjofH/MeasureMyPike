@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MeasureMyPike.Service
+namespace MeasureMyPike.Application.Common
 {
-    public class ConversionService
+    public class ConversionUtil
     {
         public Lure ConvertToLure(LureDO lureToConvert)
         {

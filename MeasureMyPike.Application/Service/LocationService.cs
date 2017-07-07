@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MeasureMyPike.Application.Common;
+using System.Collections.Generic;
 using MeasureMyPike.Repo;
 using MeasureMyPike.Domain.Models;
 using MeasureMyPike.Models.Application;
@@ -11,7 +12,7 @@ namespace MeasureMyPike.Service
         public Location GetLocation(int id)
         {
             var locationRepo = new LocationRepository();
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var location = locationRepo.GetLocation(id);
 
             return conversionService.ConvertToLocation(location);
@@ -28,7 +29,7 @@ namespace MeasureMyPike.Service
         public List<Location> GetAllLocations()
         {
             var locationRepo = new LocationRepository();
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             var locationList = new List<Location>();
 
             foreach (var location in locationRepo.GetAllLocations())
@@ -42,7 +43,7 @@ namespace MeasureMyPike.Service
         public bool UpdateLocation(int id, string coordinates)
         {
             var locationRepo = new LocationRepository();
-            var conversionService = new ConversionService();
+            var conversionService = new ConversionUtil();
             return locationRepo.UpdateLocation(id, coordinates);
         }
 

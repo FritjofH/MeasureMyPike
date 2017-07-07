@@ -1,17 +1,10 @@
-﻿.list-group-item {
-    padding-bottom: 2px;
-    padding-top: 2px;
-    padding-left: 2px;
-    padding-right: 2px;
-
-    p {
-        margin: 0px 0px 0px 0px;
-    }
-}
-
-.overflow-list {
+﻿.overflow-list {
     overflow: scroll;
     overflow-x: hidden;
     max-height: 400px;
     max-width: 400px;
+}
+
+:host /deep/ .mat-list .mat-list-item .mat-list-item-content, .mat-nav-list .mat-list-item .mat-list-item-content {
+    height: 35px;
 }

@@ -1,12 +1,12 @@
 ﻿<div class="row" fxLayout="column" fxLayoutAlign="center center">
     <h3>Dragmärken:</h3>
     <div class="col-6 overflow-list" flex="grow">
-        <ul class="list-group">
-            <li class="list-group-item" [class.active]="selectedBrand?.id == brand.id" *ngFor="let brand of brandList" (click)="getBrand(brand)">
+        <md-list>
+            <md-list-item [class.active]="selectedBrand?.id == brand.id" *ngFor="let brand of brandList" (click)="getBrand(brand)">
                 <p>{{brand.name}}</p>
-            </li>
-        </ul>
-    </div>
+            </md-list-item>
+        </md-list>
+</div>
 </div>
 
 <div>

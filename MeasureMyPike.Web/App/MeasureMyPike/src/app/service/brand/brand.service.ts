@@ -16,7 +16,7 @@ export class BrandService {
     jwtDate: any;
 
     constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
-        this.jwt = sessionStorage.getItem('token');
+        this.jwt = localStorage.getItem('token');
 
         this.decodedJwt = this.jwtHelper.decodeToken(this.jwt);
         this.jwtDate = this.jwtHelper.getTokenExpirationDate(this.jwt);

@@ -26,7 +26,7 @@ export class UserService {
         this.http.post('/api/Security', { "username": username, "password": password }, { headers: contentHeaders })
             .subscribe(
             response => {
-                sessionStorage.setItem('token', response.headers.get('token'));
+                localStorage.setItem('token', response.headers.get('token'));
                 this.router.navigate(['brands']);
             },
             error => {
@@ -47,7 +47,7 @@ export class UserService {
     }
 
     logout() {
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
         this.router.navigate(['login']);
     }
 

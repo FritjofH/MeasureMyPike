@@ -1,22 +1,22 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
+import { UserService } from '../../service/user/user.service';
 
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private router: Router) { }
+    constructor(private router: Router, private userService: UserService) { 
+}
 
     canActivate() {
         // Check to see if a user has a valid JWT
         if (tokenNotExpired()) {
-            // If they do, return true and allow the user to load the home component
             return true;
         }
 
         // If not, they redirect them to the login page
-        sessionStorage.removeItem('token');
-        this.router.navigate(['/login']);
+        this.userService.logout();
         return false;
     }
 }

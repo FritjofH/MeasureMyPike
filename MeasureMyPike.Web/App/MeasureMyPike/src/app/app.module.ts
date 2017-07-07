@@ -9,15 +9,20 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 
-import { AuthGuard } from './common/auth.guard';
-import { AppComponent } from './app.component';
 import { BrandService } from './service/brand/brand.service';
-import { BrandViewComponent } from './view/brand-view/brand-view.component';
 import { UserService } from './service/user/user.service';
+import { HomeService } from './service/home/home.service';
+
+import { AppComponent } from './app.component';
+import { BrandViewComponent } from './view/brand-view/brand-view.component';
 import { UserRegisterViewComponent } from './view/user-view/Register/userRegister-view.component';
 import { UserLoginViewComponent } from './view/user-view/Login/userLogin-view.component';
 import { UserProfileViewComponent } from './view/user-view/Profile/userProfile-view.component';
 import { LogoutDialogComponent } from './common/logout/logoutDialog.component';
+import { ToolbarComponent } from './common/toolbar/toolbar.component';
+import { HomeViewComponent } from './view/home-view/home-view.component';
+
+import { AuthGuard } from './common/auth/auth.guard';
 
 const appRoutes: Routes = [
     {
@@ -29,16 +34,16 @@ const appRoutes: Routes = [
         component: BrandViewComponent, canActivate: [AuthGuard]
     },
     {
-        path: '',
-        component: UserLoginViewComponent
-    },
-    {
-        path: '**',
-        component: UserLoginViewComponent
+        path: 'home',
+        component: HomeViewComponent
     },
     {
         path: 'login',
         component: UserLoginViewComponent
+    },
+    {
+        path: '**',
+        component: HomeViewComponent
     }
 ];
 
@@ -49,7 +54,9 @@ const appRoutes: Routes = [
         UserRegisterViewComponent,
         UserLoginViewComponent,
         UserProfileViewComponent,
-        LogoutDialogComponent
+        LogoutDialogComponent,
+        ToolbarComponent,
+        HomeViewComponent
     ],
     imports: [
         BrowserModule,
@@ -70,6 +77,7 @@ const appRoutes: Routes = [
     providers: [
         BrandService,
         UserService,
+        HomeService,
         AuthGuard,
         AUTH_PROVIDERS
     ],

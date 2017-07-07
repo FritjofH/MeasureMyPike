@@ -1,0 +1,35 @@
+﻿<!--TODO: fixa hidden on not logged in-->
+<md-toolbar md-scroll-shrink style="margin-right: 0px;" fxLayoutAlign="center center">
+    <nav>
+        <span mdToolTip="Hem">
+            <a class="menu-padding" style="font-size:20px; vertical-align: middle;" routerLink="/home">
+                {{title}}
+            </a>
+        </span>
+        <span class="menu-padding" *ngIf="!loggedIn()" mdTooltip="Logga in">
+            <a routerLink="/login" routerLinkActive="active">
+                <md-icon>face</md-icon>
+            </a>
+        </span>
+
+        <span class="menu-padding" *ngIf="loggedIn()" mdTooltip="Din profil">
+            <a routerLink="/user" routerLinkActive="active">
+                <md-icon>face</md-icon>
+            </a>
+        </span>
+
+        <span class="menu-padding" *ngIf="loggedIn()" mdTooltip="Dragmärken">
+            <a routerLink="/brands" routerLinkActive="active">
+                <md-icon>list</md-icon>
+            </a>
+        </span>
+
+        <span class="menu-padding" *ngIf="loggedIn()" mdTooltip="Logga ut">
+            <button type="button" (click)="logout()" md-icon-button>
+                <md-icon>close</md-icon>
+            </button>
+        </span>
+    </nav>
+</md-toolbar>
+
+<router-outlet></router-outlet>

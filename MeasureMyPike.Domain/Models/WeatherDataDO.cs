@@ -15,11 +15,11 @@ namespace MeasureMyPike.Domain.Models
     public partial class WeatherDataDO
     {
         public int Id { get; set; }
-        public int Temperature { get; set; }
+        public Nullable<double> WaterTemperature { get; set; }
         public string Weather { get; set; }
         public string MoonPosition { get; set; }
+        public Nullable<double> AirTemperature { get; set; }
     
         public virtual CatchDO Catch { get; set; }
-        public virtual StatisticsDO Statistics { get; set; }
     }
 }

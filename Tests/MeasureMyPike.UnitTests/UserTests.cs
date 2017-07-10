@@ -2,7 +2,7 @@
 using MeasureMyPike.Service;
 using System;
 
-namespace ApplicationTest
+namespace MeasureMyPike.Tests
 {
     [TestClass]
     public class UserTests

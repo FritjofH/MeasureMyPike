@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MeasureMyPike.Service;
 using MeasureMyPike.Models.Application;
 
-namespace ApplicationTest
+namespace MeasureMyPike.Tests
 {
     [TestClass]
     public class LureTests

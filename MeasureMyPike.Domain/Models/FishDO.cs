@@ -19,6 +19,5 @@ namespace MeasureMyPike.Domain.Models
         public string Weight { get; set; }
     
         public virtual CatchDO Catch { get; set; }
-        public virtual StatisticsDO Statistics { get; set; }
     }
 }

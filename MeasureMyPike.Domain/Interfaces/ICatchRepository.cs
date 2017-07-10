@@ -7,7 +7,8 @@ namespace MeasureMyPike
     {
         CatchDO AddCatch(CatchDO newCatch);
         bool DeleteCatch(CatchDO catchToDelete);
-        List<CatchDO> GetAllCatch();
+        List<CatchDO> GetAllCatches();
+        List<CatchDO> GetCatches(UserDO aUser);
         CatchDO GetCatch(int id);
         bool UpdateCatch(int id, CatchDO changedCatch);
     }

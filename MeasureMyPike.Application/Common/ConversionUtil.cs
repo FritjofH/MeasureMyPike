@@ -69,7 +69,7 @@ namespace MeasureMyPike.Application.Common
                 FishId = catchToConvert.Fish.Id,
                 Id = catchToConvert.Id,
                 LocationId = catchToConvert.Location.Id,
-                LuresId = catchToConvert.Lures.Id,
+                LuresId = catchToConvert.Lure.Id,
                 MediaId = mediaList,
                 Timestamp = catchToConvert.Timestamp,
                 UserId = catchToConvert.User.Id,

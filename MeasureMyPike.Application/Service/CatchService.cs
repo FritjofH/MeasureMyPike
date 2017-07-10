@@ -8,7 +8,7 @@ using MeasureMyPike.Application.Common;
 
 public class CatchService : ICatchService
 {
-    public Catch AddCatch(byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lakeName, string coordinates, int waterTemperature, string weather, string username, params string[] additionalInformation)
+    public Catch AddCatch(byte[] image, string format, DateTime timeStamp, string comment, Lure lure, string fishWeight, string fishLength, string lakeName, string coordinates, Double waterTemperature, Double airTemperature, string weather, string username, params string[] additionalInformation)
     {
         var catchRepo = new CatchRepository();
         var lureService = new LureService();
@@ -41,11 +41,11 @@ public class CatchService : ICatchService
             User = userService.GetUserDO(username),
             Comment = new CommentDO { Text = comment },
             Media = mediaList,
-            Lures = lureService.GetLureDO(lure.Id),
+            Lure = lureService.GetLureDO(lure.Id),
             Fish = new FishDO { Length = fishLength, Weight = fishWeight },
             Location = new LocationDO { Lake = lakeDO, Coordinates = coordinates },
-            WeatherData = new WeatherDataDO { Temperature = waterTemperature, Weather = weather, MoonPosition = moonposition },
-            Timestamp = DateTime.Now    // TODO: kanske skicka med istället = fångades
+            WeatherData = new WeatherDataDO { WaterTemperature = waterTemperature, AirTemperature = airTemperature, Weather = weather, MoonPosition = moonposition },
+            Timestamp = timeStamp
         };
         var createdCatch = catchRepo.AddCatch(newCatch);
 
@@ -74,7 +74,7 @@ public class CatchService : ICatchService
         var catchList = new List<Catch>();
         var conversionService = new ConversionUtil();
 
-        foreach (var catchDO in catchRepo.GetAllCatch())
+        foreach (var catchDO in catchRepo.GetAllCatches())
         {
             catchList.Add(conversionService.ConvertToCatch(catchDO));
         }
@@ -85,7 +85,7 @@ public class CatchService : ICatchService
     // TODO: Här borde vi tänka om.
     // När man bara ska ändra tex kommentaren så ska den väl inte skapa en ny MediaDO, ny FishDO, ny LocationDO och ny WeatherDO utan bara ändra det som är icke null tex.???
     //
-    public bool UpdateCatch(int id, byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int waterTemperature, string weather, string username, params string[] additionalInformation)
+    public bool UpdateCatch(int id, byte[] image, string format, DateTime timeStamp, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, Double waterTemperature, Double airTemperature, string weather, string username, params string[] additionalInformation)
     {
         var catchRepo = new CatchRepository();
         var lureService = new LureService();
@@ -111,11 +111,11 @@ public class CatchService : ICatchService
         LakeDO lakeDO = lakeService.GetLakeDO(lake);
 
         catchToUpdate.Media.Add(new MediaDO { MediaFormat = format, Image = new MediaDataDO { Length = image.Length, Data = image } });
-        catchToUpdate.Lures = lureService.GetLureDO(lure.Id);
+        catchToUpdate.Lure = lureService.GetLureDO(lure.Id);
         catchToUpdate.Fish = new FishDO { Length = fishLength, Weight = fishWeight };
         catchToUpdate.Location = new LocationDO { Coordinates = coordinates, Lake = lakeDO };
-        catchToUpdate.WeatherData = new WeatherDataDO { Temperature = waterTemperature, Weather = weather, MoonPosition = moonposition };
-        catchToUpdate.Timestamp = DateTime.Now; // TODO: kanske skicka med istället
+        catchToUpdate.WeatherData = new WeatherDataDO { WaterTemperature = waterTemperature, AirTemperature = airTemperature, Weather = weather, MoonPosition = moonposition };
+        catchToUpdate.Timestamp = timeStamp;
 
         return catchRepo.UpdateCatch(id, catchToUpdate);
     }

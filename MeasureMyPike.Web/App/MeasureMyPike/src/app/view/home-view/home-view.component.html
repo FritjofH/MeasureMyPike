@@ -2,82 +2,76 @@
     <div fxLayoutAlign="center stretch">
         <p style="max-width: 400px; overflow-wrap: normal; padding-left: 15px; padding-right: 15px; font-size: 14px; text-align: justify;">
             <b style="font-size: 18px;">Gäddfiske</b>
-            <br />
-            Gäddfiskare är ett konstigt släkte. De fångar en fisk som inte är god, eller lätt att äta. De släpper tillbaka gäddorna i vattnet där de fångades, utan att skada dem.
-            Detta trotts att de är en rovfisk som kommer att äta upp den goda fisken som finns i vattendraget.
+            <br /> Gäddfiskare är ett konstigt släkte. De fångar en fisk som inte är god, eller lätt att äta. De släpper
+            tillbaka gäddorna i vattnet där de fångades, utan att skada dem. Detta trotts att de är en rovfisk som kommer
+            att äta upp den goda fisken som finns i vattendraget.
             <br /><br />
         </p>
     </div>
+
     <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
-        <div fxFlex="30" fxLayoutAlign="center stretch">
-            <table fxFill name="biggestFish" mdSort (mdSortChange)="sortData($event)">
-                <tr>
-                    <th md-sort-header="weight">Kilo</th>
-                    <th md-sort-header="length">Längd (cm)</th>
-                    <th md-sort-header="lake">Vattendrag</th>
-                    <th md-sort-header="user">Användare</th>
-                </tr>
-                <!--<tr *ngFor="let fish of biggestFishList">-->
-                <tr>
-                    <td>12</td>
-                    <td>55</td>
-                    <td>Storsjön</td>
-                    <td>hostf</td>
-                </tr>
-                <tr>
-                    <td>17</td>
-                    <td>90</td>
-                    <td>Käppesjön</td>
-                    <td>hostf</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>30</td>
-                    <td>Mälaren</td>
-                    <td>hostf</td>
-                </tr>
-                <tr>
-                    <td>40</td>
-                    <td>150</td>
-                    <td>Östersjön</td>
-                    <td>hostf</td>
-                </tr>
-            </table>
+        <div fxFlex="30">
+            <div fxFill fxLayout="column">
+                <h3>De 5 senaste gäddorna</h3>
+                <table fxFill name="latestFish" mdSort (mdSortChange)="sortFish($event)">
+                    <tr>
+                        <th md-sort-header="weight">Kilo</th>
+                        <th md-sort-header="length">Längd (cm)</th>
+                        <th md-sort-header="lake">Vattendrag</th>
+                        <th md-sort-header="user">Användare</th>
+                        <th md-sort-header="date">Datum</th>
+                    </tr>
+                    <tr *ngFor="let latestFish of latestFishList">
+                        <td>{{latestFish.weight}}</td>
+                        <td>{{latestFish.length}}</td>
+                        <td>{{latestFish.lake}}</td>
+                        <td>{{latestFish.user}}</td>
+                        <td>{{latestFish.date}}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div fxFlex="30" fxLayoutAlign="center stretch">
-            <table fxFill name="biggestFish" mdSort (mdSortChange)="sortData($event)">
-                <tr>
-                    <th md-sort-header="weight">Kilo</th>
-                    <th md-sort-header="length">Längd (cm)</th>
-                    <th md-sort-header="lake">Vattendrag</th>
-                    <th md-sort-header="user">Användare</th>
-                </tr>
-                <!--<tr *ngFor="let fish of biggestFishList">-->
-                <tr>
-                    <td>12</td>
-                    <td>55</td>
-                    <td>Storsjön</td>
-                    <td>hostf</td>
-                </tr>
-                <tr>
-                    <td>17</td>
-                    <td>90</td>
-                    <td>Käppesjön</td>
-                    <td>hostf</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>30</td>
-                    <td>Mälaren</td>
-                    <td>hostf</td>
-                </tr>
-                <tr>
-                    <td>40</td>
-                    <td>150</td>
-                    <td>Östersjön</td>
-                    <td>hostf</td>
-                </tr>
-            </table>
+        <div fxFlex="1"></div>
+        <div fxFlex="30">
+            <div fxFill fxLayout="column">
+                <h3>De 5 största fiskarna</h3>
+                <table fxFill name="biggestFish" mdSort (mdSortChange)="sortFish($event)">
+                    <tr>
+                        <th md-sort-header="weight">Kilo</th>
+                        <th md-sort-header="length">Längd (cm)</th>
+                        <th md-sort-header="lake">Vattendrag</th>
+                        <th md-sort-header="user">Användare</th>
+                        <th md-sort-header="date">Datum</th>
+                    </tr>
+                    <tr *ngFor="let bigFish of biggestFishList">
+                        <td>{{bigFish.weight}}</td>
+                        <td>{{bigFish.length}}</td>
+                        <td>{{bigFish.lake}}</td>
+                        <td>{{bigFish.user}}</td>
+                        <td>{{bigFish.date}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
+        <div fxFlex="30">
+            <div fxFill fxLayout="column">
+                <h3>De 5 populäraste sjöarna</h3>
+                <table fxFill name="popularLake" mdSort (mdSortChange)="sortPopularLakeData($event)">
+                    <tr>
+                        <th md-sort-header="lake">Vattendrag</th>
+                        <th md-sort-header="noCatches">Antal fångster</th>
+                        <th md-sort-header="uniqueUsers">Unika användare</th>
+                    </tr>
+                    <tr *ngFor="let popularLake of popularLakeList">
+                        <td>{{popularLake.lake}}</td>
+                        <td>{{popularLake.noCatches}}</td>
+                        <td>{{popularLake.uniqueUsers}}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>

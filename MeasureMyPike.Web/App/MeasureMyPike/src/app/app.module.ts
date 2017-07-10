@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { MaterialModule, MdCheckboxModule, MdInputModule, MdButtonModule, MdTooltipModule, MdDialogModule } from '@angular/material';
+import { MaterialModule, MdCheckboxModule, MdInputModule, MdButtonModule, MdTooltipModule, MdDialogModule, MdSortModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations/';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
@@ -72,7 +72,8 @@ const appRoutes: Routes = [
         FlexLayoutModule,
         MdButtonModule,
         MdTooltipModule,
-        MdDialogModule
+        MdDialogModule,
+        MdSortModule
     ],
     providers: [
         BrandService,

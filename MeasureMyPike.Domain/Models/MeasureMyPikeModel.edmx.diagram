@@ -22,18 +22,8 @@
         <AssociationConnector Association="Model.CatchLocation" />
         <AssociationConnector Association="Model.CatchLures" />
         <AssociationConnector Association="Model.LuresBrand" />
-        <EntityTypeShape EntityType="Model.StatisticsDO" Width="1.5" PointX="11.875" PointY="4.125" />
-        <AssociationConnector Association="Model.LuresStatistics" ManuallyRouted="true" >
-          <ConnectorPoint PointX="7" PointY="10.362488606770832" />
-          <ConnectorPoint PointX="12.90625" PointY="10.362488606770832" />
-          <ConnectorPoint PointX="12.90625" PointY="6.297587890625" />
-        </AssociationConnector>
-        <AssociationConnector Association="Model.FishStatistics" />
-        <AssociationConnector Association="Model.LocationStatistics" />
-        <AssociationConnector Association="Model.CatchStatistics" />
         <EntityTypeShape EntityType="Model.WeatherDataDO" Width="1.5" PointX="8.25" PointY="1.5" />
         <AssociationConnector Association="Model.CatchWeatherData" />
-        <AssociationConnector Association="Model.WeatherDataStatistics" />
         <EntityTypeShape EntityType="Model.SecurityDO" Width="1.5" PointX="2.625" PointY="1.125" />
         <AssociationConnector Association="Model.SecurityUser" />
         <EntityTypeShape EntityType="Model.TackleBoxDO" Width="1.5" PointX="14" PointY="9.5" />

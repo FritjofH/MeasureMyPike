@@ -29,8 +29,7 @@ namespace MeasureMyPike.Domain.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MediaDO> Media { get; set; }
         public virtual LocationDO Location { get; set; }
-        public virtual LureDO Lures { get; set; }
-        public virtual StatisticsDO Statistics { get; set; }
+        public virtual LureDO Lure { get; set; }
         public virtual WeatherDataDO WeatherData { get; set; }
     }
 }

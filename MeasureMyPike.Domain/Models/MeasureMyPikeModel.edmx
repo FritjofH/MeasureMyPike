@@ -15,7 +15,6 @@
     <EntitySet Name="Location" EntityType="Model.Store.Location" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Brand" EntityType="Model.Store.Brand" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Lure" EntityType="Model.Store.Lure" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Statistics" EntityType="Model.Store.Statistics" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="WeatherData" EntityType="Model.Store.WeatherData" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Security" EntityType="Model.Store.Security" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TackleBox" EntityType="Model.Store.TackleBox" store:Type="Tables" Schema="dbo" />
@@ -47,35 +46,15 @@
     </AssociationSet>
     <AssociationSet Name="CatchLures" Association="Model.Store.CatchLures">
       <End Role="Catch" EntitySet="Catch" />
-      <End Role="Lures" EntitySet="Lure" />
+      <End Role="Lure" EntitySet="Lure" />
     </AssociationSet>
     <AssociationSet Name="LuresBrand" Association="Model.Store.LuresBrand">
       <End Role="Lures" EntitySet="Lure" />
       <End Role="Brand" EntitySet="Brand" />
     </AssociationSet>
-    <AssociationSet Name="LuresStatistics" Association="Model.Store.LuresStatistics">
-      <End Role="Lures" EntitySet="Lure" />
-      <End Role="Statistics" EntitySet="Statistics" />
-    </AssociationSet>
-    <AssociationSet Name="FishStatistics" Association="Model.Store.FishStatistics">
-      <End Role="Fish" EntitySet="Fish" />
-      <End Role="Statistics" EntitySet="Statistics" />
-    </AssociationSet>
-    <AssociationSet Name="LocationStatistics" Association="Model.Store.LocationStatistics">
-      <End Role="Location" EntitySet="Location" />
-      <End Role="Statistics" EntitySet="Statistics" />
-    </AssociationSet>
-    <AssociationSet Name="CatchStatistics" Association="Model.Store.CatchStatistics">
-      <End Role="Catch" EntitySet="Catch" />
-      <End Role="Statistics" EntitySet="Statistics" />
-    </AssociationSet>
     <AssociationSet Name="CatchWeatherData" Association="Model.Store.CatchWeatherData">
       <End Role="Catch" EntitySet="Catch" />
       <End Role="WeatherData" EntitySet="WeatherData" />
-    </AssociationSet>
-    <AssociationSet Name="WeatherDataStatistics" Association="Model.Store.WeatherDataStatistics">
-      <End Role="WeatherData" EntitySet="WeatherData" />
-      <End Role="Statistics" EntitySet="Statistics" />
     </AssociationSet>
     <AssociationSet Name="SecurityUser" Association="Model.Store.SecurityUser">
       <End Role="Security" EntitySet="Security" />
@@ -119,8 +98,7 @@
     <Property Name="Comment_Id" Type="int" Nullable="false" />
     <Property Name="Fish_Id" Type="int" Nullable="false" />
     <Property Name="Location_Id" Type="int" Nullable="false" />
-    <Property Name="Lures_Id" Type="int" Nullable="false" />
-    <Property Name="Statistics_Id" Type="int" Nullable="true" />
+    <Property Name="Lure_Id" Type="int" Nullable="false" />
     <Property Name="WeatherData_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Fish">
@@ -130,7 +108,6 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Length" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Weight" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Statistics_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -162,7 +139,6 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Coordinates" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Statistics_Id" Type="int" Nullable="true" />
     <Property Name="Lake_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Brand">
@@ -181,23 +157,16 @@
     <Property Name="Weight" Type="int" Nullable="true" />
     <Property Name="Colour" Type="nvarchar" Nullable="true" MaxLength="35" />
     <Property Name="Brand_Id" Type="int" Nullable="false" />
-    <Property Name="Statistics_Id" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Statistics">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="WeatherData">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Temperature" Type="int" Nullable="false" />
+    <Property Name="WaterTemperature" Type="float" Nullable="true" />
     <Property Name="Weather" Type="nvarchar(max)" Nullable="false" />
     <Property Name="MoonPosition" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Statistics_Id" Type="int" Nullable="true" />
+    <Property Name="AirTemperature" Type="float" Nullable="true" />
   </EntityType>
   <EntityType Name="Security">
     <Key>
@@ -303,13 +272,13 @@
   </Association>
   <Association Name="CatchLures">
     <End Role="Catch" Type="Model.Store.Catch" Multiplicity="*" />
-    <End Role="Lures" Type="Model.Store.Lure" Multiplicity="1" />
+    <End Role="Lure" Type="Model.Store.Lure" Multiplicity="1" />
     <ReferentialConstraint>
-      <Principal Role="Lures">
+      <Principal Role="Lure">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Catch">
-        <PropertyRef Name="Lures_Id" />
+        <PropertyRef Name="Lure_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -325,54 +294,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="LuresStatistics">
-    <End Role="Lures" Type="Model.Store.Lure" Multiplicity="*" />
-    <End Role="Statistics" Type="Model.Store.Statistics" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Statistics">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Lures">
-        <PropertyRef Name="Statistics_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FishStatistics">
-    <End Role="Fish" Type="Model.Store.Fish" Multiplicity="*" />
-    <End Role="Statistics" Type="Model.Store.Statistics" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Statistics">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Fish">
-        <PropertyRef Name="Statistics_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="LocationStatistics">
-    <End Role="Location" Type="Model.Store.Location" Multiplicity="*" />
-    <End Role="Statistics" Type="Model.Store.Statistics" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Statistics">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Location">
-        <PropertyRef Name="Statistics_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CatchStatistics">
-    <End Role="Catch" Type="Model.Store.Catch" Multiplicity="*" />
-    <End Role="Statistics" Type="Model.Store.Statistics" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Statistics">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Catch">
-        <PropertyRef Name="Statistics_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="CatchWeatherData">
     <End Role="Catch" Type="Model.Store.Catch" Multiplicity="*" />
     <End Role="WeatherData" Type="Model.Store.WeatherData" Multiplicity="1" />
@@ -382,18 +303,6 @@
       </Principal>
       <Dependent Role="Catch">
         <PropertyRef Name="WeatherData_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="WeatherDataStatistics">
-    <End Role="WeatherData" Type="Model.Store.WeatherData" Multiplicity="*" />
-    <End Role="Statistics" Type="Model.Store.Statistics" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Statistics">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="WeatherData">
-        <PropertyRef Name="Statistics_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -497,37 +406,16 @@
           </AssociationSet>
           <AssociationSet Name="CatchLures" Association="Model.CatchLures">
             <End Role="Catch" EntitySet="Catch" />
-            <End Role="Lures" EntitySet="Lure" />
+            <End Role="Lure" EntitySet="Lure" />
           </AssociationSet>
           <AssociationSet Name="LuresBrand" Association="Model.LuresBrand">
             <End Role="Lures" EntitySet="Lure" />
             <End Role="Brand" EntitySet="Brand" />
           </AssociationSet>
-          <EntitySet Name="Statistics" EntityType="Model.StatisticsDO" />
-          <AssociationSet Name="LuresStatistics" Association="Model.LuresStatistics">
-            <End Role="Lures" EntitySet="Lure" />
-            <End Role="Statistics" EntitySet="Statistics" />
-          </AssociationSet>
-          <AssociationSet Name="FishStatistics" Association="Model.FishStatistics">
-            <End Role="Fish" EntitySet="Fish" />
-            <End Role="Statistics" EntitySet="Statistics" />
-          </AssociationSet>
-          <AssociationSet Name="LocationStatistics" Association="Model.LocationStatistics">
-            <End Role="Location" EntitySet="Location" />
-            <End Role="Statistics" EntitySet="Statistics" />
-          </AssociationSet>
-          <AssociationSet Name="CatchStatistics" Association="Model.CatchStatistics">
-            <End Role="Catch" EntitySet="Catch" />
-            <End Role="Statistics" EntitySet="Statistics" />
-          </AssociationSet>
           <EntitySet Name="WeatherData" EntityType="Model.WeatherDataDO" />
           <AssociationSet Name="CatchWeatherData" Association="Model.CatchWeatherData">
             <End Role="Catch" EntitySet="Catch" />
             <End Role="WeatherData" EntitySet="WeatherData" />
-          </AssociationSet>
-          <AssociationSet Name="WeatherDataStatistics" Association="Model.WeatherDataStatistics">
-            <End Role="WeatherData" EntitySet="WeatherData" />
-            <End Role="Statistics" EntitySet="Statistics" />
           </AssociationSet>
           <EntitySet Name="Security" EntityType="Model.SecurityDO" />
           <AssociationSet Name="SecurityUser" Association="Model.SecurityUser">
@@ -572,9 +460,8 @@
           <NavigationProperty Name="Fish" Relationship="Model.CatchFish" FromRole="Catch" ToRole="Fish" />
           <NavigationProperty Name="Media" Relationship="Model.CatchMedia" FromRole="Catch" ToRole="Media" />
           <NavigationProperty Name="Location" Relationship="Model.CatchLocation" FromRole="Catch" ToRole="Location" />
-          <NavigationProperty Name="Lures" Relationship="Model.CatchLures" FromRole="Catch" ToRole="Lures" />
+          <NavigationProperty Name="Lure" Relationship="Model.CatchLures" FromRole="Catch" ToRole="Lure" />
           <Property Name="Timestamp" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="Statistics" Relationship="Model.CatchStatistics" FromRole="Catch" ToRole="Statistics" />
           <NavigationProperty Name="WeatherData" Relationship="Model.CatchWeatherData" FromRole="Catch" ToRole="WeatherData" />
         </EntityType>
         <Association Name="UserCatch">
@@ -589,7 +476,6 @@
           <Property Name="Length" Type="String" Nullable="true" />
           <Property Name="Weight" Type="String" Nullable="true" />
           <NavigationProperty Name="Catch" Relationship="Model.CatchFish" FromRole="Fish" ToRole="Catch" />
-          <NavigationProperty Name="Statistics" Relationship="Model.FishStatistics" FromRole="Fish" ToRole="Statistics" />
         </EntityType>
         <EntityType Name="CommentDO">
           <Key>
@@ -624,7 +510,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Catch" Relationship="Model.CatchLocation" FromRole="Location" ToRole="Catch" />
           <Property Name="Coordinates" Type="String" Nullable="true" />
-          <NavigationProperty Name="Statistics" Relationship="Model.LocationStatistics" FromRole="Location" ToRole="Statistics" />
           <NavigationProperty Name="Lake" Relationship="Model.LakeLocation" FromRole="Location" ToRole="Lake" />
         </EntityType>
         <EntityType Name="BrandDO">
@@ -641,9 +526,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" Unicode="true" MaxLength="50" />
-          <NavigationProperty Name="Catch" Relationship="Model.CatchLures" FromRole="Lures" ToRole="Catch" />
+          <NavigationProperty Name="Catch" Relationship="Model.CatchLures" FromRole="Lure" ToRole="Catch" />
           <NavigationProperty Name="Brand" Relationship="Model.LuresBrand" FromRole="Lures" ToRole="Brand" />
-          <NavigationProperty Name="Statistics" Relationship="Model.LuresStatistics" FromRole="Lures" ToRole="Statistics" />
           <NavigationProperty Name="TackleBox" Relationship="Model.LureTackleBox" FromRole="Lure" ToRole="TackleBox" />
           <Property Name="Weight" Type="Int32" Nullable="true" />
           <Property Name="Colour" Type="String" Unicode="true" Nullable="true" MaxLength="35" />
@@ -670,57 +554,26 @@
         </Association>
         <Association Name="CatchLures">
           <End Type="Model.CatchDO" Role="Catch" Multiplicity="*" />
-          <End Type="Model.LureDO" Role="Lures" Multiplicity="1" />
+          <End Type="Model.LureDO" Role="Lure" Multiplicity="1" />
         </Association>
         <Association Name="LuresBrand">
           <End Type="Model.LureDO" Role="Lures" Multiplicity="*" />
           <End Type="Model.BrandDO" Role="Brand" Multiplicity="1" />
-        </Association>
-        <EntityType Name="StatisticsDO">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Lures" Relationship="Model.LuresStatistics" FromRole="Statistics" ToRole="Lures" />
-          <NavigationProperty Name="Fish" Relationship="Model.FishStatistics" FromRole="Statistics" ToRole="Fish" />
-          <NavigationProperty Name="Location" Relationship="Model.LocationStatistics" FromRole="Statistics" ToRole="Location" />
-          <NavigationProperty Name="Catch" Relationship="Model.CatchStatistics" FromRole="Statistics" ToRole="Catch" />
-          <NavigationProperty Name="WeatherData" Relationship="Model.WeatherDataStatistics" FromRole="Statistics" ToRole="WeatherData" />
-        </EntityType>
-        <Association Name="LuresStatistics">
-          <End Type="Model.LureDO" Role="Lures" Multiplicity="*" />
-          <End Type="Model.StatisticsDO" Role="Statistics" Multiplicity="0..1" />
-        </Association>
-        <Association Name="FishStatistics">
-          <End Type="Model.FishDO" Role="Fish" Multiplicity="*" />
-          <End Type="Model.StatisticsDO" Role="Statistics" Multiplicity="0..1" />
-        </Association>
-        <Association Name="LocationStatistics">
-          <End Type="Model.LocationDO" Role="Location" Multiplicity="*" />
-          <End Type="Model.StatisticsDO" Role="Statistics" Multiplicity="0..1" />
-        </Association>
-        <Association Name="CatchStatistics">
-          <End Type="Model.CatchDO" Role="Catch" Multiplicity="*" />
-          <End Type="Model.StatisticsDO" Role="Statistics" Multiplicity="0..1" />
         </Association>
         <EntityType Name="WeatherDataDO">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Temperature" Type="Int32" Nullable="false" />
+          <Property Name="WaterTemperature" Type="Double" Nullable="true" />
           <Property Name="Weather" Type="String" Nullable="false" Unicode="true" />
           <Property Name="MoonPosition" Type="String" Nullable="false" Unicode="true" />
           <NavigationProperty Name="Catch" Relationship="Model.CatchWeatherData" FromRole="WeatherData" ToRole="Catch" />
-          <NavigationProperty Name="Statistics" Relationship="Model.WeatherDataStatistics" FromRole="WeatherData" ToRole="Statistics" />
+          <Property Name="AirTemperature" Type="Double" Nullable="true" />
         </EntityType>
         <Association Name="CatchWeatherData">
           <End Type="Model.CatchDO" Role="Catch" Multiplicity="1" />
           <End Type="Model.WeatherDataDO" Role="WeatherData" Multiplicity="1" />
-        </Association>
-        <Association Name="WeatherDataStatistics">
-          <End Type="Model.WeatherDataDO" Role="WeatherData" Multiplicity="*" />
-          <End Type="Model.StatisticsDO" Role="Statistics" Multiplicity="0..1" />
         </Association>
         <EntityType Name="SecurityDO">
           <Key>
@@ -848,20 +701,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Statistics">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.StatisticsDO)">
-        <MappingFragment StoreEntitySet="Statistics">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="WeatherData">
       <EntityTypeMapping TypeName="IsTypeOf(Model.WeatherDataDO)">
         <MappingFragment StoreEntitySet="WeatherData">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+          <ScalarProperty Name="WaterTemperature" ColumnName="WaterTemperature" />
           <ScalarProperty Name="Weather" ColumnName="Weather" />
           <ScalarProperty Name="MoonPosition" ColumnName="MoonPosition" />
+          <ScalarProperty Name="AirTemperature" ColumnName="AirTemperature" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -938,8 +785,8 @@
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="CatchLures" TypeName="Model.CatchLures" StoreEntitySet="Catch">
-      <EndProperty Name="Lures">
-        <ScalarProperty Name="Id" ColumnName="Lures_Id" />
+      <EndProperty Name="Lure">
+        <ScalarProperty Name="Id" ColumnName="Lure_Id" />
       </EndProperty>
       <EndProperty Name="Catch">
         <ScalarProperty Name="Id" ColumnName="Id" />
@@ -953,42 +800,6 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="LuresStatistics" TypeName="Model.LuresStatistics" StoreEntitySet="Lure">
-      <EndProperty Name="Statistics">
-        <ScalarProperty Name="Id" ColumnName="Statistics_Id" />
-      </EndProperty>
-      <EndProperty Name="Lures">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <Condition ColumnName="Statistics_Id" IsNull="false" />
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FishStatistics" TypeName="Model.FishStatistics" StoreEntitySet="Fish">
-      <EndProperty Name="Statistics">
-        <ScalarProperty Name="Id" ColumnName="Statistics_Id" />
-      </EndProperty>
-      <EndProperty Name="Fish">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <Condition ColumnName="Statistics_Id" IsNull="false" />
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="LocationStatistics" TypeName="Model.LocationStatistics" StoreEntitySet="Location">
-      <EndProperty Name="Statistics">
-        <ScalarProperty Name="Id" ColumnName="Statistics_Id" />
-      </EndProperty>
-      <EndProperty Name="Location">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <Condition ColumnName="Statistics_Id" IsNull="false" />
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="CatchStatistics" TypeName="Model.CatchStatistics" StoreEntitySet="Catch">
-      <EndProperty Name="Statistics">
-        <ScalarProperty Name="Id" ColumnName="Statistics_Id" />
-      </EndProperty>
-      <EndProperty Name="Catch">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <Condition ColumnName="Statistics_Id" IsNull="false" />
-    </AssociationSetMapping>
     <AssociationSetMapping Name="CatchWeatherData" TypeName="Model.CatchWeatherData" StoreEntitySet="Catch">
       <EndProperty Name="WeatherData">
         <ScalarProperty Name="Id" ColumnName="WeatherData_Id" />
@@ -996,15 +807,6 @@
       <EndProperty Name="Catch">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="WeatherDataStatistics" TypeName="Model.WeatherDataStatistics" StoreEntitySet="WeatherData">
-      <EndProperty Name="Statistics">
-        <ScalarProperty Name="Id" ColumnName="Statistics_Id" />
-      </EndProperty>
-      <EndProperty Name="WeatherData">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <Condition ColumnName="Statistics_Id" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="SecurityUser" TypeName="Model.SecurityUser" StoreEntitySet="Security">
       <EndProperty Name="User">

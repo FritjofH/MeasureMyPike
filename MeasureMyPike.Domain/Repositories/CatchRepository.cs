@@ -13,8 +13,8 @@ namespace MeasureMyPike
             {
                 using (var conn = new ModelContainer())
                 {
-                    conn.Lure.Attach(newCatch.Lures);
-                    conn.Brand.Attach(newCatch.Lures.Brand);
+                    conn.Lure.Attach(newCatch.Lure);
+                    conn.Brand.Attach(newCatch.Lure.Brand);
                     conn.User.Attach(newCatch.User);
                     var createdCatch = conn.Catch.Add(newCatch);
                     conn.SaveChanges();
@@ -43,7 +43,7 @@ namespace MeasureMyPike
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedCatch = conn.Catch.Include("Media").Include("Lures").Include("Location").Include("Comment").Include("Fish").Include("User").Include("WeatherData").Include("Statistics").FirstOrDefault(it => it.Id == id);
+                    var selectedCatch = conn.Catch.Include("Media").Include("Lure").Include("Location").Include("Comment").Include("Fish").Include("User").Include("WeatherData").FirstOrDefault(it => it.Id == id);
                     {
                         if (selectedCatch != null)
                         {
@@ -68,13 +68,73 @@ namespace MeasureMyPike
             }
         }
 
-        public List<CatchDO> GetAllCatch()
+        public List<CatchDO> GetCatches(LakeDO aLake)
         {
             try
             {
                 using (var conn = new ModelContainer())
                 {
-                    var catchList = conn.Catch.Include("Media").Include("Lures").Include("Location").Include("Comment").Include("Fish").Include("User").Include("WeatherData").Include("Statistics").ToList();
+                    // Get catches for a certain user
+                    var catchList = conn.Catch.
+                        Include("Media").Include("Lure").Include("Location").Include("Location.Lake").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
+                        Where(it => it.Location.Lake.Id == aLake.Id).
+                        ToList();
+                    return catchList;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
+                return null;
+            }
+        }
+
+        public List<CatchDO> GetCatches(UserDO aUser)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    // Get catches for a certain user
+                    var catchList = conn.Catch.
+                        Include("Media").Include("Lure").Include("Location").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
+                        Where(it => it.User.Id == aUser.Id).
+                        ToList();
+                    return catchList;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
+                return null;
+            }
+        }
+
+        public List<CatchDO> GetAllCatches()
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var catchList = conn.Catch.
+                        Include("Media").Include("Lure").Include("Location").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
+                        ToList();
                     return catchList;
                 }
             }
@@ -102,13 +162,12 @@ namespace MeasureMyPike
                     var catchToUpdate = conn.Catch.First(it => it.Id == changedCatch.Id);
                     conn.Catch.Attach(catchToUpdate);
                     catchToUpdate.Location = changedCatch.Location;
-                    catchToUpdate.Lures = changedCatch.Lures;
+                    catchToUpdate.Lure = changedCatch.Lure;
                     catchToUpdate.Media = changedCatch.Media;
                     catchToUpdate.Timestamp = changedCatch.Timestamp;
                     catchToUpdate.WeatherData = changedCatch.WeatherData;
                     catchToUpdate.Comment = changedCatch.Comment;
                     catchToUpdate.Fish = changedCatch.Fish;
-                    catchToUpdate.Statistics = changedCatch.Statistics;
                     conn.SaveChanges();
 
                     return true;
@@ -140,7 +199,7 @@ namespace MeasureMyPike
                     conn.Fish.Attach(catchToDelete.Fish);
                     conn.Location.Attach(catchToDelete.Location);
                     conn.Lake.Attach(catchToDelete.Location.Lake);
-                    conn.Lure.Attach(catchToDelete.Lures);
+                    conn.Lure.Attach(catchToDelete.Lure);
                     conn.WeatherData.Attach(catchToDelete.WeatherData);
 
                     while (catchToDelete.Media.Count > 0)

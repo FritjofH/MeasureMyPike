@@ -97,6 +97,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestsCommon.cs" />
+    <Compile Include="StatTests.cs" />
     <Compile Include="UtilTests.cs" />
     <Compile Include="LakeTests.cs" />
     <Compile Include="BrandTests.cs" />

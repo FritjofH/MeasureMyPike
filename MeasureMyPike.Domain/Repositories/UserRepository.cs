@@ -44,7 +44,9 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedUser = conn.User.Include("TackleBox").Include("Security").FirstOrDefault(it => it.Username == username);
+                    var selectedUser = conn.User.
+                        Include("TackleBox").Include("Security").
+                        FirstOrDefault(it => it.Username == username);
                     {
                         if (selectedUser != null)
                         {
@@ -75,7 +77,9 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedUser = conn.User.Include("TackleBox").Include("Security").FirstOrDefault(it => it.Id == id);
+                    var selectedUser = conn.User.
+                        Include("TackleBox").Include("Security").
+                        FirstOrDefault(it => it.Id == id);
                     {
                         if (selectedUser != null)
                         {
@@ -140,7 +144,8 @@ namespace MeasureMyPike.Repo
             {
                 using (var conn = new ModelContainer())
                 {
-                    var user = conn.User.First(it => it.Username == username);
+                    var user = conn.User.
+                        First(it => it.Username == username);
                     if (user != null)
                     {
                         return user.Security.Password;

@@ -106,9 +106,6 @@
     <Compile Include="Models\SecurityDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StatisticsDO.cs">
-      <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TackleBoxDO.cs">
       <DependentUpon>MeasureMyPikeModel.tt</DependentUpon>
     </Compile>

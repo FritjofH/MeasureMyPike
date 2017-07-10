@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Common\MoonUtil.cs" />
     <Compile Include="Interfaces\IBrandService.cs" />
+    <Compile Include="Interfaces\IStatisticsService.cs" />
     <Compile Include="Interfaces\ICatchService.cs" />
     <Compile Include="Interfaces\IFishService.cs" />
     <Compile Include="Interfaces\ILakeService.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Service\MediaService.cs" />
     <Compile Include="Service\SecurityService.cs" />
     <Compile Include="Models\TackleBox.cs" />
+    <Compile Include="Service\StatisticsService.cs" />
     <Compile Include="Service\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

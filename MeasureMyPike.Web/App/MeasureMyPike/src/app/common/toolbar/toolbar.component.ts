@@ -6,15 +6,22 @@ import { LogoutDialogComponent } from '../logout/logoutDialog.component';
 @Component({
     selector: 'toolbar-component',
     templateUrl: './toolbar.component.html',
-    styleUrls: [ './toolbar.component.scss' ],
+    styleUrls: ['./toolbar.component.scss'],
     providers: [LogoutDialogComponent]
 })
 
 export class ToolbarComponent {
-    selectedOption: boolean;
+    public selectedOption: boolean;
     public title = 'MeasureMyPike';
+    public currentUsername: string;
 
     constructor(public router: Router, public userService: UserService, public logoutDialog: LogoutDialogComponent) {
+        this.getCurrentUser();
+    }
+
+    public getCurrentUser() {
+        var token = localStorage.getItem('token');
+        this.currentUsername = this.userService.decodeUserToken(token);
     }
 
     public loggedIn() {
@@ -24,4 +31,8 @@ export class ToolbarComponent {
     public logout() {
         this.logoutDialog.openDialog();
     }
+
+public navigateToUser(currentUsername: string) {
+    this.router.navigate(['/user/' + currentUsername]);
+}
 }

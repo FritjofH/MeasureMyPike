@@ -1,26 +1,13 @@
 import { Injectable, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Http, Response } from '@angular/http';
-import { AuthHttp, JwtHelper } from 'angular2-jwt';
+import { AuthHttp } from 'angular2-jwt';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class BrandService {
 
-    jwt: string;
-    decodedJwt: string;
-    response: string;
-    api: string;
-    jwtHelper: JwtHelper = new JwtHelper();
-    jwtExpired: any;
-    jwtDate: any;
-
     constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
-        this.jwt = localStorage.getItem('token');
-
-        this.decodedJwt = this.jwtHelper.decodeToken(this.jwt);
-        this.jwtDate = this.jwtHelper.getTokenExpirationDate(this.jwt);
-        this.jwtExpired = this.jwtHelper.isTokenExpired(this.jwt);
     }
 
     getBrands(): Observable<any[]> {

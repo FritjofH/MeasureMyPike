@@ -38,12 +38,16 @@ const appRoutes: Routes = [
         component: HomeViewComponent
     },
     {
+        path: 'user/:username',
+        component: UserProfileViewComponent
+    },
+    {
         path: 'login',
         component: UserLoginViewComponent
     },
     {
         path: '**',
-        component: HomeViewComponent
+        redirectTo: 'home'
     }
 ];
 

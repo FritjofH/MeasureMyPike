@@ -1,7 +1,6 @@
-﻿<!--TODO: fixa hidden on not logged in-->
-<md-toolbar md-scroll-shrink style="margin-right: 0px;" fxLayoutAlign="center center">
+﻿<md-toolbar fxLayoutAlign="center center">
     <nav>
-        <a class="menu-padding" style="font-size:20px; vertical-align: middle;" routerLink="/home">
+        <a routerLink="/home" class="menu-padding" style="font-size:20px; vertical-align: middle;">
             {{title}}
         </a>
         <span class="menu-padding" *ngIf="!loggedIn()" mdTooltip="Logga in">
@@ -11,7 +10,7 @@
         </span>
 
         <span class="menu-padding" *ngIf="loggedIn()" mdTooltip="Din profil">
-            <a routerLink="/user" routerLinkActive="active">
+            <a (click)="navigateToUser(currentUsername)" routerLinkActive="active">
                 <md-icon>face</md-icon>
             </a>
         </span>

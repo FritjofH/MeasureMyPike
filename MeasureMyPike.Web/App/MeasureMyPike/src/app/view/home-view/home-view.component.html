@@ -13,7 +13,7 @@
         <div fxFlex="30">
             <div fxFill fxLayout="column">
                 <h3>De 5 senaste gäddorna</h3>
-                <table fxFill name="latestFish" mdSort (mdSortChange)="sortFish($event)">
+                <table fxFill name="latestFish" mdSort (mdSortChange)="sortLatestFish($event)">
                     <tr>
                         <th md-sort-header="weight">Kilo</th>
                         <th md-sort-header="length">Längd (cm)</th>
@@ -34,8 +34,8 @@
         <div fxFlex="1"></div>
         <div fxFlex="30">
             <div fxFill fxLayout="column">
-                <h3>De 5 största fiskarna</h3>
-                <table fxFill name="biggestFish" mdSort (mdSortChange)="sortFish($event)">
+                <h3>De 5 största gäddorna</h3>
+                <table fxFill name="biggestFish" mdSort (mdSortChange)="sortBiggestFish($event)">
                     <tr>
                         <th md-sort-header="weight">Kilo</th>
                         <th md-sort-header="length">Längd (cm)</th>

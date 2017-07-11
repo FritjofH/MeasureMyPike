@@ -20,15 +20,14 @@ namespace MeasureMyPike.Controllers
         private UserController() {
             iUserService = new UserService();
         }
-
-        // GET: api/User/5
-        [HttpGet]
-        public HttpResponseMessage Get([FromUri]string newUser)
+        
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage Get(string username)
         {
-            var user = iUserService.GetUser(newUser);
+            var user = iUserService.GetUser(username);
             if (user == null)
             {
-                var message = string.Format("User with id = {0} not found", newUser);
+                var message = string.Format("User with id = {0} not found", username);
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
             }
             else
@@ -38,7 +37,7 @@ namespace MeasureMyPike.Controllers
         }
 
         // POST: api/User
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Post([FromBody]NewUser newUser)
         {
             var user = iUserService.CreateUser(newUser.LastName, newUser.FirstName, newUser.Username, newUser.Password);
@@ -53,24 +52,8 @@ namespace MeasureMyPike.Controllers
             }
         }
 
-        //// PUT: api/User/5
-        //[HttpPut]
-        //public HttpResponseMessage Put([FromBody]newUser updatedUserInformation)
-        //{
-        //    var user = iUserService.updateUser(updatedUserInformation.firstName, updatedUserInformation.lastName);
-        //    if (user == null)
-        //    {
-        //        var message = string.Format("Could not update user");
-        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
-        //    }
-        //    else
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.OK, user);
-        //    }
-        //}
-
         // DELETE: api/User/5
-        [HttpDelete]
+        [System.Web.Http.HttpDelete]
         public bool Delete([FromBody]NewUser userToDelete)
         {
             var deleted = iUserService.DeleteUser(userToDelete.Username);

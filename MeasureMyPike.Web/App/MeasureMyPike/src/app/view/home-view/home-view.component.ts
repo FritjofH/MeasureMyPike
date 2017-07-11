@@ -37,7 +37,7 @@ export class HomeViewComponent {
     constructor(private homeService: HomeService) { 
     }
 
-    sortFish(sort: Sort) {
+    sortBiggestFish(sort: Sort) {
         const data = this.biggestFishList.slice();
         if (!sort.active || sort.direction == '') {
             this.biggestFishList = data;
@@ -51,7 +51,27 @@ export class HomeViewComponent {
                 case 'length': return compare(+a.length, +b.length, isAsc);
                 case 'lake': return compare(a.lake, b.lake, isAsc);
                 case 'user': return compare(a.user, b.user, isAsc);
-case 'date': return compare(a.date, b.date, isAsc);
+                case 'date': return compare(a.date, b.date, isAsc);
+                default: return 0;
+            }
+        });
+    }
+
+    sortLatestFish(sort: Sort) {
+        const data = this.latestFishList.slice();
+        if (!sort.active || sort.direction == '') {
+            this.latestFishList = data;
+            return;
+        }
+
+        this.latestFishList = data.sort((a, b) => {
+            let isAsc = sort.direction == 'asc';
+            switch (sort.active) {
+                case 'weight': return compare(+a.weight, +b.weight, isAsc);
+                case 'length': return compare(+a.length, +b.length, isAsc);
+                case 'lake': return compare(a.lake, b.lake, isAsc);
+                case 'user': return compare(a.user, b.user, isAsc);
+                case 'date': return compare(a.date, b.date, isAsc);
                 default: return 0;
             }
         });

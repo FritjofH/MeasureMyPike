@@ -1,33 +1,48 @@
 ﻿import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Http, Response } from '@angular/http';
+import { Http, Response, URLSearchParams } from '@angular/http';
 import { tokenNotExpired } from 'angular2-jwt';
 import { contentHeaders } from '../../common/headers';
 import { Router } from '@angular/router';
+import { JwtHelper } from 'angular2-jwt';
 
 @Injectable()
 export class UserService {
+    jwt: string;
+    decodedJwt: string;
+    response: string;
+    api: string;
+    jwtHelper: JwtHelper = new JwtHelper();
+    jwtExpired: any;
+    jwtDate: any;
 
-    constructor(private http: Http, public router: Router) { }
+    constructor(private http: Http, public router: Router, ) {
+        this.jwt = localStorage.getItem('token');
 
-    getUsers(): Observable<any[]> {
-        return this.http.get("/api/User")
+        this.decodedJwt = this.jwtHelper.decodeToken(this.jwt);
+        this.jwtDate = this.jwtHelper.getTokenExpirationDate(this.jwt);
+        this.jwtExpired = this.jwtHelper.isTokenExpired(this.jwt);
+    }
+
+    public getUser(username: string): Observable<any> {
+        return this.http.get("/api/User?username=" + username)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    getUser(int: number): Observable<any> {
-        return this.http.get("/api/User")
-            .map(this.extractData)
-            .catch(this.handleError);
+    public decodeUserToken(token: string) {
+        var parsedToken = this.jwtHelper.decodeToken(token);
+        
+
+        return parsedToken.unique_name;
     }
 
-    login(username: string, password: string) {
+    public login(username: string, password: string) {
         this.http.post('/api/Security', { "username": username, "password": password }, { headers: contentHeaders })
             .subscribe(
             response => {
                 localStorage.setItem('token', response.headers.get('token'));
-                this.router.navigate(['brands']);
+                this.router.navigate(['home']);
             },
             error => {
                 alert(error.text());
@@ -36,8 +51,8 @@ export class UserService {
             );
     }
 
-    registerUser(lastName: string, firstName: string, username: string, password: string): Observable<any> {
-        return this.http.post("/api/User", {"lastName": lastName, "firstName": firstName, "username": username, "password": password })
+    public registerUser(lastName: string, firstName: string, username: string, password: string): Observable<any> {
+        return this.http.post("/api/User", { "lastName": lastName, "firstName": firstName, "username": username, "password": password })
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -46,9 +61,9 @@ export class UserService {
         return tokenNotExpired();
     }
 
-    logout() {
+    public logout() {
         localStorage.removeItem('token');
-        this.router.navigate(['login']);
+        this.router.navigate(['home']);
     }
 
     private extractData(res: Response) {

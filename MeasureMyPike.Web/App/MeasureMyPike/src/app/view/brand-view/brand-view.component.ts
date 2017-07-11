@@ -3,9 +3,9 @@ import { BrandService } from '../../service/brand/brand.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-brand-view',
-  templateUrl: './brand-view.component.html',
-  styleUrls: ['./brand-view.component.scss']
+    selector: 'app-brand-view',
+    templateUrl: './brand-view.component.html',
+    styleUrls: ['./brand-view.component.scss']
 })
 
 export class BrandViewComponent implements OnInit {
@@ -15,17 +15,17 @@ export class BrandViewComponent implements OnInit {
     public brandList: any[];
     public selectedBrand: any;
     public newName: string;
-timerSubscription: any;
+    private timerSubscription: any;
 
     ngOnInit() {
         this.getBrands();
     }
 
-ngOnDestroy(): void {
-    if (this.timerSubscription) {
-        this.timerSubscription.unsubscribe();
+    private ngOnDestroy(): void {
+        if (this.timerSubscription) {
+            this.timerSubscription.unsubscribe();
+        }
     }
-}
 
     public getBrands() {
         this.brandService.getBrands().subscribe(it => {

@@ -8,7 +8,7 @@ using MeasureMyPike.Application.Common;
 
 public class CatchService : ICatchService
 {
-    public Catch AddCatch(byte[] mediaData, string mediaFormat, DateTime timeStamp, string comment, Lure lure, string fishWeight, string fishLength, string lakeName, string coordinates, Double waterTemperature, Double airTemperature, string weather, string username, params string[] additionalInformation)
+    public Catch AddCatch(byte[] mediaData, string mediaFormat, DateTime timeStamp, string comment, Lure lure, int fishWeight, int fishLength, string lakeName, string coordinates, Double waterTemperature, Double airTemperature, string weather, string username, params string[] additionalInformation)
     {
         var catchRepo = new CatchRepository();
         var lureService = new LureService();
@@ -81,7 +81,7 @@ public class CatchService : ICatchService
     // TODO: Här borde vi tänka om.
     // När man bara ska ändra tex kommentaren så ska den väl inte skapa en ny MediaDO, ny FishDO, ny LocationDO och ny WeatherDO utan bara ändra det som är icke null tex.???
     //
-    public bool UpdateCatch(int id, byte[] image, string format, DateTime timeStamp, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, Double waterTemperature, Double airTemperature, string weather, string username, params string[] additionalInformation)
+    public bool UpdateCatch(int id, byte[] image, string format, DateTime timeStamp, string comment, Lure lure, int fishWeight, int fishLength, string lake, string coordinates, Double waterTemperature, Double airTemperature, string weather, string username, params string[] additionalInformation)
     {
         var catchRepo = new CatchRepository();
         var lureService = new LureService();

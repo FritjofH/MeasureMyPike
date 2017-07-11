@@ -115,8 +115,7 @@ namespace MeasureMyPike.Application.Common
             else
                 return new Brand
                 {
-                    Id = brandToConvert.Id
-                    ,
+                    Id = brandToConvert.Id,
                     Name = brandToConvert.Name
                 };
         }
@@ -129,8 +128,8 @@ namespace MeasureMyPike.Application.Common
             }
             return new Fish {
                 Id = fishToConvert.Id,
-                Length = fishToConvert.Length,
-                Weight = fishToConvert.Weight
+                Length = (int)fishToConvert.Length,
+                Weight = (int)fishToConvert.Weight
             };
         }
     }

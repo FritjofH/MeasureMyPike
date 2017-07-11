@@ -32,7 +32,7 @@ namespace MeasureMyPike.Service
             return deleted;
         }
 
-        public bool UpdateFish(int id, string length, string weight)
+        public bool UpdateFish(int id, int length, int weight)
         {
             var conversionService = new ConversionUtil();
             var fishRepo = new FishRepository();

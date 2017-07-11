@@ -65,7 +65,7 @@ namespace MeasureMyPike.Repo
             }
         }
 
-        public bool UpdateFish(int id, string length, string weight)
+        public bool UpdateFish(int id, int length, int weight)
         {
             try
             {

@@ -23,6 +23,7 @@ namespace MeasureMyPike.Tests
         public Lake theLake;
         public Catch theCatch;
         public Image theImage;
+        public List<Catch> catchList = new List<Catch>();
 
         public TestsCommon()
         {
@@ -34,28 +35,44 @@ namespace MeasureMyPike.Tests
             lakeService = new LakeService();
         }
 
-        public Catch GenerateTestCatch()
+        public Catch GenerateTestCatch(int scale)
         {
             theCatch = catchService.AddCatch(
                 mediaService.ImageToByteArray(theImage), 
                 mediaService.GetImageFormat(theImage), 
-                DateTime.Now, 
-                "Min enorma gädda", 
+                DateTime.Now,  // caught date & time
+                "Min enorma gädda", // comment
                 theLure, 
-                "75 kg", 
-                "300 cm (mellan ögonen)", 
+                750 + 200*scale,  // gram
+                34 + 10*scale,  // cm
                 theLake.Name, 
-                "63.179195,14.627282", 
-                17.1, 
-                22.0, 
-                "Soligt", 
+                "63.179195,14.627282", // x,y koordinater
+                15.1 + scale,  // water temp
+                19.0 + scale,  // air temp
+                "Soligt",  // weather
                 theUser.Username);
+
+            catchList.Add(theCatch);
+
             return theCatch;
+        }
+
+        public Catch GenerateTestCatch()
+        {
+            return GenerateTestCatch(0);
         }
 
         public bool CleanupTestCatch()
         {
-            return catchService.DeleteCatch(theCatch.Id);
+            bool ok = true;
+            foreach (Catch c in catchList)
+            {
+                ok = ok && catchService.DeleteCatch(c.Id);
+            }
+
+            catchList.Clear();
+
+            return ok;
         }
 
         public void GenerateTestData()

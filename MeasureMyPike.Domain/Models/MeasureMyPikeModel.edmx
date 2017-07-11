@@ -106,8 +106,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Length" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Weight" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Length" Type="int" Nullable="true" />
+    <Property Name="Weight" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -473,8 +473,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Length" Type="String" Nullable="true" />
-          <Property Name="Weight" Type="String" Nullable="true" />
+          <Property Name="Length" Type="Int32" Nullable="true" />
+          <Property Name="Weight" Type="Int32" Nullable="true" />
           <NavigationProperty Name="Catch" Relationship="Model.CatchFish" FromRole="Fish" ToRole="Catch" />
         </EntityType>
         <EntityType Name="CommentDO">

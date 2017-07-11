@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/10/2017 14:35:54
+-- Date Created: 07/11/2017 13:27:45
 -- Generated from EDMX file: C:\src\Repos\MeasureMyPike\MeasureMyPike.Domain\Models\MeasureMyPikeModel.edmx
 -- --------------------------------------------------
 
@@ -138,8 +138,8 @@ GO
 -- Creating table 'Fish'
 CREATE TABLE [dbo].[Fish] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Length] nvarchar(max)  NULL,
-    [Weight] nvarchar(max)  NULL
+    [Length] int  NULL,
+    [Weight] int  NULL
 );
 GO
 

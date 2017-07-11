@@ -16,6 +16,6 @@ namespace MeasureMyPike.Application.Interfaces
 
         bool DeleteFish(int id);
 
-        bool UpdateFish(int id, string length, string weight);
+        bool UpdateFish(int id, int length, int weight);
     }
 }

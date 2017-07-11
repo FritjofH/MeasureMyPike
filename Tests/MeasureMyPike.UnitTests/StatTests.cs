@@ -22,7 +22,11 @@ namespace MeasureMyPike.Tests
 
             // generate some base data
             common.GenerateTestData();
+
             common.GenerateTestCatch();
+            common.GenerateTestCatch(1);
+            common.GenerateTestCatch(2);
+            common.GenerateTestCatch(3);
         }
 
         [TestCleanup]
@@ -74,7 +78,7 @@ namespace MeasureMyPike.Tests
         [TestCategory("StatTest")]
         public void TestGetStatsForUser()
         {
-            List<Statistics> statList = ss.GetStatisticsForUser(common.theUser);
+            List<Statistics> statList = ss.CatchesForUser(common.theUser);
             Assert.IsNotNull(statList, "Kunde inte hämta statistik för user "+common.theUser.Username);
 
             Console.WriteLine("antal " + statList.Count);
@@ -86,12 +90,32 @@ namespace MeasureMyPike.Tests
         [TestCategory("StatTest")]
         public void TestGetStatsForLake()
         {
-            List<Statistics> statList = ss.GetStatisticsForLake(common.theLake);
+            List<Statistics> statList = ss.CatchesForLake(common.theLake);
             Assert.IsNotNull(statList, "Kunde inte hämta statistik för sjö " + common.theLake.Name);
 
             Console.WriteLine("antal " + statList.Count);
             if (statList.Count > 0)
                 PrintStat(statList[0]);
+        }
+
+        [TestMethod]
+        [TestCategory("StatTest")]
+        public void TestGetTopLakes()
+        {
+            List<LakeStatistics> lakeList = ss.LakeTopList(new DateTime(2016,8,1));
+
+            Console.WriteLine("antal " + lakeList.Count);
+
+            if (lakeList.Count > 0)
+            {
+                foreach(LakeStatistics ls in lakeList)
+                {
+                    Console.WriteLine("Sjö             : "+ ls.LakeName);
+                    Console.WriteLine("Total mängd fisk: " + ls.TotalFishWeight + " gram");
+                    Console.WriteLine("Total längd fisk: " + ls.TotalFishLength + " cm");
+                    Console.WriteLine("Antal fångster  : " + ls.CatchId.Count);
+                }
+            }
         }
 
     }

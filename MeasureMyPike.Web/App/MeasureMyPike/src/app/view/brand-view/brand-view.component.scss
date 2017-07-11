@@ -1,10 +1,15 @@
 ﻿.overflow-list {
-    overflow: scroll;
+    overflow: auto;
     overflow-x: hidden;
-    max-height: 400px;
     max-width: 400px;
 }
 
 :host /deep/ .mat-list .mat-list-item .mat-list-item-content, .mat-nav-list .mat-list-item .mat-list-item-content {
     height: 35px;
 }
+
+/*:host /deep/ .mat-list, .mat-nav-list {
+    min-height: 400px;
+    height: 600px;
+    max-height: 800px;
+}*/

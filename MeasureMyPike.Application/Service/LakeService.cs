@@ -24,7 +24,6 @@ namespace MeasureMyPike.Service
         {
             var lakeRepo = new LakeRepository();
             var lakeToDelete = GetLakeDO(id);
-            System.Console.WriteLine("got lake with id {0} : {1}", id, lakeToDelete);
             var deleted = lakeRepo.DeleteLake(lakeToDelete);
 
             return deleted;

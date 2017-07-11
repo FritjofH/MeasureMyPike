@@ -36,7 +36,20 @@ namespace MeasureMyPike.Tests
 
         public Catch GenerateTestCatch()
         {
-            theCatch = catchService.AddCatch(mediaService.ImageToByteArray(theImage), mediaService.GetImageFormat(theImage), DateTime.Now, "Min enorma gädda", theLure, "75 kg", "300cm (mellan ögonen)", theLake.Name, "xy", 17.1, 22.0, "Soligt", theUser.Username);
+            theCatch = catchService.AddCatch(
+                mediaService.ImageToByteArray(theImage), 
+                mediaService.GetImageFormat(theImage), 
+                DateTime.Now, 
+                "Min enorma gädda", 
+                theLure, 
+                "75 kg", 
+                "300 cm (mellan ögonen)", 
+                theLake.Name, 
+                "63.179195,14.627282", 
+                17.1, 
+                22.0, 
+                "Soligt", 
+                theUser.Username);
             return theCatch;
         }
 

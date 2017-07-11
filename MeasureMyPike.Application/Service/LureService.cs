@@ -66,7 +66,6 @@ namespace MeasureMyPike.Service
         {
             var lureRepo = new LureRepository();
             var lureToDelete = GetLureDO(id);
-            System.Console.WriteLine("got lure with id {0} : {1}", id, lureToDelete);
             var deleted = lureRepo.DeleteLure(lureToDelete);
             
             return deleted;

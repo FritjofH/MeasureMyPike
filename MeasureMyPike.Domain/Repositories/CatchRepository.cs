@@ -16,6 +16,7 @@ namespace MeasureMyPike
                     conn.Lure.Attach(newCatch.Lure);
                     conn.Brand.Attach(newCatch.Lure.Brand);
                     conn.User.Attach(newCatch.User);
+                    conn.Lake.Attach(newCatch.Location.Lake);
                     var createdCatch = conn.Catch.Add(newCatch);
                     conn.SaveChanges();
 
@@ -43,7 +44,9 @@ namespace MeasureMyPike
             {
                 using (var conn = new ModelContainer())
                 {
-                    var selectedCatch = conn.Catch.Include("Media").Include("Lure").Include("Location").Include("Comment").Include("Fish").Include("User").Include("WeatherData").FirstOrDefault(it => it.Id == id);
+                    var selectedCatch = conn.Catch.
+                        Include("Media").Include("Lure").Include("Lure.Brand").Include("Location").Include("Location.Lake").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
+                        FirstOrDefault(it => it.Id == id);
                     {
                         if (selectedCatch != null)
                         {
@@ -76,7 +79,7 @@ namespace MeasureMyPike
                 {
                     // Get catches for a certain user
                     var catchList = conn.Catch.
-                        Include("Media").Include("Lure").Include("Location").Include("Location.Lake").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
+                        Include("Media").Include("Lure").Include("Lure.Brand").Include("Location").Include("Location.Lake").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
                         Where(it => it.Location.Lake.Id == aLake.Id).
                         ToList();
                     return catchList;
@@ -105,7 +108,7 @@ namespace MeasureMyPike
                 {
                     // Get catches for a certain user
                     var catchList = conn.Catch.
-                        Include("Media").Include("Lure").Include("Location").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
+                        Include("Media").Include("Lure").Include("Lure.Brand").Include("Location").Include("Location.Lake").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
                         Where(it => it.User.Id == aUser.Id).
                         ToList();
                     return catchList;
@@ -133,7 +136,7 @@ namespace MeasureMyPike
                 using (var conn = new ModelContainer())
                 {
                     var catchList = conn.Catch.
-                        Include("Media").Include("Lure").Include("Location").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
+                        Include("Media").Include("Lure").Include("Lure.Brand").Include("Location").Include("Location.Lake").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
                         ToList();
                     return catchList;
                 }

@@ -35,7 +35,6 @@ namespace MeasureMyPike.Service
                 Console.WriteLine("Username "+username+" not found or password is empty");
                 return null;
             }
-            Console.WriteLine("Username " + username + " found with hashString = " + hashString);
 
             byte[] hashBytes = Convert.FromBase64String(hashString);
 

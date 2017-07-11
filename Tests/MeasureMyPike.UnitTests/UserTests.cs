@@ -70,7 +70,7 @@ namespace MeasureMyPike.Tests
             Assert.IsNotNull(result, "Kunde inte skapa tillfällig användare " + userid);
 
             var loginResult = ss.Login(userid, felpass);
-            Assert.IsNotNull(loginResult, "Det gick logga in med fel lösenord");
+            Assert.IsNull(loginResult, "Det gick logga in med fel lösenord");
 
             //cleanup
             Assert.IsTrue(us.DeleteUser(userid), "Kan inte radera tillfällig användare " + userid);

@@ -69,11 +69,11 @@ namespace MeasureMyPike.Application.Common
                 FishId = catchToConvert.Fish.Id,
                 Id = catchToConvert.Id,
                 LocationId = catchToConvert.Location.Id,
-                LuresId = catchToConvert.Lure.Id,
+                LureId = catchToConvert.Lure.Id,
                 MediaId = mediaList,
                 Timestamp = catchToConvert.Timestamp,
                 UserId = catchToConvert.User.Id,
-                WeatherData = catchToConvert.WeatherData.Id
+                WeatherData = catchToConvert.WeatherData.Id,
             };
         }
 
@@ -115,8 +115,7 @@ namespace MeasureMyPike.Application.Common
             else
                 return new Brand
                 {
-                    Id = brandToConvert.Id
-                    ,
+                    Id = brandToConvert.Id,
                     Name = brandToConvert.Name
                 };
         }
@@ -129,8 +128,8 @@ namespace MeasureMyPike.Application.Common
             }
             return new Fish {
                 Id = fishToConvert.Id,
-                Length = fishToConvert.Length,
-                Weight = fishToConvert.Weight
+                Length = (int)fishToConvert.Length,
+                Weight = (int)fishToConvert.Weight
             };
         }
     }

@@ -64,6 +64,7 @@
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\MediaData.cs" />
     <Compile Include="Models\Security.cs" />
+    <Compile Include="Models\LakeStatistics.cs" />
     <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\WeatherData.cs" />

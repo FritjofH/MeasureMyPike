@@ -10,13 +10,25 @@ namespace MeasureMyPike.Tests
     {        
         LureService ls;
         BrandService bs;
+        Brand testBrand;
 
         [TestInitialize]
         public void Initialize()
         {
             ls = new LureService();
             bs = new BrandService();
+
+            testBrand = bs.AddBrand("testBrand" + GetRndNr());
+            Assert.IsNotNull(testBrand, "Kan inte skapa Brand");
         }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            // cleanup the testdata
+            Assert.IsTrue(bs.DeleteBrand(testBrand.Id), "Could not delete brand with id " + testBrand.Id);
+        }
+
         private int GetRndNr() {
             var r = new Random();
 
@@ -27,11 +39,8 @@ namespace MeasureMyPike.Tests
         [TestCategory("LureTest")]
         public void AddOneLure()
         {
-            Brand newBrand = bs.AddBrand("testBrand" + GetRndNr());
 
-            Assert.IsNotNull(newBrand, "Kan inte skapa Brand");
-
-            int brandid = newBrand.Id;
+            int brandid = testBrand.Id;
             var weight = 27;
             string color = "Green";
             Lure theLure = ls.AddLure("Luretest" + GetRndNr(), brandid, weight, color);
@@ -42,18 +51,13 @@ namespace MeasureMyPike.Tests
 
             // cleanup
             Assert.IsTrue(ls.DeleteLure(lureid), "Could not delete lure with id " + lureid);
-            Assert.IsTrue(bs.DeleteBrand(brandid), "Could not delete brand with id " + brandid);
         }
 
         [TestMethod]
         [TestCategory("LureTest")]
         public void ChangeOneLure()
         {
-            Brand newBrand = bs.AddBrand("testBrand" + GetRndNr());
-
-            Assert.IsNotNull(newBrand, "Kan inte skapa Brand");
-
-            int brandid = newBrand.Id;
+            int brandid = testBrand.Id;
             var weight = 22;
             string color = "Blue";
             Lure theLure = ls.AddLure("Luretest" + GetRndNr(), brandid, weight, color);
@@ -69,7 +73,6 @@ namespace MeasureMyPike.Tests
 
             // cleanup
             Assert.IsTrue(ls.DeleteLure(lureid), "Could not delete lure with id "+ lureid);
-            Assert.IsTrue(bs.DeleteBrand(brandid), "Could not delete brand with id " + brandid);
         }
     }
 }

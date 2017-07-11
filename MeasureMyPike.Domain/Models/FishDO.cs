@@ -15,8 +15,8 @@ namespace MeasureMyPike.Domain.Models
     public partial class FishDO
     {
         public int Id { get; set; }
-        public string Length { get; set; }
-        public string Weight { get; set; }
+        public Nullable<int> Length { get; set; }
+        public Nullable<int> Weight { get; set; }
     
         public virtual CatchDO Catch { get; set; }
     }

@@ -12,23 +12,30 @@ namespace MeasureMyPike.Tests
     public class CatchTests
     {
         ICatchService cs;
-
+        TestsCommon common;
         Catch theCatch;
 
         [TestInitialize]
         public void Initialize()
         {
             cs = new CatchService();
+            common = new TestsCommon();
+
+            // we need some base data
+            common.GenerateTestData();
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            // cleanup the testdata
+            common.CleanupTestData();
         }
 
         [TestMethod]
         [TestCategory("CatchTest")]
         public void AddOneCatch()
         {
-            // we need some base data
-            var common = new TestsCommon();
-            common.GenerateTestData();
-
             // Create the actual catch
             theCatch = common.GenerateTestCatch();
 
@@ -36,19 +43,12 @@ namespace MeasureMyPike.Tests
 
             // remove the catch
             common.CleanupTestCatch();
-
-            // cleanup the rest
-            common.CleanupTestData();
         }
 
         [TestMethod]
         [TestCategory("CatchTest")]
         public void GetOneCatch()
         {
-            // we need some base data
-            var common = new TestsCommon();
-            common.GenerateTestData();
-
             // Create the actual catch
             theCatch = common.GenerateTestCatch();
 
@@ -66,19 +66,12 @@ namespace MeasureMyPike.Tests
 
             // remove the catch
             Assert.IsTrue(common.CleanupTestCatch(), "Kan inte radera testCatch med Id=" + theCatch.Id);
-
-            // cleanup the rest
-            common.CleanupTestData();
         }
 
         [TestMethod]
         [TestCategory("CatchTest")]
         public void GetAllCatches()
         {
-            // we need some base data
-            var common = new TestsCommon();
-            common.GenerateTestData();
-
             // get current list of catches
             List<Catch> orgListOfCatches = cs.GetAllCatches();
             Assert.IsNotNull(orgListOfCatches, "Kunde inte hämta en Catches");
@@ -105,9 +98,6 @@ namespace MeasureMyPike.Tests
 
             // remove the catch
             Assert.IsTrue(common.CleanupTestCatch(), "Kan inte radera testCatch med Id=" + theCatch.Id);
-
-            // cleanup the rest
-            common.CleanupTestData();
         }
     }
 }

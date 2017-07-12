@@ -23,6 +23,10 @@ namespace MeasureMyPike.Tests
         public Lake theLake;
         public Catch theCatch;
         public Image theImage;
+        public List<Lure> lureList = new List<Lure>();
+        public List<Brand> brandList = new List<Brand>();
+        public List<User> userList = new List<User>();
+        public List<Lake> lakeList = new List<Lake>();
         public List<Catch> catchList = new List<Catch>();
 
         public TestsCommon()
@@ -35,20 +39,35 @@ namespace MeasureMyPike.Tests
             lakeService = new LakeService();
         }
 
-        public Catch GenerateTestCatch(int scale)
+        public Catch GenerateTestCatch(int num, int datanum)
         {
+            if (datanum < lakeList.Count)
+            {
+                theLake = lakeList[datanum];
+            }
+
+            if (datanum < userList.Count)
+            {
+                theUser = userList[datanum];
+            }
+
+            if (datanum < lureList.Count)
+            {
+                theLure = lureList[datanum];
+            }
+
             theCatch = catchService.AddCatch(
                 mediaService.ImageToByteArray(theImage), 
                 mediaService.GetImageFormat(theImage), 
                 DateTime.Now,  // caught date & time
                 "Min enorma gädda", // comment
                 theLure, 
-                750 + 200*scale,  // gram
-                34 + 10*scale,  // cm
+                750 + 200*num,  // gram
+                34 + 10*num,  // cm
                 theLake.Name, 
                 "63.179195,14.627282", // x,y koordinater
-                15.1 + scale,  // water temp
-                19.0 + scale,  // air temp
+                15.1 + num,  // water temp
+                19.0 + num,  // air temp
                 "Soligt",  // weather
                 theUser.Username);
 
@@ -57,12 +76,7 @@ namespace MeasureMyPike.Tests
             return theCatch;
         }
 
-        public Catch GenerateTestCatch()
-        {
-            return GenerateTestCatch(0);
-        }
-
-        public bool CleanupTestCatch()
+        public bool CleanupTestCatches()
         {
             bool ok = true;
             foreach (Catch c in catchList)
@@ -75,41 +89,101 @@ namespace MeasureMyPike.Tests
             return ok;
         }
 
-        public void GenerateTestData()
+        public void GenerateTestData(int num)
         {
             var rnd = new Random();
 
-            int lureWeight = 24;
+            int lureWeight = 18 + num*2;
             string lureColor = "Red";
-            string lureName = "testLure" + rnd.Next(0, 999);
-            string brandName = "testBrand" + rnd.Next(0, 999);
-            string fnamn = "Förnamn" + rnd.Next(0, 999);
-            string enamn = "Efternamn" + rnd.Next(0, 999);
-            string userName = "testUser" + rnd.Next(0, 999);
+            string lureName = "testLure" + rnd.Next(0, 999) + num;
+            string brandName = "testBrand" + rnd.Next(0, 999) + num;
+            string fnamn = "Förnamn" + rnd.Next(0, 999) + num;
+            string enamn = "Efternamn" + rnd.Next(0, 999) + num;
+            string userName = "testUser" + rnd.Next(0, 999) + num;
             string pass = "hemligt";
-            string lakeName = "testSjö" + rnd.Next(0, 999);
+            string lakeName = "testSjö" + rnd.Next(0, 999) + num;
+
             //Fiskbild och konverting till en bytearray
             theImage = Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Mockdata\\Fisk.jpg");
 
             // Setup of needed predefined data
             theUser = userService.CreateUser(enamn, fnamn, userName, pass);
             Assert.IsNotNull(theUser, "Kunde inte skapa testUser " + userName);
+
             theBrand = brandService.AddBrand(brandName);
             Assert.IsNotNull(theBrand, "Kunde inte skapa testBrand " + brandName);
+
             theLure = lureService.AddLure(lureName, theBrand.Id, lureWeight, lureColor);
             Assert.IsNotNull(theLure, "Kunde inte skapa testLure " + lureName);
+
             theLake = lakeService.AddLake(lakeName);
             Assert.IsNotNull(theLake, "Kunde inte skapa testLake " + lakeName);
+
+            userList.Add(theUser);
+            brandList.Add(theBrand);
+            lureList.Add(theLure);
+            lakeList.Add(theLake);
         }
 
         public bool CleanupTestData()
         {
             // cleanup of predefined data
-            return lureService.DeleteLure(theLure.Id)
-                && brandService.DeleteBrand(theBrand.Id)
-                && userService.DeleteUser(theUser.Id)
-                && lakeService.DeleteLake(theLake.Id);
+            return DeleteLures()
+                && DeleteBrands()
+                && DeleteUsers()
+                && DeleteLakes();
         }
 
+        private bool DeleteLures()
+        {
+            bool ok = true;
+            foreach (Lure l in lureList)
+            {
+                ok = ok && lureService.DeleteLure(l.Id);
+            }
+
+            lureList.Clear();
+
+            return ok;
+        }
+
+        private bool DeleteBrands()
+        {
+            bool ok = true;
+            foreach (Brand b in brandList)
+            {
+                ok = ok && brandService.DeleteBrand(b.Id);
+            }
+
+            brandList.Clear();
+
+            return ok;
+        }
+
+        private bool DeleteUsers()
+        {
+            bool ok = true;
+            foreach (User u in userList)
+            {
+                ok = ok && userService.DeleteUser(u.Id);
+            }
+
+            userList.Clear();
+
+            return ok;
+        }
+
+        private bool DeleteLakes()
+        {
+            bool ok = true;
+            foreach (Lake l in lakeList)
+            {
+                ok = ok && lakeService.DeleteLake(l.Id);
+            }
+
+            lakeList.Clear();
+
+            return ok;
+        }
     }
 }

@@ -14,6 +14,9 @@ namespace MeasureMyPike.Tests
         IStatisticsService ss;
         TestsCommon common;
 
+        int ANTAL_TESTDATA = 4;
+        int ANTAL_TESTCATCH = 6;
+
         [TestInitialize]
         public void Initialize()
         {
@@ -21,19 +24,22 @@ namespace MeasureMyPike.Tests
             common = new TestsCommon();
 
             // generate some base data
-            common.GenerateTestData();
+            for (int d = 0; d < ANTAL_TESTDATA; d++)
+            {
+                common.GenerateTestData(d);
+            }
 
-            common.GenerateTestCatch();
-            common.GenerateTestCatch(1);
-            common.GenerateTestCatch(2);
-            common.GenerateTestCatch(3);
+            for (int c = 0; c < ANTAL_TESTCATCH; c++)
+            {
+                common.GenerateTestCatch(c, c % ANTAL_TESTDATA);
+            }
         }
 
         [TestCleanup]
         public void Cleanup()
         {
             // cleanup the testdata
-            common.CleanupTestCatch();
+            common.CleanupTestCatches();
             common.CleanupTestData();
         }
 
@@ -42,7 +48,7 @@ namespace MeasureMyPike.Tests
             Console.WriteLine("ID=" + stat.Id);
             Console.WriteLine(" Timestamp = " + stat.Timestamp);
             Console.WriteLine(" CatchId = " + stat.CatchId);
-            Console.WriteLine(" UserId = " + stat.UserId );
+            Console.WriteLine(" UserId = " + stat.UserId);
             Console.WriteLine(" UserName = " + stat.UserName);
             Console.WriteLine(" Comment = " + stat.Comment);
             Console.WriteLine(" FishId = " + stat.FishId);
@@ -69,19 +75,22 @@ namespace MeasureMyPike.Tests
             List<Statistics> statList = ss.GetAllStatistics();
             Assert.IsNotNull(statList, "Kunde inte hämta all statistik");
 
-            Console.WriteLine("antal " + statList.Count);
-            if (statList.Count > 0)
-                PrintStat(statList[0]);
+            // så många totalt fångster
+            Assert.AreEqual(ANTAL_TESTCATCH, statList.Count, "Förväntat antal fångster var "+ANTAL_TESTCATCH+". Var inte databasen tom inann enhetstestet?");
+
+            PrintStat(statList[0]);
         }
 
         [TestMethod]
         [TestCategory("StatTest")]
         public void TestGetStatsForUser()
         {
-            List<Statistics> statList = ss.CatchesForUser(common.theUser);
-            Assert.IsNotNull(statList, "Kunde inte hämta statistik för user "+common.theUser.Username);
+            List<Statistics> statList = ss.CatchesForUser(common.userList[0].Id);
+            Assert.IsNotNull(statList, "Kunde inte hämta statistik för user " + common.userList[0].Username);
 
-            Console.WriteLine("antal " + statList.Count);
+            // så många fångster av den användaren
+            Assert.AreEqual(Math.Ceiling(1.0 * ANTAL_TESTCATCH / ANTAL_TESTDATA), statList.Count);
+
             if (statList.Count > 0)
                 PrintStat(statList[0]);
         }
@@ -90,10 +99,12 @@ namespace MeasureMyPike.Tests
         [TestCategory("StatTest")]
         public void TestGetStatsForLake()
         {
-            List<Statistics> statList = ss.CatchesForLake(common.theLake);
-            Assert.IsNotNull(statList, "Kunde inte hämta statistik för sjö " + common.theLake.Name);
+            List<Statistics> statList = ss.CatchesForLake(common.lakeList[1].Id);
+            Assert.IsNotNull(statList, "Kunde inte hämta statistik för sjö " + common.lakeList[1].Name);
 
-            Console.WriteLine("antal " + statList.Count);
+            // Så många fångster i den sjön
+            Assert.AreEqual(Math.Ceiling(1.0 * ANTAL_TESTCATCH / ANTAL_TESTDATA), statList.Count);
+
             if (statList.Count > 0)
                 PrintStat(statList[0]);
         }
@@ -102,20 +113,48 @@ namespace MeasureMyPike.Tests
         [TestCategory("StatTest")]
         public void TestGetTopLakes()
         {
-            List<LakeStatistics> lakeList = ss.LakeTopList(new DateTime(2016,8,1));
+            List<LakeStatistics> lakeList = ss.LakeTopList(new DateTime(2016, 8, 1));
+            Assert.IsNotNull(lakeList, "Kunde inte hämta topplista för sjöar");
 
-            Console.WriteLine("antal " + lakeList.Count);
+            // Så många sjöar har vi skapat
+            Assert.AreEqual(ANTAL_TESTDATA, lakeList.Count, "Vi förväntade oss "+ANTAL_TESTDATA+" sjöar. Var inte databasen tom innan enhetstestet?");
 
-            if (lakeList.Count > 0)
+            // så många fångster i första sjön
+            Assert.AreEqual(Math.Ceiling(1.0 * ANTAL_TESTCATCH / ANTAL_TESTDATA), lakeList[0].CatchId.Count);
+
+            int[] weightarr = new int[ANTAL_TESTDATA];
+            for (int i=0; i < ANTAL_TESTDATA; i++)
             {
-                foreach(LakeStatistics ls in lakeList)
-                {
-                    Console.WriteLine("Sjö             : "+ ls.LakeName);
-                    Console.WriteLine("Total mängd fisk: " + ls.TotalFishWeight + " gram");
-                    Console.WriteLine("Total längd fisk: " + ls.TotalFishLength + " cm");
-                    Console.WriteLine("Antal fångster  : " + ls.CatchId.Count);
-                }
+                weightarr[i] = 0;
             }
+
+            // De vikter som kommer att beräknas per sjö
+            for (int c=0; c < ANTAL_TESTCATCH; c++)
+            {
+                int lake = c % ANTAL_TESTDATA;
+                int w = 750 + 200 * c;
+                weightarr[lake] += w;
+            }
+
+            // men vi får sorterad lista så det är max-sjön vi letar efter
+            int maxw = 0;
+            for (int lake=0; lake< weightarr.Length; lake++)
+            {
+                if (weightarr[lake]>maxw)
+                    maxw=weightarr[lake];
+            }
+
+            // total vikt i bästa sjön
+            Assert.AreEqual(maxw, lakeList[0].TotalFishWeight);
+
+            foreach (LakeStatistics ls in lakeList)
+            {
+                Console.WriteLine("Sjö             : " + ls.LakeName);
+                Console.WriteLine("Total mängd fisk: " + ls.TotalFishWeight + " gram");
+                Console.WriteLine("Total längd fisk: " + ls.TotalFishLength + " cm");
+                Console.WriteLine("Antal fångster  : " + ls.CatchId.Count);
+            }
+
         }
 
     }

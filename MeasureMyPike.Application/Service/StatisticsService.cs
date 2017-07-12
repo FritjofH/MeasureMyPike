@@ -29,16 +29,13 @@ namespace MeasureMyPike.Service
             return statList;
         }
 
-        public List<Statistics> CatchesForLake(Lake aLake)
+        public List<Statistics> CatchesForLake(LakeDO lakeDO)
         {
-            int lakeId = aLake.Id;
-            var lakeRepo = new LakeRepository();
             var catchRepo = new CatchRepository();
+            var statList = new List<Statistics>();
 
-            var lakeDO = lakeRepo.GetLake(aLake.Id);
             List<CatchDO> catchList = catchRepo.GetCatches(lakeDO);
 
-            var statList = new List<Statistics>();
             if (catchList == null)
             {
                 // If no catches, return empty list
@@ -56,14 +53,27 @@ namespace MeasureMyPike.Service
             return statList;
         }
 
-        public List<Statistics> CatchesForUser(User aUser)
+        public List<Statistics> CatchesForLake(int lakeId)
         {
-            int userId = aUser.Id;
-            var userRepo = new UserRepository();
-            var userDO = userRepo.GetUser(aUser.Id);
-            var catchRepo = new CatchRepository();
+            var lakeRepo = new LakeRepository();
+            var lakeDO = lakeRepo.GetLake(lakeId);
 
+            return CatchesForLake(lakeDO);
+        }
+
+        public List<Statistics> CatchesForLake(string lakeName)
+        {
+            var lakeRepo = new LakeRepository();
+            var lakeDO = lakeRepo.GetLake(lakeName);
+
+            return CatchesForLake(lakeDO);
+        }
+
+        public List<Statistics> CatchesForUser(UserDO userDO)
+        {
+            var catchRepo = new CatchRepository();
             var statList = new List<Statistics>();
+
             List<CatchDO> catchList = catchRepo.GetCatches(userDO);
             if (catchList == null)
             {
@@ -82,13 +92,29 @@ namespace MeasureMyPike.Service
             return statList;
         }
 
+        public List<Statistics> CatchesForUser(int userId)
+        {
+            var userRepo = new UserRepository();
+            var userDO = userRepo.GetUser(userId);
+
+            return CatchesForUser(userDO);
+        }
+
+        public List<Statistics> CatchesForUser(string userName)
+        {
+            var userRepo = new UserRepository();
+            var userDO = userRepo.GetUser(userName);
+
+            return CatchesForUser(userDO);
+        }
+
         // List of best lakes (kg fish) since startdate
         public List<LakeStatistics> LakeTopList(DateTime startDate)
         {
             List<LakeStatistics> lakeList = new List<LakeStatistics>();
 
             var statList = GetAllStatistics();
-            
+
             // first get all since startdate
             statList = statList.
                 Where(ob => ob.Timestamp >= startDate).
@@ -102,13 +128,16 @@ namespace MeasureMyPike.Service
 
                 if (ls != null)
                 {
+                    Console.WriteLine("Funnen " + stat.LakeId + " = " + ls.LakeId);
                     // lake is known, add catch and total measures
                     ls.CatchId.Add(stat.CatchId);
                     ls.TotalFishLength += stat.FishLength;
                     ls.TotalFishWeight += stat.FishWeight;
+                    Console.WriteLine("total vikt för sjön : " + ls.TotalFishWeight);
                 }
                 else
                 {
+                    Console.WriteLine("Ej tidigare funnen " + stat.LakeId);
                     // lake not previously found, insert in list
                     var idList = new List<int>() { stat.CatchId };
 
@@ -122,9 +151,9 @@ namespace MeasureMyPike.Service
                         TotalFishLength = stat.FishLength,
                         TotalFishWeight = stat.FishWeight
                     };
-                }
 
-                lakeList.Add(ls);
+                    lakeList.Add(ls);
+                }
             }
 
             // order by total fisk weight

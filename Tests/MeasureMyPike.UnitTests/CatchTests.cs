@@ -22,7 +22,7 @@ namespace MeasureMyPike.Tests
             common = new TestsCommon();
 
             // we need some base data
-            common.GenerateTestData();
+            common.GenerateTestData(0);
         }
 
         [TestCleanup]
@@ -37,12 +37,12 @@ namespace MeasureMyPike.Tests
         public void AddOneCatch()
         {
             // Create the actual catch
-            theCatch = common.GenerateTestCatch();
+            theCatch = common.GenerateTestCatch(0,0);
 
             Assert.IsNotNull(theCatch, "Kunde inte skapa testCatch");
 
             // remove the catch
-            common.CleanupTestCatch();
+            common.CleanupTestCatches();
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace MeasureMyPike.Tests
         public void GetOneCatch()
         {
             // Create the actual catch
-            theCatch = common.GenerateTestCatch();
+            theCatch = common.GenerateTestCatch(0,0);
 
             Assert.IsNotNull(theCatch, "Kunde inte skapa testCatch");
 
@@ -65,7 +65,7 @@ namespace MeasureMyPike.Tests
             Assert.AreEqual(theCatch.WeatherData.ToString(), oneCatch.WeatherData.ToString(), "WeatherData skiljer sig åt");
 
             // remove the catch
-            Assert.IsTrue(common.CleanupTestCatch(), "Kan inte radera testCatch med Id=" + theCatch.Id);
+            Assert.IsTrue(common.CleanupTestCatches(), "Kan inte radera testCatch med Id=" + theCatch.Id);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace MeasureMyPike.Tests
             Assert.IsNotNull(orgListOfCatches, "Kunde inte hämta en Catches");
 
             // Create one catch
-            theCatch = common.GenerateTestCatch();
+            theCatch = common.GenerateTestCatch(0,0);
 
             Assert.IsNotNull(theCatch, "Kunde inte skapa testCatch");
 
@@ -97,7 +97,7 @@ namespace MeasureMyPike.Tests
             Assert.AreEqual(theCatch.WeatherData.ToString(), newCatch.WeatherData.ToString(), "WeatherData skiljer sig åt");
 
             // remove the catch
-            Assert.IsTrue(common.CleanupTestCatch(), "Kan inte radera testCatch med Id=" + theCatch.Id);
+            Assert.IsTrue(common.CleanupTestCatches(), "Kan inte radera testCatch med Id=" + theCatch.Id);
         }
     }
 }

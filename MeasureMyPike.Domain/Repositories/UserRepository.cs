@@ -104,6 +104,36 @@ namespace MeasureMyPike.Repo
             }
         }
 
+        public UserDO UpdateUser(string firstName, string lastName, string username)
+        {
+            try
+            {
+                using(var conn = new ModelContainer())
+                {
+                    var userToUpdate = conn.User.First(it => it.Username == username);
+                    userToUpdate.FirstName = firstName;
+                    userToUpdate.LastName = lastName;
+
+                    conn.SaveChanges();
+
+                    return userToUpdate;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
+                return null;
+            }
+        }
+
         public bool DeleteUser(UserDO userToDelete)
         {
             try

@@ -68,5 +68,15 @@ namespace MeasureMyPike.Service
 
             return deleted;
         }
+
+        public User UpdateUser(string firstName, string lastName, string username)
+        {
+            var userRepo = new UserRepository();
+            var conversionService = new ConversionUtil();
+
+            var updatedUser = userRepo.UpdateUser(firstName, lastName, username);
+
+            return conversionService.ConvertToUser(updatedUser);
+        }
     }
 }

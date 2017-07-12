@@ -25,7 +25,7 @@
                         <td>{{latestFish.weight}}</td>
                         <td>{{latestFish.length}}</td>
                         <td>{{latestFish.lake}}</td>
-                        <td>{{latestFish.user}}</td>
+                        <td><a (click)="navigateToUser(latestFish.user)">{{latestFish.user}}</a></td>
                         <td>{{latestFish.date}}</td>
                     </tr>
                 </table>
@@ -47,7 +47,7 @@
                         <td>{{bigFish.weight}}</td>
                         <td>{{bigFish.length}}</td>
                         <td>{{bigFish.lake}}</td>
-                        <td>{{bigFish.user}}</td>
+                        <td><a (click)="navigateToUser(bigFish.user)">{{bigFish.user}}</a></td>
                         <td>{{bigFish.date}}</td>
                     </tr>
                 </table>

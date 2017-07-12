@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HomeService } from '../../service/home/home.service';
 import { Sort } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home-view',
@@ -19,11 +20,11 @@ export class HomeViewComponent {
         { weight: '22', length: '110', lake: 'Vänern', user: 'johhny2d', date: '2017-05-01' }
     ];
     popularLakeList: any[] = [
-        {lake: 'Vänern', noCatches: '22', uniqueUsers: '4'},
-        {lake: 'Käppesjön', noCatches: '33', uniqueUsers: '1'},
-        {lake: 'Mälaren', noCatches: '11', uniqueUsers: '3'},
-        {lake: 'Östersjön', noCatches: '44', uniqueUsers: '12'},
-        {lake: 'Storsjön', noCatches: '55', uniqueUsers: '21'}
+        { lake: 'Vänern', noCatches: '22', uniqueUsers: '4' },
+        { lake: 'Käppesjön', noCatches: '33', uniqueUsers: '1' },
+        { lake: 'Mälaren', noCatches: '11', uniqueUsers: '3' },
+        { lake: 'Östersjön', noCatches: '44', uniqueUsers: '12' },
+        { lake: 'Storsjön', noCatches: '55', uniqueUsers: '21' }
     ];
 
     latestFishList: any[] = [
@@ -34,7 +35,7 @@ export class HomeViewComponent {
         { weight: '22', length: '110', lake: 'Vänern', user: 'johhny2d', date: '2017-05-01' }
     ];
 
-    constructor(private homeService: HomeService) { 
+    constructor(private homeService: HomeService, private router: Router) {
     }
 
     sortBiggestFish(sort: Sort) {
@@ -100,19 +101,25 @@ export class HomeViewComponent {
             this.biggestFishList = it;
         })
 
-    };
+    }
 
     public getLatestFish() {
         this.homeService.getLatestFish().subscribe(it => {
             this.latestFishList = it;
         })
-    };
+    }
 
     public getPopularLake() {
         this.homeService.getPopularLake().subscribe(it => {
             this.popularLakeList = it;
         })
-    };
+    }
+
+
+
+    public navigateToUser(currentUsername: string) {
+        this.router.navigate(['/user/' + currentUsername]);
+    }
 }
 
 function compare(a, b, isAsc) {

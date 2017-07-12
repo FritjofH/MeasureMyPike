@@ -20,9 +20,11 @@ namespace MeasureMyPike.Controllers
         private UserController() {
             iUserService = new UserService();
         }
+
         
-        [System.Web.Http.HttpGet]
-        public HttpResponseMessage Get(string username)
+
+        [HttpGet]
+        public HttpResponseMessage GetUser(string username)
         {
             var user = iUserService.GetUser(username);
             if (user == null)
@@ -37,7 +39,7 @@ namespace MeasureMyPike.Controllers
         }
 
         // POST: api/User
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         public HttpResponseMessage Post([FromBody]NewUser newUser)
         {
             var user = iUserService.CreateUser(newUser.LastName, newUser.FirstName, newUser.Username, newUser.Password);
@@ -52,13 +54,37 @@ namespace MeasureMyPike.Controllers
             }
         }
 
+        [HttpPut]
+        public HttpResponseMessage UpdateUser([FromBody]NewUser updatedUser)
+        {
+            var user = iUserService.UpdateUser(updatedUser.FirstName, updatedUser.LastName, updatedUser.Username);
+
+            if (user == null)
+            {
+                var message = string.Format("Could not update user");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, user);
+            }
+        }
+
         // DELETE: api/User/5
-        [System.Web.Http.HttpDelete]
-        public bool Delete([FromBody]NewUser userToDelete)
+        [HttpDelete]
+        public HttpResponseMessage Delete([FromBody]NewUser userToDelete)
         {
             var deleted = iUserService.DeleteUser(userToDelete.Username);
 
-            return deleted;
+            if (!deleted)
+            {
+                var message = string.Format("Could not add user");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, deleted);
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ import { UserRegisterViewComponent } from './view/user-view/Register/userRegiste
 import { UserLoginViewComponent } from './view/user-view/Login/userLogin-view.component';
 import { UserProfileViewComponent } from './view/user-view/Profile/userProfile-view.component';
 import { LogoutDialogComponent } from './common/logout/logoutDialog.component';
+import { SaveChangesDialogComponent } from './common/saveChanges/saveChangesDialog.component';
 import { ToolbarComponent } from './common/toolbar/toolbar.component';
 import { HomeViewComponent } from './view/home-view/home-view.component';
 
@@ -59,6 +60,7 @@ const appRoutes: Routes = [
         UserLoginViewComponent,
         UserProfileViewComponent,
         LogoutDialogComponent,
+        SaveChangesDialogComponent,
         ToolbarComponent,
         HomeViewComponent
     ],
@@ -87,7 +89,8 @@ const appRoutes: Routes = [
         AUTH_PROVIDERS
     ],
     entryComponents: [
-        LogoutDialogComponent
+        LogoutDialogComponent,
+        SaveChangesDialogComponent
     ],
     bootstrap: [AppComponent]
 })

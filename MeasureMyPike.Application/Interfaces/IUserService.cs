@@ -10,5 +10,6 @@ namespace MeasureMyPike.Service
         bool DeleteUser(int id);
         User GetUser(string username);
         UserDO GetUserDO(string username);
+        User UpdateUser(string firstName, string lastName, string username);
     }
 }

@@ -4,7 +4,7 @@ import { Http, Response, URLSearchParams } from '@angular/http';
 import { tokenNotExpired } from 'angular2-jwt';
 import { contentHeaders } from '../../common/headers';
 import { Router } from '@angular/router';
-import { JwtHelper } from 'angular2-jwt';
+import { JwtHelper, AuthHttp } from 'angular2-jwt';
 
 @Injectable()
 export class UserService {
@@ -16,7 +16,7 @@ export class UserService {
     jwtExpired: any;
     jwtDate: any;
 
-    constructor(private http: Http, public router: Router, ) {
+    constructor(private http: Http, public router: Router, private authHttp: AuthHttp) {
         this.jwt = localStorage.getItem('token');
 
         this.decodedJwt = this.jwtHelper.decodeToken(this.jwt);
@@ -32,9 +32,23 @@ export class UserService {
 
     public decodeUserToken(token: string) {
         var parsedToken = this.jwtHelper.decodeToken(token);
-        
+
 
         return parsedToken.unique_name;
+    }
+
+    public updateUser(firstName: string, lastName: string, username: string) {
+        this.authHttp.put('api/User', { "firstName": firstName, "lastName": lastName, "username": username })
+            .subscribe(
+            response => {
+                var ett = 1;
+                var tva = 2;
+            },
+            error => {
+                alert(error.text());
+                console.log(error.text());
+            }
+            );
     }
 
     public login(username: string, password: string) {
@@ -51,7 +65,7 @@ export class UserService {
             );
     }
 
-    public registerUser(lastName: string, firstName: string, username: string, password: string): Observable<any> {
+    public registerUser(firstName: string, lastName: string, username: string, password: string): Observable<any> {
         return this.http.post("/api/User", { "lastName": lastName, "firstName": firstName, "username": username, "password": password })
             .map(this.extractData)
             .catch(this.handleError);

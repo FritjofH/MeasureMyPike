@@ -1,1 +1,39 @@
-﻿
+﻿<div fxFlexLayout="column">
+    <div fxFlexLayout="row" fxLayoutAlign="center center">
+        <h3>{{username}}</h3>
+        <button fxFlexOffset="10px" md-icon-button (click)="updateName(newFirstName, newLastName, username)">
+            <md-icon *ngIf="!edit" style="vertical-align: top;">create</md-icon>
+            <md-icon *ngIf="edit" style="vertical-align: top;">save</md-icon>
+            </button>
+    </div>
+
+    <div fxFlexLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
+        <form>
+            <div fxFlexLayout="column" fxFlex="110px">
+                <md-input-container>
+                    <input [disabled]="!edit" mdInput class="form-control" type="text" [(ngModel)]="newFirstName" name="firstName" />
+                    <md-hint><strong>Förnamn</strong></md-hint>
+                </md-input-container>
+            </div>
+
+            <div fxFlexLayout="column" fxFlexOffset.xl="20px" fxFlexOffset.lg="20px" fxFlexOffset.md="20px" fxFlex="110px">
+                <md-input-container>
+                    <input [disabled]="!edit" mdInput class="form-control" type="text" [(ngModel)]="newLastName" name="lastName" />
+                    <md-hint><strong>Efternamn</strong></md-hint>
+                </md-input-container>
+            </div>
+        </form>
+    </div>
+
+    <div fxFlexLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
+        <div fxFlexLayout="column" fxFlex="110px">
+            <p style="border-bottom: 1px solid #000;">{{username}}</p>
+            <p style="font-size: 12px; margin-top: 7.250px;"><b>Användarnamn</b></p>
+        </div>
+
+        <div fxFlexLayout="column" fxFlexOffset.xl="20px" fxFlexOffset.lg="20px" fxFlexOffset.md="20px" fxFlex="110px">
+            <p style="border-bottom: 1px solid #000;">{{memberSince | date: 'yyyy/MM/dd' }}</p>
+            <p style="font-size: 12px; margin-top: 7.250px;"><b>Medlem sedan</b></p>
+        </div>
+    </div>
+</div>

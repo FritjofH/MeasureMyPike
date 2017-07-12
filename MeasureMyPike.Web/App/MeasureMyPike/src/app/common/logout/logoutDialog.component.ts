@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 })
 export class LogoutDialogComponent {
 
-    selectedOption: boolean;
+    public selectedOption: boolean;
     public dialogRef: MdDialogRef<LogoutDialogComponent>
 
     constructor(public dialog: MdDialog, public userService: UserService) {

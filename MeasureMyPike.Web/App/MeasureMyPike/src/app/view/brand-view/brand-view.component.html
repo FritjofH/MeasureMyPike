@@ -21,9 +21,18 @@
 
             <form name="brandChange">
                 <md-input-container>
-                    <input mdInput type="text" [(ngModel)]="newName" name="newName" placeholder="Nytt namn" />
+                    <input mdInput
+                           type="text"
+                           [(ngModel)]="newName"
+                           name="newName"
+                           placeholder="Nytt namn" />
                 </md-input-container>
-                <button type="submit" md-raised-button [disabled]="newName == null" (click)="updateBrand()">Ändra</button>
+                <button type="submit"
+                        md-raised-button
+                        [disabled]="newName == null"
+                        (click)="updateBrand()">
+                    Ändra
+                </button>
             </form>
         </div>
     </div>

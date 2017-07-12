@@ -32,7 +32,7 @@ export class ToolbarComponent {
         this.logoutDialog.openDialog();
     }
 
-public navigateToUser(currentUsername: string) {
-    this.router.navigate(['/user/' + currentUsername]);
-}
+    public navigateToUser(currentUsername: string) {
+        this.router.navigate(['/user/' + currentUsername]);
+    }
 }

@@ -206,5 +206,18 @@ namespace MeasureMyPike.Service
             return stat;
         }
 
+        public List<Statistics> LatestCatches(int num)
+        {
+            var statList = GetAllStatistics();
+
+            // get all, sort so latest is first, take top n, sort correct time order
+            statList = statList.
+                OrderByDescending(ob => ob.Timestamp).
+                Take(num).
+                OrderBy(ob => ob.Timestamp).
+                ToList();
+
+            return statList;
+        }
     }
 }

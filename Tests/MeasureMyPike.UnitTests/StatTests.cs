@@ -76,7 +76,7 @@ namespace MeasureMyPike.Tests
             Assert.IsNotNull(statList, "Kunde inte hämta all statistik");
 
             // så många totalt fångster
-            Assert.AreEqual(ANTAL_TESTCATCH, statList.Count, "Förväntat antal fångster var "+ANTAL_TESTCATCH+". Var inte databasen tom inann enhetstestet?");
+            Assert.AreEqual(ANTAL_TESTCATCH, statList.Count, "Förväntat antal fångster var "+ANTAL_TESTCATCH+". Var inte databasen tom innan enhetstestet?");
 
             PrintStat(statList[0]);
         }
@@ -113,7 +113,7 @@ namespace MeasureMyPike.Tests
         [TestCategory("StatTest")]
         public void TestGetTopLakes()
         {
-            List<LakeStatistics> lakeList = ss.LakeTopList(new DateTime(2016, 8, 1));
+            List<LakeStatistics> lakeList = ss.LakeTopList(new DateTime().AddSeconds(-5));
             Assert.IsNotNull(lakeList, "Kunde inte hämta topplista för sjöar");
 
             // Så många sjöar har vi skapat
@@ -157,5 +157,36 @@ namespace MeasureMyPike.Tests
 
         }
 
+        [TestMethod]
+        [TestCategory("StatTest")]
+        public void TestFishTopList()
+        {
+            List<Statistics> fishList = ss.FishTopList(new DateTime().Subtract(new TimeSpan(0,0,-10)));
+            Assert.IsNotNull(fishList, "Kunde inte hämta topplista för fiskar");
+
+            // Så många fiskar
+            Assert.AreEqual(ANTAL_TESTCATCH, fishList.Count, "Vi förväntade oss " + ANTAL_TESTCATCH + " fiskar. Var inte databasen tom innan enhetstestet?");
+
+            // Största fisken
+            int maxw = 750 + 200 * (ANTAL_TESTCATCH-1);  // gram
+            Assert.AreEqual(maxw, fishList[0].FishWeight);
+
+        }
+
+        [TestMethod]
+        [TestCategory("StatTest")]
+        public void TestLatestCatces()
+        {
+            List<Statistics> fishList = ss.LatestCatches(3);
+            Assert.IsNotNull(fishList, "Kunde inte hämta senaste fiskar");
+
+            // Så många fiskar
+            Assert.AreEqual(3, fishList.Count);
+
+            // Senaste fisken
+            int maxw = 750 + 200 * (ANTAL_TESTCATCH - 1);  // gram
+            Assert.AreEqual(maxw, fishList[2].FishWeight);
+
+        }
     }
 }

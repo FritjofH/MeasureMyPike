@@ -95,5 +95,21 @@ namespace MeasureMyPike.Controllers
             }
         }
 
+        [Route("api/Statistics/latestCatch")]
+        [HttpGet]
+        public HttpResponseMessage GetLatestCatch(int catches)
+        {
+            var topList = iStatisticsService.LatestCatches(catches);
+            if (topList == null)
+            {
+                var message = string.Format("No Fish found");
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, topList);
+            }
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../service/user/user.service';
 import { LogoutDialogComponent } from '../logout/logoutDialog.component';
@@ -21,7 +21,9 @@ export class ToolbarComponent {
 
     public getCurrentUser() {
         var token = localStorage.getItem('token');
-        this.currentUsername = this.userService.decodeUserToken(token);
+        if (token != null) {
+            this.currentUsername = this.userService.decodeUserToken(token);
+        }
     }
 
     public loggedIn() {

@@ -33,9 +33,9 @@ namespace MeasureMyPike.Controllers
 
         [Route("api/Statistics/perUser")]
         [HttpGet]
-        public HttpResponseMessage GetPerUser(string username)
+        public HttpResponseMessage GetPerUser(string username, string startDate)
         {
-            var catchList = iStatisticsService.CatchesForUser(username);
+            var catchList = iStatisticsService.CatchesForUser(username, System.Convert.ToDateTime(startDate));
             if (catchList == null)
             {
                 var message = string.Format("No Catches found");
@@ -49,9 +49,9 @@ namespace MeasureMyPike.Controllers
 
         [Route("api/Statistics/perLake")]
         [HttpGet]
-        public HttpResponseMessage GetPerLake(string lakename)
+        public HttpResponseMessage GetPerLake(string lakename, string startDate)
         {
-            var catchList = iStatisticsService.CatchesForLake(lakename);
+            var catchList = iStatisticsService.CatchesForLake(lakename, System.Convert.ToDateTime(startDate));
             if (catchList == null)
             {
                 var message = string.Format("No Catches found");

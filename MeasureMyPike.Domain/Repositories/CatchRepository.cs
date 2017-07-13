@@ -71,7 +71,7 @@ namespace MeasureMyPike
             }
         }
 
-        public List<CatchDO> GetCatches(LakeDO aLake)
+        public List<CatchDO> GetCatches(LakeDO aLake, DateTime startDate)
         {
             try
             {
@@ -81,6 +81,7 @@ namespace MeasureMyPike
                     var catchList = conn.Catch.
                         Include("Media").Include("Lure").Include("Lure.Brand").Include("Location").Include("Location.Lake").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
                         Where(it => it.Location.Lake.Id == aLake.Id).
+                        Where(it => it.Timestamp >= startDate).
                         ToList();
                     return catchList;
                 }
@@ -100,7 +101,7 @@ namespace MeasureMyPike
             }
         }
 
-        public List<CatchDO> GetCatches(UserDO aUser)
+        public List<CatchDO> GetCatches(UserDO aUser, DateTime startDate)
         {
             try
             {
@@ -110,6 +111,7 @@ namespace MeasureMyPike
                     var catchList = conn.Catch.
                         Include("Media").Include("Lure").Include("Lure.Brand").Include("Location").Include("Location.Lake").Include("Comment").Include("Fish").Include("User").Include("WeatherData").
                         Where(it => it.User.Id == aUser.Id).
+                        Where(it => it.Timestamp >= startDate).
                         ToList();
                     return catchList;
                 }

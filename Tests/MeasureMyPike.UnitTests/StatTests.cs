@@ -85,7 +85,8 @@ namespace MeasureMyPike.Tests
         [TestCategory("StatTest")]
         public void TestGetStatsForUser()
         {
-            List<Statistics> statList = ss.CatchesForUser(common.userList[0].Id);
+            DateTime startDate = new DateTime(2016, 1, 1);
+            List<Statistics> statList = ss.CatchesForUser(common.userList[0].Id, startDate);
             Assert.IsNotNull(statList, "Kunde inte hämta statistik för user " + common.userList[0].Username);
 
             // så många fångster av den användaren
@@ -99,7 +100,8 @@ namespace MeasureMyPike.Tests
         [TestCategory("StatTest")]
         public void TestGetStatsForLake()
         {
-            List<Statistics> statList = ss.CatchesForLake(common.lakeList[1].Id);
+            DateTime startDate = new DateTime(2016, 1, 1);
+            List<Statistics> statList = ss.CatchesForLake(common.lakeList[1].Id, startDate);
             Assert.IsNotNull(statList, "Kunde inte hämta statistik för sjö " + common.lakeList[1].Name);
 
             // Så många fångster i den sjön
@@ -113,7 +115,7 @@ namespace MeasureMyPike.Tests
         [TestCategory("StatTest")]
         public void TestGetTopLakes()
         {
-            List<LakeStatistics> lakeList = ss.LakeTopList(new DateTime().AddSeconds(-5));
+            List<LakeStatistics> lakeList = ss.LakeTopList(DateTime.Now.AddSeconds(-30));
             Assert.IsNotNull(lakeList, "Kunde inte hämta topplista för sjöar");
 
             // Så många sjöar har vi skapat
@@ -161,7 +163,7 @@ namespace MeasureMyPike.Tests
         [TestCategory("StatTest")]
         public void TestFishTopList()
         {
-            List<Statistics> fishList = ss.FishTopList(new DateTime().Subtract(new TimeSpan(0,0,-10)));
+            List<Statistics> fishList = ss.FishTopList(DateTime.Now.AddSeconds(-30));
             Assert.IsNotNull(fishList, "Kunde inte hämta topplista för fiskar");
 
             // Så många fiskar

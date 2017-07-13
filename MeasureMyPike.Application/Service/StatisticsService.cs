@@ -12,6 +12,36 @@ namespace MeasureMyPike.Service
 {
     public class StatisticsService : IStatisticsService
     {
+        private Statistics PopulateFromCatch(CatchDO aCatch)
+        {
+            Statistics stat = new Statistics
+            {
+                Id = aCatch.Id,
+                Timestamp = aCatch.Timestamp,
+                CatchId = aCatch.Id,
+                UserId = aCatch.User.Id,
+                UserName = aCatch.User.Username,
+                Comment = aCatch.Comment.Text,
+                FishId = aCatch.Fish.Id,
+                FishLength = (int)aCatch.Fish.Length,
+                FishWeight = (int)aCatch.Fish.Weight,
+                LocationId = aCatch.Location.Id,
+                LocationCoordinates = aCatch.Location.Coordinates,
+                LakeId = aCatch.Location.Lake.Id,
+                LakeName = aCatch.Location.Lake.Name,
+                LureId = aCatch.Lure.Id,
+                LureName = aCatch.Lure.Name,
+                LureBrand = aCatch.Lure.Brand.Name,
+                LureWeight = aCatch.Lure.Weight,
+                AirTemperature = aCatch.WeatherData.AirTemperature,
+                WaterTemperature = aCatch.WeatherData.WaterTemperature,
+                Weather = aCatch.WeatherData.Weather,
+                MoonPhase = aCatch.WeatherData.MoonPosition
+            };
+
+            return stat;
+        }
+
         public List<Statistics> GetAllStatistics()
         {
             var catchRepo = new CatchRepository();
@@ -21,20 +51,18 @@ namespace MeasureMyPike.Service
             foreach (var aCatch in catchRepo.GetAllCatches())
             {
                 Statistics stat = PopulateFromCatch(aCatch);
-
                 statList.Add(stat);
-
             }
 
             return statList;
         }
 
-        public List<Statistics> CatchesForLake(LakeDO lakeDO)
+        private List<Statistics> CatchesForLake(LakeDO lakeDO, DateTime startDate)
         {
             var catchRepo = new CatchRepository();
             var statList = new List<Statistics>();
 
-            List<CatchDO> catchList = catchRepo.GetCatches(lakeDO);
+            List<CatchDO> catchList = catchRepo.GetCatches(lakeDO, startDate);
 
             if (catchList == null)
             {
@@ -45,36 +73,34 @@ namespace MeasureMyPike.Service
             foreach (var aCatch in catchList)
             {
                 Statistics stat = PopulateFromCatch(aCatch);
-
                 statList.Add(stat);
-
             }
 
             return statList;
         }
 
-        public List<Statistics> CatchesForLake(int lakeId)
+        public List<Statistics> CatchesForLake(int lakeId, DateTime startDate)
         {
             var lakeRepo = new LakeRepository();
             var lakeDO = lakeRepo.GetLake(lakeId);
 
-            return CatchesForLake(lakeDO);
+            return CatchesForLake(lakeDO, startDate);
         }
 
-        public List<Statistics> CatchesForLake(string lakeName)
+        public List<Statistics> CatchesForLake(string lakeName, DateTime startDate)
         {
             var lakeRepo = new LakeRepository();
             var lakeDO = lakeRepo.GetLake(lakeName);
 
-            return CatchesForLake(lakeDO);
+            return CatchesForLake(lakeDO, startDate);
         }
 
-        public List<Statistics> CatchesForUser(UserDO userDO)
+        private List<Statistics> CatchesForUser(UserDO userDO, DateTime startDate)
         {
             var catchRepo = new CatchRepository();
             var statList = new List<Statistics>();
 
-            List<CatchDO> catchList = catchRepo.GetCatches(userDO);
+            List<CatchDO> catchList = catchRepo.GetCatches(userDO, startDate);
             if (catchList == null)
             {
                 // If no catches, return empty list
@@ -84,28 +110,26 @@ namespace MeasureMyPike.Service
             foreach (var aCatch in catchList)
             {
                 Statistics stat = PopulateFromCatch(aCatch);
-
                 statList.Add(stat);
-
             }
 
             return statList;
         }
 
-        public List<Statistics> CatchesForUser(int userId)
+        public List<Statistics> CatchesForUser(int userId, DateTime startDate)
         {
             var userRepo = new UserRepository();
             var userDO = userRepo.GetUser(userId);
 
-            return CatchesForUser(userDO);
+            return CatchesForUser(userDO, startDate);
         }
 
-        public List<Statistics> CatchesForUser(string userName)
+        public List<Statistics> CatchesForUser(string userName, DateTime startDate)
         {
             var userRepo = new UserRepository();
             var userDO = userRepo.GetUser(userName);
 
-            return CatchesForUser(userDO);
+            return CatchesForUser(userDO, startDate);
         }
 
         // List of best lakes (kg fish) since startdate
@@ -174,36 +198,6 @@ namespace MeasureMyPike.Service
                 ToList();
 
             return statList;
-        }
-
-        private Statistics PopulateFromCatch(CatchDO aCatch)
-        {
-            Statistics stat = new Statistics
-            {
-                Id = aCatch.Id,
-                Timestamp = aCatch.Timestamp,
-                CatchId = aCatch.Id,
-                UserId = aCatch.User.Id,
-                UserName = aCatch.User.Username,
-                Comment = aCatch.Comment.Text,
-                FishId = aCatch.Fish.Id,
-                FishLength = (int)aCatch.Fish.Length,
-                FishWeight = (int)aCatch.Fish.Weight,
-                LocationId = aCatch.Location.Id,
-                LocationCoordinates = aCatch.Location.Coordinates,
-                LakeId = aCatch.Location.Lake.Id,
-                LakeName = aCatch.Location.Lake.Name,
-                LureId = aCatch.Lure.Id,
-                LureName = aCatch.Lure.Name,
-                LureBrand = aCatch.Lure.Brand.Name,
-                LureWeight = aCatch.Lure.Weight,
-                AirTemperature = aCatch.WeatherData.AirTemperature,
-                WaterTemperature = aCatch.WeatherData.WaterTemperature,
-                Weather = aCatch.WeatherData.Weather,
-                MoonPhase = aCatch.WeatherData.MoonPosition
-            };
-
-            return stat;
         }
 
         public List<Statistics> LatestCatches(int num)

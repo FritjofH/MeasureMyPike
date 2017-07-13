@@ -8,12 +8,10 @@ namespace MeasureMyPike.Service
     public interface IStatisticsService
     {
         List<Statistics> GetAllStatistics();
-        List<Statistics> CatchesForUser(UserDO userDO);
-        List<Statistics> CatchesForUser(int userId);
-        List<Statistics> CatchesForUser(string userName);
-        List<Statistics> CatchesForLake(LakeDO lakeDO);
-        List<Statistics> CatchesForLake(int lakeId);
-        List<Statistics> CatchesForLake(string lakeName);
+        List<Statistics> CatchesForUser(int userId, DateTime startDate);
+        List<Statistics> CatchesForUser(string userName, DateTime startDate);
+        List<Statistics> CatchesForLake(int lakeId, DateTime startDate);
+        List<Statistics> CatchesForLake(string lakeName, DateTime startDate);
         List<LakeStatistics> LakeTopList(DateTime startDate);
         List<Statistics> FishTopList(DateTime startDate);
         List<Statistics> LatestCatches(int num);

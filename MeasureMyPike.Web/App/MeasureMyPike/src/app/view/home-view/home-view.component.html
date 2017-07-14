@@ -9,46 +9,45 @@
         </p>
     </div>
 
-    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayout.md="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
         <div fxFlex="30">
             <div fxFill fxLayout="column">
                 <h3>De 5 senaste gäddorna</h3>
                 <table fxFill name="latestFish" mdSort (mdSortChange)="sortLatestFish($event)">
                     <tr>
-                        <th md-sort-header="weight">Kilo</th>
-                        <th md-sort-header="length">Längd (cm)</th>
-                        <th md-sort-header="lake">Vattendrag</th>
-                        <th md-sort-header="user">Användare</th>
-                        <th md-sort-header="date">Datum</th>
+                        <th md-sort-header="fishWeight">Kilo</th>
+                        <th md-sort-header="fishLength">Längd (cm)</th>
+                        <th md-sort-header="lakeName">Vattendrag</th>
+                        <th md-sort-header="userName">Användare</th>
+                        <th md-sort-header="timestamp">Datum</th>
                     </tr>
                     <tr *ngFor="let latestFish of latestFishList">
-                        <td>{{latestFish.weight}}</td>
-                        <td>{{latestFish.length}}</td>
-                        <td>{{latestFish.lake}}</td>
-                        <td><a (click)="navigateToUser(latestFish.user)">{{latestFish.user}}</a></td>
-                        <td>{{latestFish.date}}</td>
+                        <td>{{latestFish.fishWeight | toKilos}}</td>
+                        <td>{{latestFish.fishLength}}</td>
+                        <td>{{latestFish.lakeName}}</td>
+                        <td><a (click)="navigateToUser(latestFish.userName)">{{latestFish.userName}}</a></td>
+                        <td>{{latestFish.timestamp | date: 'yyyy-MM-dd HH:mm' }}</td>
                     </tr>
                 </table>
             </div>
         </div>
-        <div fxFlex="1"></div>
-        <div fxFlex="30">
+        <div fxFlex="30" fxFlexOffset.xl="1" fxFlexOffset.lg="1">
             <div fxFill fxLayout="column">
                 <h3>De 5 största gäddorna</h3>
                 <table fxFill name="biggestFish" mdSort (mdSortChange)="sortBiggestFish($event)">
                     <tr>
-                        <th md-sort-header="weight">Kilo</th>
-                        <th md-sort-header="length">Längd (cm)</th>
-                        <th md-sort-header="lake">Vattendrag</th>
-                        <th md-sort-header="user">Användare</th>
-                        <th md-sort-header="date">Datum</th>
+                        <th md-sort-header="fishWeight">Kilo</th>
+                        <th md-sort-header="fishLength">Längd (cm)</th>
+                        <th md-sort-header="lakeName">Vattendrag</th>
+                        <th md-sort-header="userName">Användare</th>
+                        <th md-sort-header="timestamp">Datum</th>
                     </tr>
                     <tr *ngFor="let bigFish of biggestFishList">
-                        <td>{{bigFish.weight}}</td>
-                        <td>{{bigFish.length}}</td>
-                        <td>{{bigFish.lake}}</td>
-                        <td><a (click)="navigateToUser(bigFish.user)">{{bigFish.user}}</a></td>
-                        <td>{{bigFish.date}}</td>
+                        <td>{{bigFish.fishWeight | toKilos}}</td>
+                        <td>{{bigFish.fishLength}}</td>
+                        <td>{{bigFish.lakeName}}</td>
+                        <td><a (click)="navigateToUser(bigFish.userName)">{{bigFish.userName}}</a></td>
+                        <td>{{bigFish.timestamp | date: 'yyyy-MM-dd HH:mm' }}</td>
                     </tr>
                 </table>
             </div>
@@ -61,14 +60,16 @@
                 <h3>De 5 populäraste sjöarna</h3>
                 <table fxFill name="popularLake" mdSort (mdSortChange)="sortPopularLakeData($event)">
                     <tr>
-                        <th md-sort-header="lake">Vattendrag</th>
-                        <th md-sort-header="noCatches">Antal fångster</th>
-                        <th md-sort-header="uniqueUsers">Unika användare</th>
+                        <th md-sort-header="lakeName">Vattendrag</th>
+                        <th md-sort-header="catchId.length">Antal gäddor</th>
+                        <th md-sort-header="totalFishLength">Meter gädda</th>
+                        <th md-sort-header="totalFishWeight">Kilo gädda</th>
                     </tr>
                     <tr *ngFor="let popularLake of popularLakeList">
-                        <td>{{popularLake.lake}}</td>
-                        <td>{{popularLake.noCatches}}</td>
-                        <td>{{popularLake.uniqueUsers}}</td>
+                        <td>{{popularLake.lakeName}}</td>
+                        <td>{{popularLake.catchId.length}}</td>
+                        <td>{{popularLake.totalFishLength | toMeter}}</td>
+                        <td>{{popularLake.totalFishWeight | toKilos}}</td>
                     </tr>
                 </table>
             </div>

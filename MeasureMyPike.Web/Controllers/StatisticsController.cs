@@ -81,9 +81,9 @@ namespace MeasureMyPike.Controllers
 
         [Route("api/Statistics/topFish")]
         [HttpGet]
-        public HttpResponseMessage GetTopFish(string startDate)
+        public HttpResponseMessage GetTopFish(int catches, string startDate)
         {
-            var topList = iStatisticsService.FishTopList(System.Convert.ToDateTime(startDate));
+            var topList = iStatisticsService.FishTopList(catches, System.Convert.ToDateTime(startDate));
             if (topList == null)
             {
                 var message = string.Format("No Fish found");

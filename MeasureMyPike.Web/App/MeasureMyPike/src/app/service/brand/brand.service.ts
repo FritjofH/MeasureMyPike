@@ -10,19 +10,19 @@ export class BrandService {
     constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
     }
 
-    getBrands(): Observable<any[]> {
+    public getBrands(): Observable<any[]> {
         return this.authHttp.get("/api/Brand")
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    getBrand(int: number): Observable<any[]> {
+    public getBrand(int: number): Observable<any[]> {
         return this.authHttp.get("/api/Brand")
                 .map(this.extractData)
                 .catch(this.handleError);
     }
 
-    updateBrand(id: number, name: string): Observable<any[]> {
+    public updateBrand(id: number, name: string): Observable<any[]> {
         return this.authHttp.put("/api/Brand", { "id": id, "name": name })
             .map(this.extractData)
             .catch(this.handleError);

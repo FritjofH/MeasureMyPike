@@ -6,24 +6,27 @@ import { MaterialModule, MdCheckboxModule, MdInputModule, MdButtonModule, MdTool
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations/';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
-
 import { AUTH_PROVIDERS } from 'angular2-jwt';
+
+import { AppComponent } from './app.component';
 
 import { BrandService } from './service/brand/brand.service';
 import { UserService } from './service/user/user.service';
 import { HomeService } from './service/home/home.service';
 
-import { AppComponent } from './app.component';
 import { BrandViewComponent } from './view/brand-view/brand-view.component';
 import { UserRegisterViewComponent } from './view/user-view/Register/userRegister-view.component';
 import { UserLoginViewComponent } from './view/user-view/Login/userLogin-view.component';
 import { UserProfileViewComponent } from './view/user-view/Profile/userProfile-view.component';
-import { LogoutDialogComponent } from './common/logout/logoutDialog.component';
-import { SaveChangesDialogComponent } from './common/saveChanges/saveChangesDialog.component';
-import { ToolbarComponent } from './common/toolbar/toolbar.component';
 import { HomeViewComponent } from './view/home-view/home-view.component';
 
+import { SaveChangesDialogComponent } from './common/saveChanges/saveChangesDialog.component';
+import { LogoutDialogComponent } from './common/logout/logoutDialog.component';
+import { ToolbarComponent } from './common/toolbar/toolbar.component';
 import { AuthGuard } from './common/auth/auth.guard';
+import { UtilService } from './common/util.service';
+import { GramsToKilos } from './common/pipes/gramsToKilo.pipe';
+import { CentimeterToMeter } from './common/pipes/centimeterToMeter.pipe';
 
 const appRoutes: Routes = [
     {
@@ -62,7 +65,9 @@ const appRoutes: Routes = [
         LogoutDialogComponent,
         SaveChangesDialogComponent,
         ToolbarComponent,
-        HomeViewComponent
+        HomeViewComponent,
+        GramsToKilos,
+        CentimeterToMeter
     ],
     imports: [
         BrowserModule,
@@ -86,7 +91,8 @@ const appRoutes: Routes = [
         UserService,
         HomeService,
         AuthGuard,
-        AUTH_PROVIDERS
+        AUTH_PROVIDERS,
+        UtilService
     ],
     entryComponents: [
         LogoutDialogComponent,

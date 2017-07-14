@@ -1,22 +1,22 @@
 ﻿<div fxFlexLayout="column">
     <div fxFlexLayout="row" fxLayoutAlign="center center">
         <h3>{{username}}</h3>
-        <button fxFlexOffset="10px" md-icon-button (click)="updateName(newFirstName, newLastName, username)">
+        <button *ngIf="currentUser" fxFlexOffset="10px" md-icon-button (click)="updateName(newFirstName, newLastName, username)">
             <md-icon *ngIf="!edit" style="vertical-align: top;">create</md-icon>
             <md-icon *ngIf="edit" style="vertical-align: top;">save</md-icon>
-            </button>
+        </button>
     </div>
 
     <div fxFlexLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
         <form>
-            <div fxFlexLayout="column" fxFlex="110px">
+            <div fxFlexLayout="column" fxFlex="155px">
                 <md-input-container>
                     <input [disabled]="!edit" mdInput class="form-control" type="text" [(ngModel)]="newFirstName" name="firstName" />
                     <md-hint><strong>Förnamn</strong></md-hint>
                 </md-input-container>
             </div>
 
-            <div fxFlexLayout="column" fxFlexOffset.xl="20px" fxFlexOffset.lg="20px" fxFlexOffset.md="20px" fxFlex="110px">
+            <div fxFlexLayout="column" fxFlexOffset.xl="20px" fxFlexOffset.lg="20px" fxFlexOffset.md="20px" fxFlex="155px">
                 <md-input-container>
                     <input [disabled]="!edit" mdInput class="form-control" type="text" [(ngModel)]="newLastName" name="lastName" />
                     <md-hint><strong>Efternamn</strong></md-hint>
@@ -26,14 +26,66 @@
     </div>
 
     <div fxFlexLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
-        <div fxFlexLayout="column" fxFlex="110px">
+        <div fxFlexLayout="column" fxFlex="155px">
             <p style="border-bottom: 1px solid #000;">{{username}}</p>
             <p style="font-size: 12px; margin-top: 7.250px;"><b>Användarnamn</b></p>
         </div>
 
-        <div fxFlexLayout="column" fxFlexOffset.xl="20px" fxFlexOffset.lg="20px" fxFlexOffset.md="20px" fxFlex="110px">
-            <p style="border-bottom: 1px solid #000;">{{memberSince | date: 'yyyy/MM/dd' }}</p>
+        <div fxFlexLayout="column" fxFlexOffset.xl="20px" fxFlexOffset.lg="20px" fxFlexOffset.md="20px" fxFlex="155px">
+            <p style="border-bottom: 1px solid #000;">{{memberSince | date: 'yyyy-MM-dd' }}</p>
             <p style="font-size: 12px; margin-top: 7.250px;"><b>Medlem sedan</b></p>
         </div>
+    </div>
+
+    <div fxFlexLayout="row" fxLayoutAlign="center center">
+        <h3>Senaste fångster:</h3>
+        <button fxFlexOffset="10px" md-icon-button (click)="toggleFish()">
+            <md-icon *ngIf="fishShown" style="vertical-align: top;">expand_less</md-icon>
+            <md-icon *ngIf="!fishShown" style="vertical-align: top;">expand_more</md-icon>
+        </button>
+    </div>
+
+    <div [hidden]="fishShown" fxFlexLayout="row" fxLayoutAlign="center center">
+        <table fxFlex="600px" name="catch" mdSort (mdSortChange)="sortCatch($event)">
+            <tr>
+                <th md-sort-header="weight">Kilo</th>
+                <th md-sort-header="length">Längd (cm)</th>
+                <th md-sort-header="lake">Vattendrag</th>
+                <th md-sort-header="lure">Drag</th>
+                <th md-sort-header="date">Datum</th>
+            </tr>
+            <tr *ngFor="let catch of userCatchList">
+                <td>{{catch.fishWeight | toKilos}}</td>
+                <td>{{catch.fishLength}}</td>
+                <td>{{catch.lakeName}}</td>
+                <td>{{catch.lureName}}</td>
+                <td>{{catch.timestamp | date: 'yyyy-MM-dd HH:mm'}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div fxFlexLayout="row" fxLayoutAlign="center center">
+        <h3>Draglåda:</h3>
+        <button fxFlexOffset="10px" md-icon-button (click)="toggleTackleBox()">
+            <md-icon *ngIf="tackleBoxShown" style="vertical-align: top;">expand_less</md-icon>
+            <md-icon *ngIf="!tackleBoxShown" style="vertical-align: top;">expand_more</md-icon>
+        </button>
+    </div>
+
+    <div [hidden]="tackleBoxShown" fxFlexLayout="row" fxLayoutAlign="center center">
+        <table fxFlex="600px" name="catch" mdSort (mdSortChange)="sortTackleBox($event)">
+            <tr>
+                <th md-sort-header="lureName">Namn</th>
+                <th md-sort-header="lureWeight">Vikt (gram)</th>
+                <th md-sort-header="lureColour">Färg</th>
+                <th md-sort-header="lureBrand">Märke</th>
+            </tr>
+            <tr *ngFor="let lure of tackleBox">
+                <td>{{lure.lureName}}</td>
+                <td>{{lure.lureWeight}}</td>
+                <td>{{lure.lureColour}}</td>
+                <td>{{lure.lureBrand}}</td>
+            </tr>
+        </table>
     </div>
 </div>

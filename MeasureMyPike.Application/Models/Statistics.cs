@@ -28,5 +28,6 @@ namespace MeasureMyPike.Models.Application
         public string LureName { get; set; }
         public string LureBrand { get; set; }
         public int? LureWeight { get; set; }
+        public string LureColour { get; set; }
     }
 }

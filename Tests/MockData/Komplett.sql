@@ -17,18 +17,23 @@ INSERT [User] ([Username], [LastName], [FirstName], [MemberSince], [TackleBox_Id
 INSERT [User] ([Username], [LastName], [FirstName], [MemberSince], [TackleBox_Id]) VALUES (N'nilspelle', N'Nilsson', N'Pär Anders', CAST(N'2017-07-13T08:55:40.953' AS DateTime), 2)
 INSERT [User] ([Username], [LastName], [FirstName], [MemberSince], [TackleBox_Id]) VALUES (N'johhny2d', N'Karlsson', N'Johnny', CAST(N'2017-07-13T08:56:56.357' AS DateTime), 3)
 INSERT [User] ([Username], [LastName], [FirstName], [MemberSince], [TackleBox_Id]) VALUES (N'chilimannen', N'Andersson', N'Mattias', CAST(N'2017-07-13T08:57:10.383' AS DateTime), 4)
-INSERT [User] ([Username], [LastName], [FirstName], [MemberSince], [TackleBox_Id]) VALUES (N'GäddXterminator7000', N'Josefsson', N'Janne', CAST(N'2017-07-13T08:58:28.040' AS DateTime), 5)
+INSERT [User] ([Username], [LastName], [FirstName], [MemberSince], [TackleBox_Id]) VALUES (N'PikeXterminator7000', N'Josefsson', N'Janne', CAST(N'2017-07-13T08:58:28.040' AS DateTime), 5)
 
 insert into [Security] select 'HAt0N0WoGgOBhhXd6Y2jpIcBJ6H1pzzR5nBxzD8CLNjlA/pD', id from [User] where Username = 'hostf'
 insert into [Security] select 'dE0pI9tX+IhKe1IsfHownZLq5X28FXxCM+xsyxkVyuTuZavD', id from [User] where Username = 'nilspelle'
 insert into [Security] select '4FruhBTLncNjSZ/M8uuM5qufSwuSKi1JwC8V5HeKZ08dBWXF', id from [User] where Username = 'johhny2d'
 insert into [Security] select '50Ilk2ZI3t6FoIUzmA05rZr7ip+A8lmbGPtXyRlM1rk4qOQi', id from [User] where Username = 'chilimannen'
-insert into [Security] select 'I6oLRrdD9mEYh30IIrAHurb4UBwGP9yc4e5kNxyVzJ2kgVaM', id from [User] where Username = 'GäddXterminator7000'
+insert into [Security] select 'I6oLRrdD9mEYh30IIrAHurb4UBwGP9yc4e5kNxyVzJ2kgVaM', id from [User] where Username = 'PikeXterminator7000'
 
 insert into [Location] (Lake_Id) select id from [Lake] where Name = 'Storsjön'
 insert into [Location] (Lake_Id) select id from [Lake] where Name = 'Östersjön'
 insert into [Location] (Lake_Id) select id from [Lake] where Name = 'Mälaren'
 insert into [Location] (Lake_Id) select id from [Lake] where Name = 'Käppesjön'
+insert into [Location] (Lake_Id) select id from [Lake] where Name = 'Vänern'
+insert into [Location] (Lake_Id) select id from [Lake] where Name = 'Käppesjön'
+insert into [Location] (Lake_Id) select id from [Lake] where Name = 'Käppesjön'
+insert into [Location] (Lake_Id) select id from [Lake] where Name = 'Käppesjön'
+insert into [Location] (Lake_Id) select id from [Lake] where Name = 'Vänern'
 insert into [Location] (Lake_Id) select id from [Lake] where Name = 'Vänern'
 
 INSERT INTO [Brand] (Name) VALUES (N'Abu Garcia')
@@ -74,31 +79,51 @@ insert into [LureTackleBox] select 6, id from [User] where Username = 'chilimann
 insert into [LureTackleBox] select 11, id from [User] where Username = 'chilimannen'
 insert into [LureTackleBox] select 9, id from [User] where Username = 'chilimannen'
 insert into [LureTackleBox] select 8, id from [User] where Username = 'chilimannen'
-insert into [LureTackleBox] select 1, id from [User] where Username = 'GäddXterminator7000'
-insert into [LureTackleBox] select 7, id from [User] where Username = 'GäddXterminator7000'
-insert into [LureTackleBox] select 12, id from [User] where Username = 'GäddXterminator7000'
-insert into [LureTackleBox] select 10, id from [User] where Username = 'GäddXterminator7000'
+insert into [LureTackleBox] select 1, id from [User] where Username = 'PikeXterminator7000'
+insert into [LureTackleBox] select 7, id from [User] where Username = 'PikeXterminator7000'
+insert into [LureTackleBox] select 12, id from [User] where Username = 'PikeXterminator7000'
+insert into [LureTackleBox] select 10, id from [User] where Username = 'PikeXterminator7000'
 
 insert into [Fish] values (55, 12000)
 insert into [Fish] values (90, 17000)
 insert into [Fish] values (30, 5000)
 insert into [Fish] values (150, 40000)
 insert into [Fish] values (110, 22000)
+insert into [Fish] values (15, 1200)
+insert into [Fish] values (955, 10000)
+insert into [Fish] values (40, 6000)
+insert into [Fish] values (280, 400000)
+insert into [Fish] values (10, 800)
 
 insert into [WeatherData] values (12, N'Molnigt', N'Nymåne', 22)
 insert into [WeatherData] values (8, N'Soligt', N'Tilltagande skära', 18)
 insert into [WeatherData] values (7, N'Regnigt', N'Tilltagande halvmåne', 15)
 insert into [WeatherData] values (9, N'Vindstilla', N'Fullmåne', 19)
 insert into [WeatherData] values (14, N'Orkan', N'Halvmåne', 28)
+insert into [WeatherData] values (14, N'Vindstilla', N'Avtagande halvmåne', 28)
+insert into [WeatherData] values (14, N'Dimmigt', N'Halvmåne', 28)
+insert into [WeatherData] values (14, N'Snöstorm', N'Avtagande skära', 28)
+insert into [WeatherData] values (14, N'Tropisk storm', N'Fullmåne', 28)
+insert into [WeatherData] values (14, N'Soligt', N'Halvmåne', 28)
 
 insert into [Comment] values (N'Var lite kämpigt, men fick upp honom')
 insert into [Comment] values (N'Fan vilken stor!')
 insert into [Comment] values (N'Det var en mörk kväll när jag var ute med harpunen...')
 insert into [Comment] values (N'En liten babygädda, hoppades på mer')
 insert into [Comment] values (N'Efter att ha jagat den här jäveln i 7 år fick jag upp honom. Han har käkat upp alla mina fiskedrag sedan jag började fiska, men nu ska han dö!')
+insert into [Comment] values (N'Det var en gång...')
+insert into [Comment] values (N'Gäddjävel!')
+insert into [Comment] values (N'Soligt och fint ute!')
+insert into [Comment] values (N'Enda som saknas är ett par öl')
+insert into [Comment] values (N'Gick på grund i ekan, men fick den här i alla fall')
 
 insert into [Catch] values (CAST(N'2017-07-13 08:54:26.830' AS DateTime), 1, 3, 4, 4, 10, 5)
 insert into [Catch] values (CAST(N'2017-07-13 08:54:26.830' AS DateTime), 2, 1, 1, 1, 1, 1)
 insert into [Catch] values (CAST(N'2017-07-13 08:54:26.830' AS DateTime), 3, 2, 2, 2, 3, 2)
 insert into [Catch] values (CAST(N'2017-07-13 08:54:26.830' AS DateTime), 4, 4, 3, 3, 6, 3)
 insert into [Catch] values (CAST(N'2017-07-13 08:54:26.830' AS DateTime), 5, 5, 5, 5, 12, 4)
+insert into [Catch] values (CAST(N'2017-07-13 08:54:26.830' AS DateTime), 1, 6, 6, 6, 10, 6)
+insert into [Catch] values (CAST(N'2017-07-13 09:54:26.830' AS DateTime), 1, 7, 7, 7, 7, 7)
+insert into [Catch] values (CAST(N'2017-07-13 10:54:26.830' AS DateTime), 1, 8, 8, 8, 10, 8)
+insert into [Catch] values (CAST(N'2017-07-13 11:54:26.830' AS DateTime), 1, 9, 9, 9, 1, 9)
+insert into [Catch] values (CAST(N'2017-07-13 12:54:26.830' AS DateTime), 1, 10, 10, 10, 4, 10)

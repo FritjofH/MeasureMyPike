@@ -163,7 +163,7 @@ namespace MeasureMyPike.Tests
         [TestCategory("StatTest")]
         public void TestFishTopList()
         {
-            List<Statistics> fishList = ss.FishTopList(DateTime.Now.AddSeconds(-30));
+            List<Statistics> fishList = ss.FishTopList(5, DateTime.Now.AddSeconds(-30));
             Assert.IsNotNull(fishList, "Kunde inte hämta topplista för fiskar");
 
             // Så många fiskar

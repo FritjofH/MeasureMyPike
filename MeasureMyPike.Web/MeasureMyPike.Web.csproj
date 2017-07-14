@@ -200,13 +200,13 @@
     <Content Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\home-view\home-view.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\Login\userLogin-view.component.scss" />
+    <Content Include="App\MeasureMyPike\src\app\view\user-view\Profile\userProfile-view.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\Profile\userProfile-view.component.scss" />
     <Content Include="App\MeasureMyPike\src\app\common\logout\logoutDialog.component.scss" />
     <Content Include="App\MeasureMyPike\src\app\view\home-view\home-view.component.scss" />
     <Content Include="App\MeasureMyPike\src\app\common\toolbar\toolbar.component.scss" />
     <None Include="App\MeasureMyPike\src\app\view\user-view\Register\userRegister-view.component.scss" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\Login\userLogin-view.component.html" />
-    <Content Include="App\MeasureMyPike\src\app\view\user-view\Profile\userProfile-view.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\Register\userRegister-view.component.html" />
     <Content Include="App\MeasureMyPike\src\favicon.ico" />
     <Content Include="App\MeasureMyPike\src\Icons\big-pike.png" />

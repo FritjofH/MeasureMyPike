@@ -8,27 +8,25 @@ import { JwtHelper, AuthHttp } from 'angular2-jwt';
 
 @Injectable()
 export class UserService {
-    jwt: string;
-    decodedJwt: string;
-    response: string;
-    api: string;
-    jwtHelper: JwtHelper = new JwtHelper();
-    jwtExpired: any;
-    jwtDate: any;
+    private jwtHelper: JwtHelper = new JwtHelper();
 
     constructor(private http: Http, public router: Router, private authHttp: AuthHttp) {
-        this.jwt = localStorage.getItem('token');
     }
 
     public getUser(username: string): Observable<any> {
-        return this.http.get("/api/User?username=" + username)
+        return this.http.get("api/User?username=" + username)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    public getTackleBoxForUser(username: string): Observable<any> {
+        return this.http.get("api/User/GetTackleBoxForUser?username=" + username)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     public decodeUserToken(token: string) {
         var parsedToken = this.jwtHelper.decodeToken(token);
-
 
         return parsedToken.unique_name;
     }
@@ -48,7 +46,7 @@ export class UserService {
     }
 
     public login(username: string, password: string) {
-        this.http.post('/api/Security', { "username": username, "password": password }, { headers: contentHeaders })
+        this.http.post('api/Security', { "username": username, "password": password }, { headers: contentHeaders })
             .subscribe(
             response => {
                 localStorage.setItem('token', response.headers.get('token'));
@@ -62,7 +60,7 @@ export class UserService {
     }
 
     public registerUser(firstName: string, lastName: string, username: string, password: string): Observable<any> {
-        return this.http.post("/api/User", { "lastName": lastName, "firstName": firstName, "username": username, "password": password })
+        return this.http.post("api/User", { "lastName": lastName, "firstName": firstName, "username": username, "password": password })
             .map(this.extractData)
             .catch(this.handleError);
     }

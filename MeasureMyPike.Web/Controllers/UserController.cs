@@ -17,11 +17,28 @@ namespace MeasureMyPike.Controllers
     public class UserController : ApiController
     {
         private IUserService iUserService;
-        private UserController() {
+        private UserController()
+        {
             iUserService = new UserService();
         }
 
-        
+        [HttpGet]
+        [Route("api/User/" + nameof(GetTackleBoxForUser))]
+        public HttpResponseMessage GetTackleBoxForUser(string username)
+        {
+            var statList = iUserService.GetTackleBoxForUser(username);
+            if (statList == null)
+            {
+                var message = string.Format("No lures found");
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, statList);
+            }
+        }
+
+
 
         [HttpGet]
         public HttpResponseMessage GetUser(string username)
@@ -57,6 +74,8 @@ namespace MeasureMyPike.Controllers
         [HttpPut]
         public HttpResponseMessage UpdateUser([FromBody]NewUser updatedUser)
         {
+
+
             var user = iUserService.UpdateUser(updatedUser.FirstName, updatedUser.LastName, updatedUser.Username);
 
             if (user == null)

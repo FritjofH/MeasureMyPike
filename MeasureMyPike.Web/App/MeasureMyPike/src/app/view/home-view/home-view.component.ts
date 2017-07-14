@@ -1,44 +1,70 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../service/home/home.service';
+import { StatisticsService } from '../../service/statistics/statistics.service';
 import { Sort } from '@angular/material';
 import { Router } from '@angular/router';
+import { UtilService } from '../../common/util.service';
+import { Observable } from 'rxjs';
+import { GramsToKilos } from '../../common/pipes/gramsToKilo.pipe';
+import { CentimeterToMeter } from '../../common/pipes/centimeterToMeter.pipe';
 
 @Component({
     selector: 'app-home-view',
     templateUrl: './home-view.component.html',
-    styleUrls: ['./home-view.component.scss']
+    styleUrls: ['./home-view.component.scss'],
+    providers: [UtilService, StatisticsService]
 })
 
-export class HomeViewComponent {
+export class HomeViewComponent implements OnInit {
+    public biggestFishList: any[];
+    public popularLakeList: any[];
+    public latestFishList: any[];
+    private timerSubscription: any;
+    private sort: Sort;
 
-
-    biggestFishList: any[] = [
-        { weight: '12', length: '55', lake: 'Storsjön', user: 'nilspelle', date: '2017-06-21' },
-        { weight: '17', length: '90', lake: 'Käppesjön', user: 'chilimannen', date: '2017-06-22' },
-        { weight: '5', length: '30', lake: 'Mälaren', user: 'johhny2d', date: '2017-06-23' },
-        { weight: '40', length: '150', lake: 'Östersjön', user: 'hostf', date: '2017-07-02' },
-        { weight: '22', length: '110', lake: 'Vänern', user: 'johhny2d', date: '2017-05-01' }
-    ];
-    popularLakeList: any[] = [
-        { lake: 'Vänern', noCatches: '22', uniqueUsers: '4' },
-        { lake: 'Käppesjön', noCatches: '33', uniqueUsers: '1' },
-        { lake: 'Mälaren', noCatches: '11', uniqueUsers: '3' },
-        { lake: 'Östersjön', noCatches: '44', uniqueUsers: '12' },
-        { lake: 'Storsjön', noCatches: '55', uniqueUsers: '21' }
-    ];
-
-    latestFishList: any[] = [
-        { weight: '12', length: '55', lake: 'Storsjön', user: 'nilspelle', date: '2017-06-21' },
-        { weight: '17', length: '90', lake: 'Käppesjön', user: 'chilimannen', date: '2017-06-22' },
-        { weight: '5', length: '30', lake: 'Mälaren', user: 'johhny2d', date: '2017-06-23' },
-        { weight: '40', length: '150', lake: 'Östersjön', user: 'hostf', date: '2017-07-02' },
-        { weight: '22', length: '110', lake: 'Vänern', user: 'johhny2d', date: '2017-05-01' }
-    ];
-
-    constructor(private homeService: HomeService, private router: Router) {
+    constructor(private homeService: HomeService, private router: Router, private utilService: UtilService, private statisticsService: StatisticsService) {
     }
 
-    sortBiggestFish(sort: Sort) {
+    ngOnInit() {
+        this.getBiggestFish(5, '2017-01-01');
+        this.getLatestFish(5);
+        this.getPopularLake('2017-01-01');
+    }
+
+    private ngOnDestroy(): void {
+        if (this.timerSubscription) {
+            this.timerSubscription.unsubscribe();
+        }
+    }
+
+    public getBiggestFish(noOfCatches: number, startDate: string) {
+        this.statisticsService.getBiggestFish(noOfCatches, startDate).subscribe(it => {
+            this.biggestFishList = it;
+        })
+    };
+
+    public getLatestFish(noOfCatches: number) {
+        this.statisticsService.getLatestCatch(noOfCatches).subscribe(it => {
+            this.latestFishList = it;
+            this.subscribeToData(noOfCatches);
+            if(this.sort != null){
+                this.sortLatestFish(this.sort);
+            }
+            
+        })
+    };
+
+    public getPopularLake(startDate: string) {
+        this.statisticsService.getMostPopularLake(startDate).subscribe(it => {
+            this.popularLakeList = it;
+        })
+    };
+
+    private subscribeToData(noOfCatches: number): void {
+        this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.getLatestFish(noOfCatches));
+    }
+
+    public sortBiggestFish(sort: Sort) {
         const data = this.biggestFishList.slice();
         if (!sort.active || sort.direction == '') {
             this.biggestFishList = data;
@@ -48,17 +74,18 @@ export class HomeViewComponent {
         this.biggestFishList = data.sort((a, b) => {
             let isAsc = sort.direction == 'asc';
             switch (sort.active) {
-                case 'weight': return compare(+a.weight, +b.weight, isAsc);
-                case 'length': return compare(+a.length, +b.length, isAsc);
-                case 'lake': return compare(a.lake, b.lake, isAsc);
-                case 'user': return compare(a.user, b.user, isAsc);
-                case 'date': return compare(a.date, b.date, isAsc);
+                case 'fishWeight': return this.utilService.compare(+a.fishWeight, +b.fishWeight, isAsc);
+                case 'fishLength': return this.utilService.compare(+a.fishLength, +b.fishLength, isAsc);
+                case 'lakeName': return this.utilService.compare(a.lakeName, b.lakeName, isAsc);
+                case 'userName': return this.utilService.compare(a.userName, b.userName, isAsc);
+                case 'timestamp': return this.utilService.compare(a.timestamp, b.timestamp, isAsc);
                 default: return 0;
             }
         });
     }
 
-    sortLatestFish(sort: Sort) {
+    public sortLatestFish(sort: Sort) {
+        this.sort = sort;
         const data = this.latestFishList.slice();
         if (!sort.active || sort.direction == '') {
             this.latestFishList = data;
@@ -68,17 +95,17 @@ export class HomeViewComponent {
         this.latestFishList = data.sort((a, b) => {
             let isAsc = sort.direction == 'asc';
             switch (sort.active) {
-                case 'weight': return compare(+a.weight, +b.weight, isAsc);
-                case 'length': return compare(+a.length, +b.length, isAsc);
-                case 'lake': return compare(a.lake, b.lake, isAsc);
-                case 'user': return compare(a.user, b.user, isAsc);
-                case 'date': return compare(a.date, b.date, isAsc);
+                case 'fishWeight': return this.utilService.compare(+a.fishWeight, +b.fishWeight, isAsc);
+                case 'fishLength': return this.utilService.compare(+a.fishLength, +b.fishLength, isAsc);
+                case 'lakeName': return this.utilService.compare(a.lakeName, b.lakeName, isAsc);
+                case 'userName': return this.utilService.compare(a.userName, b.userName, isAsc);
+                case 'timestamp': return this.utilService.compare(a.timestamp, b.timestamp, isAsc);
                 default: return 0;
             }
         });
     }
 
-    sortPopularLakeData(sort: Sort) {
+    public sortPopularLakeData(sort: Sort) {
         const data = this.popularLakeList.slice();
         if (!sort.active || sort.direction == '') {
             this.popularLakeList = data;
@@ -88,43 +115,16 @@ export class HomeViewComponent {
         this.popularLakeList = data.sort((a, b) => {
             let isAsc = sort.direction == 'asc';
             switch (sort.active) {
-                case 'lake': return compare(a.lake, b.lake, isAsc);
-                case 'noCatches': return compare(+a.noCatches, +b.noCatches, isAsc);
-                case 'uniqueUsers': return compare(+a.uniqueUsers, +b.uniqueUsers, isAsc);
+                case 'lakeName': return this.utilService.compare(a.lakeName, b.lakeName, isAsc);
+                case 'catchId.length': return this.utilService.compare(+a.catchId.length, +b.catchId.length, isAsc);
+                case 'totalFishLength': return this.utilService.compare(+a.totalFishLength, +b.totalFishLength, isAsc);
+                case 'totalFishWeight': return this.utilService.compare(+a.totalFishWeight, +b.totalFishWeight, isAsc);
                 default: return 0;
             }
         });
     }
 
-    public getBiggestFish() {
-        this.homeService.getBiggestFish().subscribe(it => {
-            this.biggestFishList = it;
-        })
-
-    }
-
-    public getLatestFish() {
-        this.homeService.getLatestFish().subscribe(it => {
-            this.latestFishList = it;
-        })
-    }
-
-    public getPopularLake() {
-        this.homeService.getPopularLake().subscribe(it => {
-            this.popularLakeList = it;
-        })
-    }
-
-
-
     public navigateToUser(currentUsername: string) {
         this.router.navigate(['/user/' + currentUsername]);
     }
 }
-
-function compare(a, b, isAsc) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
-
-
-

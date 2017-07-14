@@ -8,24 +8,6 @@ export class HomeService {
 
     constructor(private http: Http, public router: Router) { }
 
-    getBiggestFish(): Observable<any[]> {
-        return this.http.get("/api/Fish/biggest")
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-
-    getLatestFish(): Observable<any[]> {
-        return this.http.get("/api/Fish/latest")
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-
-    getPopularLake(): Observable<any[]> {
-        return this.http.get("/api/lake/popular")
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-
     private extractData(res: Response) {
         let body = res.json();
         return body || {};

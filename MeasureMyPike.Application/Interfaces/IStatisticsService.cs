@@ -13,7 +13,7 @@ namespace MeasureMyPike.Service
         List<Statistics> CatchesForLake(int lakeId, DateTime startDate);
         List<Statistics> CatchesForLake(string lakeName, DateTime startDate);
         List<LakeStatistics> LakeTopList(DateTime startDate);
-        List<Statistics> FishTopList(DateTime startDate);
+        List<Statistics> FishTopList(int catches, DateTime startDate);
         List<Statistics> LatestCatches(int num);
     }
 }

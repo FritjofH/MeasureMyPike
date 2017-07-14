@@ -3,6 +3,7 @@ using MeasureMyPike.Domain.Models;
 using MeasureMyPike.Application.Common;
 using MeasureMyPike.Repo;
 using System;
+using System.Collections.Generic;
 
 namespace MeasureMyPike.Service
 {
@@ -77,6 +78,29 @@ namespace MeasureMyPike.Service
             var updatedUser = userRepo.UpdateUser(firstName, lastName, username);
 
             return conversionService.ConvertToUser(updatedUser);
+        }
+
+        public List<Statistics> GetTackleBoxForUser(string username)
+        {
+            var userRepo = new UserRepository();
+            var conversionService = new ConversionUtil();
+
+            var tackleBox = new List<Statistics>();
+
+            foreach (var lure in userRepo.GetTackleBoxForUser(username))
+            {
+                tackleBox.Add(
+                    new Statistics
+                    {
+                        LureBrand = lure.Brand.Name,
+                        LureName = lure.Name,
+                        LureWeight = lure.Weight,
+                        LureId = lure.Id,
+                        LureColour = lure.Colour
+                    });
+            }
+
+            return tackleBox;
         }
     }
 }

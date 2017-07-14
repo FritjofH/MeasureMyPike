@@ -1,5 +1,6 @@
 ﻿using MeasureMyPike.Models.Application;
 using MeasureMyPike.Domain.Models;
+using System.Collections.Generic;
 
 namespace MeasureMyPike.Service
 {
@@ -11,5 +12,6 @@ namespace MeasureMyPike.Service
         User GetUser(string username);
         UserDO GetUserDO(string username);
         User UpdateUser(string firstName, string lastName, string username);
+        List<Statistics> GetTackleBoxForUser(string username);
     }
 }

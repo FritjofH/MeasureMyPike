@@ -181,19 +181,20 @@ namespace MeasureMyPike.Service
             }
 
             // order by total fisk weight
-            lakeList = lakeList.OrderByDescending(ob => ob.TotalFishWeight).ToList(); ;
+            lakeList = lakeList.OrderByDescending(ob => ob.CatchId.Count).ToList(); ;
 
             return lakeList;
         }
 
         // List of catches since startdate ordered by weight
-        public List<Statistics> FishTopList(DateTime startDate)
+        public List<Statistics> FishTopList(int catches, DateTime startDate)
         {
             var statList = GetAllStatistics();
 
             // get all since startdate and sort by fish weight desc
             statList = statList.
                 Where(ob => ob.Timestamp >= startDate).
+                Take(catches).
                 OrderByDescending(ob => ob.FishWeight).
                 ToList();
 
@@ -208,7 +209,7 @@ namespace MeasureMyPike.Service
             statList = statList.
                 OrderByDescending(ob => ob.Timestamp).
                 Take(num).
-                OrderBy(ob => ob.Timestamp).
+                OrderByDescending(ob => ob.Timestamp).
                 ToList();
 
             return statList;

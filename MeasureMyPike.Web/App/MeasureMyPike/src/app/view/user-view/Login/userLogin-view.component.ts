@@ -10,20 +10,20 @@ import { Router } from '@angular/router';
 
 export class UserLoginViewComponent {
 
-    username: string;
-    password: string;
+    public username: string;
+    public password: string;
 
     constructor(private userService: UserService, public router: Router) {
         this.password = "";
         this.username = "";
     }
 
-    login(event) {
+    public login(event) {
         event.preventDefault();
         this.userService.login(this.username, this.password);
     }
 
-    signup(event) {
+    public signup(event) {
         event.preventDefault();
         this.router.navigate(['signup']);
     }

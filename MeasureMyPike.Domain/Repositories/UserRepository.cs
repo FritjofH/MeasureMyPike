@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using MeasureMyPike.Domain.Models;
+using System.Collections.Generic;
 
 namespace MeasureMyPike.Repo
 {
@@ -108,7 +109,7 @@ namespace MeasureMyPike.Repo
         {
             try
             {
-                using(var conn = new ModelContainer())
+                using (var conn = new ModelContainer())
                 {
                     var userToUpdate = conn.User.First(it => it.Username == username);
                     userToUpdate.FirstName = firstName;
@@ -198,5 +199,34 @@ namespace MeasureMyPike.Repo
             }
         }
 
+        public List<LureDO> GetTackleBoxForUser(string username)
+        {
+            try
+            {
+                using (var conn = new ModelContainer())
+                {
+                    var lures = conn.User
+                        .First(it => it.Username == username)
+                        .TackleBox.Lure.Where(it => it.Brand == it.Brand)
+                        .OrderBy(it => it.Brand.Name)
+                        .ToList();
+
+                    return lures;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: better handling
+                Console.WriteLine(ex.GetType().FullName);
+                Console.WriteLine(ex.Message);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                }
+                return null;
+            }
+        }
     }
 }

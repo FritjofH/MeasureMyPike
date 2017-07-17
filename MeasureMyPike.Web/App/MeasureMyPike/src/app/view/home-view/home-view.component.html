@@ -1,12 +1,24 @@
 ﻿<div fxLayout="column">
-    <div fxLayoutAlign="center stretch">
-        <p style="max-width: 400px; overflow-wrap: normal; padding-left: 15px; padding-right: 15px; font-size: 14px; text-align: justify;">
-            <b style="font-size: 18px;">Gäddfiske</b>
-            <br /> Gäddfiskare är ett konstigt släkte. De fångar en fisk som inte är god, eller lätt att äta. De släpper
-            tillbaka gäddorna i vattnet där de fångades, utan att skada dem. Detta trotts att de är en rovfisk som kommer
-            att äta upp den goda fisken som finns i vattendraget.
-            <br /><br />
-        </p>
+    <div fxLayout="row" fxLayout.md="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
+        <div fxFlex="20">
+            <div fxFill fxLayout="column">
+                <p style="overflow-wrap: auto; font-size: 14px; text-align: justify;">
+                    <b style="font-size: 18px;">Gäddfiske</b>
+                    <br /> Gäddfiskare är ett konstigt släkte. De fångar en fisk som inte är god, eller lätt att äta. De
+                    släpper tillbaka gäddorna i vattnet där de fångades, utan att skada dem. Detta trotts att de är en rovfisk
+                    som kommer att äta upp den goda fisken som finns i vattendraget.
+                    <br /><br />
+                </p>
+            </div>
+        </div>
+        
+        <div *ngIf="true" fxFlex="20" fxFlexOffset.xl="20px" fxFlexOffset.lg="20px">
+            <div fxFill fxLayout="column">
+                <p>Har du fångat en ny gädda? <a href=""><b>Lägg till den här!</b></a>
+                <br/><br/>
+                Har du köpt ett nytt drag? <a href=""><b>Lägg till det här!</b></a></p>
+            </div>
+        </div>
     </div>
 
     <div fxLayout="row" fxLayout.md="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
@@ -31,7 +43,8 @@
                 </table>
             </div>
         </div>
-        <div fxFlex="30" fxFlexOffset.xl="1" fxFlexOffset.lg="1">
+
+        <div fxFlex="30" fxFlexOffset.xl="20px" fxFlexOffset.lg="20px">
             <div fxFill fxLayout="column">
                 <h3>De 5 största gäddorna</h3>
                 <table fxFill name="biggestFish" mdSort (mdSortChange)="sortBiggestFish($event)">

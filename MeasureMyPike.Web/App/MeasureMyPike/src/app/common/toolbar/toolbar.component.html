@@ -1,32 +1,35 @@
-﻿<md-toolbar fxLayoutAlign="center center">
-    <nav>
-        <a routerLink="/home" class="menu-padding" style="font-size:20px; vertical-align: middle;">
-            {{title}}
-        </a>
-        <span class="menu-padding" *ngIf="!loggedIn()" mdTooltip="Logga in">
-            <a routerLink="/login" routerLinkActive="active">
-                <md-icon>face</md-icon>
-            </a>
-        </span>
+﻿<div class="wrapper">
+    <div id="header">
+        <md-toolbar class="header-bar" fxLayout="row" fxLayoutAlign="center center">
+            <nav>
+                <a routerLink="/home" class="menu-padding" style="font-size:20px; vertical-align: middle;">{{title}}</a>
 
-        <span class="menu-padding" *ngIf="loggedIn()" mdTooltip="Din profil">
-            <a (click)="navigateToUser(currentUsername)" routerLinkActive="active">
-                <md-icon>face</md-icon>
-            </a>
-        </span>
+                <span class="menu-padding" *ngIf="!loggedIn()" mdTooltip="Logga in">
+                    <a routerLink="/login" routerLinkActive="active"><md-icon>face</md-icon></a>
+                </span>
 
-        <span class="menu-padding" *ngIf="loggedIn()" mdTooltip="Dragmärken">
-            <a routerLink="/brands" routerLinkActive="active">
-                <md-icon>list</md-icon>
-            </a>
-        </span>
+                <span class="menu-padding" *ngIf="loggedIn()" mdTooltip="Din profil">
+                    <a (click)="navigateToUser(currentUsername)" routerLinkActive="active"><md-icon>face</md-icon></a>
+                </span>
 
-        <span class="menu-padding" *ngIf="loggedIn()" mdTooltip="Logga ut">
-            <button type="button" (click)="logout()" md-icon-button>
-                <md-icon>close</md-icon>
-            </button>
-        </span>
-    </nav>
-</md-toolbar>
+                <span class="menu-padding" *ngIf="loggedIn()" mdTooltip="Dragmärken">
+                    <a routerLink="/brands" routerLinkActive="active"><md-icon>list</md-icon></a>
+                </span>
 
-<router-outlet></router-outlet>
+                <span class="menu-padding" *ngIf="loggedIn()" mdTooltip="Logga ut">
+                    <button type="button" (click)="logout()" md-icon-button><md-icon>close</md-icon></button>
+                </span>
+            </nav>
+        </md-toolbar>
+    </div>
+
+    <div id="content" class="content">
+        <router-outlet></router-outlet>
+    </div>
+
+    <div id="footer" class="footer">
+        <md-toolbar fxLayoutAlign="center center">
+            <a href="https://github.com/FritjofH/MeasureMyPike">Besök oss på GitHub</a>
+        </md-toolbar>
+    </div>
+</div>

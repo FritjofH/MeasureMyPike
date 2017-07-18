@@ -13,12 +13,14 @@ import { AppComponent } from './app.component';
 import { BrandService } from './service/brand/brand.service';
 import { UserService } from './service/user/user.service';
 import { HomeService } from './service/home/home.service';
+import { CatchService } from './service/catch/catch.service';
 
 import { BrandViewComponent } from './view/brand-view/brand-view.component';
 import { UserRegisterViewComponent } from './view/user-view/Register/userRegister-view.component';
 import { UserLoginViewComponent } from './view/user-view/Login/userLogin-view.component';
 import { UserProfileViewComponent } from './view/user-view/Profile/userProfile-view.component';
 import { HomeViewComponent } from './view/home-view/home-view.component';
+import { CatchViewComponent } from './view/catch-view/catch-view.component';
 
 import { SaveChangesDialogComponent } from './common/saveChanges/saveChangesDialog.component';
 import { LogoutDialogComponent } from './common/logout/logoutDialog.component';
@@ -58,14 +60,15 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
+        ToolbarComponent,
+        HomeViewComponent,
         BrandViewComponent,
+        CatchViewComponent,
         UserRegisterViewComponent,
         UserLoginViewComponent,
         UserProfileViewComponent,
         LogoutDialogComponent,
         SaveChangesDialogComponent,
-        ToolbarComponent,
-        HomeViewComponent,
         GramsToKilos,
         CentimeterToMeter
     ],
@@ -92,7 +95,8 @@ const appRoutes: Routes = [
         HomeService,
         AuthGuard,
         AUTH_PROVIDERS,
-        UtilService
+        UtilService,
+        CatchService
     ],
     entryComponents: [
         LogoutDialogComponent,

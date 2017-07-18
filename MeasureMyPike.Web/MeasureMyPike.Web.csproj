@@ -198,6 +198,7 @@
     <Content Include="App\MeasureMyPike\src\app\app.component.html" />
     <Content Include="App\MeasureMyPike\src\app\common\toolbar\toolbar.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.html" />
+    <Content Include="App\MeasureMyPike\src\app\view\catch-view\catch-view.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\home-view\home-view.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\Login\userLogin-view.component.scss" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\Profile\userProfile-view.component.html" />
@@ -205,6 +206,7 @@
     <Content Include="App\MeasureMyPike\src\app\common\logout\logoutDialog.component.scss" />
     <Content Include="App\MeasureMyPike\src\app\view\home-view\home-view.component.scss" />
     <Content Include="App\MeasureMyPike\src\app\common\toolbar\toolbar.component.scss" />
+    <Content Include="App\MeasureMyPike\src\app\view\catch-view\catch-view.component.scss" />
     <None Include="App\MeasureMyPike\src\app\view\user-view\Register\userRegister-view.component.scss" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\Login\userLogin-view.component.html" />
     <Content Include="App\MeasureMyPike\src\app\view\user-view\Register\userRegister-view.component.html" />
@@ -329,12 +331,18 @@
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\common\toolbar\toolbar.component.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\brand\brand.service.spec.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\brand\brand.service.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\catch\catch.service.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\catch\catch.service.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\home\home.service.spec.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\home\home.service.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\statistics\statistics.service.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\statistics\statistics.service.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\user\user.service.spec.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\service\user\user.service.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.spec.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\brand-view\brand-view.component.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\catch-view\catch-view.component.spec.ts" />
+    <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\catch-view\catch-view.component.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\home-view\home-view.component.spec.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\home-view\home-view.component.ts" />
     <TypeScriptCompile Include="App\MeasureMyPike\src\app\view\user-view\Login\userLogin-view.component.ts" />

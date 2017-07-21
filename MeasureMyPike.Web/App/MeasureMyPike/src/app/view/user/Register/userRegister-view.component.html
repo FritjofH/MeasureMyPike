@@ -7,7 +7,7 @@
                     <span mdTooltip="2-25 tecken">
                         <input mdInput
                                type="text"
-                               [(ngModel)]="firstName"
+                               [(ngModel)]="user.firstName"
                                name="firstName"
                                placeholder="Förnamn"
                                maxlength="25"
@@ -21,7 +21,7 @@
                     <span mdTooltip="2-25 tecken">
                         <input mdInput
                                type="text"
-                               [(ngModel)]="lastName"
+                               [(ngModel)]="user.lastName"
                                name="lastName"
                                placeholder="Efternamn"
                                maxlength="25"
@@ -37,7 +37,7 @@
                     <span mdTooltip="4-20 tecken">
                         <input mdInput
                                type="text"
-                               [(ngModel)]="username"
+                               [(ngModel)]="user.username"
                                name="username"
                                placeholder="Användarnamn"
                                maxlength="20"
@@ -52,7 +52,7 @@
                         <input mdInput class="form-control"
                                type="text"
                                [type]="showPassword.checked ? 'text' : 'password'"
-                               [(ngModel)]="password"
+                               [(ngModel)]="user.password"
                                name="password"
                                placeholder="Lösenord"
                                maxlength="20"
@@ -64,7 +64,7 @@
             </div>
         </div>
         <input type="submit"
-               [disabled]="firstName == null || lastName == null || username == null || password == null || firstName.length < 2 || lastName.length < 2 || username.length < 4 || password.length < 4"
+               [disabled]="user.firstName.length < 2 || user.lastName.length < 2 || user.username.length < 4 || user.password.length < 4"
                name="submit"
                value="Registrera"
                (click)="registerUser()" />

@@ -3,10 +3,9 @@ import { HomeService } from '../../service/home/home.service';
 import { StatisticsService } from '../../service/statistics/statistics.service';
 import { Sort } from '@angular/material';
 import { Router } from '@angular/router';
-import { UtilService } from '../../common/util.service';
+import { UtilService } from '../../common/index';
 import { Observable } from 'rxjs';
-import { GramsToKilos } from '../../common/pipes/gramsToKilo.pipe';
-import { CentimeterToMeter } from '../../common/pipes/centimeterToMeter.pipe';
+import { GramsToKilos, CentimeterToMeter } from '../../common/pipes/index';
 
 @Component({
     selector: 'app-home-view',

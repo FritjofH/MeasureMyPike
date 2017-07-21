@@ -17,4 +17,18 @@ namespace MeasureMyPike.Models.Application
         public int LureId { get; set; }
         public int WeatherData { get; set; }
     }
+    public class NewCatch
+    {
+        public int weight { get; set; }
+        public string length { get; set; }
+        public string date { get; set; }
+        public string lakeName { get; set; }
+        public string lureName { get; set; }
+        public string weather { get; set; }
+        public string comment { get; set; }
+        public string coordinates { get; set; }
+        public double airTemp { get; set; }
+        public double waterTemp { get; set; }
+        public string username { get; set; }
+    };
 }

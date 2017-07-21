@@ -1,34 +1,33 @@
 ﻿import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
-import { MaterialModule, MdCheckboxModule, MdInputModule, MdButtonModule, MdTooltipModule, MdDialogModule, MdSortModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule, MdCheckboxModule, MdInputModule, MdButtonModule, MdTooltipModule, MdDialogModule, MdSortModule, MdAutocompleteModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations/';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
+import { ImageUploadModule } from 'angular2-image-upload';
 
 import { AppComponent } from './app.component';
 
+//Barrel
+import { CatchService, CatchViewComponent } from './model/catch/catch';
+import { UserService, UserRegisterViewComponent, UserLoginViewComponent, UserProfileViewComponent } from './model/user/user';
+
+//Services
 import { BrandService } from './service/brand/brand.service';
-import { UserService } from './service/user/user.service';
 import { HomeService } from './service/home/home.service';
-import { CatchService } from './service/catch/catch.service';
 
-import { BrandViewComponent } from './view/brand-view/brand-view.component';
-import { UserRegisterViewComponent } from './view/user-view/Register/userRegister-view.component';
-import { UserLoginViewComponent } from './view/user-view/Login/userLogin-view.component';
-import { UserProfileViewComponent } from './view/user-view/Profile/userProfile-view.component';
-import { HomeViewComponent } from './view/home-view/home-view.component';
-import { CatchViewComponent } from './view/catch-view/catch-view.component';
+//Components
+import { BrandViewComponent } from './view/brand/brand-view.component';
+import { HomeViewComponent } from './view/home/home-view.component';
 
-import { SaveChangesDialogComponent } from './common/saveChanges/saveChangesDialog.component';
-import { LogoutDialogComponent } from './common/logout/logoutDialog.component';
-import { ToolbarComponent } from './common/toolbar/toolbar.component';
-import { AuthGuard } from './common/auth/auth.guard';
-import { UtilService } from './common/util.service';
-import { GramsToKilos } from './common/pipes/gramsToKilo.pipe';
-import { CentimeterToMeter } from './common/pipes/centimeterToMeter.pipe';
+//Common
+import { SaveChangesDialogComponent, UtilService, LogoutDialogComponent, ToolbarComponent, AuthGuard } from './common/index';
+
+//Pipes
+import { GramsToKilos, CentimeterToMeter } from './common/pipes/index';
 
 const appRoutes: Routes = [
     {
@@ -50,6 +49,10 @@ const appRoutes: Routes = [
     {
         path: 'login',
         component: UserLoginViewComponent
+    },
+    {
+        path: 'catch',
+        component: CatchViewComponent
     },
     {
         path: '**',
@@ -76,6 +79,7 @@ const appRoutes: Routes = [
         BrowserModule,
         HttpModule,
         FormsModule,
+        ReactiveFormsModule,
         RouterModule.forRoot(
             appRoutes, { enableTracing: true }
         ),
@@ -87,7 +91,9 @@ const appRoutes: Routes = [
         MdButtonModule,
         MdTooltipModule,
         MdDialogModule,
-        MdSortModule
+        MdSortModule,
+        MdAutocompleteModule,
+        ImageUploadModule.forRoot()
     ],
     providers: [
         BrandService,

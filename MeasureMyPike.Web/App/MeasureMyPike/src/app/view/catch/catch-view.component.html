@@ -1,0 +1,102 @@
+﻿<div fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <h3>Lägg till ny fångst:</h3>
+    </div>
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxFill fxLayoutAlign="center start">
+        <form fxLayout="column" fxFlex="10" name="userForm" fxLayoutAlign="start end">
+            <div fxLayout="row">
+                <md-input-container>
+                    <input mdInput type="number" fxFlex="67px" [(ngModel)]="newCatch.weight" name="weight">
+                    <md-hint><strong>Vikt</strong></md-hint>
+                    <input mdInput [disabled]="true" type="text" fxFlex="40px" value="gram">
+                </md-input-container>
+
+                <md-input-container fxFlexOffset="6px">
+                    <input mdInput type="number" fxFlex="67px" [(ngModel)]="newCatch.length" name="length">
+                    <md-hint><strong>Längd</strong></md-hint>
+                    <input mdInput [disabled]="true" type="text" fxFlex="40px" value="cm">
+                </md-input-container>
+            </div>
+
+            <div>
+                <md-input-container>
+                    <input mdInput type="datetime-local" fxFlex="220px" [(ngModel)]="newCatch.date" name="date">
+                    <md-hint><strong>Datum</strong></md-hint>
+                </md-input-container>
+            </div>
+
+            <div>
+                <md-input-container>
+                    <input mdInput type="text" fxFlex="220px" [(ngModel)]="newCatch.lakeName" name="lakeName">
+                    <md-hint><strong>Sjö</strong></md-hint>
+                </md-input-container>
+            </div>
+
+            <div>
+                <md-input-container>
+                    <input mdInput type="text" fxFlex="220px" [(ngModel)]="newCatch.lureName" [formControl]="myControl" name="lureName" [mdAutocomplete]="auto">
+                    <md-hint><strong>Drag</strong></md-hint>
+                </md-input-container>
+
+                <md-autocomplete #auto="mdAutocomplete">
+                    <md-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{ option }}
+                    </md-option>
+                </md-autocomplete>
+            </div>
+
+            <div>
+                <md-input-container>
+                    <input mdInput type="text" fxFlex="220px" [(ngModel)]="newCatch.weather" name="weather">
+                    <md-hint><strong>Väder</strong></md-hint>
+                </md-input-container>
+            </div>
+
+            <div fxFill fxFlexLayout="row" fxLayoutAlign="center center">
+                <h3>Senaste fångster:</h3>
+                <button md-icon-button (click)="toggleOptional()">
+                    <md-icon *ngIf="!showOptional" style="vertical-align: top;">expand_less</md-icon>
+                    <md-icon *ngIf="showOptional" style="vertical-align: top;">expand_more</md-icon>
+                </button>
+            </div>
+
+            <div [hidden]="!showOptional">
+                <div>
+                    <md-input-container>
+                        <input mdInput type="text" fxFlex="220px" [(ngModel)]="newCatch.coordinates" name="coordinates">
+                        <md-hint><strong>Koordinater</strong></md-hint>
+                    </md-input-container>
+                </div>
+
+                <div>
+                    <md-input-container>
+                        <input mdInput type="number" fxFlex="220px" [(ngModel)]="newCatch.airTemp" name="airTemp">
+                        <md-hint><strong>Lufttemperatur</strong></md-hint>
+                    </md-input-container>
+                </div>
+
+                <div>
+                    <md-input-container>
+                        <input mdInput type="number" fxFlex="220px" [(ngModel)]="newCatch.waterTemp" name="waterTemp">
+                        <md-hint><strong>Vattentemperatur</strong></md-hint>
+                    </md-input-container>
+                </div>
+
+                <div>
+                    <md-input-container>
+                        <textarea mdInput fxFlex="220px" [(ngModel)]="newCatch.comment" name="comment"></textarea>
+                        <md-hint><strong>Kommentar</strong></md-hint>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div style="padding-top:20px;">
+                <input type="submit" name="submit" value="Registrera" (click)="RegisterNewCatch()" />
+            </div>
+        </form>
+
+        <div fxFlexOffset="40px" fxLayout="column" fxLayoutAlign="center center">
+            <image-upload></image-upload>
+        </div>
+    </div>
+</div>

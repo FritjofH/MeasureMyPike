@@ -5,13 +5,13 @@ import { tokenNotExpired } from 'angular2-jwt';
 import { contentHeaders } from '../../common/headers';
 import { Router } from '@angular/router';
 import { JwtHelper, AuthHttp } from 'angular2-jwt';
+import { User } from '../../model/user/user';
 
 @Injectable()
 export class UserService {
     private jwtHelper: JwtHelper = new JwtHelper();
 
-    constructor(private http: Http, public router: Router, private authHttp: AuthHttp) {
-    }
+    constructor(private http: Http, private router: Router, private authHttp: AuthHttp) {    }
 
     public getUser(username: string): Observable<any> {
         return this.http.get("api/User?username=" + username)
@@ -25,19 +25,10 @@ export class UserService {
             .catch(this.handleError);
     }
 
-    public decodeUserToken(token: string) {
-        var parsedToken = this.jwtHelper.decodeToken(token);
-
-        return parsedToken.unique_name;
-    }
-
-    public updateUser(firstName: string, lastName: string, username: string) {
-        this.authHttp.put('api/User', { "firstName": firstName, "lastName": lastName, "username": username })
+    public updateUser(user: User) {
+        this.authHttp.put('api/User', user)
             .subscribe(
-            response => {
-                var ett = 1;
-                var tva = 2;
-            },
+            response => {            },
             error => {
                 alert(error.text());
                 console.log(error.text());
@@ -45,8 +36,8 @@ export class UserService {
             );
     }
 
-    public login(username: string, password: string) {
-        this.http.post('api/Security', { "username": username, "password": password }, { headers: contentHeaders })
+    public login(user: User) {
+        this.http.post('api/Security', user, { headers: contentHeaders })
             .subscribe(
             response => {
                 localStorage.setItem('token', response.headers.get('token'));
@@ -59,8 +50,8 @@ export class UserService {
             );
     }
 
-    public registerUser(firstName: string, lastName: string, username: string, password: string): Observable<any> {
-        return this.http.post("api/User", { "lastName": lastName, "firstName": firstName, "username": username, "password": password })
+    public registerUser(user: User): Observable<any> {
+        return this.http.post("api/User", user)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -72,6 +63,12 @@ export class UserService {
     public logout() {
         localStorage.removeItem('token');
         this.router.navigate(['home']);
+    }
+
+    public decodeUserToken(token: string) {
+        var parsedToken = this.jwtHelper.decodeToken(token);
+
+        return parsedToken.unique_name;
     }
 
     private extractData(res: Response) {

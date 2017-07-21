@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../service/user/user.service';
-import { SaveChangesDialogComponent } from '../../../common/saveChanges/saveChangesDialog.component';
-import { UtilService } from '../../../common/util.service';
+import { SaveChangesDialogComponent, UtilService } from '../../../common/index';
 import { Router } from '@angular/router';
 import { Sort } from '@angular/material';
 import { StatisticsService } from '../../../service/statistics/statistics.service';
+import { User, UserService } from '../../../model/user/user';
 
 @Component({
     selector: 'app-user-view',
@@ -14,12 +13,15 @@ import { StatisticsService } from '../../../service/statistics/statistics.servic
 })
 
 export class UserProfileViewComponent implements OnInit {
-    public username: string;
-    public memberSince: string;
+    public user: User = {
+        firstName: "",
+        lastName: "",
+        username: "",
+        password: "",
+        memberSince: ""
+    };
     private initialFirstName: string;
     private initialLastName: string;
-    public newFirstName: string;
-    public newLastName: string;
     public edit: boolean = false;
     public currentUser: boolean = false;
     public userCatchList: any[];
@@ -31,11 +33,11 @@ export class UserProfileViewComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.username = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
+        this.user.username = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
         this.checkCurrentUser();
         this.getUser();
-        this.getUserCatch(this.username, '2017-01-01');
-        this.getUserTackleBox(this.username);
+        this.getUserCatch(this.user.username, '2017-01-01');
+        this.getUserTackleBox(this.user.username);
     }
     
     private getUserCatch(username: string, startDate: string) {
@@ -53,31 +55,31 @@ export class UserProfileViewComponent implements OnInit {
     private checkCurrentUser(){
         var currentUsername = this.userService.decodeUserToken(localStorage.getItem('token'));
 
-        if(currentUsername == this.username){
+        if(currentUsername == this.user.username){
             this.currentUser = true;
         }
     }
 
     private getUser() {
-        this.userService.getUser(this.username).subscribe(it => {
-            this.memberSince = it.memberSince;
-            this.newFirstName = it.firstname;
+        this.userService.getUser(this.user.username).subscribe(it => {
+            this.user.memberSince = it.memberSince;
+            this.user.firstName = it.firstname;
             this.initialFirstName = it.firstname;
-            this.newLastName = it.lastname;
+            this.user.lastName = it.lastname;
             this.initialLastName = it.lastname;
         })
     };
 
-    public updateName(firstName: string, lastName: string, username: string) {
-        if (firstName == this.initialFirstName && lastName == this.initialLastName) {
+    public updateName() {
+        if (this.user.firstName == this.initialFirstName && this.user.lastName == this.initialLastName) {
             this.setEdit();
         } else {
             this.saveChangesDialog.openDialog().subscribe((confirmation) => {
                 if (confirmation == true) {
-                    this.userService.updateUser(firstName, lastName, username);
+                    this.userService.updateUser(this.user);
 
-                    this.initialFirstName = this.newFirstName;
-                    this.initialLastName = this.newLastName;
+                    this.initialFirstName = this.user.firstName;
+                    this.initialLastName = this.user.lastName;
 
                     this.setEdit();
                 }

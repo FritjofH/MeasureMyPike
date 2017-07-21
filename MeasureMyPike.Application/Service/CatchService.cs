@@ -8,7 +8,7 @@ using MeasureMyPike.Application.Common;
 
 public class CatchService : ICatchService
 {
-    public Catch AddCatch(byte[] mediaData, string mediaFormat, DateTime timeStamp, string comment, Lure lure, int fishWeight, int fishLength, string lakeName, string coordinates, Double waterTemperature, Double airTemperature, string weather, string username, params string[] additionalInformation)
+    public Catch AddCatch(NewCatch newCatch)
     {
         var catchRepo = new CatchRepository();
         var lureService = new LureService();
@@ -17,11 +17,11 @@ public class CatchService : ICatchService
         var mediaList = new List<MediaDO>();
         var conversionService = new ConversionUtil();
         var userService = new UserService();
-        string moonposition = MoonUtil.Phase(timeStamp); 
+        string moonposition = MoonUtil.Phase(DateTime.Parse(newCatch.date)); 
 
         mediaList.Add(new MediaDO
         {
-            MediaFormat = mediaFormat,
+            MediaFormat = "",
             Image = new MediaDataDO
             {
                 Length = mediaData.Length,
@@ -31,7 +31,7 @@ public class CatchService : ICatchService
 
         LakeDO lakeDO = lakeService.GetLakeDO(lakeName);
 
-        var newCatch = new CatchDO
+        var newCatchDo = new CatchDO
         {
             User = userService.GetUserDO(username),
             Comment = new CommentDO { Text = comment },
@@ -43,7 +43,7 @@ public class CatchService : ICatchService
             Timestamp = timeStamp
         };
 
-        var createdCatch = catchRepo.AddCatch(newCatch);
+        var createdCatch = catchRepo.AddCatch(newCatchDO);
 
         return conversionService.ConvertToCatch(createdCatch);
     }

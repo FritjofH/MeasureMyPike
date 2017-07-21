@@ -1,7 +1,7 @@
 ﻿<div fxFlexLayout="column">
     <div fxFlexLayout="row" fxLayoutAlign="center center">
         <h3>{{username}}</h3>
-        <button *ngIf="currentUser" fxFlexOffset="10px" md-icon-button (click)="updateName(newFirstName, newLastName, username)">
+        <button *ngIf="currentUser" fxFlexOffset="10px" md-icon-button (click)="updateName()">
             <md-icon *ngIf="!edit" style="vertical-align: top;">create</md-icon>
             <md-icon *ngIf="edit" style="vertical-align: top;">save</md-icon>
         </button>
@@ -11,14 +11,14 @@
         <form>
             <div fxFlexLayout="column" fxFlex="155px">
                 <md-input-container>
-                    <input [disabled]="!edit" mdInput class="form-control" type="text" [(ngModel)]="newFirstName" name="firstName" />
+                    <input [disabled]="!edit" mdInput class="form-control" type="text" [(ngModel)]="user.firstName" name="firstName" />
                     <md-hint><strong>Förnamn</strong></md-hint>
                 </md-input-container>
             </div>
 
             <div fxFlexLayout="column" fxFlexOffset.xl="20px" fxFlexOffset.lg="20px" fxFlexOffset.md="20px" fxFlex="155px">
                 <md-input-container>
-                    <input [disabled]="!edit" mdInput class="form-control" type="text" [(ngModel)]="newLastName" name="lastName" />
+                    <input [disabled]="!edit" mdInput class="form-control" type="text" [(ngModel)]="user.lastName" name="lastName" />
                     <md-hint><strong>Efternamn</strong></md-hint>
                 </md-input-container>
             </div>
@@ -29,14 +29,14 @@
         <form>
             <div fxFlexLayout="column" fxFlex="155px">
                 <md-input-container>
-                    <input [disabled]="true" mdInput value="{{username}}" />
+                    <input [disabled]="true" mdInput value="{{user.username}}" />
                     <md-hint><strong>Användarnamn</strong></md-hint>
                 </md-input-container>
             </div>
 
             <div fxFlexLayout="column" fxFlexOffset="20px" fxFlex="155px">
                 <md-input-container>
-                    <input [disabled]="true" mdInput value="{{memberSince | date: 'yyyy-MM-dd' }}" />
+                    <input [disabled]="true" mdInput value="{{user.memberSince | date: 'yyyy-MM-dd' }}" />
                     <md-hint><strong>Medlem sedan</strong></md-hint>
                 </md-input-container>
             </div>

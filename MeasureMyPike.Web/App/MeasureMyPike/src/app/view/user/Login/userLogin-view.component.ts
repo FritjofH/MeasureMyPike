@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../../service/user/user.service';
+import { User, UserService } from '../../../model/user/user';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,18 +9,16 @@ import { Router } from '@angular/router';
 })
 
 export class UserLoginViewComponent {
+    private user: User;
 
-    public username: string;
-    public password: string;
-
-    constructor(private userService: UserService, public router: Router) {
-        this.password = "";
-        this.username = "";
-    }
+    constructor(private userService: UserService, public router: Router) {  
+        this.user.username = "";
+        this.user.password = "";
+      }
 
     public login(event) {
         event.preventDefault();
-        this.userService.login(this.username, this.password);
+        this.userService.login(this.user);
     }
 
     public signup(event) {

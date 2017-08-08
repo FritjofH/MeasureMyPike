@@ -7,8 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations/';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
-import { ImageUploadModule } from 'angular2-image-upload';
-
 import { AppComponent } from './app.component';
 
 //Barrel
@@ -92,8 +90,7 @@ const appRoutes: Routes = [
         MdTooltipModule,
         MdDialogModule,
         MdSortModule,
-        MdAutocompleteModule,
-        ImageUploadModule.forRoot()
+        MdAutocompleteModule
     ],
     providers: [
         BrandService,

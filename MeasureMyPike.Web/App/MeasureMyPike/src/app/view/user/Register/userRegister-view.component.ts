@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { User, UserService } from '../../../model/user/user';
 import { Router } from '@angular/router';
 
@@ -9,15 +9,16 @@ import { Router } from '@angular/router';
 })
 
 export class UserRegisterViewComponent implements OnInit {
-    public user: User;
+    public user: User = {
+        firstName: "",
+        lastName: "",
+        username: "",
+        password: "",
+        memberSince: ""
+    };
     public submitted: boolean;
 
-    constructor(private userService: UserService, private router: Router) {
-        this.user.firstName = "";
-        this.user.lastName = "";
-        this.user.username = "";
-        this.user.password = "";
-    }
+    constructor(private userService: UserService, private router: Router) {    }
 
     ngOnInit(): void {
         this.submitted = false;

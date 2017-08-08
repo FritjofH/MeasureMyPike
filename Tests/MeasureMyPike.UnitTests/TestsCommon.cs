@@ -55,21 +55,23 @@ namespace MeasureMyPike.Tests
             {
                 theLure = lureList[datanum];
             }
+            NewCatch newCatch = new NewCatch();
+
+
+            newCatch.date = DateTime.Now;
+            newCatch.comment = "Min enorma Gädda";
+            newCatch.lureId = 3;
+            newCatch.weight = 750 + 200 * num;
+            newCatch.length = 34 + 10 * num;
+            newCatch.lakeName = theLake.Name;
+            newCatch.coordinates = "63.179195,14.627282";
+            newCatch.waterTemp = 15.1 + num;
+            newCatch.airTemp = 19.0 + num;
+            newCatch.weather = "Soligt";
+            newCatch.username = theUser.Username;
 
             theCatch = catchService.AddCatch(
-                mediaService.ImageToByteArray(theImage), 
-                mediaService.GetImageFormat(theImage), 
-                DateTime.Now,  // caught date & time
-                "Min enorma gädda", // comment
-                theLure, 
-                750 + 200*num,  // gram
-                34 + 10*num,  // cm
-                theLake.Name, 
-                "63.179195,14.627282", // x,y koordinater
-                15.1 + num,  // water temp
-                19.0 + num,  // air temp
-                "Soligt",  // weather
-                theUser.Username);
+                newCatch);
 
             catchList.Add(theCatch);
 

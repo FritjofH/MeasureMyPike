@@ -17,33 +17,33 @@ public class CatchService : ICatchService
         var mediaList = new List<MediaDO>();
         var conversionService = new ConversionUtil();
         var userService = new UserService();
-        string moonposition = MoonUtil.Phase(DateTime.Parse(newCatch.date)); 
+        string moonposition = MoonUtil.Phase(newCatch.date); 
 
         mediaList.Add(new MediaDO
         {
             MediaFormat = "",
             Image = new MediaDataDO
             {
-                Length = mediaData.Length,
-                Data = mediaData
+                //Length = mediaData.Length,
+                //Data = mediaData
             }
         });
-
-        LakeDO lakeDO = lakeService.GetLakeDO(lakeName);
+        mediaList = null;
+        LakeDO lakeDO = lakeService.GetLakeDO(newCatch.lakeName);
 
         var newCatchDo = new CatchDO
         {
-            User = userService.GetUserDO(username),
-            Comment = new CommentDO { Text = comment },
+            User = userService.GetUserDO(newCatch.username),
+            Comment = new CommentDO { Text = newCatch.comment },
             Media = mediaList,
-            Lure = lureService.GetLureDO(lure.Id),
-            Fish = new FishDO { Length = fishLength, Weight = fishWeight },
-            Location = new LocationDO { Lake = lakeDO, Coordinates = coordinates },
-            WeatherData = new WeatherDataDO { WaterTemperature = waterTemperature, AirTemperature = airTemperature, Weather = weather, MoonPosition = moonposition },
-            Timestamp = timeStamp
+            Lure = lureService.GetLureDO(newCatch.lureId),
+            Fish = new FishDO { Length = newCatch.length, Weight = newCatch.weight },
+            Location = new LocationDO { Lake = lakeDO, Coordinates = newCatch.coordinates },
+            WeatherData = new WeatherDataDO { WaterTemperature = newCatch.waterTemp, AirTemperature = newCatch.airTemp, Weather = newCatch.weather, MoonPosition = moonposition },
+            Timestamp = newCatch.date
         };
 
-        var createdCatch = catchRepo.AddCatch(newCatchDO);
+        var createdCatch = catchRepo.AddCatch(newCatchDo);
 
         return conversionService.ConvertToCatch(createdCatch);
     }

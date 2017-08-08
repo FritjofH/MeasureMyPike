@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { SaveChangesDialogComponent, UtilService } from '../../../common/index';
 import { Router } from '@angular/router';
 import { Sort } from '@angular/material';
@@ -52,11 +52,13 @@ export class UserProfileViewComponent implements OnInit {
         })
     };
 
-    private checkCurrentUser(){
-        var currentUsername = this.userService.decodeUserToken(localStorage.getItem('token'));
+    private checkCurrentUser() {
+        if (localStorage.getItem('token') != null) {
+            var currentUsername = this.userService.decodeUserToken(localStorage.getItem('token'));
 
-        if(currentUsername == this.user.username){
-            this.currentUser = true;
+            if (currentUsername == this.user.username) {
+                this.currentUser = true;
+            }
         }
     }
 

@@ -56,12 +56,12 @@ namespace MeasureMyPike.Application.Common
             {
                 return null;
             }
-            var mediaList = new List<int>();
+           // var mediaList = new List<int>();
 
-            foreach (var media in catchToConvert.Media)
-            {
-                mediaList.Add(media.Id);
-            }
+            //foreach (var media in catchToConvert.Media)
+            //{
+             //  mediaList.Add(media.Id);
+            //}
 
             return new Catch
             {
@@ -70,7 +70,7 @@ namespace MeasureMyPike.Application.Common
                 Id = catchToConvert.Id,
                 LocationId = catchToConvert.Location.Id,
                 LureId = catchToConvert.Lure.Id,
-                MediaId = mediaList,
+                MediaId = null,
                 Timestamp = catchToConvert.Timestamp,
                 UserId = catchToConvert.User.Id,
                 WeatherData = catchToConvert.WeatherData.Id,

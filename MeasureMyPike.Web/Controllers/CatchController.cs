@@ -50,15 +50,15 @@ namespace MeasureMyPike.Controllers
         {
             //byte[] image, string format, string comment, Lure lure, string fishWeight, string fishLength, string lake, string coordinates, int temperature, string weather, string moonposition, string username)
 
-            var lbrand = iCatchService.AddCatch(newCatch);
-            if (lbrand == null)
+            var lcatch = iCatchService.AddCatch(newCatch);
+            if (lcatch == null)
             {
-                var message = string.Format("Could not add brand");
+                var message = string.Format("Could not add catch");
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, lbrand);
+                return Request.CreateResponse(HttpStatusCode.OK, lcatch);
             }
         }
 
